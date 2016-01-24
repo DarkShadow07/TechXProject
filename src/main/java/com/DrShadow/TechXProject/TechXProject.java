@@ -1,13 +1,9 @@
 package com.DrShadow.TechXProject;
 
 import com.DrShadow.TechXProject.lib.CreativeTabTech;
-import com.DrShadow.TechXProject.power.IPower;
-import com.DrShadow.TechXProject.proxy.CommonProxy;
 import com.DrShadow.TechXProject.proxy.IProxy;
 import com.DrShadow.TechXProject.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;

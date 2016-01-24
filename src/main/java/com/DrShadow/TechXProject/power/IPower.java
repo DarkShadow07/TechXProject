@@ -2,10 +2,12 @@ package com.DrShadow.TechXProject.power;
 
 public interface IPower
 {
-	void setPower(int power);
-	int addPower(int power);
-	void substractPower(int power);
-	int getPower();
-	void setMaxPower(int maxPower);
-	int getMaxPower();
+	public void setPower(int power);
+	public int addPower(int power);
+	public void substractPower(int power);
+	public int getPower();
+	public void setMaxPower(int maxPower);
+	public int getMaxPower();
+	public void setTransfer(int transfer);
+	public int getTransfer();
 }

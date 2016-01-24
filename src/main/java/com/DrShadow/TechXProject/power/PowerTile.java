@@ -3,14 +3,36 @@ package com.DrShadow.TechXProject.power;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import sun.plugin.dom.exception.InvalidStateException;
 
 public class PowerTile extends TileEntity implements IPower, ITickable
 {
-	protected int power, maxPower;
+	protected int power, maxPower, transfer;
 
-	public PowerTile(int maxPower)
+	private boolean hasInit = false;
+
+	public PowerTile()
 	{
-		setMaxPower(maxPower);
+
+	}
+
+	public void init(int maxPower, int transfer)
+	{
+		if (!hasInit)
+		{
+			hasInit = true;
+
+			setMaxPower(maxPower);
+			setTransfer(transfer);
+		}
+	}
+
+	protected void checkForInit()
+	{
+		if (!hasInit)
+		{
+			throw new InvalidStateException("The has Not Initialised");
+		}
 	}
 
 	@Override
@@ -22,19 +44,18 @@ public class PowerTile extends TileEntity implements IPower, ITickable
 	@Override
 	public int addPower(int power)
 	{
+		checkForInit();
+
 		int left = 0;
 
-		if (worldObj.isRemote)
+		if (getPower() + power <= maxPower)
 		{
-			if (getPower() + power <= maxPower)
-			{
-				this.power += power;
-			} else if (getPower() + power >= maxPower)
-			{
-				left = (getPower() + power) - maxPower;
+			this.power += power;
+		} else if (getPower() + power >= maxPower)
+		{
+			left = (getPower() + power) - maxPower;
 
-				this.power += (power - left);
-			}
+			this.power += (power - left);
 		}
 
 		return left;
@@ -43,6 +64,8 @@ public class PowerTile extends TileEntity implements IPower, ITickable
 	@Override
 	public void substractPower(int power)
 	{
+		checkForInit();
+
 		if (getPower() >= power)
 		{
 			this.power -= power;
@@ -52,19 +75,41 @@ public class PowerTile extends TileEntity implements IPower, ITickable
 	@Override
 	public int getPower()
 	{
+		checkForInit();
+
 		return power;
 	}
 
 	@Override
 	public void setMaxPower(int maxPower)
 	{
+		checkForInit();
+
 		this.maxPower = maxPower;
 	}
 
 	@Override
 	public int getMaxPower()
 	{
+		checkForInit();
+
 		return maxPower;
+	}
+
+	@Override
+	public void setTransfer(int transfer)
+	{
+		checkForInit();
+
+		this.transfer = transfer;
+	}
+
+	@Override
+	public int getTransfer()
+	{
+		checkForInit();
+
+		return transfer;
 	}
 
 	@Override
@@ -84,6 +129,6 @@ public class PowerTile extends TileEntity implements IPower, ITickable
 	@Override
 	public void update()
 	{
-
+		checkForInit();
 	}
 }

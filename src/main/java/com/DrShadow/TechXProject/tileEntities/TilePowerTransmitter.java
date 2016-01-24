@@ -1,21 +1,18 @@
 package com.DrShadow.TechXProject.tileEntities;
 
+import com.DrShadow.TechXProject.power.IPower;
 import com.DrShadow.TechXProject.power.PowerTile;
-import net.minecraft.util.ITickable;
+import com.DrShadow.TechXProject.util.PowerHelper;
 
-public class TilePowerTransmitter extends PowerTile implements ITickable
+public class TilePowerTransmitter extends PowerTile
 {
 	private int lost;
 
-	private PowerTile target;
+	private IPower target;
 
-	public TilePowerTransmitter(int maxPower, int lost)
+	public TilePowerTransmitter()
 	{
-		super(maxPower);
 
-		this.lost = lost;
-
-		setPower(maxPower);
 	}
 
 	@Override
@@ -25,30 +22,19 @@ public class TilePowerTransmitter extends PowerTile implements ITickable
 
 		if (target != null)
 		{
-			transferPower(target, 1);
+			PowerHelper.moveWithLost(this, target, PowerHelper.getMaxSpeed(this, target), lost);
 		}
 
-		addPower(1);
+		addPower(10);
 	}
 
-	public boolean transferPower(PowerTile tile, int power)
+	public void setTarget(IPower power)
 	{
-		if (tile.addPower(power) == 0)
-		{
-			int percentage = (lost * getMaxPower()) / 100;
-
-			tile.addPower(power - percentage);
-
-			substractPower(power - tile.addPower(power));
-
-			return true;
-		}
-
-		else return false;
+		target = power;
 	}
 
-	public void setTarget(PowerTile powerTile)
+	public void setLost(int lost)
 	{
-		target = powerTile;
+		this.lost = lost;
 	}
 }

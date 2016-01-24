@@ -26,10 +26,8 @@ public class InitBlocks
 	public static void initBlocks()
 	{
 		TechBlocks.test = registerBlock(new BlockTest(), "testBlock");
-		TechBlocks.batteryBasic = registerBlock(new BlockBattery(500000), "basicBattery").setHardness(4.6F);
-		TechBlocks.batteryNormal = registerBlock(new BlockBattery(3500000), "normalBattery").setHardness(4.6F);
-		TechBlocks.batteryAdvanced = registerBlock(new BlockBattery(5000000), "advancedBattery").setHardness(4.6F);
-		TechBlocks.powerTransmitter = registerBlock(new BlockPowerTransmitter(5024, 0), "powerTransmitter");
+		TechBlocks.batteryBasic = registerBlock(new BlockBattery(500000, 200), "basicBattery").setHardness(4.6F);
+		TechBlocks.powerTransmitter = registerBlock(new BlockPowerTransmitter(5024, 100, 40), "powerTransmitter");
 	}
 
 	public static void registerTileEntities()

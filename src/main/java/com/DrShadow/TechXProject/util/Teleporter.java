@@ -1,7 +1,5 @@
 package com.DrShadow.TechXProject.util;
 
-import com.DrShadow.TechXProject.TechXProject;
-import com.DrShadow.TechXProject.proxy.ClientProxy;
 import com.DrShadow.TechXProject.proxy.CommonProxy;
 import com.DrShadow.TechXProject.reference.Reference;
 import net.minecraft.entity.Entity;
@@ -16,8 +14,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-
-import static com.DrShadow.TechXProject.proxy.ClientProxy.*;
 
 public class Teleporter
 {

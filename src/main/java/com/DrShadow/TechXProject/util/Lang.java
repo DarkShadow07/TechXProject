@@ -1,8 +1,8 @@
 package com.DrShadow.TechXProject.util;
 
-import java.util.IllegalFormatException;
-
 import net.minecraft.util.StatCollector;
+
+import java.util.IllegalFormatException;
 
 public class Lang
 {
