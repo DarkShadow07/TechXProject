@@ -206,7 +206,7 @@ public class Teleporter
 
 		if (destinationWorld == null)
 		{
-			LogHelper.error("Destination world dose not exist!");
+			LogHelper.error("Destination world does not exist!");
 			return entity;
 		}
 

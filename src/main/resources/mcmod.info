@@ -2,15 +2,15 @@
 {
   "modid": "TechXProject",
   "name": "Tech 'X' Project'",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
+  "description": "Tech Mod based on many others",
+  "version": "0.00.0 Pre-Alpha",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["DarkShadow07"],
-  "credits": "The Forge and FML guys, for making this example",
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": ["DarkLapis Core@[0.00.0 Pre-Alpha,)"]
 }
 ]

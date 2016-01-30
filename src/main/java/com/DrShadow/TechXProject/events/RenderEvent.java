@@ -1,17 +1,14 @@
 package com.DrShadow.TechXProject.events;
 
-import com.DrShadow.TechXProject.power.PowerTile;
 import com.DrShadow.TechXProject.util.Helper;
-import net.minecraft.block.Block;
+import com.DrShadow.TechXProject.util.OverlayHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
-import java.text.NumberFormat;
 
 public class RenderEvent
 {
@@ -23,24 +20,28 @@ public class RenderEvent
 		if (!Minecraft.isGuiEnabled()) return;
 		if (event.type != RenderGameOverlayEvent.ElementType.CHAT) return;
 
-		fontRenderer = Helper.minecraft().fontRendererObj;
+		renderChat(event.resolution, event.partialTicks);
+	}
 
-		BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
+	public void renderChat(ScaledResolution res, float ticks)
+	{
+		OverlayHelper overlayHelper = new OverlayHelper();
 
-		World world = Helper.getTheWorld();
+		int time = ChatMessageEvent.ticksExisted;
 
-		if (pos != null)
+		if (ChatMessageEvent.getMessage() != "" && time >= 1)
 		{
-			Block block = world.getBlockState(pos).getBlock();
+			String msg = ChatMessageEvent.getMessage();
 
-			PowerTile tile = (PowerTile) world.getTileEntity(pos);
+			FontRenderer fontRenderer = Helper.minecraft().fontRendererObj;
 
-			if (tile != null)
-			{
-				fontRenderer.drawString(NumberFormat.getInstance().format(tile.getPower()) + " / " + NumberFormat.getInstance().format(tile.getMaxPower()), 14, 14, Color.white.hashCode(), true);
-			}
+			int x = res.getScaledWidth() - fontRenderer.getStringWidth(msg) - 2;
+			int y = res.getScaledHeight() - 36;
 
-		}
+			ChatMessageEvent.ticksExisted -= 1;
 
+			overlayHelper.drawPlane(x - 1, y - 1, fontRenderer.getStringWidth(msg) + 1, 9, new Color(0, 0, 0, 0.3F).hashCode());
+			fontRenderer.drawStringWithShadow(msg, x, y, new Color(1, 1, 1, 1).hashCode());
+		}else ChatMessageEvent.removeMessage();
 	}
 }
