@@ -18,7 +18,7 @@ public class BlockTest extends BlockBase
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		ChatMessageEvent.sendMessage("a");
+		ChatMessageEvent.sendMessage(ChatMessageEvent.ticksExisted + " ticks");
 
 		return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
 	}

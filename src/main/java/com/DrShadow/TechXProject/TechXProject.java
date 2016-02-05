@@ -1,7 +1,7 @@
 package com.DrShadow.TechXProject;
 
 import com.DrShadow.TechXProject.lib.CreativeTabTech;
-import com.DrShadow.TechXProject.proxy.IProxy;
+import com.DrShadow.TechXProject.proxy.CommonProxy;
 import com.DrShadow.TechXProject.reference.Reference;
 import com.DrShadow.TechXProject.util.UpdateChecker;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,14 +12,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:DarkLapisCore@[0.00.0 Pre-Alpha,)")
 public class TechXProject
 {
 	@Mod.Instance(Reference.MOD_ID)
 	public static TechXProject instance;
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
-    public static IProxy proxy;
+    public static CommonProxy proxy;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)

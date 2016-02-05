@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"particle": "techxproject:blocks/machineBack",
+		"all": "techxproject:model/teslaTower"
+	}
+}

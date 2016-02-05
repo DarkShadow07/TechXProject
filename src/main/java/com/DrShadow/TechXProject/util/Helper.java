@@ -1,9 +1,12 @@
 package com.DrShadow.TechXProject.util;
 
+import com.DrShadow.TechXProject.events.ChatMessageEvent;
+import com.DrShadow.TechXProject.events.RenderEvents;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.Entity;
@@ -23,6 +26,14 @@ import java.util.Random;
 public class Helper
 {
 	static Random rand = new Random();
+
+	public static final PropertyInteger meta = PropertyInteger.create("meta", 0, 15);
+
+
+	public static void sendChatMessage(String message)
+	{
+		ChatMessageEvent.sendMessage(message);
+	}
 
 	public static AxisAlignedBB fromBounds(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
 	{
@@ -51,6 +62,11 @@ public class Helper
 	}
 
 	public static double slowlyEqualize(double variable, double goal, double speed)
+	{
+		return slowlyEqualize((float) variable, (float) goal, (float) speed);
+	}
+
+	public static float slowlyEqualize(float variable, float goal, float speed)
 	{
 		if (speed == 0) return variable;
 		speed = Math.abs(speed);
@@ -265,6 +281,16 @@ public class Helper
 		return (float) (rand.nextFloat() * scale);
 	}
 
+	public static int evenRandomInt(int scale)
+	{
+		return (scale - rand.nextInt(scale * 2));
+	}
+
+	public static float randomFloat()
+	{
+		return rand.nextFloat();
+	}
+
 	public static float evenRandomFloat(double scale)
 	{
 		return (float) ((0.5 - rand.nextFloat()) * scale);
@@ -323,26 +349,32 @@ public class Helper
 
 	public static EntityPlayer getThePlayer() {return Minecraft.getMinecraft().thePlayer;}
 
-	public static boolean createNBT(Object a)
+	public static boolean randomBool()
 	{
-		if (a instanceof ItemStack)
-		{
-			if (!((ItemStack) a).hasTagCompound()) ((ItemStack) a).setTagCompound(new NBTTagCompound());
-			return ((ItemStack) a).hasTagCompound();
-		}
-		return false;
+		return rand.nextBoolean();
 	}
 
-	public static EntityItem dropBlockAsItem(World world, double x, double y, double z, ItemStack stack)
+	public static float calculatePos(final double prevPos, final double pos)
 	{
-		if (!world.isRemote && world.getGameRules().getBoolean("doTileDrops") && !world.restoringBlockSnapshots)
-		{
-			EntityItem entity = new EntityItem(world, x, y, z, stack);
-			entity.setPickupDelay(0);
-			world.spawnEntityInWorld(entity);
-			return entity;
-		}
-		return null;
+		return (float) (prevPos + (pos - prevPos) * RenderEvents.partialTicks);
+	}
+
+	public static double snap(double value, double min, double max)
+	{
+		if (min >= max) return value;
+		if (value < min) value = min;
+		if (value > max) value = max;
+		return value;
+	}
+
+	public static float snap(float value, float min, float max)
+	{
+		return (float) snap((double) value, (double) min, (double) max);
+	}
+
+	public static int snap(int value, int min, int max)
+	{
+		return (int) snap((double) value, (double) min, (double) max);
 	}
 }
 

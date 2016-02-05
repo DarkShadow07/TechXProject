@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"inventory": { "model": "techxproject:blockTeslaTower", "transform": "forge:default-block" }, 
+		"normal": { "model": "techxproject:blockTeslaTower" }
+	}
+}

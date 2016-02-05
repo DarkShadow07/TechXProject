@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class UpdateChecker
 {
-	private static String currentVersion = Reference.VERSION;
-	static String newestVersion;
+	public static String currentVersion = Reference.VERSION;
+	public static String newestVersion;
 	
 	public static Boolean show = false;
 	
@@ -24,8 +24,11 @@ public class UpdateChecker
 			{
 				show = false;
 
-			}else {
+			}else
+			{
 				show = true;
+
+				LogHelper.info(Reference.MOD_NAME + " is Running on a older Version: " + currentVersion + " || " + newestVersion);
 			}
 		}
 	}
@@ -34,10 +37,10 @@ public class UpdateChecker
 	{
 		try 
 		{
-			URL url = new URL("https://raw.githubusercontent.com/DarkSahdow07/TechXProject/master/version/" + MinecraftForge.MC_VERSION + ".txt");
+			URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/version/" + MinecraftForge.MC_VERSION + ".txt");
 			Scanner s = new Scanner(url.openStream());
 			
-			newestVersion = s.next();
+			newestVersion = s.next() + " " + s.next();
 
 			s.close();
 		}
