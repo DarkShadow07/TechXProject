@@ -86,8 +86,7 @@ public class InitBlocks
 
 	public static void initRecipes()
 	{
-		SmelterRecipeHandler smelterRecipeHandler = new SmelterRecipeHandler();
-		smelterRecipeHandler.init();
+
 	}
 
 	private static void registerTile(Class<? extends TileEntity> tileClass)

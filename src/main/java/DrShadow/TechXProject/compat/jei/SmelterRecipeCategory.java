@@ -9,9 +9,12 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmelterRecipeCategory extends BlankRecipeCategory
 {
@@ -30,8 +33,8 @@ public class SmelterRecipeCategory extends BlankRecipeCategory
 	public SmelterRecipeCategory(IGuiHelper guiHelper)
 	{
 		ResourceLocation location = new ResourceLocation(Reference.MOD_ID, "textures/gui/jei/smelter.png");
-		background = guiHelper.createDrawable(location, 0, 0, 100, 166);
-		localizedName = Lang.localize("gui.jei.category.craftingTable");
+		background = guiHelper.createDrawable(location, 0, 0, 66, 71);
+		localizedName = Lang.localize("gui.jei.smelter");
 
 		IDrawableStatic flameDrawable = guiHelper.createDrawable(location, 176, 0, 14, 14);
 		flame = guiHelper.createAnimatedDrawable(flameDrawable, 140, IDrawableAnimated.StartDirection.TOP, true);
@@ -61,8 +64,8 @@ public class SmelterRecipeCategory extends BlankRecipeCategory
 	@Override
 	public void drawAnimations(@Nonnull Minecraft minecraft)
 	{
-		flame.draw(minecraft, 58, 38);
-		flame.draw(minecraft, 106, 38);
+		flame.draw(minecraft, 2, 31);
+		flame.draw(minecraft, 50, 31);
 	}
 
 	@Override
@@ -70,11 +73,11 @@ public class SmelterRecipeCategory extends BlankRecipeCategory
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
-		guiItemStacks.init(inSlot1, true, 0, 0);
-		guiItemStacks.init(inSlot2, true, 20, 0);
-		guiItemStacks.init(inSlot3, true, 40, 0);
+		guiItemStacks.init(inSlot1, true, 0, 10);
+		guiItemStacks.init(inSlot2, true, 24, 0);
+		guiItemStacks.init(inSlot3, true, 48, 10);
 
-		guiItemStacks.init(outSlot, false, 60, 18);
+		guiItemStacks.init(outSlot, false, 24, 49);
 
 		if (recipeWrapper instanceof SmelterRecipe)
 		{

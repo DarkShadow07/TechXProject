@@ -55,7 +55,7 @@ public class ContainerSmelter extends Container
 				}
 
 				slot.onSlotChange(itemstack1, itemstack);
-			} else if (index > 3)
+			} else if (index > 4)
 			{
 				if (SmelterRecipeHandler.instance.isValidStack(itemstack1))
 				{
@@ -104,7 +104,7 @@ public class ContainerSmelter extends Container
 		@Override
 		public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)
 		{
-			Helper.giveExperience(playerIn, SmelterRecipeHandler.instance.getSmeltingXP(stack) * stack.stackSize);
+			Helper.giveExperience(playerIn, SmelterRecipeHandler.instance.getSmeltingXP(stack));
 
 			LogHelper.info(SmelterRecipeHandler.instance.getSmeltingXP(stack));
 

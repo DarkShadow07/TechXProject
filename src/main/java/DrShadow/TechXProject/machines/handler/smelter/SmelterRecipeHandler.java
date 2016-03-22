@@ -2,7 +2,6 @@ package DrShadow.TechXProject.machines.handler.smelter;
 
 import DrShadow.TechXProject.compat.jei.CategoryUid;
 import DrShadow.TechXProject.util.Helper;
-import DrShadow.TechXProject.util.LogHelper;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Items;
@@ -23,19 +22,21 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public SmelterRecipeHandler()
 	{
-
+		init();
 	}
 
 	public void init()
 	{
 		addRecipe(new ItemStack(Items.apple, 2), 0.5f, 100, new ItemStack[]{new ItemStack(Items.apple), new ItemStack(Items.wheat_seeds)});
+
+		addRecipe(new ItemStack(Items.ender_pearl, 2), 0.1f, 360, new ItemStack[]{new ItemStack(Items.gunpowder), new ItemStack(Items.ghast_tear), new ItemStack(Items.ender_pearl)});
 	}
 
 	public void addRecipe(ItemStack out, float xp, int ticks, ItemStack... in)
 	{
 		SmelterRecipe recipe = new SmelterRecipe(in, out, xp, ticks);
 
-		if (!recipes.contains(recipe)) recipes.add(recipe);
+		recipes.add(recipe);
 	}
 
 	public ItemStack getSmeltingResult(ItemStack... in)
@@ -54,13 +55,10 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			List<ItemStack[]> itemStackList = recipe.getInputs();
-
-			for (ItemStack[] entryStacks : itemStackList)
-				if (Helper.isStackArrayEqual(in, entryStacks))
-				{
-					return recipe.getOutputs().get(0);
-				}
+			if (Helper.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			{
+				return recipe.getOutputs().get(0);
+			}
 		}
 
 		return null;
@@ -75,13 +73,10 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			List<ItemStack[]> itemStackList = recipe.getInputs();
-
-			for (ItemStack[] entryStacks : itemStackList)
-				if (Helper.isStackArrayEqual(in, entryStacks))
-				{
-					return recipe.getTicks();
-				}
+			if (Helper.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			{
+				return recipe.getTicks();
+			}
 		}
 
 		return -1;
@@ -89,29 +84,26 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public float getSmeltingXP(ItemStack stack)
 	{
-		for (Map.Entry<ItemStack, ItemStack> entry : FurnaceRecipes.instance().getSmeltingList())
+		for (Map.Entry<ItemStack, ItemStack> entry : FurnaceRecipes.instance().getSmeltingList().entrySet())
 		{
-			
+			ItemStack in = entry.getKey();
+			ItemStack out = entry.getValue();
+
+			if (OreDictionary.itemMatches(out, stack, true) && isVanillaRecipe(in))
+			{
+				return FurnaceRecipes.instance().getSmeltingExperience(stack) * stack.stackSize;
+			}
 		}
 
-		if (isVanillaRecipe(stack))
+		for (SmelterRecipe recipe : recipes)
 		{
-			LogHelper.info("a");
-			return FurnaceRecipes.instance().getSmeltingExperience(stack);
-		} else
-		{
-			for (SmelterRecipe recipe : recipes)
-			{
-				List<ItemStack> itemStackList = recipe.getOutputs();
+			List<ItemStack> itemStackList = recipe.getOutputs();
 
-				for (ItemStack entryStack : itemStackList)
-					if (OreDictionary.itemMatches(entryStack, stack, true))
-					{
-						LogHelper.info("a");
-
-						return recipe.getXp();
-					}
-			}
+			for (ItemStack entryStack : itemStackList)
+				if (OreDictionary.itemMatches(entryStack, stack, true))
+				{
+					return recipe.getXp() * stack.stackSize;
+				}
 		}
 
 		return -1;
@@ -135,15 +127,10 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 		{
 			for (SmelterRecipe recipe : recipes)
 			{
-				List<ItemStack[]> itemStackList = recipe.getInputs();
+				List<ItemStack> itemStackList = recipe.getOutputs();
 
-				for (ItemStack[] entryStacks : itemStackList)
-				{
-					for (ItemStack entryStack : entryStacks)
-					{
-						if (OreDictionary.itemMatches(entryStack, stack, true)) return true;
-					}
-				}
+				for (ItemStack entryStack : itemStackList)
+					if (OreDictionary.itemMatches(entryStack, stack, true)) return true;
 			}
 		}
 

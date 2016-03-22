@@ -20,6 +20,8 @@ item.techxproject.filterOreDict.name=Item Filter (OreDictionary)
 ######## Gui ########
 techxproject.container.conduitLogic=Logic Controller
 
+techxproject.gui.jei.smelter=Energetic Smelting
+
 ######## Conditions ########
 techxproject.condition.NO_CONDITION=No Condition (Always Enabled)
 techxproject.condition.REDSTONE_ON=Redstone On

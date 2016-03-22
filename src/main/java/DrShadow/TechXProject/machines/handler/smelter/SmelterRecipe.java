@@ -1,58 +1,51 @@
 package DrShadow.TechXProject.machines.handler.smelter;
 
 import mezz.jei.api.recipe.BlankRecipeWrapper;
-import mezz.jei.util.Translator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import scala.actors.threadpool.Arrays;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SmelterRecipe extends BlankRecipeWrapper
 {
 	@Nonnull
-	private final List<ItemStack[]> input;
+	private final ItemStack[] inputs;
 	@Nonnull
 	private final List<ItemStack> outputs;
 
-	@Nullable
 	private final String experienceString;
 
-	@Nullable
 	private final String ticksString;
 
-	@Nonnull
 	private final int ticks;
 
-	@Nonnull
 	private final float xp;
 
 	public SmelterRecipe(@Nonnull ItemStack[] input, @Nonnull ItemStack output, float experience, int ticks)
 	{
-		this.input = Collections.singletonList(input);
+		this.inputs = input;
 		this.outputs = Collections.singletonList(output);
 		this.ticks = ticks;
 		this.xp = experience;
 
 		if (experience > 0.0)
 		{
-			experienceString = experience + " XP";
-		} else
-		{
-			experienceString = null;
-		}
+			experienceString = experience + " Xp";
+		}else experienceString = "No Xp";
 
-		ticksString = ticks + " Ticks";
+		ticksString = ticks + " Ticks (" + ticks / 20 + "sec)";
 	}
 
 	@Nonnull
-	public List<ItemStack[]> getInputs()
+	public List<ItemStack> getInputs()
 	{
-		return input;
+		return Arrays.asList(inputs);
 	}
 
 	@Nonnull
@@ -71,18 +64,19 @@ public class SmelterRecipe extends BlankRecipeWrapper
 		return ticks;
 	}
 
+	@Nullable
 	@Override
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY)
+	public List<String> getTooltipStrings(int mouseX, int mouseY)
 	{
-		if (experienceString != null)
-		{
-			FontRenderer fontRendererObj = minecraft.fontRendererObj;
-			int stringWidth = fontRendererObj.getStringWidth(experienceString);
-			fontRendererObj.drawString(experienceString, recipeWidth - stringWidth, 0, Color.gray.getRGB());
-		}
+		List<String> info = new ArrayList<>();
+		info.add(experienceString);
+		info.add(ticksString);
 
-		FontRenderer fontRendererObj = minecraft.fontRendererObj;
-		int stringWidth = fontRendererObj.getStringWidth(ticksString);
-		fontRendererObj.drawString(ticksString, recipeWidth - stringWidth, 12, Color.gray.getRGB());
+		Rectangle rectangleL = new Rectangle(2, 31, 14, 14);
+		Rectangle rectangleR = new Rectangle(50, 31, 14, 14);
+
+		if (rectangleL.contains(mouseX, mouseY) || rectangleR.contains(mouseX, mouseY)) return info;
+
+		return null;
 	}
 }
