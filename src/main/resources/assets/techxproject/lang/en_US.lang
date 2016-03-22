@@ -1,2 +1,42 @@
+######## Blocks ########
+tile.techxproject.blockConduitInput.name=Item Input Node
+tile.techxproject.blockConduitOutput.name=Item Output Node
+tile.techxproject.blockTeslaTower.name=Tesla Coil Tower
+tile.techxproject.blockBreaker.name=Block Breaker
+tile.techxproject.blockController.name=Node Controller
+tile.techxproject.blockConduitLogic.name=Logic Controller
+tile.techxproject.blockEnergyConduitInput.name=Energy Input Node
+tile.techxproject.blockEnergyConduitOutput.name=Energy Output Node
+tile.techxproject.basicBattery.name=Energy Battery (Basic)
+tile.techxproject.blockSmelter.name=Energetic Smelter
+
+######## Items #######
+item.techxproject.wrench.name=Wrench
+item.techxproject.filterName.name=Item Filter (Name)
+item.techxproject.filterBase.name=Item Filter (Basic)
+item.techxproject.filterMod.name=Item Filter (Mod)
+item.techxproject.filterOreDict.name=Item Filter (OreDictionary)
+
+######## Gui ########
+techxproject.container.conduitLogic=Logic Controller
+
+######## Conditions ########
+techxproject.condition.NO_CONDITION=No Condition (Always Enabled)
+techxproject.condition.REDSTONE_ON=Redstone On
+techxproject.condition.REDSTONE_OFF=Redstone Off
+techxproject.condition.TIME_DAY=World Time Day
+techxproject.condition.TIME_NIGHT=World Time Night
+techxproject.condition.LIGHT_HIGH=Block Light High
+techxproject.condition.LIGHT_LOW=Block Light Low
+techxproject.condition.INVENTORY_FULL=Inventory Full
+techxproject.condition.INVENTORY_EMPTY=Inventory Empty
+techxproject.condition.INVENTORY_SPACE=Space in Inventory
+
 ######## Creative Tabs ########
 itemGroup.techTab=Tech 'X' Project
+
+######## Configuration ########
+techxproject.config.reset=Reset all to Default
+
+######## Dead Messages ########
+death.attack.teslaDeath=%1$s was reduced to ash

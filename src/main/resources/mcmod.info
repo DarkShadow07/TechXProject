@@ -5,11 +5,11 @@
   "description": "Tech Mod based on many others",
   "version": "0.00.0 Pre-Alpha",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "NO-OP",
   "updateUrl": "",
   "authorList": ["DarkShadow07"],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "/logo.png",
   "screenshots": [],
   "dependencies": ["DarkLapis Core@[0.00.0 Pre-Alpha,)"]
 }

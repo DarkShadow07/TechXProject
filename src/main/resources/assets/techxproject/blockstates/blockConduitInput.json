@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "rotation=down": {
+      "model": "techxproject:blockConduitInput",
+      "x": 180
+    },
+    "rotation=up": {
+      "model": "techxproject:blockConduitInput"
+    },
+    "rotation=east": {
+      "model": "techxproject:blockConduitInput",
+      "y": 90,
+      "x": 90
+    },
+    "rotation=west": {
+      "model": "techxproject:blockConduitInput",
+      "y": 270,
+      "x": 90
+    },
+    "rotation=north": {
+      "model": "techxproject:blockConduitInput",
+      "x": 90
+    },
+    "rotation=south": {
+      "model": "techxproject:blockConduitInput",
+      "y": 180,
+      "x": 90
+    }
+  }
+}

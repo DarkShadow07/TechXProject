@@ -1,6 +1,0 @@
-{
-    "parent": "techxproject:item/defaultItem",
-    "textures": {
-        "layer0": "techxproject:items/wrench"
-    }
-}
