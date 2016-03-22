@@ -4,7 +4,6 @@ import DrShadow.TechXProject.api.energy.TileEnergyContainer;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.machines.handler.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.util.Helper;
-import DrShadow.TechXProject.util.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;

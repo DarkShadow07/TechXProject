@@ -47,15 +47,19 @@ public class ContainerSmelter extends Container
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
+
 			if (index >= 0 && index <= 2)
 			{
-				if (!this.mergeItemStack(itemstack1, 4, 4 + 36, true))
+				if (SmelterRecipeHandler.instance.isValidStack(itemstack1))
 				{
-					return null;
+					if (!this.mergeItemStack(itemstack1, 4, 4 + 36, true))
+					{
+						return null;
+					}
 				}
 
 				slot.onSlotChange(itemstack1, itemstack);
-			} else if (index > 4)
+			} else if (index > 3)
 			{
 				if (SmelterRecipeHandler.instance.isValidStack(itemstack1))
 				{
@@ -64,7 +68,7 @@ public class ContainerSmelter extends Container
 						return null;
 					}
 				}
-			} else if (!this.mergeItemStack(itemstack1, 0, 4 + 36, false))
+			} else if (!this.mergeItemStack(itemstack1, 4, 36, false))
 			{
 				return null;
 			}
@@ -106,8 +110,6 @@ public class ContainerSmelter extends Container
 		{
 			Helper.giveExperience(playerIn, SmelterRecipeHandler.instance.getSmeltingXP(stack));
 
-			LogHelper.info(SmelterRecipeHandler.instance.getSmeltingXP(stack));
-
 			if (stack.getItem() == Items.iron_ingot)
 			{
 				playerIn.addStat(AchievementList.acquireIron, 1);
@@ -143,16 +145,19 @@ public class ContainerSmelter extends Container
 			ItemStack[] notNullInventory = Helper.getStackArrayNoNull(new ItemStack[]{inventory[0], inventory[1], inventory[2]});
 
 			if (notNullInventory.length == 0)
-				return SmelterRecipeHandler.instance.isValidStack(stack);
-
-			for (ItemStack invStack : notNullInventory)
 			{
-				if (SmelterRecipeHandler.instance.isVanillaRecipe(invStack))
+				return SmelterRecipeHandler.instance.isValidStack(stack);
+			} else
+			{
+				for (ItemStack invStack : notNullInventory)
 				{
-					return OreDictionary.itemMatches(invStack, stack, true);
-				} else
-				{
-					return SmelterRecipeHandler.instance.isValidStack(stack);
+					if (SmelterRecipeHandler.instance.isVanillaRecipe(invStack))
+					{
+						return OreDictionary.itemMatches(invStack, stack, true);
+					} else
+					{
+						return SmelterRecipeHandler.instance.isValidStack(stack);
+					}
 				}
 			}
 

@@ -27,9 +27,16 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public void init()
 	{
-		addRecipe(new ItemStack(Items.apple, 2), 0.5f, 100, new ItemStack[]{new ItemStack(Items.apple), new ItemStack(Items.wheat_seeds)});
+		addRecipe(new ItemStack(Items.apple, 2), 0.5f, 100, new ItemStack(Items.apple), new ItemStack(Items.wheat_seeds));
+		addRecipe(new ItemStack(Items.ender_pearl, 2), 0.1f, 360, new ItemStack(Items.gunpowder), new ItemStack(Items.ghast_tear), new ItemStack(Items.ender_pearl));
 
-		addRecipe(new ItemStack(Items.ender_pearl, 2), 0.1f, 360, new ItemStack[]{new ItemStack(Items.gunpowder), new ItemStack(Items.ghast_tear), new ItemStack(Items.ender_pearl)});
+		for (Map.Entry<ItemStack, ItemStack> vanillaRecipesEntry : FurnaceRecipes.instance().getSmeltingList().entrySet())
+		{
+			ItemStack in = vanillaRecipesEntry.getKey();
+			ItemStack out = vanillaRecipesEntry.getValue();
+
+			addRecipe(out, getSmeltingXP(out), getSmeltingTicks(in), in);
+		}
 	}
 
 	public void addRecipe(ItemStack out, float xp, int ticks, ItemStack... in)
@@ -43,6 +50,14 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 	{
 		ItemStack[] notNullArray = Helper.getStackArrayNoNull(in);
 
+		for (SmelterRecipe recipe : recipes)
+		{
+			if (Helper.isStackArrayEqual(notNullArray, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			{
+				return recipe.getOutputs().get(0);
+			}
+		}
+
 		for (int i = 0; i < notNullArray.length; i++)
 		{
 			if (isVanillaRecipe(notNullArray[i]))
@@ -50,14 +65,6 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 				FurnaceRecipes recipes = FurnaceRecipes.instance();
 
 				return recipes.getSmeltingResult(notNullArray[i]);
-			}
-		}
-
-		for (SmelterRecipe recipe : recipes)
-		{
-			if (Helper.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
-			{
-				return recipe.getOutputs().get(0);
 			}
 		}
 
@@ -73,7 +80,9 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			if (Helper.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			ItemStack[] noNull = Helper.getStackArrayNoNull(in);
+
+			if (Helper.isStackArrayEqual(noNull, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
 			{
 				return recipe.getTicks();
 			}
@@ -111,11 +120,11 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public boolean isVanillaRecipe(ItemStack in)
 	{
-		FurnaceRecipes recipes = FurnaceRecipes.instance();
-
 		if (in == null) return false;
 
-		return recipes.getSmeltingResult(in) == null ? false : true;
+		FurnaceRecipes recipes = FurnaceRecipes.instance();
+
+		return recipes.getSmeltingResult(in) != null;
 	}
 
 	public boolean isValidStack(ItemStack stack)
@@ -127,10 +136,15 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 		{
 			for (SmelterRecipe recipe : recipes)
 			{
-				List<ItemStack> itemStackList = recipe.getOutputs();
+				List<ItemStack> itemStackList = recipe.getInputs();
 
-				for (ItemStack entryStack : itemStackList)
-					if (OreDictionary.itemMatches(entryStack, stack, true)) return true;
+				for (ItemStack itemStack : itemStackList)
+				{
+					if (OreDictionary.itemMatches(itemStack, stack, true))
+					{
+						return true;
+					}
+				}
 			}
 		}
 

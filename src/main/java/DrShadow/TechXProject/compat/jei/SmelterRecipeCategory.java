@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SmelterRecipeCategory extends BlankRecipeCategory
@@ -82,10 +81,12 @@ public class SmelterRecipeCategory extends BlankRecipeCategory
 		if (recipeWrapper instanceof SmelterRecipe)
 		{
 			SmelterRecipe recipe = (SmelterRecipe) recipeWrapper;
+			List<ItemStack> stacksArray = recipe.getInputs();
 
-			guiItemStacks.setFromRecipe(0, recipe.getInputs());
-			guiItemStacks.setFromRecipe(1, recipe.getInputs());
-			guiItemStacks.setFromRecipe(2, recipe.getInputs());
+			for (int i = 0; i < stacksArray.size(); i++)
+			{
+				guiItemStacks.set(i, stacksArray.get(i));
+			}
 
 			guiItemStacks.setFromRecipe(3, recipe.getOutputs());
 		}

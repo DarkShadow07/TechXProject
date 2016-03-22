@@ -2,20 +2,19 @@ package DrShadow.TechXProject.machines.handler.smelter;
 
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.item.ItemStack;
-import scala.actors.threadpool.Arrays;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class SmelterRecipe extends BlankRecipeWrapper
 {
 	@Nonnull
-	private final ItemStack[] inputs;
+	private final List<ItemStack> inputs;
 	@Nonnull
 	private final List<ItemStack> outputs;
 
@@ -29,7 +28,7 @@ public class SmelterRecipe extends BlankRecipeWrapper
 
 	public SmelterRecipe(@Nonnull ItemStack[] input, @Nonnull ItemStack output, float experience, int ticks)
 	{
-		this.inputs = input;
+		this.inputs = Arrays.asList(input);
 		this.outputs = Collections.singletonList(output);
 		this.ticks = ticks;
 		this.xp = experience;
@@ -37,7 +36,7 @@ public class SmelterRecipe extends BlankRecipeWrapper
 		if (experience > 0.0)
 		{
 			experienceString = experience + " Xp";
-		}else experienceString = "No Xp";
+		} else experienceString = "No Xp";
 
 		ticksString = ticks + " Ticks (" + ticks / 20 + "sec)";
 	}
@@ -45,7 +44,7 @@ public class SmelterRecipe extends BlankRecipeWrapper
 	@Nonnull
 	public List<ItemStack> getInputs()
 	{
-		return Arrays.asList(inputs);
+		return inputs;
 	}
 
 	@Nonnull

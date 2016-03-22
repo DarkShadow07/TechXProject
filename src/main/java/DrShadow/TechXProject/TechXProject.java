@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:DarkLapisCore@[0.00.0 Pre-Alpha,)")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "after:JEI@[2.23.0,);required-after:DarkLapisCore@[0.00.0 Pre-Alpha,)")
 public class TechXProject
 {
 	@Mod.Instance(Reference.MOD_ID)
@@ -27,7 +27,6 @@ public class TechXProject
 
 	public static ConfigurationHandler configurationHandler;
 
-	public static SimpleNetworkWrapper NETWORK_CHANNEL;
 	public static CreativeTabs techTab = new CreativeTabTech("techTab");
 
 	@EventHandler
