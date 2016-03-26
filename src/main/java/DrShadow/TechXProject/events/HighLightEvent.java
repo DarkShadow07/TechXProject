@@ -1,6 +1,8 @@
 package DrShadow.TechXProject.events;
 
+import DarkLapis.DarkLapisCore.util.renderers.GL11U;
 import DrShadow.TechXProject.blocks.multiHighlight.IMultiHighlightProvider;
+import DrShadow.TechXProject.util.PartialTicksUtil;
 import DrShadow.TechXProject.util.VectorUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -34,7 +36,7 @@ public class HighlightEvent
 			{
 				event.setCanceled(true);
 
-				Vec3 pos = VectorUtil.multiply(player.getPositionVector(), -1f).add(new Vec3(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
+				Vec3 pos = VectorUtil.multiply(PartialTicksUtil.calculatePos(player), -1f).add(new Vec3(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
 
 				GlStateManager.pushMatrix();
 
@@ -42,11 +44,11 @@ public class HighlightEvent
 
 				IMultiHighlightProvider multiProvider = (IMultiHighlightProvider) tile;
 
-				AxisAlignedBB[] boxes = multiProvider.getBoxes().toArray(new AxisAlignedBB[0]);
+				float offset = 0.002f;
 
-				for (AxisAlignedBB box : boxes)
+				for (AxisAlignedBB box : multiProvider.getBoxes())
 				{
-					drawBox(box.minX, box.maxX, box.minY, box.maxY, box.minZ, box.maxZ, 0, 0, 0, 0.25f);
+					drawBox(box.minX - offset, box.maxX + offset, box.minY - offset, box.maxY + offset, box.minZ - offset, box.maxZ + offset, 0, 0, 0, 0.35f);
 				}
 
 				GlStateManager.popMatrix();
@@ -91,12 +93,13 @@ public class HighlightEvent
 
 	public void drawRawBox(float[] xPoints, float[] yPoints, float[] zPoints, float rColor, float gColor, float bColor, float alpha)
 	{
+		GL11U.setUpOpaqueRendering(1);
+
+		GL11.glLineWidth(2);
+
 		GlStateManager.disableTexture2D();
 		GlStateManager.color(rColor, gColor, bColor, alpha);
 
-		float pixel = 1f / 16f;
-
-		GL11.glLineWidth(2 * pixel);
 		WorldRenderer renderer = tess.getWorldRenderer();
 
 		renderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
@@ -140,5 +143,7 @@ public class HighlightEvent
 		tess.draw();
 
 		GlStateManager.enableTexture2D();
+
+		GL11U.endOpaqueRendering();
 	}
 }
