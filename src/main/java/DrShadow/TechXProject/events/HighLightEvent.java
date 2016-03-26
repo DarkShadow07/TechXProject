@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.events;
 
 import DrShadow.TechXProject.blocks.multihighlight.IMultiHighlightProvider;
-import net.minecraft.block.Block;
+import DrShadow.TechXProject.util.Logger;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -39,15 +39,16 @@ public class HighLightEvent
 
 				for (AxisAlignedBB box : boxes)
 				{
-					drawBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, 1, 1, 1, 0.25);
+					drawBox(box.minX, box.maxX, box.minY, box.maxY, box.minZ, box.maxZ, 1, 1, 1, 0.25f);
 				}
 			}
 		}
 	}
 
-	public void drawBox(double minX, double maxX, double minY, double maxY, double minZ, double maxZ, double rColor, double gColor, double bColor, double alpha)
+	public void drawBox(double minX, double maxX, double minY, double maxY, double minZ, double maxZ, float rColor, float gColor, float bColor, float alpha)
 	{
 		float[] xPoints = new float[8], yPoints = new float[8], zPoints = new float[8];
+
 		xPoints[0] = (float) minX;
 		xPoints[1] = (float) minX;
 		yPoints[0] = (float) minY;
@@ -79,51 +80,54 @@ public class HighLightEvent
 		drawRawBox(xPoints, yPoints, zPoints, rColor, gColor, bColor, alpha);
 	}
 
-	public void drawRawBox(float[] xPoints, float[] yPoints, float[] zPoints, double rColor, double gColor, double bColor, double alpha)
+	public void drawRawBox(float[] xPoints, float[] yPoints, float[] zPoints, float rColor, float gColor, float bColor, float alpha)
 	{
 		GlStateManager.disableTexture2D();
-		GlStateManager.depthMask(false);
-		GlStateManager.disableCull();
-		GlStateManager.color((float) rColor, (float) gColor, (float) bColor, (float) alpha);
+		GlStateManager.color(rColor, gColor, bColor, alpha);
+		GL11.glLineWidth((float) 2);
 		WorldRenderer renderer = tess.getWorldRenderer();
-		{
-			renderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
 
-			renderer.pos(xPoints[0], yPoints[0], zPoints[0]).endVertex();
-			renderer.pos(xPoints[1], yPoints[1], zPoints[1]).endVertex();
-			renderer.pos(xPoints[3], yPoints[3], zPoints[3]).endVertex();
-			renderer.pos(xPoints[2], yPoints[2], zPoints[2]).endVertex();
+		renderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
 
-			renderer.pos(xPoints[2], yPoints[2], zPoints[2]).endVertex();
-			renderer.pos(xPoints[3], yPoints[3], zPoints[3]).endVertex();
-			renderer.pos(xPoints[5], yPoints[5], zPoints[5]).endVertex();
-			renderer.pos(xPoints[4], yPoints[4], zPoints[4]).endVertex();
+		renderer.pos(xPoints[0], yPoints[0], zPoints[0]);
+		renderer.pos(xPoints[1], yPoints[1], zPoints[1]);
 
-			renderer.pos(xPoints[4], yPoints[4], zPoints[4]).endVertex();
-			renderer.pos(xPoints[5], yPoints[5], zPoints[5]).endVertex();
-			renderer.pos(xPoints[7], yPoints[7], zPoints[7]).endVertex();
-			renderer.pos(xPoints[6], yPoints[6], zPoints[6]).endVertex();
+		renderer.pos(xPoints[2], yPoints[2], zPoints[2]);
+		renderer.pos(xPoints[3], yPoints[3], zPoints[3]);
 
-			renderer.pos(xPoints[6], yPoints[6], zPoints[6]).endVertex();
-			renderer.pos(xPoints[7], yPoints[7], zPoints[7]).endVertex();
-			renderer.pos(xPoints[6], yPoints[7], zPoints[0]).endVertex();
-			renderer.pos(xPoints[0], yPoints[0], zPoints[0]).endVertex();
+		renderer.pos(xPoints[4], yPoints[4], zPoints[4]);
+		renderer.pos(xPoints[5], yPoints[5], zPoints[5]);
 
-			renderer.pos(xPoints[1], yPoints[7], zPoints[1]).endVertex();
-			renderer.pos(xPoints[7], yPoints[7], zPoints[7]).endVertex();
-			renderer.pos(xPoints[2], yPoints[7], zPoints[7]).endVertex();
-			renderer.pos(xPoints[2], yPoints[7], zPoints[2]).endVertex();
+		renderer.pos(xPoints[6], yPoints[6], zPoints[6]);
+		renderer.pos(xPoints[7], yPoints[7], zPoints[7]);
 
-			renderer.pos(xPoints[1], yPoints[6], zPoints[1]).endVertex();
-			renderer.pos(xPoints[7], yPoints[6], zPoints[7]).endVertex();
-			renderer.pos(xPoints[2], yPoints[6], zPoints[7]).endVertex();
-			renderer.pos(xPoints[2], yPoints[6], zPoints[2]).endVertex();
+		renderer.pos(xPoints[0], yPoints[0], zPoints[0]);
+		renderer.pos(xPoints[6], yPoints[6], zPoints[6]);
 
-			tess.draw();
-		}
-		GlStateManager.enableCull();
-		GlStateManager.depthMask(true);
-		GlStateManager.disableDepth();
+		renderer.pos(xPoints[1], yPoints[1], zPoints[1]);
+		renderer.pos(xPoints[7], yPoints[7], zPoints[7]);
+
+		renderer.pos(xPoints[0], yPoints[0], zPoints[0]);
+		renderer.pos(xPoints[2], yPoints[2], zPoints[2]);
+
+		renderer.pos(xPoints[1], yPoints[1], zPoints[1]);
+		renderer.pos(xPoints[3], yPoints[3], zPoints[3]);
+
+		renderer.pos(xPoints[2], yPoints[2], zPoints[2]);
+		renderer.pos(xPoints[4], yPoints[4], zPoints[4]);
+
+		renderer.pos(xPoints[3], yPoints[3], zPoints[3]);
+		renderer.pos(xPoints[5], yPoints[5], zPoints[5]);
+
+		renderer.pos(xPoints[4], yPoints[4], zPoints[4]);
+		renderer.pos(xPoints[6], yPoints[6], zPoints[6]);
+
+		renderer.pos(xPoints[5], yPoints[5], zPoints[5]);
+		renderer.pos(xPoints[7], yPoints[7], zPoints[7]);
+
+		tess.draw();
+
+		GlStateManager.enableTexture2D();
 	}
 }
 
