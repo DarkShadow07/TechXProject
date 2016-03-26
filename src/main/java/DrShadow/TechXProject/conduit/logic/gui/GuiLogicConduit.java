@@ -6,8 +6,8 @@ import DrShadow.TechXProject.conduit.logic.condition.EnumConditionType;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketUpdateCondition;
 import DrShadow.TechXProject.reference.Reference;
-import DrShadow.TechXProject.util.Helper;
 import DrShadow.TechXProject.util.Lang;
+import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -60,10 +60,10 @@ public class GuiLogicConduit extends GuiContainer
 
 			if (mouseButton == 0)
 			{
-				PacketHandler.sendToServer(new PacketUpdateCondition(Helper.cycleArray(conduit.condition.getType(), values), conduit));
+				PacketHandler.sendToServer(new PacketUpdateCondition(Util.cycleArray(conduit.condition.getType(), values), conduit));
 			} else if (mouseButton == 1)
 			{
-				PacketHandler.sendToServer(new PacketUpdateCondition(Helper.cycleArrayReverse(conduit.condition.getType(), values), conduit));
+				PacketHandler.sendToServer(new PacketUpdateCondition(Util.cycleArrayReverse(conduit.condition.getType(), values), conduit));
 			}
 		}
 	}

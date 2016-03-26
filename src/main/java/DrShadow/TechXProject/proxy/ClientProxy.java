@@ -1,5 +1,6 @@
 package DrShadow.TechXProject.proxy;
 
+import DrShadow.TechXProject.events.HighLightEvent;
 import DrShadow.TechXProject.events.KeyInputEvent;
 import DrShadow.TechXProject.events.RenderEvents;
 import DrShadow.TechXProject.events.WorldEvents;
@@ -25,6 +26,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForge.EVENT_BUS.register(new RenderEvents());
 		MinecraftForge.EVENT_BUS.register(new WorldEvents());
 		MinecraftForge.EVENT_BUS.register(new KeyInputEvent());
+		MinecraftForge.EVENT_BUS.register(new HighLightEvent());
 	}
 
 	@Override

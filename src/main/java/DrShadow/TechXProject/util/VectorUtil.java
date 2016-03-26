@@ -5,7 +5,7 @@ import net.minecraft.util.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VectorHelper
+public class VectorUtil
 {
 	public static List<Vec3> dotsOnRay(Vec3 start, Vec3 end, float differenceBetweenDots)
 	{

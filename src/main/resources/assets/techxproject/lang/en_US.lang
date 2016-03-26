@@ -9,6 +9,7 @@ tile.techxproject.blockEnergyConduitInput.name=Energy Input Node
 tile.techxproject.blockEnergyConduitOutput.name=Energy Output Node
 tile.techxproject.basicBattery.name=Energy Battery (Basic)
 tile.techxproject.blockSmelter.name=Energetic Smelter
+tile.techxproject.blockRelay.name=Network Relay
 
 ######## Items #######
 item.techxproject.wrench.name=Wrench

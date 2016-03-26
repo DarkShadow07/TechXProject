@@ -3,8 +3,8 @@ package DrShadow.TechXProject.gui;
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.configuration.ConfigurationHandler;
 import DrShadow.TechXProject.configuration.elements.ConfigurationElement;
-import DrShadow.TechXProject.util.Helper;
 import DrShadow.TechXProject.util.Lang;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -39,7 +39,7 @@ public class GuiConfiguration extends GuiScreen
 	{
 		super.initGui();
 
-		resolution = new ScaledResolution(Helper.minecraft());
+		resolution = new ScaledResolution(Util.minecraft());
 
 		handler = TechXProject.configurationHandler;
 
@@ -67,7 +67,7 @@ public class GuiConfiguration extends GuiScreen
 			if (direction > 1) offset -= 1;
 			if (direction < 1) offset += 1;
 
-			offset = Helper.keepInBounds(offset, 0, handler.filteredElements.size() - maxElements);
+			offset = Util.keepInBounds(offset, 0, handler.filteredElements.size() - maxElements);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class GuiConfiguration extends GuiScreen
 
 		for (ConfigurationElement element : handler.elements)
 		{
-			element.isDefault = Helper.equals(element.getDefaultValue(), element.getValue());
+			element.isDefault = Util.equals(element.getDefaultValue(), element.getValue());
 		}
 	}
 

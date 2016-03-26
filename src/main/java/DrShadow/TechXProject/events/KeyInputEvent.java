@@ -4,7 +4,7 @@ import DrShadow.TechXProject.keyBindings.KeyBindings;
 import DrShadow.TechXProject.lib.Guis;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketOpenGui;
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -15,7 +15,7 @@ public class KeyInputEvent
 	@SubscribeEvent
 	public void handleKeyInput(InputEvent.KeyInputEvent event)
 	{
-		EntityPlayer player = Helper.player();
+		EntityPlayer player = Util.player();
 		BlockPos pos = player.getPosition();
 
 		if (KeyBindings.configuration.isPressed())

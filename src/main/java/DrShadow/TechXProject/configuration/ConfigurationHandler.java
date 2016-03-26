@@ -3,7 +3,7 @@ package DrShadow.TechXProject.configuration;
 import DrShadow.TechXProject.configuration.elements.ConfigurationElement;
 import DrShadow.TechXProject.configuration.elements.ConfigurationFloat;
 import DrShadow.TechXProject.util.FileUtil;
-import DrShadow.TechXProject.util.LogHelper;
+import DrShadow.TechXProject.util.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -32,7 +32,7 @@ public class ConfigurationHandler
 			setupFile();
 		} catch (FileNotFoundException e)
 		{
-			LogHelper.info("Created new Configuration File!");
+			Logger.info("Created new Configuration File!");
 		}
 	}
 
@@ -45,7 +45,7 @@ public class ConfigurationHandler
 	{
 		elements.clear();
 
-		LogHelper.info("Configuration Init!");
+		Logger.info("Configuration Init!");
 
 		add(CONDUIT_SPEED);
 	}

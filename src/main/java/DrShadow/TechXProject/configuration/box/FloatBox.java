@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.configuration.box;
 
-import DrShadow.TechXProject.util.Helper;
 import DrShadow.TechXProject.util.OverlayHelper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.gui.FontRenderer;
 
 import java.awt.*;
@@ -47,7 +47,7 @@ public class FloatBox
 		this.y = y;
 
 		OverlayHelper overlayHelper = new OverlayHelper();
-		FontRenderer fontRenderer = Helper.minecraft().fontRendererObj;
+		FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
 		String current = NumberFormat.getInstance().format(getCurrentValue());
 
@@ -66,6 +66,6 @@ public class FloatBox
 
 	public void setCurrentValue(float value)
 	{
-		this.currentValue = Helper.keepInBounds(value, minValue, maxValue);
+		this.currentValue = Util.keepInBounds(value, minValue, maxValue);
 	}
 }

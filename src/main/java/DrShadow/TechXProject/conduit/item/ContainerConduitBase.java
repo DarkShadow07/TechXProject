@@ -2,7 +2,7 @@ package DrShadow.TechXProject.conduit.item;
 
 import DrShadow.TechXProject.conduit.item.filter.IItemStackFilter;
 import DrShadow.TechXProject.items.inventory.ItemInventory;
-import DrShadow.TechXProject.util.GhostItemHelper;
+import DrShadow.TechXProject.util.GhostItemUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -81,7 +81,7 @@ public class ContainerConduitBase extends Container
 									} else
 									{
 										ItemStack copyStack = heldStack.copy();
-										GhostItemHelper.setItemGhostAmount(copyStack, 0);
+										GhostItemUtil.setItemGhostAmount(copyStack, 0);
 										copyStack.stackSize = 1;
 										slot.putStack(copyStack);
 									}

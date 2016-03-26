@@ -5,7 +5,7 @@ import DrShadow.TechXProject.conduit.item.filter.EnumFilterType;
 import DrShadow.TechXProject.conduit.item.filter.IItemStackFilter;
 import DrShadow.TechXProject.items.ItemBase;
 import DrShadow.TechXProject.items.inventory.ItemInventory;
-import DrShadow.TechXProject.util.GhostItemHelper;
+import DrShadow.TechXProject.util.GhostItemUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -38,10 +38,10 @@ public class ItemFilterMod extends ItemBase implements IItemStackFilter
 		{
 			ItemStack ghostStack = itemInventory.getStackInSlot(i);
 
-			if (ghostStack == null || filteredItems.contains(GhostItemHelper.getStackFromGhost(ghostStack).getItem()))
+			if (ghostStack == null || filteredItems.contains(GhostItemUtil.getStackFromGhost(ghostStack).getItem()))
 				continue;
 
-			filteredItems.add(GhostItemHelper.getStackFromGhost(ghostStack));
+			filteredItems.add(GhostItemUtil.getStackFromGhost(ghostStack));
 		}
 
 		return filteredItems;
@@ -84,7 +84,7 @@ public class ItemFilterMod extends ItemBase implements IItemStackFilter
 
 			if (ghostStack != null && ghostStack.isItemEqual(stack))
 			{
-				size = GhostItemHelper.getItemGhostAmount(ghostStack);
+				size = GhostItemUtil.getItemGhostAmount(ghostStack);
 			}
 		}
 

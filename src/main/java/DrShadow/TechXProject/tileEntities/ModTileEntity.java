@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.tileEntities;
 
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -23,17 +23,17 @@ public class ModTileEntity extends TileEntity implements ITickable
 	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
-
 		toNBT(compound);
+
+		super.writeToNBT(compound);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
-		super.readFromNBT(compound);
-
 		fromNBT(compound);
+
+		super.readFromNBT(compound);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ModTileEntity extends TileEntity implements ITickable
 	{
 		TileEntity[] result = new TileEntity[6];
 
-		if (!Helper.isNull(worldObj, pos))
+		if (!Util.isNull(worldObj, pos))
 		{
 			for (int i = 0; i < 6; i++) result[i] = worldObj.getTileEntity(pos.offset(EnumFacing.getFront(i)));
 		}

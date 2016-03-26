@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.conduit.logic.condition;
 
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -111,7 +111,7 @@ public class Condition
 	{
 		TileEntity[] result = new TileEntity[6];
 
-		if (!Helper.isNull(world, pos))
+		if (!Util.isNull(world, pos))
 		{
 			for (int i = 0; i < 6; i++) result[i] = world.getTileEntity(pos.offset(EnumFacing.getFront(i)));
 		}

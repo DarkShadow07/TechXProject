@@ -1,21 +1,72 @@
 package DrShadow.TechXProject.util;
 
+import DrShadow.TechXProject.fx.EntityReddustFXT;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Helper
+public class Util
 {
 	public static final PropertyInteger meta = PropertyInteger.create("meta", 0, 15);
 	static Random rand = new Random();
+
+	@SideOnly(value = Side.CLIENT)
+	public static void spawnEntityFX(EntityFX particleFX)
+	{
+
+		if (particleFX.worldObj.isRemote)
+		{
+			Minecraft mc = minecraft();
+			Entity ent = mc.getRenderViewEntity();
+			if (ent != null && mc.effectRenderer != null)
+			{
+				int i = mc.gameSettings.particleSetting;
+				double d6 = ent.posX - particleFX.posX, d7 = ent.posY - particleFX.posY, dmaxY = ent.posZ - particleFX.posZ, d9 = Math.sqrt(mc.gameSettings.renderDistanceChunks) * 45;
+				if (!(i > 1) && !(d6 * d6 + d7 * d7 + dmaxY * dmaxY > d9 * d9)) mc.effectRenderer.addEffect(particleFX);
+			}
+		}
+	}
+
+	public static void spawnParticlesOnBorder(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, World worldIn, float r, float g, float b)
+	{
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, minZ), new Vec3(minX, minY, minZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, minZ), new Vec3(minX, maxY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, minZ), new Vec3(maxX, maxY, minZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, minY, minZ), new Vec3(minX, minY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, minY, minZ), new Vec3(maxX, minY, minZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, maxY, minZ), new Vec3(maxX, minY, minZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, maxZ), new Vec3(minX, minY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, minY, maxZ), new Vec3(maxX, maxY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, minY, maxZ), new Vec3(maxX, minY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, minY, minZ), new Vec3(maxX, minY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, maxZ), new Vec3(maxX, maxY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, maxY, minZ), new Vec3(maxX, maxY, maxZ), 0.3f))
+			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
+	}
 
 	public static void giveExperience(EntityPlayer thePlayer, float experience)
 	{
@@ -32,7 +83,7 @@ public class Helper
 		{
 			int j = EntityXPOrb.getXPSplit(intExp);
 			intExp -= j;
-			thePlayer.worldObj.spawnEntityInWorld(new EntityXPOrb(thePlayer.worldObj, thePlayer.posX, thePlayer.posY + 0.5D, thePlayer.posZ + 0.5D, j));
+			thePlayer.getEntityWorld().spawnEntityInWorld(new EntityXPOrb(thePlayer.worldObj, thePlayer.posX, thePlayer.posY + 0.5D, thePlayer.posZ + 0.5D, j));
 		}
 	}
 

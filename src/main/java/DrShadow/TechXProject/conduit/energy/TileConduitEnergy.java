@@ -2,10 +2,10 @@ package DrShadow.TechXProject.conduit.energy;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.api.network.INetworkContainer;
+import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
-import DrShadow.TechXProject.conduit.network.INetworkContainer;
-import DrShadow.TechXProject.conduit.network.INetworkElement;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -127,7 +127,7 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 
 	public void updateEnergyContainer()
 	{
-		net.minecraft.tileentity.TileEntity tile = worldObj.getTileEntity(pos.offset(EnumFacing.getFront(getBlockMetadata())));
+		TileEntity tile = worldObj.getTileEntity(pos.offset(EnumFacing.getFront(getBlockMetadata())));
 
 		if (tile != null && tile instanceof IEnergyContainer)
 		{
@@ -164,7 +164,7 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 	}
 
 	@Override
-	public net.minecraft.tileentity.TileEntity getTile()
+	public TileEntity getTile()
 	{
 		return this;
 	}

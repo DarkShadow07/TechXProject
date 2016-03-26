@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.api.energy;
 
 import DrShadow.TechXProject.tileEntities.ModTileEntity;
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -144,7 +144,7 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 	{
 		this.energy = energy;
 
-		this.energy = Helper.keepInBounds(this.energy, 0, maxEnergy);
+		this.energy = Util.keepInBounds(this.energy, 0, maxEnergy);
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 
 		if (!test)
 		{
-			energy = Helper.keepInBounds(lastEnergy, 0, maxEnergy);
+			energy = Util.keepInBounds(lastEnergy, 0, maxEnergy);
 		}
 
 		if (lastEnergy > maxEnergy)

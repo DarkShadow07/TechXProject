@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.conduit.item;
 
+import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
-import DrShadow.TechXProject.conduit.network.INetworkElement;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;

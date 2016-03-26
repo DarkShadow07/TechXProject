@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.configuration.box;
 
-import DrShadow.TechXProject.util.Helper;
 import DrShadow.TechXProject.util.OverlayHelper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.gui.FontRenderer;
 
 import java.awt.*;
@@ -38,7 +38,7 @@ public class BooleanBox
 		this.y = y;
 
 		OverlayHelper overlayHelper = new OverlayHelper();
-		FontRenderer fontRenderer = Helper.minecraft().fontRendererObj;
+		FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
 		overlayHelper.drawPlaneWithFullBorder(x, y, 126, 10, Color.BLACK.hashCode(), Color.GRAY.hashCode());
 

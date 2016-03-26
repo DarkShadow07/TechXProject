@@ -28,7 +28,7 @@ public class UpdateChecker
 			{
 				show = true;
 
-				LogHelper.info(Reference.MOD_NAME + " is Running on a older Version: " + currentVersion + " || " + newestVersion);
+				Logger.info(Reference.MOD_NAME + " is Running on a older Version: " + currentVersion + " || " + newestVersion);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ public class UpdateChecker
 			s.close();
 		} catch (IOException ex)
 		{
-			LogHelper.error("Failed to check for Updates");
+			Logger.error("Failed to check for Updates");
 		}
 	}
 }

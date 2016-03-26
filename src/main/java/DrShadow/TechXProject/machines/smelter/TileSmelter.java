@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.machines.smelter;
 
 import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
-import DrShadow.TechXProject.machines.handler.smelter.SmelterRecipeHandler;
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -205,7 +205,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		if (inventory[3] == null) return true;
 		if (!OreDictionary.itemMatches(inventory[3], result, true)) return false;
 
-		for (ItemStack stack : Helper.getStackArrayNoNull(new ItemStack[]{inventory[0], inventory[1], inventory[2]}))
+		for (ItemStack stack : Util.getStackArrayNoNull(new ItemStack[]{inventory[0], inventory[1], inventory[2]}))
 		{
 			int stackSize;
 			if (SmelterRecipeHandler.instance.isVanillaRecipe(stack))

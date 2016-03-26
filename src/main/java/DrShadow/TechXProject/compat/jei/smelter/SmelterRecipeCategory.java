@@ -1,7 +1,7 @@
-package DrShadow.TechXProject.compat.jei;
+package DrShadow.TechXProject.compat.jei.smelter;
 
 
-import DrShadow.TechXProject.machines.handler.smelter.SmelterRecipe;
+import DrShadow.TechXProject.compat.jei.CategoryUid;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Lang;
 import mezz.jei.api.IGuiHelper;
@@ -36,7 +36,7 @@ public class SmelterRecipeCategory extends BlankRecipeCategory
 		localizedName = Lang.localize("gui.jei.smelter");
 
 		IDrawableStatic flameDrawable = guiHelper.createDrawable(location, 176, 0, 14, 14);
-		flame = guiHelper.createAnimatedDrawable(flameDrawable, 140, IDrawableAnimated.StartDirection.TOP, true);
+		flame = guiHelper.createAnimatedDrawable(flameDrawable, 140, IDrawableAnimated.StartDirection.BOTTOM, false);
 	}
 
 	@Nonnull

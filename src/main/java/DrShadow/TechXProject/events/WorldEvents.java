@@ -20,7 +20,7 @@ public class WorldEvents
 
 		if (UpdateChecker.show)
 		{
-			//Helper.sendChatMessage(Reference.MOD_NAME + " is Outdated! " + ChatFormatting.RED + UpdateChecker.currentVersion + ChatFormatting.RESET + " || " + ChatFormatting.AQUA + UpdateChecker.newestVersion);
+			//Util.sendChatMessage(Reference.MOD_NAME + " is Outdated! " + ChatFormatting.RED + UpdateChecker.currentVersion + ChatFormatting.RESET + " || " + ChatFormatting.AQUA + UpdateChecker.newestVersion);
 		}
 	}
 }

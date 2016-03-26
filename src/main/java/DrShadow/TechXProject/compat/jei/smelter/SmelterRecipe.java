@@ -1,4 +1,4 @@
-package DrShadow.TechXProject.machines.handler.smelter;
+package DrShadow.TechXProject.compat.jei.smelter;
 
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ public class SmelterRecipe extends BlankRecipeWrapper
 			experienceString = experience + " Xp";
 		} else experienceString = "No Xp";
 
-		ticksString = ticks + " Ticks (" + ticks / 20 + "sec)";
+		ticksString = ticks + " Ticks";
 	}
 
 	@Nonnull

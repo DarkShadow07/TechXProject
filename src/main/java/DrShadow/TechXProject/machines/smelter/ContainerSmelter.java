@@ -1,8 +1,7 @@
 package DrShadow.TechXProject.machines.smelter;
 
-import DrShadow.TechXProject.machines.handler.smelter.SmelterRecipeHandler;
-import DrShadow.TechXProject.util.Helper;
-import DrShadow.TechXProject.util.LogHelper;
+import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
@@ -61,7 +60,7 @@ public class ContainerSmelter extends Container
 				slot.onSlotChange(itemstack1, itemstack);
 			} else if (index > 3)
 			{
-				if (SmelterRecipeHandler.instance.isValidStack(itemstack1))
+				if (SmelterRecipeHandler.instance.isValidStackNoVanilla(itemstack1))
 				{
 					if (!this.mergeItemStack(itemstack1, 0, 3, false))
 					{
@@ -108,7 +107,7 @@ public class ContainerSmelter extends Container
 		@Override
 		public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)
 		{
-			Helper.giveExperience(playerIn, SmelterRecipeHandler.instance.getSmeltingXP(stack));
+			Util.giveExperience(playerIn, SmelterRecipeHandler.instance.getSmeltingXP(stack));
 
 			if (stack.getItem() == Items.iron_ingot)
 			{
@@ -142,7 +141,7 @@ public class ContainerSmelter extends Container
 		public boolean isItemValid(ItemStack stack)
 		{
 			ItemStack[] inventory = smelter.inventory;
-			ItemStack[] notNullInventory = Helper.getStackArrayNoNull(new ItemStack[]{inventory[0], inventory[1], inventory[2]});
+			ItemStack[] notNullInventory = Util.getStackArrayNoNull(new ItemStack[]{inventory[0], inventory[1], inventory[2]});
 
 			if (notNullInventory.length == 0)
 			{
@@ -156,7 +155,7 @@ public class ContainerSmelter extends Container
 						return OreDictionary.itemMatches(invStack, stack, true);
 					} else
 					{
-						return SmelterRecipeHandler.instance.isValidStack(stack);
+						return SmelterRecipeHandler.instance.isValidStackNoVanilla(stack);
 					}
 				}
 			}

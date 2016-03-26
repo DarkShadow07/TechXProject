@@ -20,7 +20,7 @@ public class ChatUtil
 
 	private static void sendNoSpamMessages(IChatComponent[] messages)
 	{
-		GuiNewChat chat = Helper.minecraft().ingameGUI.getChatGUI();
+		GuiNewChat chat = Util.minecraft().ingameGUI.getChatGUI();
 		for (int i = DELETION_ID + messages.length - 1; i <= lastAdded; i++)
 		{
 			chat.deleteChatLine(i);

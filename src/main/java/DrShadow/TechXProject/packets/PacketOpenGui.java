@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.packets;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.util.LogHelper;
+import DrShadow.TechXProject.util.Logger;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
@@ -37,7 +37,7 @@ public class PacketOpenGui implements IMessage
 		@Override
 		public IMessage onMessage(PacketOpenGui message, MessageContext ctx)
 		{
-			LogHelper.info(message);
+			Logger.info(message);
 
 			EntityPlayer player = ctx.getServerHandler().playerEntity;
 

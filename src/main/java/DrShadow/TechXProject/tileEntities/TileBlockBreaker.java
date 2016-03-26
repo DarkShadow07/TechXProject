@@ -1,12 +1,17 @@
 package DrShadow.TechXProject.tileEntities;
 
+import DrShadow.TechXProject.blocks.multihighlight.IMultiHighlightProvider;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
-public class TileBlockBreaker extends ModTileEntity
+import java.util.ArrayList;
+import java.util.List;
+
+public class TileBlockBreaker extends ModTileEntity implements IMultiHighlightProvider
 {
 	private boolean isActive = false;
 	private EnumFacing rotation;
@@ -76,8 +81,26 @@ public class TileBlockBreaker extends ModTileEntity
 		}
 	}
 
-	public void moveTo(ItemStack item)
+	@Override
+	public List<AxisAlignedBB> getBoxes()
 	{
+		List<AxisAlignedBB> boxes = new ArrayList<>();
 
+		boxes.add(new AxisAlignedBB(0.2, 0.2, 0.2, 0.8, 0.8, 0.8));
+		boxes.add(new AxisAlignedBB(0.1, 0.2, 0.1, 0.9, 0.8, 0.9));
+
+		return boxes;
+	}
+
+	@Override
+	public List<AxisAlignedBB> getActiveBoxes()
+	{
+		return null;
+	}
+
+	@Override
+	public AxisAlignedBB getSelectedBox()
+	{
+		return null;
 	}
 }

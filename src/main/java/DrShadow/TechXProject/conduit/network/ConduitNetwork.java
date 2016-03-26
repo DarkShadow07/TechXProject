@@ -1,5 +1,8 @@
 package DrShadow.TechXProject.conduit.network;
 
+import DrShadow.TechXProject.api.network.INetworkContainer;
+import DrShadow.TechXProject.api.network.INetworkElement;
+
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 public class ConduitNetwork
 {
 	private INetworkContainer controller = null;
-	private List<INetworkElement> networkElements = new ArrayList<INetworkElement>();
+	private List<INetworkElement> networkElements = new ArrayList<>();
 
 	public ConduitNetwork(INetworkContainer controller)
 	{
@@ -32,6 +35,8 @@ public class ConduitNetwork
 
 	public boolean isInNetwork(INetworkElement is)
 	{
+		if (is == null) return false;
+
 		return networkElements.contains(is);
 	}
 

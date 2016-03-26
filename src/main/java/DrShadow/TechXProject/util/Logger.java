@@ -4,7 +4,7 @@ import DrShadow.TechXProject.reference.Reference;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
-public class LogHelper
+public class Logger
 {
 	public static void log(Level logLevel, Object object)
 	{

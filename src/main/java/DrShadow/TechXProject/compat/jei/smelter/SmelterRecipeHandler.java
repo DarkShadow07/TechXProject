@@ -1,7 +1,7 @@
-package DrShadow.TechXProject.machines.handler.smelter;
+package DrShadow.TechXProject.compat.jei.smelter;
 
 import DrShadow.TechXProject.compat.jei.CategoryUid;
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Items;
@@ -48,11 +48,11 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public ItemStack getSmeltingResult(ItemStack... in)
 	{
-		ItemStack[] notNullArray = Helper.getStackArrayNoNull(in);
+		ItemStack[] notNullArray = Util.getStackArrayNoNull(in);
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			if (Helper.isStackArrayEqual(notNullArray, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			if (Util.isStackArrayEqual(notNullArray, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
 			{
 				return recipe.getOutputs().get(0);
 			}
@@ -73,16 +73,16 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public int getSmeltingTicks(ItemStack... in)
 	{
-		for (ItemStack stack : Helper.getStackArrayNoNull(in))
+		for (ItemStack stack : Util.getStackArrayNoNull(in))
 		{
 			if (isVanillaRecipe(stack)) return 140;
 		}
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			ItemStack[] noNull = Helper.getStackArrayNoNull(in);
+			ItemStack[] noNull = Util.getStackArrayNoNull(in);
 
-			if (Helper.isStackArrayEqual(noNull, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			if (Util.isStackArrayEqual(noNull, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
 			{
 				return recipe.getTicks();
 			}
@@ -144,6 +144,24 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 					{
 						return true;
 					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public boolean isValidStackNoVanilla(ItemStack stack)
+	{
+		for (SmelterRecipe recipe : recipes)
+		{
+			List<ItemStack> itemStackList = recipe.getInputs();
+
+			for (ItemStack itemStack : itemStackList)
+			{
+				if (OreDictionary.itemMatches(itemStack, stack, true))
+				{
+					return true;
 				}
 			}
 		}

@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.compat.jei;
 
+import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeCategory;
+import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.init.InitBlocks;
-import DrShadow.TechXProject.machines.handler.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.machines.smelter.GuiSmelter;
-import mezz.jei.JeiHelpers;
 import mezz.jei.api.*;
 import net.minecraft.item.ItemStack;
 

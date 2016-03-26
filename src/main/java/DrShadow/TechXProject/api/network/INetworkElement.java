@@ -1,5 +1,6 @@
-package DrShadow.TechXProject.conduit.network;
+package DrShadow.TechXProject.api.network;
 
+import DrShadow.TechXProject.conduit.network.ConduitNetwork;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 

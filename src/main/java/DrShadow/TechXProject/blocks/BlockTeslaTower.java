@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.blocks;
 
 import DrShadow.TechXProject.tileEntities.TileTeslaTower;
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -66,7 +66,7 @@ public class BlockTeslaTower extends BlockContainerBase
 	{
 		TileTeslaTower tile = (TileTeslaTower) worldIn.getTileEntity(pos);
 
-		Helper.minecraft().thePlayer.sendChatMessage("This Tesla Belongs to " + tile.getOwners());
+		Util.minecraft().thePlayer.sendChatMessage("This Tesla Belongs to " + tile.getOwners());
 
 		return true;
 	}

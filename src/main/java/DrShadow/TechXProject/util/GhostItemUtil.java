@@ -3,7 +3,7 @@ package DrShadow.TechXProject.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class GhostItemHelper
+public class GhostItemUtil
 {
 	public static void setItemGhostAmount(ItemStack stack, int amount)
 	{

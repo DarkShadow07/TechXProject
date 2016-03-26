@@ -1,10 +1,11 @@
 package DrShadow.TechXProject.conduit.logic;
 
+import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.logic.condition.Condition;
 import DrShadow.TechXProject.conduit.logic.condition.EnumConditionType;
-import DrShadow.TechXProject.conduit.network.INetworkElement;
 import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 
 public class TileLogicConduit extends ModTileEntity
@@ -33,7 +34,7 @@ public class TileLogicConduit extends ModTileEntity
 	{
 		if (condition != null && tilePos != null)
 		{
-			net.minecraft.tileentity.TileEntity tileEntity = worldObj.getTileEntity(tilePos);
+			TileEntity tileEntity = worldObj.getTileEntity(tilePos);
 
 			if (tileEntity instanceof INetworkElement)
 			{
@@ -42,15 +43,13 @@ public class TileLogicConduit extends ModTileEntity
 				tile.setActive(condition.validState(pos, worldObj));
 			}
 		}
-
-		worldObj.markBlockForUpdate(pos);
 	}
 
 	public void onBlockBreak()
 	{
 		if (tilePos != null)
 		{
-			net.minecraft.tileentity.TileEntity tileEntity = worldObj.getTileEntity(tilePos);
+			TileEntity tileEntity = worldObj.getTileEntity(tilePos);
 
 			if (tileEntity instanceof INetworkElement)
 			{
@@ -98,8 +97,7 @@ public class TileLogicConduit extends ModTileEntity
 		{
 			conditionChanged = false;
 
-			//setCondition(EnumConditionType.valueOf(condition.getString("condition")));
-
+			setCondition(EnumConditionType.valueOf(condition.getString("condition")));
 		}
 	}
 

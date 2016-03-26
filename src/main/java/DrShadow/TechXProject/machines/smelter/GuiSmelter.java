@@ -23,9 +23,6 @@ public class GuiSmelter extends GuiContainer
 		super(new ContainerSmelter(inventoryPlayer, smelter));
 
 		this.smelter = smelter;
-
-		xSize = 176;
-		ySize = 166;
 	}
 
 	@Override
@@ -71,7 +68,7 @@ public class GuiSmelter extends GuiContainer
 		List<String> info = new ArrayList<>();
 		info.add("Progress " + smelter.getProgress() + "%");
 
-		if (fireL.contains(mouseX, mouseY) || fireR.contains(mouseX, mouseY) && smelter.working)
+		if ((fireL.contains(mouseX, mouseY) || fireR.contains(mouseX, mouseY)) && smelter.working)
 		{
 			drawHoveringText(info, mouseX - left, mouseY - top);
 		}

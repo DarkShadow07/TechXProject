@@ -1,4 +1,6 @@
-package DrShadow.TechXProject.conduit.network;
+package DrShadow.TechXProject.api.network;
+
+import DrShadow.TechXProject.conduit.network.ConduitNetwork;
 
 public interface INetworkContainer
 {
@@ -7,6 +9,8 @@ public interface INetworkContainer
 	void setNetwork(ConduitNetwork network);
 
 	void searchNetwork();
+
+	void searchRelays();
 
 	ConduitNetwork addToNetwork(INetworkElement toAdd);
 

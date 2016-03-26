@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.events;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.util.Helper;
+import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -27,10 +27,10 @@ public class RenderEvents
 
 		if (event.type == RenderGameOverlayEvent.ElementType.ALL)
 		{
-			if (Helper.minecraft().objectMouseOver.typeOfHit.equals(MovingObjectPosition.MovingObjectType.BLOCK))
+			if (Util.minecraft().objectMouseOver.typeOfHit.equals(MovingObjectPosition.MovingObjectType.BLOCK))
 			{
-				World world = Helper.world();
-				BlockPos pos = Helper.minecraft().objectMouseOver.getBlockPos();
+				World world = Util.world();
+				BlockPos pos = Util.minecraft().objectMouseOver.getBlockPos();
 
 				TileEntity tile = world.getTileEntity(pos);
 
@@ -40,9 +40,9 @@ public class RenderEvents
 
 					String energy = NumberFormat.getInstance().format(container.getEnergy()) + "/" + NumberFormat.getInstance().format(container.getMaxEnergy());
 
-					FontRenderer fontRenderer = Helper.minecraft().fontRendererObj;
+					FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
-					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2, Color.WHITE.hashCode());
+					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2, Color.WHITE.getRGB());
 					fontRenderer.drawStringWithShadow(energy, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 10, Color.ORANGE.hashCode());
 				}
 			}
@@ -52,6 +52,6 @@ public class RenderEvents
 	@SubscribeEvent
 	public void renderDebug(RenderGameOverlayEvent.Text event)
 	{
-		if (!Helper.minecraft().gameSettings.showDebugInfo) return;
+		if (!Util.minecraft().gameSettings.showDebugInfo) return;
 	}
 }
