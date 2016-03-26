@@ -87,7 +87,7 @@ public class TileBlockBreaker extends ModTileEntity implements IMultiHighlightPr
 		List<AxisAlignedBB> boxes = new ArrayList<>();
 
 		boxes.add(new AxisAlignedBB(0.2f, 0.2f, 0.2f, 0.8f, 0.8f, 0.8f));
-		boxes.add(new AxisAlignedBB(0f, 0, 0f, 0.8f, 0.2f, 0.8f));
+		boxes.add(new AxisAlignedBB(0f, 0f, 0f, 1f, 0.2f, 1f));
 
 		return boxes;
 	}

@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -37,6 +36,8 @@ public class HighlightEvent
 
 				Vec3 pos = VectorUtil.multiply(player.getPositionVector(), -1f).add(new Vec3(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
 
+				GlStateManager.pushMatrix();
+
 				GlStateManager.translate(pos.xCoord, pos.yCoord, pos.zCoord);
 
 				IMultiHighlightProvider multiProvider = (IMultiHighlightProvider) tile;
@@ -45,8 +46,10 @@ public class HighlightEvent
 
 				for (AxisAlignedBB box : boxes)
 				{
-					drawBox(box.minX, box.maxX, box.minY, box.maxY, box.minZ, box.maxZ, 1, 1, 1, 0.25f);
+					drawBox(box.minX, box.maxX, box.minY, box.maxY, box.minZ, box.maxZ, 0, 0, 0, 0.25f);
 				}
+
+				GlStateManager.popMatrix();
 			}
 		}
 	}
@@ -90,46 +93,49 @@ public class HighlightEvent
 	{
 		GlStateManager.disableTexture2D();
 		GlStateManager.color(rColor, gColor, bColor, alpha);
-		GL11.glLineWidth((float) 2);
+
+		float pixel = 1f / 16f;
+
+		GL11.glLineWidth(2 * pixel);
 		WorldRenderer renderer = tess.getWorldRenderer();
 
 		renderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
 
-		renderer.pos(xPoints[0], yPoints[0], zPoints[0]);
-		renderer.pos(xPoints[1], yPoints[1], zPoints[1]);
+		renderer.pos(xPoints[0], yPoints[0], zPoints[0]).endVertex();
+		renderer.pos(xPoints[1], yPoints[1], zPoints[1]).endVertex();
 
-		renderer.pos(xPoints[2], yPoints[2], zPoints[2]);
-		renderer.pos(xPoints[3], yPoints[3], zPoints[3]);
+		renderer.pos(xPoints[2], yPoints[2], zPoints[2]).endVertex();
+		renderer.pos(xPoints[3], yPoints[3], zPoints[3]).endVertex();
 
-		renderer.pos(xPoints[4], yPoints[4], zPoints[4]);
-		renderer.pos(xPoints[5], yPoints[5], zPoints[5]);
+		renderer.pos(xPoints[4], yPoints[4], zPoints[4]).endVertex();
+		renderer.pos(xPoints[5], yPoints[5], zPoints[5]).endVertex();
 
-		renderer.pos(xPoints[6], yPoints[6], zPoints[6]);
-		renderer.pos(xPoints[7], yPoints[7], zPoints[7]);
+		renderer.pos(xPoints[6], yPoints[6], zPoints[6]).endVertex();
+		renderer.pos(xPoints[7], yPoints[7], zPoints[7]).endVertex();
 
-		renderer.pos(xPoints[0], yPoints[0], zPoints[0]);
-		renderer.pos(xPoints[6], yPoints[6], zPoints[6]);
+		renderer.pos(xPoints[0], yPoints[0], zPoints[0]).endVertex();
+		renderer.pos(xPoints[6], yPoints[6], zPoints[6]).endVertex();
 
-		renderer.pos(xPoints[1], yPoints[1], zPoints[1]);
-		renderer.pos(xPoints[7], yPoints[7], zPoints[7]);
+		renderer.pos(xPoints[1], yPoints[1], zPoints[1]).endVertex();
+		renderer.pos(xPoints[7], yPoints[7], zPoints[7]).endVertex();
 
-		renderer.pos(xPoints[0], yPoints[0], zPoints[0]);
-		renderer.pos(xPoints[2], yPoints[2], zPoints[2]);
+		renderer.pos(xPoints[0], yPoints[0], zPoints[0]).endVertex();
+		renderer.pos(xPoints[2], yPoints[2], zPoints[2]).endVertex();
 
-		renderer.pos(xPoints[1], yPoints[1], zPoints[1]);
-		renderer.pos(xPoints[3], yPoints[3], zPoints[3]);
+		renderer.pos(xPoints[1], yPoints[1], zPoints[1]).endVertex();
+		renderer.pos(xPoints[3], yPoints[3], zPoints[3]).endVertex();
 
-		renderer.pos(xPoints[2], yPoints[2], zPoints[2]);
-		renderer.pos(xPoints[4], yPoints[4], zPoints[4]);
+		renderer.pos(xPoints[2], yPoints[2], zPoints[2]).endVertex();
+		renderer.pos(xPoints[4], yPoints[4], zPoints[4]).endVertex();
 
-		renderer.pos(xPoints[3], yPoints[3], zPoints[3]);
-		renderer.pos(xPoints[5], yPoints[5], zPoints[5]);
+		renderer.pos(xPoints[3], yPoints[3], zPoints[3]).endVertex();
+		renderer.pos(xPoints[5], yPoints[5], zPoints[5]).endVertex();
 
-		renderer.pos(xPoints[4], yPoints[4], zPoints[4]);
-		renderer.pos(xPoints[6], yPoints[6], zPoints[6]);
+		renderer.pos(xPoints[4], yPoints[4], zPoints[4]).endVertex();
+		renderer.pos(xPoints[6], yPoints[6], zPoints[6]).endVertex();
 
-		renderer.pos(xPoints[5], yPoints[5], zPoints[5]);
-		renderer.pos(xPoints[7], yPoints[7], zPoints[7]);
+		renderer.pos(xPoints[5], yPoints[5], zPoints[5]).endVertex();
+		renderer.pos(xPoints[7], yPoints[7], zPoints[7]).endVertex();
 
 		tess.draw();
 
