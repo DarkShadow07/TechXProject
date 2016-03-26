@@ -21,4 +21,8 @@ public interface INetworkContainer
 	net.minecraft.tileentity.TileEntity getController();
 
 	void initNetwork();
+
+	void drawArea();
+
+	void drawLines();
 }

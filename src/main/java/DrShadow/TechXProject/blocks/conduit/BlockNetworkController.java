@@ -3,6 +3,7 @@ package DrShadow.TechXProject.blocks.conduit;
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.api.network.INetworkRelay;
 import DrShadow.TechXProject.blocks.BlockContainerBase;
 import DrShadow.TechXProject.conduit.network.controller.TileNetworkController;
 import DrShadow.TechXProject.fx.EntityReddustFXT;
@@ -94,13 +95,7 @@ public class BlockNetworkController extends BlockContainerBase
 			ChatUtil.sendNoSpamClient(messages.toArray(new IChatComponent[messages.size()]));
 		}
 
-		for (INetworkElement element : tile.getNetwork().getElements())
-		{
-			for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(pos).addVector(0.5, 0.5, 0.5), new Vec3(element.getTile().getPos()).addVector(0.5, 0.5, 0.5), 0.1f))
-			{
-				Util.spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, 0.01f, 0, 1));
-			}
-		}
+		tile.drawLines();
 
 		return true;
 	}

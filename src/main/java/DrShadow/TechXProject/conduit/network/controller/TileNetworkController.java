@@ -5,17 +5,15 @@ import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.api.network.INetworkRelay;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
 import DrShadow.TechXProject.conduit.network.relay.TileNetworkRelay;
+import DrShadow.TechXProject.fx.EntityReddustFXT;
 import DrShadow.TechXProject.items.ItemWrench;
 import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import DrShadow.TechXProject.util.Logger;
 import DrShadow.TechXProject.util.Util;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import DrShadow.TechXProject.util.VectorUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.util.Vec3;
 
 public class TileNetworkController extends ModTileEntity implements INetworkContainer
 {
@@ -65,10 +63,7 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 	@Override
 	public void searchNetwork()
 	{
-		if (Util.player() != null && Util.player().getHeldItem() != null && Util.player().getHeldItem().getItem() instanceof ItemWrench)
-		{
-			Util.spawnParticlesOnBorder(pos.getX() - rad, pos.getY() - rad / 2, pos.getZ() - rad, pos.getX() + rad, pos.getY() + rad / 2, pos.getZ() + rad, worldObj, 0.01f, 0, 1);
-		}
+		drawArea();
 
 		network.clear();
 
@@ -90,8 +85,6 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 						{
 							if (networkElement != null) networkElement.setNetwork(network);
 						}
-
-						markDirty();
 					}
 				}
 			}
@@ -122,7 +115,10 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 
 						for (INetworkElement element : relay.getElements())
 						{
-							if (element != null && !network.isInNetwork(element)) network.addToNetwork(element);
+							if (element != null)
+							{
+								network.addToNetwork(element);
+							}
 						}
 					}
 				}
@@ -135,8 +131,6 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 	{
 		if (!network.isInNetwork(toAdd))
 		{
-			Logger.info(toAdd);
-
 			network.addToNetwork(toAdd);
 		}
 
@@ -154,7 +148,7 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 	@Override
 	public void updateNetwork()
 	{
-		network.update();
+
 	}
 
 	@Override
@@ -169,6 +163,32 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 		if (network == null)
 		{
 			network = new ConduitNetwork(this);
+		}
+	}
+
+	@Override
+	public void drawArea()
+	{
+		if (Util.player() != null && Util.player().getHeldItem() != null && Util.player().getHeldItem().getItem() instanceof ItemWrench)
+		{
+			Util.spawnParticlesOnBorder(pos.getX() - rad, pos.getY() - rad / 2, pos.getZ() - rad, pos.getX() + rad, pos.getY() + rad / 2, pos.getZ() + rad, worldObj, 0.01f, 0, 1);
+		}
+	}
+
+	@Override
+	public void drawLines()
+	{
+		for (INetworkElement element : network.getElements())
+		{
+			if (element instanceof INetworkRelay)
+			{
+				((INetworkRelay) element).drawLines();
+			}
+
+			for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(pos).addVector(0.5, 0.5, 0.5), new Vec3(element.getTile().getPos()).addVector(0.5, 0.5, 0.5), 0.1f))
+			{
+				Util.spawnEntityFX(new EntityReddustFXT(worldObj, vec.xCoord, vec.yCoord, vec.zCoord, 0.01f, 0, 1));
+			}
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package DrShadow.TechXProject.blocks.multihighlight;
+package DrShadow.TechXProject.blocks.multiHighlight;
 
 import net.minecraft.util.AxisAlignedBB;
 
@@ -9,6 +9,4 @@ public interface IMultiHighlightProvider
 	List<AxisAlignedBB> getBoxes();
 
 	List<AxisAlignedBB> getActiveBoxes();
-
-	AxisAlignedBB getSelectedBox();
 }

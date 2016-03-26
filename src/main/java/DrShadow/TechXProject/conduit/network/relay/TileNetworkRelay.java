@@ -4,12 +4,15 @@ import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.api.network.INetworkRelay;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
+import DrShadow.TechXProject.fx.EntityReddustFXT;
 import DrShadow.TechXProject.items.ItemWrench;
 import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import DrShadow.TechXProject.util.Util;
+import DrShadow.TechXProject.util.VectorUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +29,7 @@ public class TileNetworkRelay extends ModTileEntity implements INetworkRelay, IN
 	@Override
 	public List<INetworkElement> getElements()
 	{
-		if (Util.player() != null && Util.player().getHeldItem() != null && Util.player().getHeldItem().getItem() instanceof ItemWrench)
-		{
-			Util.spawnParticlesOnBorder(pos.getX() - relayRad, pos.getY() - relayRad / 2, pos.getZ() - relayRad, pos.getX() + relayRad, pos.getY() + relayRad / 2, pos.getZ() + relayRad, worldObj, 0.01f, 0.45f, 0.55f);
-		}
+		drawArea();
 
 		List<INetworkElement> elements = new ArrayList<>();
 
@@ -53,6 +53,27 @@ public class TileNetworkRelay extends ModTileEntity implements INetworkRelay, IN
 		}
 
 		return elements;
+	}
+
+	@Override
+	public void drawArea()
+	{
+		if (Util.player() != null && Util.player().getHeldItem() != null && Util.player().getHeldItem().getItem() instanceof ItemWrench)
+		{
+			Util.spawnParticlesOnBorder(pos.getX() - relayRad, pos.getY() - relayRad / 2, pos.getZ() - relayRad, pos.getX() + relayRad, pos.getY() + relayRad / 2, pos.getZ() + relayRad, worldObj, 0.01f, 0.45f, 0.55f);
+		}
+	}
+
+	@Override
+	public void drawLines()
+	{
+		for (INetworkElement element : getElements())
+		{
+			for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(pos).addVector(0.5, 0.5, 0.5), new Vec3(element.getTile().getPos()).addVector(0.5, 0.5, 0.5), 0.1f))
+			{
+				Util.spawnEntityFX(new EntityReddustFXT(worldObj, vec.xCoord, vec.yCoord, vec.zCoord, 0.01f, 0.45f, 0.55f));
+			}
+		}
 	}
 
 	@Override

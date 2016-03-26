@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.tileEntities;
 
-import DrShadow.TechXProject.blocks.multihighlight.IMultiHighlightProvider;
+import DrShadow.TechXProject.blocks.multiHighlight.IMultiHighlightProvider;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -86,20 +86,14 @@ public class TileBlockBreaker extends ModTileEntity implements IMultiHighlightPr
 	{
 		List<AxisAlignedBB> boxes = new ArrayList<>();
 
-		boxes.add(new AxisAlignedBB(0.2, 0.2, 0.2, 0.8, 0.8, 0.8));
-		boxes.add(new AxisAlignedBB(0.1, 0.2, 0.1, 0.9, 0.8, 0.9));
+		boxes.add(new AxisAlignedBB(0.2f, 0.2f, 0.2f, 0.8f, 0.8f, 0.8f));
+		boxes.add(new AxisAlignedBB(0f, 0, 0f, 0.8f, 0.2f, 0.8f));
 
 		return boxes;
 	}
 
 	@Override
 	public List<AxisAlignedBB> getActiveBoxes()
-	{
-		return null;
-	}
-
-	@Override
-	public AxisAlignedBB getSelectedBox()
 	{
 		return null;
 	}

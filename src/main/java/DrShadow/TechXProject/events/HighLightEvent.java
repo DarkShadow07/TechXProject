@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.events;
 
-import DrShadow.TechXProject.blocks.multihighlight.IMultiHighlightProvider;
-import DrShadow.TechXProject.util.Logger;
+import DrShadow.TechXProject.blocks.multiHighlight.IMultiHighlightProvider;
+import DrShadow.TechXProject.util.VectorUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -9,13 +9,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
-public class HighLightEvent
+public class HighlightEvent
 {
 	Tessellator tess = Tessellator.getInstance();
 
@@ -32,6 +34,10 @@ public class HighLightEvent
 			if (tile != null && tile instanceof IMultiHighlightProvider)
 			{
 				event.setCanceled(true);
+
+				Vec3 pos = VectorUtil.multiply(player.getPositionVector(), -1f).add(new Vec3(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
+
+				GlStateManager.translate(pos.xCoord, pos.yCoord, pos.zCoord);
 
 				IMultiHighlightProvider multiProvider = (IMultiHighlightProvider) tile;
 
@@ -130,4 +136,3 @@ public class HighLightEvent
 		GlStateManager.enableTexture2D();
 	}
 }
-
