@@ -1,27 +1,44 @@
 ######## Blocks ########
-tile.techxproject.blockConduitInput.name=Item Input Node
-tile.techxproject.blockConduitOutput.name=Item Output Node
-tile.techxproject.blockTeslaTower.name=Tesla Coil Tower
-tile.techxproject.blockBreaker.name=Block Breaker
-tile.techxproject.blockController.name=Node Controller
+tile.techxproject.blockItemConduit.name=Item Node
+tile.techxproject.blockEnergyConduit.name=Energy Node
 tile.techxproject.blockConduitLogic.name=Logic Controller
-tile.techxproject.blockEnergyConduitInput.name=Energy Input Node
-tile.techxproject.blockEnergyConduitOutput.name=Energy Output Node
-tile.techxproject.basicBattery.name=Energy Battery (Basic)
-tile.techxproject.blockSmelter.name=Energetic Smelter
+
+tile.techxproject.blockController.name=Node Controller
 tile.techxproject.blockRelay.name=Network Relay
+
+tile.techxproject.basicCapacitor.name=Basic Energy Capacitor
+tile.techxproject.blockSmelter.name=Energetic Smelter
+tile.techxproject.blockCrusher.name=Energetic Crusher
+tile.techxproject.blockQuarry.name=Energetic Quarry
+tile.techxproject.blockTeleporter.name=Multidimensional Teleporter
+tile.techxproject.blockStorageUnit.name=Storage Unit
+tile.techxproject.blockSolarPanel.name=Solar Panel
+
+tile.techxproject.blockBreaker.name=Block Breaker
 
 ######## Items #######
 item.techxproject.wrench.name=Wrench
+item.techxproject.wire.name=Wire
+item.techxproject.quarryCard.name=Blank Quarry Card
+item.techxproject.teleporterCard.name=Blank Teleport Card
+
 item.techxproject.filterName.name=Item Filter (Name)
 item.techxproject.filterBase.name=Item Filter (Basic)
 item.techxproject.filterMod.name=Item Filter (Mod)
 item.techxproject.filterOreDict.name=Item Filter (OreDictionary)
 
+item.techxproject.dustIron.name=Iron Dust
+item.techxproject.dustGold.name=Gold Dust
+item.techxproject.dustCoal.name=Coal Dust
+item.techxproject.dustDiamond.name=Diamond Dust
+item.techxproject.dustEmerald.name=Emerald Dust
+item.techxproject.dustStone.name=Pulverised Stone
+
 ######## Gui ########
 techxproject.container.conduitLogic=Logic Controller
 
 techxproject.gui.jei.smelter=Energetic Smelting
+techxproject.gui.jei.crusher=Crushing
 
 ######## Conditions ########
 techxproject.condition.NO_CONDITION=No Condition (Always Enabled)

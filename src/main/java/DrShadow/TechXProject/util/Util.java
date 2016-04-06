@@ -4,15 +4,18 @@ import DrShadow.TechXProject.fx.EntityReddustFXT;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,48 +26,68 @@ public class Util
 	public static final PropertyInteger meta = PropertyInteger.create("meta", 0, 15);
 	static Random rand = new Random();
 
-	@SideOnly(value = Side.CLIENT)
+	public static boolean inventoryFull(IInventory inventory)
+	{
+		List<ItemStack> result = new ArrayList<>();
+		int size = inventory.getSizeInventory();
+		for (int k = 0; k < size; k++)
+		{
+			result.add(inventory.getStackInSlot(k));
+		}
+
+		return result.stream().allMatch(stack -> stack != null && stack.stackSize > 0);
+	}
+
+	public static boolean isAnyNull(ItemStack[] stacks)
+	{
+		for (ItemStack stack : stacks)
+		{
+			if (stack == null) return true;
+		}
+
+		return false;
+	}
+
+	@SideOnly(Side.CLIENT)
 	public static void spawnEntityFX(EntityFX particleFX)
 	{
-
-		if (particleFX.worldObj.isRemote)
+		if (world().isRemote)
 		{
 			Minecraft mc = minecraft();
 			Entity ent = mc.getRenderViewEntity();
 			if (ent != null && mc.effectRenderer != null)
 			{
 				int i = mc.gameSettings.particleSetting;
-				double d6 = ent.posX - particleFX.posX, d7 = ent.posY - particleFX.posY, dmaxY = ent.posZ - particleFX.posZ, d9 = Math.sqrt(mc.gameSettings.renderDistanceChunks) * 45;
-				if (!(i > 1) && !(d6 * d6 + d7 * d7 + dmaxY * dmaxY > d9 * d9)) mc.effectRenderer.addEffect(particleFX);
+				if (!(i > 1)) mc.effectRenderer.addEffect(particleFX);
 			}
 		}
 	}
 
 	public static void spawnParticlesOnBorder(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, World worldIn, float r, float g, float b)
 	{
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, minZ), new Vec3(minX, minY, minZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, maxY, minZ), new Vec3d(minX, minY, minZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, minZ), new Vec3(minX, maxY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, maxY, minZ), new Vec3d(minX, maxY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, minZ), new Vec3(maxX, maxY, minZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, maxY, minZ), new Vec3d(maxX, maxY, minZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, minY, minZ), new Vec3(minX, minY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, minY, minZ), new Vec3d(minX, minY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, minY, minZ), new Vec3(maxX, minY, minZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, minY, minZ), new Vec3d(maxX, minY, minZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, maxY, minZ), new Vec3(maxX, minY, minZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(maxX, maxY, minZ), new Vec3d(maxX, minY, minZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, maxZ), new Vec3(minX, minY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, maxY, maxZ), new Vec3d(minX, minY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, minY, maxZ), new Vec3(maxX, maxY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(maxX, minY, maxZ), new Vec3d(maxX, maxY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, minY, maxZ), new Vec3(maxX, minY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, minY, maxZ), new Vec3d(maxX, minY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, minY, minZ), new Vec3(maxX, minY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(maxX, minY, minZ), new Vec3d(maxX, minY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(minX, maxY, maxZ), new Vec3(maxX, maxY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(minX, maxY, maxZ), new Vec3d(maxX, maxY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
-		for (Vec3 vec : VectorUtil.dotsOnRay(new Vec3(maxX, maxY, minZ), new Vec3(maxX, maxY, maxZ), 0.3f))
+		for (Vec3d vec : VectorUtil.dotsOnRay(new Vec3d(maxX, maxY, minZ), new Vec3d(maxX, maxY, maxZ), 0.3f))
 			spawnEntityFX(new EntityReddustFXT(worldIn, vec.xCoord, vec.yCoord, vec.zCoord, r, g, b));
 	}
 
@@ -83,7 +106,7 @@ public class Util
 		{
 			int j = EntityXPOrb.getXPSplit(intExp);
 			intExp -= j;
-			thePlayer.getEntityWorld().spawnEntityInWorld(new EntityXPOrb(thePlayer.worldObj, thePlayer.posX, thePlayer.posY + 0.5D, thePlayer.posZ + 0.5D, j));
+			thePlayer.worldObj.spawnEntityInWorld(new EntityXPOrb(thePlayer.worldObj, thePlayer.posX, thePlayer.posY + 0.5D, thePlayer.posZ + 0.5D, j));
 		}
 	}
 
@@ -123,6 +146,8 @@ public class Util
 
 	public static boolean isStackArrayEqual(ItemStack[] stack, ItemStack[] toCompare)
 	{
+		boolean ret = false;
+
 		ItemStack[] newStack = getStackArrayNoNull(stack);
 		ItemStack[] newCompare = getStackArrayNoNull(toCompare);
 
@@ -131,13 +156,13 @@ public class Util
 
 		for (int i = 0; i < newStack.length; i++)
 		{
-			for (int k = 0; k < newCompare.length; k++)
+			if (!OreDictionary.itemMatches(newStack[i], newCompare[i], true))
 			{
-				if (OreDictionary.itemMatches(newStack[i], newCompare[k], true)) return true;
-			}
+				return false;
+			} else ret = true;
 		}
 
-		return false;
+		return ret;
 	}
 
 	public static boolean isArrayEqual(Object[] array, Object[] toCompare)
@@ -315,5 +340,26 @@ public class Util
 	public static World world() {return Minecraft.getMinecraft().theWorld;}
 
 	public static EntityPlayer player() {return Minecraft.getMinecraft().thePlayer;}
+
+	public static class GL
+	{
+		public static void startOpaqueRendering()
+		{
+			GlStateManager.depthMask(false);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.alphaFunc(GL11.GL_GREATER, 0);
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
+		}
+
+		public static void endOpaqueRendering()
+		{
+			GlStateManager.disableBlend();
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			GlStateManager.depthMask(true);
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+		}
+	}
 }
 

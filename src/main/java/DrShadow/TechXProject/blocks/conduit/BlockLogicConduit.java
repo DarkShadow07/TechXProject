@@ -1,16 +1,19 @@
 package DrShadow.TechXProject.blocks.conduit;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.blocks.BlockContainerBase;
+import DrShadow.TechXProject.blocks.base.BlockContainerBase;
 import DrShadow.TechXProject.conduit.logic.TileLogicConduit;
 import DrShadow.TechXProject.gui.GuiHandler;
 import DrShadow.TechXProject.lib.Guis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -19,12 +22,16 @@ public class BlockLogicConduit extends BlockContainerBase
 	public BlockLogicConduit()
 	{
 		super(Material.iron);
-
-		setBlockBounds(0.25f, 0.25f, 0.25f, 0.75f, 0.75f, 0.75f);
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
+		return new AxisAlignedBB(0.25f, 0.25f, 0.25f, 0.75f, 0.75f, 0.75f);
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		GuiHandler.openGui(playerIn, TechXProject.instance, Guis.CONDUIT_LOGIC, pos);
 
@@ -32,15 +39,15 @@ public class BlockLogicConduit extends BlockContainerBase
 	}
 
 	@Override
-	public int getComparatorInputOverride(World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
 	{
 		TileLogicConduit tile = (TileLogicConduit) worldIn.getTileEntity(pos);
 
-		return tile.condition.validState(pos, worldIn) == true ? 14 : 0;
+		return tile.condition.validState(pos, worldIn) ? 14 : 0;
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride()
+	public boolean hasComparatorInputOverride(IBlockState state)
 	{
 		return true;
 	}
@@ -56,13 +63,13 @@ public class BlockLogicConduit extends BlockContainerBase
 	}
 
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isOpaqueCube(IBlockState state)
 	{
-		return false;
+		return true;
 	}
 
 	@Override
-	public boolean canConnectRedstone(IBlockAccess world, BlockPos pos, EnumFacing side)
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
 		return true;
 	}

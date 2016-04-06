@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.conduit.energy;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.tileEntities.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
@@ -60,19 +60,22 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 
 	public void doTransfer()
 	{
-		if (!hasNetwork() || network.getOutputContainers() == null) return;
+		if (!hasNetwork()) return;
 
-		if (isInput() && hasInventory())
+		if (hasInventory())
 		{
-			transferFromContainer();
-		}
+			if (isInput())
+			{
+				transferFromContainer();
+			}
 
-		if (isOutput() && hasInventory())
-		{
-			transferToContainer();
-		}
+			transferForOthers();
 
-		transferForOthers();
+			if (isOutput())
+			{
+				transferToContainer();
+			}
+		}
 	}
 
 	public void transferToContainer()
@@ -119,7 +122,7 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 
 					subtractEnergy(outputEnergy.addEnergy(transfer, false), false);
 
-					return;
+					continue;
 				}
 			}
 		}

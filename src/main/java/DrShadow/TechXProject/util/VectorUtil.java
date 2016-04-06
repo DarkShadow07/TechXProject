@@ -1,18 +1,17 @@
 package DrShadow.TechXProject.util;
 
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VectorUtil
 {
-	public static List<Vec3> dotsOnRay(Vec3 start, Vec3 end, float differenceBetweenDots)
+	public static List<Vec3d> dotsOnRay(Vec3d start, Vec3d end, float differenceBetweenDots)
 	{
-		List<Vec3> result = new ArrayList<>();
+		List<Vec3d> result = new ArrayList<>();
 
-		Vec3
+		Vec3d
 				difference = start.subtract(end),
 				direction = difference.normalize();
 
@@ -32,13 +31,13 @@ public class VectorUtil
 		return result;
 	}
 
-	public static Vec3 multiply(Vec3 vec, float value)
+	public static Vec3d multiply(Vec3d vec, float value)
 	{
-		return new Vec3(vec.xCoord * value, vec.yCoord * value, vec.zCoord * value);
+		return new Vec3d(vec.xCoord * value, vec.yCoord * value, vec.zCoord * value);
 	}
 
-	public static Vec3 multiply(Vec3 vec1, Vec3 vec2)
+	public static Vec3d multiply(Vec3d vec1, Vec3d vec2)
 	{
-		return new Vec3(vec1.xCoord * vec2.xCoord, vec1.yCoord * vec2.yCoord, vec1.zCoord * vec2.zCoord);
+		return new Vec3d(vec1.xCoord * vec2.xCoord, vec1.yCoord * vec2.yCoord, vec1.zCoord * vec2.zCoord);
 	}
 }

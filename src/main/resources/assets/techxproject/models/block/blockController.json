@@ -1,5 +1,5 @@
 {
-	"parent": "techxproject:block/baseBlock",
+	"parent": "block/cube_all",
 	"textures": {
 		"all": "techxproject:blocks/blockController"
 	}

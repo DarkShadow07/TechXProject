@@ -7,7 +7,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,9 +25,9 @@ public class SmelterRecipe extends BlankRecipeWrapper
 
 	private final float xp;
 
-	public SmelterRecipe(@Nonnull ItemStack[] input, @Nonnull ItemStack output, float experience, int ticks)
+	public SmelterRecipe(@Nonnull List<ItemStack> input, @Nonnull ItemStack output, float experience, int ticks)
 	{
-		this.inputs = Arrays.asList(input);
+		this.inputs = input;
 		this.outputs = Collections.singletonList(output);
 		this.ticks = ticks;
 		this.xp = experience;

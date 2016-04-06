@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import scala.actors.threadpool.Arrays;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public void addRecipe(ItemStack out, float xp, int ticks, ItemStack... in)
 	{
-		SmelterRecipe recipe = new SmelterRecipe(in, out, xp, ticks);
+		SmelterRecipe recipe = new SmelterRecipe(Arrays.asList(in), out, xp, ticks);
 
 		recipes.add(recipe);
 	}
@@ -52,7 +53,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			if (Util.isStackArrayEqual(notNullArray, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			if (Util.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[]{})))
 			{
 				return recipe.getOutputs().get(0);
 			}
@@ -80,9 +81,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			ItemStack[] noNull = Util.getStackArrayNoNull(in);
-
-			if (Util.isStackArrayEqual(noNull, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			if (Util.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
 			{
 				return recipe.getTicks();
 			}

@@ -1,17 +1,12 @@
 package DrShadow.TechXProject.tileEntities;
 
-import DrShadow.TechXProject.blocks.multiHighlight.IMultiHighlightProvider;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TileBlockBreaker extends ModTileEntity implements IMultiHighlightProvider
+public class TileBlockBreaker extends ModTileEntity
 {
 	private boolean isActive = false;
 	private EnumFacing rotation;
@@ -27,8 +22,6 @@ public class TileBlockBreaker extends ModTileEntity implements IMultiHighlightPr
 	@Override
 	public void update()
 	{
-		super.update();
-
 		isActive = worldObj.isBlockPowered(pos);
 
 		checkForInv();
@@ -79,22 +72,5 @@ public class TileBlockBreaker extends ModTileEntity implements IMultiHighlightPr
 				worldObj.sendBlockBreakProgress(0, pos, 0);
 			}
 		}
-	}
-
-	@Override
-	public List<AxisAlignedBB> getBoxes()
-	{
-		List<AxisAlignedBB> boxes = new ArrayList<>();
-
-		boxes.add(new AxisAlignedBB(0.2f, 0.2f, 0.2f, 0.8f, 0.8f, 0.8f));
-		boxes.add(new AxisAlignedBB(0f, 0f, 0f, 1f, 0.2f, 1f));
-
-		return boxes;
-	}
-
-	@Override
-	public List<AxisAlignedBB> getActiveBoxes()
-	{
-		return null;
 	}
 }

@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.util;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import org.lwjgl.util.vector.Vector2f;
 
 public class PartialTicksUtil
@@ -29,9 +29,9 @@ public class PartialTicksUtil
 		return (float) (prevPos + (pos - prevPos) * partialTicks);
 	}
 
-	public static Vec3 calculatePos(Entity entity)
+	public static Vec3d calculatePos(Entity entity)
 	{
-		return new Vec3(
+		return new Vec3d(
 				calculatePosX(entity),
 				calculatePosY(entity),
 				calculatePosZ(entity)
@@ -61,9 +61,9 @@ public class PartialTicksUtil
 		);
 	}
 
-	public static Vec3 calculatePos(Vec3 prevPos, Vec3 pos)
+	public static Vec3d calculatePos(Vec3d prevPos, Vec3d pos)
 	{
-		return new Vec3(
+		return new Vec3d(
 				calculatePos(prevPos.xCoord, pos.xCoord),
 				calculatePos(prevPos.yCoord, pos.yCoord),
 				calculatePos(prevPos.zCoord, pos.zCoord)

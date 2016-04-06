@@ -85,7 +85,7 @@ public class SmelterRecipeCategory extends BlankRecipeCategory
 
 			for (int i = 0; i < stacksArray.size(); i++)
 			{
-				guiItemStacks.set(i, stacksArray.get(i));
+				guiItemStacks.setFromRecipe(i, stacksArray.get(i));
 			}
 
 			guiItemStacks.setFromRecipe(3, recipe.getOutputs());

@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.lib;
 
+import DrShadow.TechXProject.init.InitBlocks;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 public class CreativeTabTech extends CreativeTabs
@@ -14,6 +14,6 @@ public class CreativeTabTech extends CreativeTabs
 	@Override
 	public Item getTabIconItem()
 	{
-		return Items.item_frame;
+		return Item.getItemFromBlock(InitBlocks.networkController);
 	}
 }

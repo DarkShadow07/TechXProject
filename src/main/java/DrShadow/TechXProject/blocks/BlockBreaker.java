@@ -1,5 +1,6 @@
 package DrShadow.TechXProject.blocks;
 
+import DrShadow.TechXProject.blocks.base.BlockContainerBase;
 import DrShadow.TechXProject.tileEntities.TileBlockBreaker;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;

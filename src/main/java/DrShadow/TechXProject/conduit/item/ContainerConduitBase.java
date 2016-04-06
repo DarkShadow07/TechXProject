@@ -5,6 +5,7 @@ import DrShadow.TechXProject.items.inventory.ItemInventory;
 import DrShadow.TechXProject.util.GhostItemUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -54,7 +55,7 @@ public class ContainerConduitBase extends Container
 	}
 
 	@Override
-	public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer player)
+	public ItemStack func_184996_a(int slotId, int dragType, ClickType mode, EntityPlayer player)
 	{
 		InventoryPlayer inventoryPlayer = player.inventory;
 		{
@@ -64,20 +65,20 @@ public class ContainerConduitBase extends Container
 
 				if (slot instanceof SlotGhostItem)
 				{
-					if ((mode == 0 || mode == 1) && (clickedButton == 0 || clickedButton == 1))
+					if ((dragType == 0 || dragType == 1) && (dragType == 0 || dragType == 1))
 					{
 						ItemStack slotStack = slot.getStack();
 						ItemStack heldStack = inventoryPlayer.getItemStack();
 
-						if (mode == 0)
+						if (dragType == 0)
 						{
-							if (clickedButton == 0)
+							if (dragType == 0)
 							{
 								if (heldStack != null)
 								{
 									if (!((SlotGhostItem) slot).canBeAccessed())
 									{
-										return super.slotClick(slotId, clickedButton, mode, player);
+										return super.func_184996_a(slotId, dragType, mode, player);
 									} else
 									{
 										ItemStack copyStack = heldStack.copy();
@@ -95,7 +96,7 @@ public class ContainerConduitBase extends Container
 				}
 			}
 		}
-		return super.slotClick(slotId, clickedButton, mode, player);
+		return super.func_184996_a(slotId, dragType, mode, player);
 	}
 
 	@Override

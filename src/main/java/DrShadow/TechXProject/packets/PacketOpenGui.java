@@ -1,7 +1,6 @@
 package DrShadow.TechXProject.packets;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.util.Logger;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
@@ -37,8 +36,6 @@ public class PacketOpenGui implements IMessage
 		@Override
 		public IMessage onMessage(PacketOpenGui message, MessageContext ctx)
 		{
-			Logger.info(message);
-
 			EntityPlayer player = ctx.getServerHandler().playerEntity;
 
 			FMLNetworkHandler.openGui(player, TechXProject.instance, message.id, player.getEntityWorld(), (int) player.posX, (int) player.posY, (int) player.posZ);

@@ -3,14 +3,9 @@ package DrShadow.TechXProject.blocks.conduit;
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
-import DrShadow.TechXProject.api.network.INetworkRelay;
-import DrShadow.TechXProject.blocks.BlockContainerBase;
+import DrShadow.TechXProject.blocks.base.BlockContainerBase;
 import DrShadow.TechXProject.conduit.network.controller.TileNetworkController;
-import DrShadow.TechXProject.fx.EntityReddustFXT;
-import DrShadow.TechXProject.items.ItemWrench;
 import DrShadow.TechXProject.util.ChatUtil;
-import DrShadow.TechXProject.util.Util;
-import DrShadow.TechXProject.util.VectorUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -18,7 +13,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -36,26 +35,18 @@ public class BlockNetworkController extends BlockContainerBase
 	{
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 
-		((INetworkContainer) worldIn.getTileEntity(pos)).searchRelays();
 		((INetworkContainer) worldIn.getTileEntity(pos)).searchNetwork();
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
-	{
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)	{
 		TileNetworkController tile = (TileNetworkController) worldIn.getTileEntity(pos);
-
-		if (playerIn.getHeldItem() != null && playerIn.getHeldItem().getItem() instanceof ItemWrench)
-		{
-			tile.searchNetwork();
-			tile.searchRelays();
-		}
 
 		if (playerIn.isSneaking() && tile.getNetwork().getElements().size() > 0)
 		{
-			List<IChatComponent> messages = new ArrayList<>();
-			messages.add(new ChatComponentText(String.format(ChatFormatting.GREEN + "Conduit Network at x: %s y: %s z: %s", tile.getController().getPos().getX(), tile.getController().getPos().getY(), tile.getController().getPos().getZ())));
-			messages.add(new ChatComponentText(ChatFormatting.BLUE + " Can Import from: "));
+			List<ITextComponent> messages = new ArrayList<>();
+			messages.add(new TextComponentString(String.format(ChatFormatting.GREEN + "Conduit Network at x: %s y: %s z: %s", tile.getController().getPos().getX(), tile.getController().getPos().getY(), tile.getController().getPos().getZ())));
+			messages.add(new TextComponentString(ChatFormatting.BLUE + " Can Import from: "));
 
 			for (INetworkElement input : tile.getNetwork().getInputContainers())
 			{
@@ -64,7 +55,7 @@ public class BlockNetworkController extends BlockContainerBase
 					String name = input.getAttachedTile().getBlockType().getLocalizedName();
 					String elementType = input instanceof IEnergyContainer ? "Energy" : "Item";
 
-					messages.add(new ChatComponentText(
+					messages.add(new TextComponentString(
 							"  " +
 									name +
 									" at x:" + ChatFormatting.GREEN + input.getTile().getPos().getX() + ChatFormatting.RESET +
@@ -74,7 +65,7 @@ public class BlockNetworkController extends BlockContainerBase
 				}
 			}
 
-			messages.add(new ChatComponentText(ChatFormatting.GOLD + " Can Export to: "));
+			messages.add(new TextComponentString(ChatFormatting.GOLD + " Can Export to: "));
 
 			for (INetworkElement output : tile.getNetwork().getOutputContainers())
 			{
@@ -83,7 +74,7 @@ public class BlockNetworkController extends BlockContainerBase
 					String name = output.getAttachedTile().getBlockType().getLocalizedName();
 					String elementType = output instanceof IEnergyContainer ? "Energy" : "Item";
 
-					messages.add(new ChatComponentText(
+					messages.add(new TextComponentString(
 							"  " +
 									name +
 									" at x:" + ChatFormatting.GREEN + output.getTile().getPos().getX() + ChatFormatting.RESET +
@@ -92,7 +83,7 @@ public class BlockNetworkController extends BlockContainerBase
 									ChatFormatting.RESET + " (" + elementType + ")"));
 				}
 			}
-			ChatUtil.sendNoSpamClient(messages.toArray(new IChatComponent[messages.size()]));
+			ChatUtil.sendNoSpamClient(messages.toArray(new ITextComponent[messages.size()]));
 		}
 
 		tile.drawLines();

@@ -6,7 +6,7 @@ import DrShadow.TechXProject.conduit.logic.condition.EnumConditionType;
 import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class TileLogicConduit extends ModTileEntity
 {

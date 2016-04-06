@@ -11,7 +11,7 @@ import java.io.File;
 
 public abstract class CommonProxy implements IProxy
 {
-	public static MinecraftServer getMinecraftServer()
+	public MinecraftServer getMinecraftServer()
 	{
 		return FMLCommonHandler.instance().getMinecraftServerInstance();
 	}

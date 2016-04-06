@@ -3,14 +3,14 @@
   "modid": "TechXProject",
   "name": "Tech 'X' Project'",
   "description": "Tech Mod based on many others",
-  "version": "0.00.0 Pre-Alpha",
+  "version": "1.9-0.00.0 Pre-Alpha",
   "mcversion": "${mcversion}",
-  "url": "NO-OP",
+  "url": "Soon!",
   "updateUrl": "",
   "authorList": ["DarkShadow07"],
   "credits": "",
   "logoFile": "/logo.png",
   "screenshots": [],
-  "dependencies": ["DarkLapis Core@[0.00.0 Pre-Alpha,)"]
+  "dependencies": []
 }
 ]
