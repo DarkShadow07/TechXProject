@@ -19,7 +19,7 @@ public class InitSounds
 
 	public static SoundEvent register(String name)
 	{
-		ResourceLocation loc = new ResourceLocation(Reference.MOD_ID + ":" + name);
+		ResourceLocation loc = new ResourceLocation(Reference.MOD_ID, name);
 		SoundEvent e = new SoundEvent(loc);
 
 		SoundEvent.soundEventRegistry.register(size, loc, e);

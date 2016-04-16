@@ -7,15 +7,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-@SideOnly(Side.CLIENT)
 public class GuiCapacitor extends GuiContainer
 {
 	private int top, left;
@@ -59,6 +56,20 @@ public class GuiCapacitor extends GuiContainer
 		List<String> energyInfo = new ArrayList<>();
 		energyInfo.add(NumberFormat.getInstance().format(capacitor.getEnergy()) + "/" + NumberFormat.getInstance().format(capacitor.getMaxEnergy()));
 		energyInfo.add(ChatFormatting.GRAY + "Max Transfer: " + NumberFormat.getInstance().format(capacitor.getMaxTransfer()) + " TF/t");
+
+		int send = (int) capacitor.tracker.getSendPerTick();
+		int receive = (int) capacitor.tracker.getReceivePerTick();
+
+		int transfer = receive - send;
+
+		if (transfer < 0)
+		{
+			energyInfo.add(ChatFormatting.RED + NumberFormat.getInstance().format(transfer));
+		}
+		if (transfer > 0)
+		{
+			energyInfo.add(ChatFormatting.GREEN + "+" + NumberFormat.getInstance().format(transfer));
+		}
 
 		if (energyBar.contains(mouseX, mouseY))
 		{

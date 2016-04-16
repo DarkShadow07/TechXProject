@@ -3,7 +3,7 @@ package DrShadow.TechXProject.events;
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
 import DrShadow.TechXProject.api.network.INetworkElement;
-import DrShadow.TechXProject.items.ItemWire.ItemWire;
+import DrShadow.TechXProject.items.itemWire.ItemWire;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.FontRenderer;

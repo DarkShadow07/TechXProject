@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 public class ContainerCapacitor extends Container
 {
@@ -27,5 +28,39 @@ public class ContainerCapacitor extends Container
 	public boolean canInteractWith(EntityPlayer playerIn)
 	{
 		return true;
+	}
+
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+	{
+		ItemStack itemstack = null;
+		Slot slot = this.inventorySlots.get(index);
+
+		if (slot != null && slot.getHasStack())
+		{
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			if (index < 3 * 9)
+			{
+				if (!this.mergeItemStack(itemstack1, 3 * 9, this.inventorySlots.size(), true))
+				{
+					return null;
+				}
+			} else if (!this.mergeItemStack(itemstack1, 0, 3 * 9, false))
+			{
+				return null;
+			}
+
+			if (itemstack1.stackSize == 0)
+			{
+				slot.putStack(null);
+			} else
+			{
+				slot.onSlotChanged();
+			}
+		}
+
+		return itemstack;
 	}
 }

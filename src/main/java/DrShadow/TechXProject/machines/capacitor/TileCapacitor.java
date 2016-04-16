@@ -1,15 +1,26 @@
 package DrShadow.TechXProject.machines.capacitor;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.tileEntities.TileEnergyContainer;
+import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.util.energy.EnergyTracker;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class TileCapacitor extends TileEnergyContainer
 {
+	public EnergyTracker tracker = new EnergyTracker();
+
 	public TileCapacitor(int maxEnergy, int maxTransfer)
 	{
 		super(maxEnergy, maxTransfer);
+	}
+
+	@Override
+	public void update()
+	{
+		tracker.tickStart(getEnergy());
+
+		tracker.tickEnd(getEnergy());
 	}
 
 	protected void doTransferForSides()
@@ -49,5 +60,27 @@ public class TileCapacitor extends TileEnergyContainer
 				}
 			}
 		}
+	}
+
+	@Override
+	public int addEnergy(int amount, boolean test)
+	{
+		if (!test)
+		{
+			tracker.receiveEnergy(amount);
+		}
+
+		return super.addEnergy(amount, test);
+	}
+
+	@Override
+	public boolean subtractEnergy(int energy, boolean test)
+	{
+		if (!test)
+		{
+			tracker.sendEnergy(energy);
+		}
+
+		return super.subtractEnergy(energy, test);
 	}
 }

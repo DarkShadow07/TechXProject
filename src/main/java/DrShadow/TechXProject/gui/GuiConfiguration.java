@@ -116,7 +116,7 @@ public class GuiConfiguration extends GuiScreen
 
 		searchBar.mouseClicked(mouseX, mouseY, mouseButton);
 
-		handler.filteredElements.forEach(element -> element.onMouseClick(mouseX, mouseY, mouseButton));
+		ConfigurationHandler.filteredElements.forEach(element -> element.onMouseClick(mouseX, mouseY, mouseButton));
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class GuiConfiguration extends GuiScreen
 			updateFilteredElements();
 		}
 
-		handler.filteredElements.forEach(element -> element.onKeyTyped(typedChar, keyCode));
+		ConfigurationHandler.filteredElements.forEach(element -> element.onKeyTyped(typedChar, keyCode));
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class GuiConfiguration extends GuiScreen
 		{
 			try
 			{
-				ConfigurationElement element = handler.filteredElements.get(i + offset);
+				ConfigurationElement element = ConfigurationHandler.filteredElements.get(i + offset);
 
 				if (element != null)
 				{
@@ -165,7 +165,7 @@ public class GuiConfiguration extends GuiScreen
 
 		if (isCtrlKeyDown())
 		{
-			handler.filteredElements.forEach(element -> element.renderWithMousePos(mouseX, mouseY));
+			ConfigurationHandler.filteredElements.forEach(element -> element.renderWithMousePos(mouseX, mouseY));
 		}
 
 		maxElements = resolution.getScaledHeight() / 18;
@@ -173,20 +173,20 @@ public class GuiConfiguration extends GuiScreen
 
 	public void updateFilteredElements()
 	{
-		handler.filteredElements.clear();
+		ConfigurationHandler.filteredElements.clear();
 
 		if (searchBar.getText() != "")
 		{
-			for (ConfigurationElement element : handler.elements)
+			for (ConfigurationElement element : ConfigurationHandler.elements)
 			{
-				if (element.getName().toLowerCase().contains(searchBar.getText().toLowerCase()) && !handler.filteredElements.contains(element))
+				if (element.getName().toLowerCase().contains(searchBar.getText().toLowerCase()) && !ConfigurationHandler.filteredElements.contains(element))
 				{
-					handler.filteredElements.add(element);
+					ConfigurationHandler.filteredElements.add(element);
 				}
 			}
 		} else
 		{
-			handler.filteredElements.addAll(handler.elements);
+			ConfigurationHandler.filteredElements.addAll(ConfigurationHandler.elements);
 		}
 	}
 }

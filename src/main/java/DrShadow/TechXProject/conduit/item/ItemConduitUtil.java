@@ -168,26 +168,16 @@ public class ItemConduitUtil
 
 	public static List<INetworkElement> getOutputs(List<INetworkElement> elements)
 	{
-		List<INetworkElement> result = new ArrayList<>();
+		elements.removeIf(iNetworkElement -> !iNetworkElement.isOutput() || !iNetworkElement.hasInventory());
 
-		for (INetworkElement element : elements)
-		{
-			if (element.isOutput()) result.add(element);
-		}
-
-		return result;
+		return elements;
 	}
 
 	public static List<INetworkElement> getInputs(List<INetworkElement> elements)
 	{
-		List<INetworkElement> result = new ArrayList<>();
+		elements.removeIf(iNetworkElement -> !iNetworkElement.isInput());
 
-		for (INetworkElement element : elements)
-		{
-			if (element.isInput()) result.add(element);
-		}
-
-		return result;
+		return elements;
 	}
 
 	public static int getStackSlot(IInventory inventory, ItemStack stack)

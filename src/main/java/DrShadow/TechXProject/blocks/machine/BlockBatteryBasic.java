@@ -25,7 +25,7 @@ public class BlockBatteryBasic extends BlockContainerBase
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		GuiHandler.openGui(playerIn, TechXProject.instance, Guis.BATTERY, pos);
+		GuiHandler.openGui(playerIn, TechXProject.instance, Guis.CAPACITOR, pos);
 
 		return true;
 	}

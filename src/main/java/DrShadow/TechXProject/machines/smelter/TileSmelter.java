@@ -1,8 +1,8 @@
 package DrShadow.TechXProject.machines.smelter;
 
+import DrShadow.TechXProject.api.energy.TileEnergyContainer;
 import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
-import DrShadow.TechXProject.tileEntities.TileEnergyContainer;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

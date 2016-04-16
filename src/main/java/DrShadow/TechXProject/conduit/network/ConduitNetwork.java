@@ -26,6 +26,8 @@ public class ConduitNetwork
 	public void addToNetwork(INetworkElement toAdd)
 	{
 		networkElements.add(toAdd);
+
+		toAdd.setNetwork(this);
 	}
 
 	public void removeFromNetwork(INetworkElement toRemove)

@@ -4,19 +4,18 @@ import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterBase;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterMod;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterName;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterOreDict;
-import DrShadow.TechXProject.items.ItemDustBase;
-import DrShadow.TechXProject.items.ItemQuarryCard;
-import DrShadow.TechXProject.items.ItemTeleporterCard;
-import DrShadow.TechXProject.items.ItemWire.ItemWire;
-import DrShadow.TechXProject.items.ItemWrench;
+import DrShadow.TechXProject.items.*;
+import DrShadow.TechXProject.items.energy.ItemMagnet;
+import DrShadow.TechXProject.items.itemWire.ItemWire;
 import DrShadow.TechXProject.reference.Reference;
-import DrShadow.TechXProject.util.Util;
-import net.minecraft.client.renderer.RenderItem;
+import DrShadow.TechXProject.util.Logger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class InitItems
@@ -28,6 +27,9 @@ public class InitItems
 	public static Item filterOreDict;
 	public static Item quarryCard;
 	public static Item teleporterCard;
+	public static Item machineRecipe;
+
+	public static Item magnet;
 
 	public static Item dustIron;
 	public static Item dustGold;
@@ -51,6 +53,9 @@ public class InitItems
 		wrench = registerItem(new ItemWrench(), "wrench");
 		quarryCard = registerItem(new ItemQuarryCard(), "quarryCard");
 		teleporterCard = registerItem(new ItemTeleporterCard(), "teleporterCard");
+		machineRecipe = registerItem(new ItemMachineRecipe(), "machineRecipe");
+
+		magnet = registerItem(new ItemMagnet(), "magnet");
 
 		filterBase = registerItem(new ItemFilterBase(), "filterBase");
 		filterMod = registerItem(new ItemFilterMod(), "filterMod");
@@ -65,24 +70,6 @@ public class InitItems
 		dustStone = registerItem(new ItemDustBase(), "dustStone");
 
 		wire = registerItem(new ItemWire(), "wire");
-	}
-
-	public static void initRenders()
-	{
-		registerRender(wrench);
-		registerRender(filterBase);
-		registerRender(filterMod);
-		registerRender(filterName);
-		registerRender(filterOreDict);
-		registerRender(dustIron);
-		registerRender(dustGold);
-		registerRender(dustCoal);
-		registerRender(dustDiamond);
-		registerRender(dustEmerald);
-		registerRender(dustStone);
-		registerRender(wire);
-		registerRender(quarryCard);
-		registerRender(teleporterCard);
 	}
 
 	public static void initRecipes()
@@ -106,12 +93,11 @@ public class InitItems
 		item.setRegistryName(name);
 		item.setUnlocalizedName(Reference.MOD_ID.toLowerCase() + "." + name);
 		GameRegistry.registerItem(item);
-		return item;
-	}
 
-	public static void registerRender(Item item)
-	{
-		RenderItem renderItem = Util.minecraft().getRenderItem();
-		renderItem.getItemModelMesher().register(item, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(Reference.MOD_ID.length() + 1), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(18), "inventory"));
+
+		Logger.info("Registered Item " + item.getUnlocalizedName() + "!");
+
+		return item;
 	}
 }

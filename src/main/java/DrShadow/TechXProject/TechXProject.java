@@ -2,6 +2,7 @@ package DrShadow.TechXProject;
 
 import DrShadow.TechXProject.configuration.ConfigurationHandler;
 import DrShadow.TechXProject.gui.GuiHandler;
+import DrShadow.TechXProject.init.InitChestLoot;
 import DrShadow.TechXProject.lib.CreativeTabTech;
 import DrShadow.TechXProject.proxy.CommonProxy;
 import DrShadow.TechXProject.reference.Reference;
@@ -50,6 +51,8 @@ public class TechXProject
 		proxy.registerEvents();
 
 		proxy.init();
+
+		InitChestLoot.init();
 	}
 
 	@EventHandler

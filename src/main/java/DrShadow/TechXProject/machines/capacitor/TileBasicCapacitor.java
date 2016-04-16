@@ -19,6 +19,8 @@ public class TileBasicCapacitor extends TileCapacitor
 	@Override
 	public void update()
 	{
+		super.update();
+
 		doTransferForSides();
 	}
 }

@@ -1,26 +1,30 @@
 ######## Blocks ########
-tile.techxproject.blockItemConduit.name=Item Node
-tile.techxproject.blockEnergyConduit.name=Energy Node
-tile.techxproject.blockConduitLogic.name=Logic Controller
+tile.techxproject.itemConduit.name=Item Node
+tile.techxproject.energyConduit.name=Energy Node
+tile.techxproject.conduitLogic.name=Logic Controller
+tile.techxproject.energyMonitor.name=Energy Monitor
+tile.techxproject.recipeStamper.name=Machine Recipe Stamper
 
-tile.techxproject.blockController.name=Node Controller
-tile.techxproject.blockRelay.name=Network Relay
+tile.techxproject.controller.name=Node Controller
+tile.techxproject.relay.name=Network Relay
 
 tile.techxproject.basicCapacitor.name=Basic Energy Capacitor
-tile.techxproject.blockSmelter.name=Energetic Smelter
-tile.techxproject.blockCrusher.name=Energetic Crusher
-tile.techxproject.blockQuarry.name=Energetic Quarry
-tile.techxproject.blockTeleporter.name=Multidimensional Teleporter
-tile.techxproject.blockStorageUnit.name=Storage Unit
-tile.techxproject.blockSolarPanel.name=Solar Panel
+tile.techxproject.smelter.name=Energetic Smelter
+tile.techxproject.crusher.name=Energetic Crusher
+tile.techxproject.quarry.name=Energetic Quarry
+tile.techxproject.teleporter.name=Multidimensional Teleporter
+tile.techxproject.storageUnit.name=Storage Unit
+tile.techxproject.solarPanel.name=Solar Panel
 
-tile.techxproject.blockBreaker.name=Block Breaker
+tile.techxproject.breaker.name=Block Breaker
 
 ######## Items #######
 item.techxproject.wrench.name=Wrench
 item.techxproject.wire.name=Wire
 item.techxproject.quarryCard.name=Blank Quarry Card
 item.techxproject.teleporterCard.name=Blank Teleport Card
+item.techxproject.magnet.name=Energised Magnet
+item.techxproject.machineRecipe.name=Empty Machine Recipe
 
 item.techxproject.filterName.name=Item Filter (Name)
 item.techxproject.filterBase.name=Item Filter (Basic)
@@ -36,6 +40,8 @@ item.techxproject.dustStone.name=Pulverised Stone
 
 ######## Gui ########
 techxproject.container.conduitLogic=Logic Controller
+
+techxproject.gui.assembler=Machine Assembler
 
 techxproject.gui.jei.smelter=Energetic Smelting
 techxproject.gui.jei.crusher=Crushing

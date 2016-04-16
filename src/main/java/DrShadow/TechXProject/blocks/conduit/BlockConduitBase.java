@@ -52,7 +52,7 @@ public class BlockConduitBase extends BlockContainerBase implements IVariantProv
 	{
 		float pixel = 1f / 16f;
 
-		switch (EnumFacing.getFront(getMetaFromState(worldIn.getBlockState(pos))))
+		switch (EnumFacing.getFront(getMetaFromState(state)))
 		{
 			case UP:
 				return new AxisAlignedBB(4 * pixel, 10 * pixel, 4 * pixel, 12 * pixel, 1, 12 * pixel);
@@ -72,7 +72,7 @@ public class BlockConduitBase extends BlockContainerBase implements IVariantProv
 	}
 
 	@Override
-	public boolean isFullyOpaque(IBlockState state)
+	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}

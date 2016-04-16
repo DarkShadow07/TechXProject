@@ -2,14 +2,14 @@
   "teleport": {
     "category": "block",
     "sounds": [
-      "telepad/teleport1",
-      "telepad/teleport2"
+      "techxproject:telepad/teleport1",
+      "techxproject:telepad/teleport2"
     ]
   },
   "telepad_active": {
     "category": "block",
     "sounds": [
-      "telepad/telepad_active"
+      "techxproject:telepad/telepad_active"
     ]
   }
 }

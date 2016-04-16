@@ -341,6 +341,22 @@ public class Util
 
 	public static EntityPlayer player() {return Minecraft.getMinecraft().thePlayer;}
 
+	public static class ItemStackUtil
+	{
+		public static ItemStack stack(ItemStack in, ItemStack toStack)
+		{
+			ItemStack result;
+
+			if (in != null)
+			{
+				result = in.copy();
+				result.stackSize += toStack.stackSize;
+			} else result = toStack.copy();
+
+			return result;
+		}
+	}
+
 	public static class GL
 	{
 		public static void startOpaqueRendering()

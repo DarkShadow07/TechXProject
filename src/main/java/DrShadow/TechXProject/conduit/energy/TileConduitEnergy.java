@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.conduit.energy;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.tileEntities.TileEnergyContainer;
+import DrShadow.TechXProject.api.energy.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
@@ -23,7 +23,7 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 
 	public TileConduitEnergy()
 	{
-		super(32768, 32768);
+		super(32768, 1024);
 	}
 
 	@Override
@@ -67,11 +67,9 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 			if (isInput())
 			{
 				transferFromContainer();
-			}
 
-			transferForOthers();
-
-			if (isOutput())
+				transferForOthers();
+			} else if (isOutput())
 			{
 				transferToContainer();
 			}
@@ -80,7 +78,7 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 
 	public void transferToContainer()
 	{
-		if (energyContainer.canInsert(EnumFacing.getFront(getBlockMetadata()).getOpposite()))
+		if (energyContainer.canInsert(EnumFacing.getFront(getBlockMetadata())))
 		{
 			int transfer = Math.min(getMaxTransfer(), energyContainer.getMaxTransfer());
 
@@ -114,15 +112,16 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 		{
 			for (INetworkElement output : outputs)
 			{
-				if (output instanceof IEnergyContainer && output.hasInventory() && hasInventory() && output.isActive() && isActive())
+				if (output instanceof IEnergyContainer && output.isActive() && isActive())
 				{
 					IEnergyContainer outputEnergy = (IEnergyContainer) output;
 
-					int transfer = Math.max(getMaxTransfer(), ((IEnergyContainer) output).getMaxTransfer());
+					int transfer = Math.min(getMaxTransfer(), ((IEnergyContainer) output).getMaxTransfer());
 
-					subtractEnergy(outputEnergy.addEnergy(transfer, false), false);
-
-					continue;
+					if (subtractEnergy(outputEnergy.addEnergy(transfer, true), true))
+					{
+						subtractEnergy(outputEnergy.addEnergy(transfer, false), false);
+					}
 				}
 			}
 		}

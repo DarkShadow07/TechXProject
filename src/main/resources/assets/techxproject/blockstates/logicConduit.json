@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "techxproject:logicConduit"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

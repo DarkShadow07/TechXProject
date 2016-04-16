@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.machines.quarry;
 
+import DrShadow.TechXProject.api.energy.TileEnergyContainer;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketUpdateEnergy;
-import DrShadow.TechXProject.tileEntities.TileEnergyContainer;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;

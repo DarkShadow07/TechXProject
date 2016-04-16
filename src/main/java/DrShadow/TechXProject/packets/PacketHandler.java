@@ -20,6 +20,7 @@ public class PacketHandler
 		INSTANCE.registerMessage(PacketUpdateCondition.Handler.class, PacketUpdateCondition.class, 2, Side.CLIENT);
 		INSTANCE.registerMessage(PacketUpdateEnergy.Handler.class, PacketUpdateEnergy.class, 3, Side.CLIENT);
 		INSTANCE.registerMessage(PacketTeleportEntity.Handler.class, PacketTeleportEntity.class, 4, Side.SERVER);
+		INSTANCE.registerMessage(PacketUpdateRecipe.Handler.class, PacketUpdateRecipe.class, 5, Side.SERVER);
 	}
 
 	public static void sendToAllAround(IMessage message, TileEntity te, int range)

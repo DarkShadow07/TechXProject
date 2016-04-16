@@ -39,7 +39,8 @@ public class BlockNetworkController extends BlockContainerBase
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)	{
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+	{
 		TileNetworkController tile = (TileNetworkController) worldIn.getTileEntity(pos);
 
 		if (playerIn.isSneaking() && tile.getNetwork().getElements().size() > 0)

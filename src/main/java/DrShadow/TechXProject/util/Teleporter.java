@@ -32,7 +32,11 @@ public class Teleporter
 
 					if (!player.worldObj.isRemote)
 					{
-						player.changeDimension(destination.getDimension()); //TODO: UNTESTED
+						if (player.dimension != destination.getDimension())
+						{
+							player.changeDimension(destination.getDimension());
+						}
+
 						player.setPositionAndUpdate(destination.xCoord + 0.5, destination.yCoord + 0.5, destination.zCoord + 0.5);
 						player.worldObj.updateEntityWithOptionalForce(player, false);
 						player.playerNetServerHandler.sendPacket(new SPacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));

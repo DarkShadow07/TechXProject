@@ -1,8 +1,8 @@
 package DrShadow.TechXProject.machines.crusher;
 
+import DrShadow.TechXProject.api.energy.TileEnergyContainer;
 import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
-import DrShadow.TechXProject.tileEntities.TileEnergyContainer;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -80,7 +80,7 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 				{
 					ItemStack resultStack = result.get(i);
 
-					setInventorySlotContents(getAvailableSlot(resultStack), stack(inventory[getAvailableSlot(resultStack)], resultStack));
+					setInventorySlotContents(getAvailableSlot(resultStack), Util.ItemStackUtil.stack(inventory[getAvailableSlot(resultStack)], resultStack));
 				}
 			}
 		} else
@@ -128,19 +128,6 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 				}
 			}
 		}
-	}
-
-	public ItemStack stack(ItemStack in, ItemStack toStack)
-	{
-		ItemStack result;
-
-		if (in != null)
-		{
-			result = in.copy();
-			result.stackSize += toStack.stackSize;
-		} else result = toStack.copy();
-
-		return result;
 	}
 
 	public int getProgress()

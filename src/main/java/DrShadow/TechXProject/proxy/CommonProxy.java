@@ -3,6 +3,7 @@ package DrShadow.TechXProject.proxy;
 import DrShadow.TechXProject.init.InitBlocks;
 import DrShadow.TechXProject.init.InitItems;
 import DrShadow.TechXProject.packets.PacketHandler;
+import DrShadow.TechXProject.util.InventoryRenderHelper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -17,6 +18,11 @@ public abstract class CommonProxy implements IProxy
 	}
 
 	public World getClientWorld()
+	{
+		return null;
+	}
+
+	public InventoryRenderHelper getInventoryRenderHelper()
 	{
 		return null;
 	}

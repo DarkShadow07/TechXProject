@@ -1,4 +1,4 @@
-package DrShadow.TechXProject.items.ItemWire;
+package DrShadow.TechXProject.items.itemWire;
 
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.api.network.INetworkRelay;
@@ -34,11 +34,7 @@ public class ItemWire extends ItemBase
 		BlockPos pos = getPos(stack);
 		if (pos != null)
 		{
-			tooltip.add("Linking from: x" +
-					ChatFormatting.GREEN + pos.getX() + ChatFormatting.GRAY +
-					" y" + ChatFormatting.GREEN + pos.getY() + ChatFormatting.GRAY +
-					" z" + ChatFormatting.GREEN + pos.getZ() + ChatFormatting.GRAY
-			);
+			tooltip.add("Linking from: " + pos.getX() + pos.getY() + pos.getZ());
 		}
 	}
 
