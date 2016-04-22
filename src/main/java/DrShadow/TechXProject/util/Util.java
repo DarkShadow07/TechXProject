@@ -38,7 +38,7 @@ public class Util
 		return result.stream().allMatch(stack -> stack != null && stack.stackSize > 0);
 	}
 
-	public static boolean isAnyNull(ItemStack[] stacks)
+	public static boolean isAnyNull(ItemStack... stacks)
 	{
 		for (ItemStack stack : stacks)
 		{

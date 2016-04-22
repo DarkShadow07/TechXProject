@@ -5,12 +5,14 @@ import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -31,7 +33,7 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 
 	public TileCrusher()
 	{
-		super(100000, 100);
+		super(100000, 500);
 
 		inventory = new ItemStack[6];
 
@@ -53,6 +55,14 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 	@Override
 	public void update()
 	{
+		if (working)
+		{
+			int r = worldObj.rand.nextInt(100);
+
+			if (r < 15)
+				worldObj.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.block_furnace_fire_crackle, SoundCategory.BLOCKS, 0.5f, worldObj.rand.nextFloat() * 0.2f, false);
+		}
+
 		transferItems();
 
 		if (canWork() && getEnergy() >= drainTick)
@@ -65,23 +75,26 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 
 			if (ticks < targetTicks) ticks += 1;
 
+			List<ItemStack> result = CrusherRecipeHandler.instance.getCrushingResult(inventory[0]);
+
 			if (ticks >= targetTicks)
 			{
-				List<ItemStack> result = CrusherRecipeHandler.instance.getCrushingResult(inventory[0]);
-
-				decrStackSize(0, 1);
-
 				working = false;
 
 				ticks = 0;
 				targetTicks = 1;
 
-				for (int i = 0; i < result.size(); i++)
+				for (ItemStack resultStack : result)
 				{
-					ItemStack resultStack = result.get(i);
+					if (getAvailableSlot(resultStack) < 0)
+					{
+						return;
+					}
 
 					setInventorySlotContents(getAvailableSlot(resultStack), Util.ItemStackUtil.stack(inventory[getAvailableSlot(resultStack)], resultStack));
 				}
+
+				decrStackSize(0, 1);
 			}
 		} else
 		{
@@ -93,9 +106,9 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 
 	private int getAvailableSlot(ItemStack stack)
 	{
-		for (int i = 1; i <= 4; i++)
+		for (int i = 1; i < 5; i++)
 		{
-			if (inventory[i] == null || ItemConduitUtil.canStack(inventory[i], stack))
+			if (ItemConduitUtil.canStack(stack, inventory[i]))
 			{
 				return i;
 			}
@@ -144,7 +157,7 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 		List<ItemStack> result = CrusherRecipeHandler.instance.getCrushingResult(inventory[0]);
 
 		if (result == null) return false;
-		if (Util.isAnyNull(new ItemStack[]{inventory[1], inventory[2], inventory[3], inventory[4]})) return true;
+		if (Util.isAnyNull(inventory[1], inventory[2], inventory[3], inventory[4])) return true;
 
 		for (int i = 0; i < result.size(); i++)
 		{
@@ -156,8 +169,11 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 
 					stackSize = inventory[k].stackSize + result.get(i).stackSize;
 
-					ret = stackSize <= getInventoryStackLimit() && stackSize <= inventory[i].getMaxStackSize();
-				} else ret = false;
+					return stackSize <= inventory[i].getMaxStackSize();
+				} else
+				{
+					ret = false;
+				}
 			}
 		}
 

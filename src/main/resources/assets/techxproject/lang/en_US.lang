@@ -4,6 +4,7 @@ tile.techxproject.energyConduit.name=Energy Node
 tile.techxproject.conduitLogic.name=Logic Controller
 tile.techxproject.energyMonitor.name=Energy Monitor
 tile.techxproject.recipeStamper.name=Machine Recipe Stamper
+tile.techxproject.machineAssembler.name=Machine Assembler
 
 tile.techxproject.controller.name=Node Controller
 tile.techxproject.relay.name=Network Relay
@@ -15,6 +16,12 @@ tile.techxproject.quarry.name=Energetic Quarry
 tile.techxproject.teleporter.name=Multidimensional Teleporter
 tile.techxproject.storageUnit.name=Storage Unit
 tile.techxproject.solarPanel.name=Solar Panel
+tile.techxproject.recipeChest.name=Machine Recipe Chest
+
+tile.techxproject.copperBlock.name=Copper Block
+tile.techxproject.leadBlock.name=Lead Block
+tile.techxproject.nickelBlock.name=Nickel Block
+tile.techxproject.tinBlock.name=Tin Block
 
 tile.techxproject.breaker.name=Block Breaker
 
@@ -31,12 +38,27 @@ item.techxproject.filterBase.name=Item Filter (Basic)
 item.techxproject.filterMod.name=Item Filter (Mod)
 item.techxproject.filterOreDict.name=Item Filter (OreDictionary)
 
-item.techxproject.dustIron.name=Iron Dust
-item.techxproject.dustGold.name=Gold Dust
-item.techxproject.dustCoal.name=Coal Dust
-item.techxproject.dustDiamond.name=Diamond Dust
-item.techxproject.dustEmerald.name=Emerald Dust
-item.techxproject.dustStone.name=Pulverised Stone
+item.techxproject.copperNugget.name=Copper Nugget
+item.techxproject.leadNugget.name=Lead Nugget
+item.techxproject.nickelNugget.name=Nickel Nugget
+item.techxproject.tinNugget.name=Tin Nugget
+
+item.techxproject.copperIngot.name=Copper Ingot
+item.techxproject.leadIngot.name=Lead Ingot
+item.techxproject.nickelIngot.name=Nickel Ingot
+item.techxproject.tinIngot.name=Tin Ingot
+
+item.techxproject.copperDust.name=Pulverised Copper
+item.techxproject.leadDust.name=Pulverised Lead
+item.techxproject.nickelDust.name=Pulverised Nickel
+item.techxproject.tinDust.name=Pulverised Tin
+item.techxproject.ironDust.name=Pulverised Iron
+item.techxproject.goldDust.name=Pulverised Gold
+item.techxproject.coalDust.name=Coal Dust
+item.techxproject.stoneDust.name=Pulverised Stone
+item.techxproject.diamondDust.name=Diamond Dust
+item.techxproject.emeraldDust.name=Emerald Dust
+
 
 ######## Gui ########
 techxproject.container.conduitLogic=Logic Controller

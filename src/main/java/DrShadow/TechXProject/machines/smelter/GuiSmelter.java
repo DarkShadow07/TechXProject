@@ -1,8 +1,8 @@
 package DrShadow.TechXProject.machines.smelter;
 
+import DrShadow.TechXProject.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +12,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiSmelter extends GuiContainer
+public class GuiSmelter extends GuiContainerBase
 {
 	private int top, left;
 

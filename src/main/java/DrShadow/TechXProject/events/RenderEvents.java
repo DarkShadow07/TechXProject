@@ -4,10 +4,14 @@ import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.items.itemWire.ItemWire;
+import DrShadow.TechXProject.util.Logger;
+import DrShadow.TechXProject.util.RenderUtil;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
@@ -15,7 +19,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.text.NumberFormat;
@@ -57,28 +63,6 @@ public class RenderEvents
 						String generating = "Generating " + NumberFormat.getInstance().format(generator.getGenerating()) + " TF/t";
 
 						fontRenderer.drawStringWithShadow(generating, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 20, Color.ORANGE.getRGB());
-					}
-				}
-			}
-
-			if (Util.player() != null)
-			{
-				EntityPlayer player = Util.player();
-
-				if (player.getHeldItem(EnumHand.MAIN_HAND) != null && player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemWire)
-				{
-					ItemWire wire = (ItemWire) player.getHeldItem(EnumHand.MAIN_HAND).getItem();
-
-					BlockPos pos = wire.getPos(player.getHeldItem(EnumHand.MAIN_HAND));
-
-					String link = "Linking from: x" +
-							pos.getX() +
-							" y" + pos.getY() +
-							" z" + pos.getZ();
-
-					if (!pos.equals(BlockPos.ORIGIN))
-					{
-						Util.minecraft().fontRendererObj.drawStringWithShadow(link, resolution.getScaledWidth() / 2 - Util.minecraft().fontRendererObj.getStringWidth(link) / 2, resolution.getScaledHeight() - 60, Color.ORANGE.hashCode());
 					}
 				}
 			}

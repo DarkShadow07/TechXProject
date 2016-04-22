@@ -49,10 +49,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 			ItemStack[] newInv = inventory;
 			newInv = ArrayUtils.removeAll(newInv, 0, 1);
 
-			if (Util.isStackArrayEqual(newInv, type.inputs) && ItemConduitUtil.canStack(inventory[1], type.out) || inventory[1] == null)
-			{
-				working = true;
-			} else working = false;
+			working = Util.isStackArrayEqual(newInv, type.inputs) && (ItemConduitUtil.canStack(inventory[1], type.out) || inventory[1] == null);
 
 			if (progress >= 500)
 			{
@@ -65,7 +62,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 					decrStackSize(i, 1);
 				}
 			}
-		}
+		} else working = false;
 	}
 
 	@Override

@@ -20,6 +20,9 @@ import DrShadow.TechXProject.machines.energyMonitor.TileEnergyMonitor;
 import DrShadow.TechXProject.machines.machineAssembler.ContainerMachineAssembler;
 import DrShadow.TechXProject.machines.machineAssembler.GuiMachineAssembler;
 import DrShadow.TechXProject.machines.machineAssembler.TileMachineAssembler;
+import DrShadow.TechXProject.machines.recipeChest.ContainerRecipeChest;
+import DrShadow.TechXProject.machines.recipeChest.GuiRecipeChest;
+import DrShadow.TechXProject.machines.recipeChest.TileRecipeChest;
 import DrShadow.TechXProject.machines.recipeStamper.ContainerRecipeStamper;
 import DrShadow.TechXProject.machines.recipeStamper.GuiRecipeStamper;
 import DrShadow.TechXProject.machines.recipeStamper.TileRecipeStamper;
@@ -90,6 +93,8 @@ public class GuiHandler implements IGuiHandler
 				return new ContainerRecipeStamper(player.inventory, (TileRecipeStamper) tile);
 			case Guis.MACHINE_ASSEMBLER:
 				return new ContainerMachineAssembler(player.inventory, (TileMachineAssembler) tile);
+			case Guis.RECIPE_CHEST:
+				return new ContainerRecipeChest(player.inventory, (TileRecipeChest) tile);
 		}
 
 		return null;
@@ -125,6 +130,8 @@ public class GuiHandler implements IGuiHandler
 				return new GuiRecipeStamper(player.inventory, (TileRecipeStamper) tile);
 			case Guis.MACHINE_ASSEMBLER:
 				return new GuiMachineAssembler(player.inventory, (TileMachineAssembler) tile);
+			case Guis.RECIPE_CHEST:
+				return new GuiRecipeChest(player.inventory, (TileRecipeChest) tile);
 		}
 
 		return null;

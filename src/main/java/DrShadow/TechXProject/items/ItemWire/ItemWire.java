@@ -8,12 +8,14 @@ import DrShadow.TechXProject.util.ChatUtil;
 import DrShadow.TechXProject.util.NBTUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -34,7 +36,7 @@ public class ItemWire extends ItemBase
 		BlockPos pos = getPos(stack);
 		if (pos != null)
 		{
-			tooltip.add("Linking from: " + pos.getX() + pos.getY() + pos.getZ());
+			tooltip.add("Linking from: " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
 		}
 	}
 
@@ -66,6 +68,8 @@ public class ItemWire extends ItemBase
 		{
 			setPos(stack, pos);
 			ChatUtil.sendNoSpamClient(ChatFormatting.GREEN + "Starting Connection");
+
+			worldIn.playSound(null, pos, SoundEvents.entity_itemframe_place, SoundCategory.BLOCKS, 0.5f, 0.7f);
 		} else
 		{
 			stack.stackSize -= 1;
@@ -76,6 +80,8 @@ public class ItemWire extends ItemBase
 			NetworkUtil.link(nbtTile, tile);
 
 			setPos(stack, BlockPos.ORIGIN);
+
+			worldIn.playSound(null, pos, SoundEvents.entity_itemframe_place, SoundCategory.BLOCKS, 0.5f, 0.7f);
 		}
 
 		return EnumActionResult.SUCCESS;

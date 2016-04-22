@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.machines.recipeStamper;
 
+import DrShadow.TechXProject.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +12,7 @@ import org.lwjgl.input.Mouse;
 import java.awt.*;
 import java.io.IOException;
 
-public class GuiRecipeStamper extends GuiContainer
+public class GuiRecipeStamper extends GuiContainerBase
 {
 	private int top, left;
 

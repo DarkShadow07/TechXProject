@@ -31,12 +31,16 @@ public abstract class CommonProxy implements IProxy
 	public void registerBlocks()
 	{
 		InitBlocks.init();
+
+		InitBlocks.initRecipes();
 	}
 
 	@Override
 	public void registerItems()
 	{
 		InitItems.init();
+
+		InitItems.initRecipes();
 	}
 
 	@Override

@@ -1,8 +1,8 @@
 package DrShadow.TechXProject.machines.crusher;
 
+import DrShadow.TechXProject.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class GuiCrusher extends GuiContainer
+public class GuiCrusher extends GuiContainerBase
 {
 	private int top, left;
 

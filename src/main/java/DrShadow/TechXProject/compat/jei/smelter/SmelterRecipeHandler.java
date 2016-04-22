@@ -28,8 +28,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public void init()
 	{
-		addRecipe(new ItemStack(Items.apple, 2), 0.5f, 100, new ItemStack(Items.apple), new ItemStack(Items.wheat_seeds));
-		addRecipe(new ItemStack(Items.ender_pearl, 2), 0.1f, 360, new ItemStack(Items.gunpowder), new ItemStack(Items.ghast_tear), new ItemStack(Items.ender_pearl));
+
 
 		for (Map.Entry<ItemStack, ItemStack> vanillaRecipesEntry : FurnaceRecipes.instance().getSmeltingList().entrySet())
 		{

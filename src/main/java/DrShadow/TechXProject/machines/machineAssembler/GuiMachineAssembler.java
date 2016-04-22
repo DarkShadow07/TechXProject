@@ -43,7 +43,7 @@ public class GuiMachineAssembler extends GuiContainerBase
 		left = (this.width - this.xSize) / 2;
 		top = (this.height - this.ySize) / 2;
 
-		infoButton = new GuiButtonExpand(this, 0, 128, 64, Color.green, "Machine Assembler", "This machine is used for Assembling other Machines, it needs a Machine Recipe crafted on a Recipe Stamper");
+		infoButton = new GuiButtonExpand(this, 0, 122, 74, Color.green, new ResourceLocation(Reference.MOD_ID + ":textures/items/wrench.png"), 0, 0, "Machine Assembler", "This machine is used for Assembling other Machines, it needs a Machine Recipe crafted on a Recipe Stamper that is not consumed");
 
 		buttonList.add(infoButton);
 	}

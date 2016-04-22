@@ -1,13 +1,13 @@
 package DrShadow.TechXProject.machines.storageUnit;
 
+import DrShadow.TechXProject.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiStorageUnit extends GuiContainer
+public class GuiStorageUnit extends GuiContainerBase
 {
 	private int top, left;
 

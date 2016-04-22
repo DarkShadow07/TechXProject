@@ -44,7 +44,7 @@ public class ItemMachineRecipe extends ItemBase
 			{
 				tooltip.add(" " + recipe.stackSize + "x " + ChatFormatting.WHITE + recipe.getItem().getItemStackDisplayName(recipe));
 			}
-		} else tooltip.add("Use on a " + InitBlocks.recipeStamper.getLocalizedName() + " to set the Recipe");
+		} else tooltip.add("Use on a " + InitBlocks.recipeStamper.block.getLocalizedName() + " to set the Recipe");
 	}
 
 	public void setType(ItemStack stack, int type)

@@ -78,7 +78,7 @@ public class ContainerRecipeStamper extends Container
 		@Override
 		public boolean isItemValid(ItemStack stack)
 		{
-			return stack.getItem().equals(InitItems.machineRecipe);
+			return stack.getItem().equals(InitItems.machineRecipe.item);
 		}
 	}
 }

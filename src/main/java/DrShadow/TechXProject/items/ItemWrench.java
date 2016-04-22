@@ -2,6 +2,7 @@ package DrShadow.TechXProject.items;
 
 import DrShadow.TechXProject.api.IWrench;
 import DrShadow.TechXProject.conduit.logic.TileLogicConduit;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -22,6 +23,10 @@ public class ItemWrench extends ItemBase implements IWrench
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
+		Block block = worldIn.getBlockState(pos).getBlock();
+
+		if (block != null && block.rotateBlock(worldIn, pos, facing)) return EnumActionResult.SUCCESS;
+
 		if (!playerIn.isSneaking())
 		{
 			if (tilePos == null)

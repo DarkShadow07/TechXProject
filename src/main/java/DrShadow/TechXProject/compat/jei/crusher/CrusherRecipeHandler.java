@@ -2,6 +2,7 @@ package DrShadow.TechXProject.compat.jei.crusher;
 
 import DrShadow.TechXProject.compat.jei.CategoryUid;
 import DrShadow.TechXProject.init.InitItems;
+import DrShadow.TechXProject.metal.EnumMetals;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Blocks;
@@ -30,14 +31,14 @@ public class CrusherRecipeHandler implements IRecipeHandler<CrusherRecipe>
 		addRecipe(new ItemStack(Blocks.stone), 100, new ItemStack(Blocks.cobblestone));
 		addRecipe(new ItemStack(Blocks.cobblestone), 80, new ItemStack(Blocks.gravel));
 		addRecipe(new ItemStack(Blocks.gravel), 60, new ItemStack(Blocks.sand));
-		addRecipe(new ItemStack(Blocks.lapis_ore), 200, new ItemStack(Items.dye, 6, 4), new ItemStack(InitItems.dustStone));
-		addRecipe(new ItemStack(Blocks.redstone_ore), 210, new ItemStack(Items.redstone, 8), new ItemStack(InitItems.dustStone));
+		addRecipe(new ItemStack(Blocks.lapis_ore), 200, new ItemStack(Items.dye, 6, 4), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
+		addRecipe(new ItemStack(Blocks.redstone_ore), 210, new ItemStack(Items.redstone, 8), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
 		addRecipe(new ItemStack(Blocks.quartz_ore), 220, new ItemStack(Items.quartz, 4), new ItemStack(Blocks.netherrack));
-		addRecipe(new ItemStack(Blocks.iron_ore), 160, new ItemStack(InitItems.dustIron, 2), new ItemStack(InitItems.dustStone));
-		addRecipe(new ItemStack(Blocks.gold_ore), 180, new ItemStack(InitItems.dustGold, 2), new ItemStack(InitItems.dustStone));
-		addRecipe(new ItemStack(Blocks.coal_ore), 120, new ItemStack(InitItems.dustCoal, 4), new ItemStack(InitItems.dustStone));
-		addRecipe(new ItemStack(Blocks.diamond_ore), 240, new ItemStack(InitItems.dustDiamond, 2), new ItemStack(InitItems.dustStone));
-		addRecipe(new ItemStack(Blocks.emerald_ore), 280, new ItemStack(InitItems.dustEmerald, 2), new ItemStack(InitItems.dustStone));
+		addRecipe(new ItemStack(Blocks.iron_ore), 160, new ItemStack(InitItems.dust.item, 2, EnumMetals.IRON.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
+		addRecipe(new ItemStack(Blocks.gold_ore), 180, new ItemStack(InitItems.dust.item, 2, EnumMetals.GOLD.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
+		addRecipe(new ItemStack(Blocks.coal_ore), 120, new ItemStack(InitItems.dust.item, 4, EnumMetals.COAL.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
+		addRecipe(new ItemStack(Blocks.diamond_ore), 240, new ItemStack(InitItems.dust.item, 2, EnumMetals.DIAMOND.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
+		addRecipe(new ItemStack(Blocks.emerald_ore), 280, new ItemStack(InitItems.dust.item, 2, EnumMetals.EMERALD.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
 	}
 
 	public void addRecipe(ItemStack in, int ticks, ItemStack... out)

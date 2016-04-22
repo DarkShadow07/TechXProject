@@ -13,15 +13,10 @@ import java.awt.*;
 public class GuiButtonExpand extends GuiButton
 {
 	protected boolean expanded = false, expanding = false, fullExpandedW = false, fullExpandedH = false;
-
-	private int x, y, w, h, u, v;
-
-	private GuiContainerBase guiIn;
-
-	private String[] data;
-
 	protected Color color;
-
+	private int x, y, w, h, u, v;
+	private GuiContainerBase guiIn;
+	private String[] data;
 	private ResourceLocation texture;
 
 	public GuiButtonExpand(GuiContainerBase guiIn, int buttonId, int w, int h, Color color, String... data)
@@ -44,7 +39,27 @@ public class GuiButtonExpand extends GuiButton
 		this.v = v;
 
 		this.texture = texture;
+	}
 
+	public GuiButtonExpand(int x, int y, int buttonId, int w, int h, Color color, @Nullable ResourceLocation texture, @Nullable int u, @Nullable int v, String... data)
+	{
+		super(buttonId, x, y, 24, 24, "");
+
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+		this.color = color;
+		this.data = data;
+		this.u = u;
+		this.v = v;
+
+		this.texture = texture;
+	}
+
+	public GuiButtonExpand(int x, int y, int buttonId, int w, int h, Color color, String... data)
+	{
+		this(x, y, buttonId, w, h, color, null, 0, 0, data);
 	}
 
 	public void setInfo(String... info)
@@ -57,13 +72,16 @@ public class GuiButtonExpand extends GuiButton
 	{
 		if (this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height)
 		{
-			for (GuiButton button : guiIn.getButtons())
+			if (guiIn != null)
 			{
-				if (button instanceof GuiButtonExpand && button != this)
+				for (GuiButton button : guiIn.getButtons())
 				{
-					GuiButtonExpand buttonExpand = (GuiButtonExpand) button;
+					if (button instanceof GuiButtonExpand && button != this)
+					{
+						GuiButtonExpand buttonExpand = (GuiButtonExpand) button;
 
-					buttonExpand.expanded = false;
+						buttonExpand.expanded = false;
+					}
 				}
 			}
 
@@ -83,7 +101,7 @@ public class GuiButtonExpand extends GuiButton
 
 		int value = 2;
 
-		float ratio = w / h + 0.000001f;
+		float ratio = width / height + 0.000001f;
 
 		if (expanded)
 		{
@@ -94,7 +112,7 @@ public class GuiButtonExpand extends GuiButton
 
 			if (!fullExpandedH)
 			{
-				height += value;
+				height += value * ratio;
 			}
 
 			width = Util.keepInBounds(width, 24, w);
@@ -108,7 +126,7 @@ public class GuiButtonExpand extends GuiButton
 
 			if (height > 24)
 			{
-				height -= value;
+				height -= value * ratio;
 			}
 
 			width = Util.keepInBounds(width, 24, w);
@@ -119,10 +137,10 @@ public class GuiButtonExpand extends GuiButton
 		{
 			drawCustomButton(xPosition, yPosition, width, height, color);
 
-			if (texture != null)
+			if (texture != null && !expanding)
 			{
 				mc.getTextureManager().bindTexture(texture);
-				drawTexturedModalRect(x + 4, y + 4, 0, 0, 16, 16);
+				drawScaledCustomSizeModalRect(x + 3, y + 4, u, v, 16, 16, 16, 16, 16, 16);
 			}
 		}
 
@@ -136,15 +154,18 @@ public class GuiButtonExpand extends GuiButton
 			mc.fontRendererObj.drawSplitString(data[1], x + 2, y + 16, w, Color.black.getRGB());
 		}
 
-		for (GuiButton button : guiIn.getButtons())
+		if (guiIn != null)
 		{
-			if (button instanceof GuiButtonExpand && button != this && expanding)
+			for (GuiButton button : guiIn.getButtons())
 			{
-				GuiButtonExpand expand = (GuiButtonExpand) button;
-
-				if (expand.id >= id)
+				if (button instanceof GuiButtonExpand && button != this && expanding)
 				{
-					expand.yPosition = expand.y + height - 24;
+					GuiButtonExpand expand = (GuiButtonExpand) button;
+
+					if (expand.id >= id)
+					{
+						expand.yPosition = expand.y + height - 24;
+					}
 				}
 			}
 		}

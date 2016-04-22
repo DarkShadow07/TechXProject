@@ -1,12 +1,12 @@
 package DrShadow.TechXProject.machines.teleporter;
 
+import DrShadow.TechXProject.gui.GuiContainerBase;
 import DrShadow.TechXProject.items.ItemTeleporterCard;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketTeleportEntity;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +16,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.awt.*;
 import java.io.IOException;
 
-public class GuiTeleporter extends GuiContainer
+public class GuiTeleporter extends GuiContainerBase
 {
 	private int top, left;
 

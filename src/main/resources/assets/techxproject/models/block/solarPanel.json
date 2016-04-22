@@ -1,6 +1,164 @@
 {
-	"parent": "block/cube_all",
-	"textures": {
-		"all": "techxproject:blocks/solarPanel"
-	}
+    "textures": {
+        "particle": "techxproject:blocks/solarPanel",
+        "solarPanel": "techxproject:blocks/solarPanel"
+    },
+    "elements": [
+        {
+            "name": "base",
+            "from": [ 0.0, 0.0, 0.0 ], 
+            "to": [ 16.0, 1.4999999776482582, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 0.4999999776482582 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 0.4999999776482582 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 0.4999999776482582 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 0.4999999776482582 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "1",
+            "from": [ 0.0, 1.5000000074505806, 0.0 ], 
+            "to": [ 16.0, 2.0, 1.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 0.4999999925494194 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 0.4999999925494194 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 1.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 16.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "2",
+            "from": [ 0.0, 1.4999999925494194, 1.0 ], 
+            "to": [ 1.0, 1.9999999850988388, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 15.0, 0.4999999925494194 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 15.0, 0.4999999925494194 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 15.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "3",
+            "from": [ 1.0, 1.5000000074505806, 15.0 ], 
+            "to": [ 16.0, 2.0, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 0.0, 16.0, 0.4999999925494194 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 15.0, 0.4999999925494194 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 15.0, 1.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 15.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "4",
+            "from": [ 15.0, 1.5000000074505806, 1.0 ], 
+            "to": [ 16.0, 2.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 14.0, 0.4999999925494194 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 0.4999999925494194 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 14.0, 0.4999999925494194 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 14.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 14.0 ] }
+            }
+        },
+        {
+            "name": "5",
+            "from": [ 1.0, 1.0, 2.0 ], 
+            "to": [ 15.0, 2.0, 3.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 2.0, 15.0, 3.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 2.0, 15.0, 3.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 2.0, 15.0, 3.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 2.0, 15.0, 3.0 ] }
+            }
+        },
+        {
+            "name": "6",
+            "from": [ 1.0, 1.0, 4.0 ], 
+            "to": [ 15.0, 2.0, 5.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 4.0, 15.0, 5.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 4.0, 15.0, 5.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 4.0, 15.0, 5.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 4.0, 15.0, 5.0 ] }
+            }
+        },
+        {
+            "name": "7",
+            "from": [ 1.0, 1.0, 6.0 ], 
+            "to": [ 15.0, 2.0, 7.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 6.0, 15.0, 7.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 6.0, 15.0, 7.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 6.0, 15.0, 7.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 6.0, 15.0, 7.0 ] }
+            }
+        },
+        {
+            "name": "8",
+            "from": [ 1.0, 1.0, 8.0 ], 
+            "to": [ 15.0, 2.0, 9.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 8.0, 15.0, 9.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 8.0, 15.0, 9.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 8.0, 15.0, 9.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 8.0, 15.0, 9.0 ] }
+            }
+        },
+        {
+            "name": "9",
+            "from": [ 1.0, 1.0, 10.0 ], 
+            "to": [ 15.0, 2.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 10.0, 15.0, 11.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 10.0, 15.0, 11.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 10.0, 15.0, 11.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 10.0, 15.0, 11.0 ] }
+            }
+        },
+        {
+            "name": "10",
+            "from": [ 1.0, 1.0, 12.0 ], 
+            "to": [ 15.0, 2.0, 13.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 12.0, 15.0, 13.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 12.0, 15.0, 13.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 12.0, 15.0, 13.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 12.0, 15.0, 13.0 ] }
+            }
+        },
+        {
+            "name": "11",
+            "from": [ 1.0, 1.0, 14.0 ], 
+            "to": [ 15.0, 2.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#solarPanel", "uv": [ 1.0, 14.0, 15.0, 15.0 ] },
+                "east": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#solarPanel", "uv": [ 1.0, 14.0, 15.0, 15.0 ] },
+                "west": { "texture": "#solarPanel", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#solarPanel", "uv": [ 1.0, 14.0, 15.0, 15.0 ] },
+                "down": { "texture": "#solarPanel", "uv": [ 1.0, 14.0, 15.0, 15.0 ] }
+            }
+        }
+    ]
 }

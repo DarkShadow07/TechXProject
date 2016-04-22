@@ -1,8 +1,8 @@
 package DrShadow.TechXProject.machines.capacitor;
 
+import DrShadow.TechXProject.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,7 +13,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiCapacitor extends GuiContainer
+public class GuiCapacitor extends GuiContainerBase
 {
 	private int top, left;
 

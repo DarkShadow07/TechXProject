@@ -1,12 +1,12 @@
 package DrShadow.TechXProject.blocks.base;
 
 import DrShadow.TechXProject.TechXProject;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockContainerBase extends BlockContainer
+public class BlockContainerBase extends BlockBase implements ITileEntityProvider
 {
 	public BlockContainerBase(Material material)
 	{

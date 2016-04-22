@@ -13,4 +13,5 @@ public class Guis
 	public static final int ENERGY_MONITOR = 8;
 	public static final int RECIPE_STAMPER = 9;
 	public static final int MACHINE_ASSEMBLER = 10;
+	public static final int RECIPE_CHEST = 11;
 }

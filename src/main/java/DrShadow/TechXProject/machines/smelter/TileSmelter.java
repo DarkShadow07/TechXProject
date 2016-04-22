@@ -5,12 +5,14 @@ import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -53,6 +55,14 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	@Override
 	public void update()
 	{
+		if (working)
+		{
+			int r = worldObj.rand.nextInt(100);
+
+			if (r < 10)
+				worldObj.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.block_furnace_fire_crackle, SoundCategory.BLOCKS, 0.5f, worldObj.rand.nextFloat() * 0.2f, false);
+		}
+
 		transferItems();
 
 		if (canWork() && getEnergy() >= drainTick)

@@ -88,12 +88,12 @@ public class ItemConduitUtil
 			return true;
 		}
 
-		if (stack1.isItemStackDamageable() ^ stack2.isItemStackDamageable())
+		if (stack1.isItemStackDamageable() || stack2.isItemStackDamageable())
 		{
 			return false;
 		}
 
-		return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage() && ItemStack.areItemStackTagsEqual(stack1, stack2);
+		return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage() && ItemStack.areItemStackTagsEqual(stack1, stack2) && stack1.stackSize + stack2.stackSize <= stack2.getMaxStackSize();
 	}
 
 	public static ItemStack[] stack(ItemStack stack1, ItemStack stack2)
