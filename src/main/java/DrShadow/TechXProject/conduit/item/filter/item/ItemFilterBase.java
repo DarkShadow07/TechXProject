@@ -15,6 +15,11 @@ public class ItemFilterBase extends ItemBase implements IItemStackFilter
 {
 	private List<ItemStack> filteredItems = new ArrayList<>();
 
+	public ItemFilterBase()
+	{
+		setMaxStackSize(1);
+	}
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{

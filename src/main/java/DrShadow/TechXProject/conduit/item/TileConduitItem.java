@@ -2,6 +2,7 @@ package DrShadow.TechXProject.conduit.item;
 
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.conduit.item.filter.EnumFilterType;
 import DrShadow.TechXProject.conduit.item.filter.IFilterElement;
 import DrShadow.TechXProject.conduit.item.filter.IItemStackFilter;
@@ -10,7 +11,6 @@ import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterMod;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterName;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterOreDict;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -18,9 +18,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class TileConduitItem extends ModTileEntity implements INetworkElement, I
 		{
 			for (INetworkElement output : outputs)
 			{
-				if (output.hasInventory() && hasInventory() && !getTransferItem().isEmpty() && output.isActive() && isActive())
+				if (output instanceof IFilterElement && output.hasInventory() && hasInventory() && !getTransferItem().isEmpty() && output.isActive() && isActive())
 				{
 					for (int i = 0; i < getTransferItem().size(); i++)
 					{
@@ -137,7 +137,6 @@ public class TileConduitItem extends ModTileEntity implements INetworkElement, I
 		net.minecraft.tileentity.TileEntity tile = (net.minecraft.tileentity.TileEntity) inventoryTo;
 		World world = tile.getWorld();
 		BlockPos pos = tile.getPos();
-		world.markBlockForUpdate(pos);
 
 		return testStack;
 	}
@@ -437,9 +436,6 @@ public class TileConduitItem extends ModTileEntity implements INetworkElement, I
 	{
 		if (itemInventory[index] != null)
 		{
-			if (!worldObj.isRemote)
-				worldObj.markBlockForUpdate(this.pos);
-
 			if (itemInventory[index].stackSize <= count)
 			{
 				ItemStack itemStack = itemInventory[index];
@@ -478,8 +474,6 @@ public class TileConduitItem extends ModTileEntity implements INetworkElement, I
 		if (stack != null && stack.stackSize > getInventoryStackLimit())
 			stack.stackSize = getInventoryStackLimit();
 		markDirty();
-		if (!worldObj.isRemote)
-			worldObj.markBlockForUpdate(this.pos);
 	}
 
 	@Override
@@ -549,7 +543,7 @@ public class TileConduitItem extends ModTileEntity implements INetworkElement, I
 	}
 
 	@Override
-	public IChatComponent getDisplayName()
+	public ITextComponent getDisplayName()
 	{
 		return null;
 	}

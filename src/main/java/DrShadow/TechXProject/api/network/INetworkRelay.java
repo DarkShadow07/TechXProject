@@ -6,7 +6,7 @@ public interface INetworkRelay
 {
 	List<INetworkElement> getElements();
 
-	void drawArea();
+	void addElement(INetworkElement element);
 
 	void drawLines();
 }

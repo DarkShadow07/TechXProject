@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.util;
 
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import java.util.IllegalFormatException;
 
@@ -19,7 +19,8 @@ public class Lang
 		{
 			s = prefix + s;
 		}
-		String ret = StatCollector.translateToLocal(s);
+
+		String ret = I18n.translateToLocal(s);
 		try
 		{
 			return String.format(ret, (Object[]) args);

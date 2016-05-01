@@ -1,27 +1,90 @@
 ######## Blocks ########
-tile.techxproject.blockConduitInput.name=Item Input Node
-tile.techxproject.blockConduitOutput.name=Item Output Node
-tile.techxproject.blockTeslaTower.name=Tesla Coil Tower
-tile.techxproject.blockBreaker.name=Block Breaker
-tile.techxproject.blockController.name=Node Controller
-tile.techxproject.blockConduitLogic.name=Logic Controller
-tile.techxproject.blockEnergyConduitInput.name=Energy Input Node
-tile.techxproject.blockEnergyConduitOutput.name=Energy Output Node
-tile.techxproject.basicBattery.name=Energy Battery (Basic)
-tile.techxproject.blockSmelter.name=Energetic Smelter
-tile.techxproject.blockRelay.name=Network Relay
+tile.techxproject.itemConduit.name=Item Node
+tile.techxproject.energyConduit.name=Energy Node
+tile.techxproject.conduitLogic.name=Logic Controller
+tile.techxproject.energyMonitor.name=Energy Monitor
+tile.techxproject.recipeStamper.name=Machine Recipe Stamper
+tile.techxproject.machineAssembler.name=Machine Assembler
+
+tile.techxproject.controller.name=Node Controller
+tile.techxproject.relay.name=Network Relay
+
+tile.techxproject.basicCapacitor.name=Basic Energy Capacitor
+tile.techxproject.smelter.name=Energetic Smelter
+tile.techxproject.crusher.name=Energetic Crusher
+tile.techxproject.quarry.name=Energetic Quarry
+tile.techxproject.farmer.name=Energetic Farmer
+tile.techxproject.teleporter.name=Multidimensional Teleporter
+tile.techxproject.storageUnit.name=Storage Unit
+tile.techxproject.solarPanel.name=Solar Panel
+tile.techxproject.recipeChest.name=Machine Recipe Chest
+
+tile.techxproject.copperOre.name=Copper Ore
+tile.techxproject.leadOre.name=Lead Ore
+tile.techxproject.nickelOre.name=Nickel Ore
+tile.techxproject.tinOre.name=Tin Ore
+
+tile.techxproject.copperBlock.name=Copper Block
+tile.techxproject.leadBlock.name=Lead Block
+tile.techxproject.nickelBlock.name=Nickel Block
+tile.techxproject.tinBlock.name=Tin Block
+
+tile.techxproject.breaker.name=Block Breaker
 
 ######## Items #######
 item.techxproject.wrench.name=Wrench
+item.techxproject.wire.name=Wire
+item.techxproject.quarryCard.name=Blank Quarry Card
+item.techxproject.teleporterCard.name=Blank Teleport Card
+item.techxproject.magnet.name=Energised Magnet
+item.techxproject.guide.name=Tech Guide
+item.techxproject.machineRecipe.name=Empty Machine Recipe
+
 item.techxproject.filterName.name=Item Filter (Name)
 item.techxproject.filterBase.name=Item Filter (Basic)
 item.techxproject.filterMod.name=Item Filter (Mod)
 item.techxproject.filterOreDict.name=Item Filter (OreDictionary)
 
+item.techxproject.copperNugget.name=Copper Nugget
+item.techxproject.leadNugget.name=Lead Nugget
+item.techxproject.nickelNugget.name=Nickel Nugget
+item.techxproject.tinNugget.name=Tin Nugget
+
+item.techxproject.copperIngot.name=Copper Ingot
+item.techxproject.leadIngot.name=Lead Ingot
+item.techxproject.nickelIngot.name=Nickel Ingot
+item.techxproject.tinIngot.name=Tin Ingot
+
+item.techxproject.copperDust.name=Pulverised Copper
+item.techxproject.leadDust.name=Pulverised Lead
+item.techxproject.nickelDust.name=Pulverised Nickel
+item.techxproject.tinDust.name=Pulverised Tin
+item.techxproject.ironDust.name=Pulverised Iron
+item.techxproject.goldDust.name=Pulverised Gold
+item.techxproject.coalDust.name=Coal Dust
+item.techxproject.stoneDust.name=Pulverised Stone
+item.techxproject.diamondDust.name=Diamond Dust
+item.techxproject.emeraldDust.name=Emerald Dust
+
+
 ######## Gui ########
 techxproject.container.conduitLogic=Logic Controller
 
+techxproject.gui.assembler=Machine Assembler
+techxproject.gui.recipeChest=Machine Recipe Chest
+techxproject.gui.farmer=Energetic Farmer
+
 techxproject.gui.jei.smelter=Energetic Smelting
+techxproject.gui.jei.crusher=Crushing
+
+######## Guide ########
+guide.entry.Basic Mechanics=Use Machines to create Machines, use Machines to create energy to run Machines. Simple.
+guide.entry.Ores=Added Ore Generation to the world, Ores can spawn in any Dimension.
+guide.entry.Ore Processing=You can directly smelt the Ores or can Double them (Visit ore Doubling). You can use the Energetic Smelter to Triple the Speed of Smelting.
+guide.entry.Ore Doubling=Use the Energetic Crusher, to carefully extract the Mineral from the Ore, double the amount. Then Smelt it.
+guide.entry.Machine Assembling=For Assembling Machines you'll need a Machine, the Machine Assembler. It takes Machine Recipes stamped in the Recipe Stamper that wont be consumed, it uses them as a Template for the Machine Assembling
+guide.entry.Generating Energy=You have many Energy Generating Blocks, the way to start is to use Solar Panels.
+guide.entry.Storing Energy=Use a Capacitor to Store Energy, use a Potato to Waste Energy.
 
 ######## Conditions ########
 techxproject.condition.NO_CONDITION=No Condition (Always Enabled)
@@ -37,6 +100,7 @@ techxproject.condition.INVENTORY_SPACE=Space in Inventory
 
 ######## Creative Tabs ########
 itemGroup.techTab=Tech 'X' Project
+itemGroup.techTabOres=Tech 'X' Project Ores
 
 ######## Configuration ########
 techxproject.config.reset=Reset all to Default

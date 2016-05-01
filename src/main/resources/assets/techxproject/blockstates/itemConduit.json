@@ -1,0 +1,27 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "techxproject:itemConduit",
+		"transform" : "forge:default-block"
+	},
+	"variants": {
+		"render":{
+	        "defaults":{
+                "model":"techxproject:itemConduit", "transform":{
+	                "thirdperson":{ "rotation":[ {"x":10}, {"y":-45}, {"z":170} ], "translation":[ 0, 0.09375, -0.171875 ], "scale":[ 0.375, 0.375, 0.375 ] },
+	                "firstperson":{ "rotation":[ {"x":0},  {"y":90},  {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] },
+	                "gui":{         "rotation":[ {"x":0},  {"y":-90}, {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] },
+	                "fixed":{       "rotation":[ {"x":0},  {"y":0},   {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] }
+	            }
+	        }
+	    },
+		"normal": [{}],
+		"inventory": [{}],
+		"rotation=down":    { "model": "techxproject:itemConduit"},
+        "rotation=up":  { "model": "techxproject:itemConduit", "x": 180 },
+        "rotation=west":  { "model": "techxproject:itemConduit", "x": 90, "y": 90 },
+        "rotation=east":  { "model": "techxproject:itemConduit", "x": 90, "y": 270 },
+        "rotation=north": { "model": "techxproject:itemConduit", "x": 90, "y": 180 },
+        "rotation=south": { "model": "techxproject:itemConduit", "x": 90 }
+	}
+}

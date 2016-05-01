@@ -3,12 +3,15 @@ package DrShadow.TechXProject.util;
 import DrShadow.TechXProject.reference.Reference;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 public class Logger
 {
+	private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(Reference.MOD_NAME);
+
 	public static void log(Level logLevel, Object object)
 	{
-		FMLLog.log(Reference.MOD_NAME, logLevel, String.valueOf(object));
+		logger.log(logLevel, "[" + Reference.MOD_NAME + "] " + String.valueOf(object));
 	}
 
 	public static void all(Object object)

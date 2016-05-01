@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.File;
 
-public abstract class CommonProxy implements IProxy
+public class CommonProxy implements IProxy
 {
-	public static MinecraftServer getMinecraftServer()
+	public MinecraftServer getMinecraftServer()
 	{
 		return FMLCommonHandler.instance().getMinecraftServerInstance();
 	}
@@ -22,15 +22,37 @@ public abstract class CommonProxy implements IProxy
 	}
 
 	@Override
+	public void preInit()
+	{
+
+	}
+
+	@Override
+	public void init()
+	{
+
+	}
+
+	@Override
+	public void postInit()
+	{
+
+	}
+
+	@Override
 	public void registerBlocks()
 	{
 		InitBlocks.init();
+
+		InitBlocks.initRecipes();
 	}
 
 	@Override
 	public void registerItems()
 	{
 		InitItems.init();
+
+		InitItems.initRecipes();
 	}
 
 	@Override

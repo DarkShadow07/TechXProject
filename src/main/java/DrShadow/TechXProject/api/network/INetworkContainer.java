@@ -1,6 +1,7 @@
 package DrShadow.TechXProject.api.network;
 
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
+import net.minecraft.tileentity.TileEntity;
 
 public interface INetworkContainer
 {
@@ -18,11 +19,9 @@ public interface INetworkContainer
 
 	void updateNetwork();
 
-	net.minecraft.tileentity.TileEntity getController();
+	TileEntity getController();
 
 	void initNetwork();
-
-	void drawArea();
 
 	void drawLines();
 }

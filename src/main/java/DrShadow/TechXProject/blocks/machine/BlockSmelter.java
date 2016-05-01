@@ -1,25 +1,76 @@
 package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.blocks.BlockContainerBase;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.blocks.base.BlockRotatingBase;
+import DrShadow.TechXProject.blocks.base.IRenderer;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.smelter.TileSmelter;
+import DrShadow.TechXProject.reference.Guis;
+import DrShadow.TechXProject.reference.Reference;
+import DrShadow.TechXProject.util.Logger;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 
-public class BlockSmelter extends BlockContainerBase
+public class BlockSmelter extends BlockRotatingBase implements IRenderer, ITileEntityProvider
 {
+	public static PropertyBool working = PropertyBool.create("working");
+
 	public BlockSmelter()
 	{
-		super(Material.iron);
+		super(Material.iron, 3.5f, 2, "pickaxe");
+
+		setDefaultState(blockState.getBaseState().withProperty(working, false));
+	}
+
+	@Override
+	public void registerModel()
+	{
+		ModelLoader.setCustomStateMapper(this, new DefaultStateMapper()
+		{
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+			{
+				return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), getPropertyString(state.getProperties()));
+			}
+		});
+
+		for (int i = 0; i < EnumFacing.HORIZONTALS.length; i++)
+		{
+			Logger.info("Registered Custom Model Block " + getUnlocalizedName() + " with Variant " + i + "!");
+
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), "inventory"));
+		}
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	{
+		TileSmelter tile = (TileSmelter) worldIn.getTileEntity(pos);
+
+		return getDefaultState().withProperty(working, tile.working).withProperty(facing, EnumFacing.getFront(getMetaFromState(state)));
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState()
+	{
+		return new BlockStateContainer(this, facing, working);
 	}
 
 	@Override
@@ -37,7 +88,7 @@ public class BlockSmelter extends BlockContainerBase
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		GuiHandler.openGui(playerIn, TechXProject.instance, Guis.SMELTER, pos);
 

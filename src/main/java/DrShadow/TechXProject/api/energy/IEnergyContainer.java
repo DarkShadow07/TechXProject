@@ -16,6 +16,8 @@ public interface IEnergyContainer
 
 	int getMaxTransfer();
 
+	void setMaxTransfer(int transfer);
+
 	boolean canInsert(EnumFacing side);
 
 	boolean canExtract(EnumFacing side);

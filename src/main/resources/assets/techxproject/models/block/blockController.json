@@ -1,6 +1,0 @@
-{
-	"parent": "techxproject:block/baseBlock",
-	"textures": {
-		"all": "techxproject:blocks/blockController"
-	}
-}

@@ -1,32 +1,30 @@
 package DrShadow.TechXProject.proxy;
 
-import DrShadow.TechXProject.events.HighlightEvent;
-import DrShadow.TechXProject.events.KeyInputEvent;
-import DrShadow.TechXProject.events.RenderEvents;
-import DrShadow.TechXProject.events.WorldEvents;
-import DrShadow.TechXProject.init.InitBlocks;
-import DrShadow.TechXProject.init.InitItems;
-import DrShadow.TechXProject.keyBindings.KeyBindings;
+import DrShadow.TechXProject.client.keyBindings.KeyBindings;
+import DrShadow.TechXProject.events.*;
+import DrShadow.TechXProject.world.WorldGen;
+import DrShadow.TechXProject.world.WorldTickHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ClientProxy extends CommonProxy
 {
-	@Override
-	public World getClientWorld()
-	{
-		return Minecraft.getMinecraft().theWorld;
-	}
-
 	@Override
 	public void registerEvents()
 	{
 		MinecraftForge.EVENT_BUS.register(new RenderEvents());
 		MinecraftForge.EVENT_BUS.register(new WorldEvents());
 		MinecraftForge.EVENT_BUS.register(new KeyInputEvent());
-		MinecraftForge.EVENT_BUS.register(new HighlightEvent());
+		MinecraftForge.EVENT_BUS.register(new TickEvents());
+		MinecraftForge.EVENT_BUS.register(new AnvilEvent());
+
+		GameRegistry.registerWorldGenerator(new WorldGen(), 10);
+		MinecraftForge.EVENT_BUS.register(new WorldGen());
+
+		MinecraftForge.EVENT_BUS.register(new WorldTickHandler());
 	}
 
 	@Override
@@ -38,8 +36,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void init()
 	{
-		InitBlocks.initRenders();
-		InitItems.initRenders();
+
 	}
 
 	@Override
@@ -52,5 +49,11 @@ public class ClientProxy extends CommonProxy
 	public void registerKeyBindings()
 	{
 		ClientRegistry.registerKeyBinding(KeyBindings.configuration);
+	}
+
+	@Override
+	public World getClientWorld()
+	{
+		return Minecraft.getMinecraft().theWorld;
 	}
 }

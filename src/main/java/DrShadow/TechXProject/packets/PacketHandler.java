@@ -17,12 +17,15 @@ public class PacketHandler
 	{
 		INSTANCE.registerMessage(ChatUtil.PacketNoSpamChat.Handler.class, ChatUtil.PacketNoSpamChat.class, 0, Side.CLIENT);
 		INSTANCE.registerMessage(PacketOpenGui.Handler.class, PacketOpenGui.class, 1, Side.SERVER);
-		INSTANCE.registerMessage(PacketUpdateCondition.Handler.class, PacketUpdateCondition.class, 2, Side.SERVER);
+		INSTANCE.registerMessage(PacketUpdateCondition.Handler.class, PacketUpdateCondition.class, 2, Side.CLIENT);
+		INSTANCE.registerMessage(PacketUpdateEnergy.Handler.class, PacketUpdateEnergy.class, 3, Side.CLIENT);
+		INSTANCE.registerMessage(PacketTeleportEntity.Handler.class, PacketTeleportEntity.class, 4, Side.SERVER);
+		INSTANCE.registerMessage(PacketUpdateRecipe.Handler.class, PacketUpdateRecipe.class, 5, Side.SERVER);
 	}
 
 	public static void sendToAllAround(IMessage message, TileEntity te, int range)
 	{
-		INSTANCE.sendToAllAround(message, new NetworkRegistry.TargetPoint(te.getWorld().provider.getDimensionId(), te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), range));
+		INSTANCE.sendToAllAround(message, new NetworkRegistry.TargetPoint(te.getWorld().provider.getDimension(), te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), range));
 	}
 
 	public static void sendToAllAround(IMessage message, TileEntity te)

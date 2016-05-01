@@ -88,12 +88,12 @@ public class ItemConduitUtil
 			return true;
 		}
 
-		if (stack1.isItemStackDamageable() ^ stack2.isItemStackDamageable())
+		if (stack1.isItemStackDamageable() || stack2.isItemStackDamageable())
 		{
 			return false;
 		}
 
-		return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage() && ItemStack.areItemStackTagsEqual(stack1, stack2);
+		return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage() && ItemStack.areItemStackTagsEqual(stack1, stack2) && stack1.stackSize + stack2.stackSize <= stack2.getMaxStackSize();
 	}
 
 	public static ItemStack[] stack(ItemStack stack1, ItemStack stack2)
@@ -168,26 +168,16 @@ public class ItemConduitUtil
 
 	public static List<INetworkElement> getOutputs(List<INetworkElement> elements)
 	{
-		List<INetworkElement> result = new ArrayList<>();
+		elements.removeIf(iNetworkElement -> !iNetworkElement.isOutput() || !iNetworkElement.hasInventory());
 
-		for (INetworkElement element : elements)
-		{
-			if (element.isOutput()) result.add(element);
-		}
-
-		return result;
+		return elements;
 	}
 
 	public static List<INetworkElement> getInputs(List<INetworkElement> elements)
 	{
-		List<INetworkElement> result = new ArrayList<>();
+		elements.removeIf(iNetworkElement -> !iNetworkElement.isInput());
 
-		for (INetworkElement element : elements)
-		{
-			if (element.isInput()) result.add(element);
-		}
-
-		return result;
+		return elements;
 	}
 
 	public static int getStackSlot(IInventory inventory, ItemStack stack)

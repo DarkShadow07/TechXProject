@@ -5,14 +5,16 @@ import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
 
 public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 {
-	public static final int drainTick = 80;
+	public static final int drainTick = 40;
 	public boolean working = false;
 	public ItemStack[] inventory;
 	private int[] slotsIn = new int[]{0, 1, 2};
@@ -31,7 +33,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 
 	public TileSmelter()
 	{
-		super(500000, 512);
+		super(400000, 160);
 
 		inventory = new ItemStack[5];
 
@@ -53,10 +55,21 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	@Override
 	public void update()
 	{
-		getItems();
-
-		if (canSmelt() && getEnergy() >= drainTick)
+		if (working)
 		{
+			int r = worldObj.rand.nextInt(100);
+
+			if (r < 10)
+				worldObj.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.block_furnace_fire_crackle, SoundCategory.BLOCKS, 0.5f, worldObj.rand.nextFloat() * 0.2f, false);
+		}
+
+		transferItems();
+
+		if (canWork() && getEnergy() >= drainTick)
+		{
+			markDirty();
+			markForUpdate();
+
 			working = true;
 
 			subtractEnergy(drainTick, false);
@@ -69,12 +82,22 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 			{
 				ItemStack result = SmelterRecipeHandler.instance.getSmeltingResult(inventory[0], inventory[1], inventory[2]);
 				ItemStack resultCopy = result.copy();
+				resultCopy.stackSize = result.stackSize;
+
+				boolean called = false;
 
 				for (int slot : getActiveSlots())
 				{
-					decrStackSize(slot, 1);
 					boolean vanilla = SmelterRecipeHandler.instance.isVanillaRecipe(getStackInSlot(slot));
-					resultCopy.stackSize = vanilla == true ? result.stackSize * getActiveSlots().length : result.stackSize;
+
+					if (vanilla && !called)
+					{
+						called = true;
+
+						resultCopy.stackSize *= getActiveSlots().size();
+					}
+
+					decrStackSize(slot, 1);
 				}
 
 				setInventorySlotContents(3, stack(inventory[3], resultCopy));
@@ -86,6 +109,9 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 			}
 		} else
 		{
+			markDirty();
+			markForUpdate();
+
 			ticks = 0;
 			targetTicks = 1;
 			working = false;
@@ -119,31 +145,8 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		}
 	}
 
-	private void getItems()
+	private void transferItems()
 	{
-		for (EnumFacing inputFacing : itemInputSides)
-		{
-			BlockPos offsetPos = pos.offset(inputFacing);
-
-			if (worldObj.getTileEntity(offsetPos) != null && worldObj.getTileEntity(offsetPos) instanceof IInventory)
-			{
-				IInventory inventory = (IInventory) worldObj.getTileEntity(offsetPos);
-
-				for (int i = 0; i < inventory.getSizeInventory(); i++)
-				{
-					if (inventory.getStackInSlot(i) != null)
-					{
-						ItemConduitUtil.transferStack(inventory.getStackInSlot(i), this, inputFacing);
-
-						if (inventory.getStackInSlot(i) != null && inventory.getStackInSlot(i).stackSize <= 0)
-						{
-							inventory.setInventorySlotContents(i, null);
-						}
-					}
-				}
-			}
-		}
-
 		for (EnumFacing outputFacing : itemOutputSides)
 		{
 			BlockPos offsetPos = pos.offset(outputFacing);
@@ -165,7 +168,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		}
 	}
 
-	private Integer[] getActiveSlots()
+	private List<Integer> getActiveSlots()
 	{
 		List<Integer> slots = new ArrayList<>();
 
@@ -174,7 +177,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 			if (inventory[i] != null && !slots.contains(i)) slots.add(i);
 		}
 
-		return slots.toArray(new Integer[slots.size()]);
+		return slots;
 	}
 
 	public ItemStack stack(ItemStack in, ItemStack toStack)
@@ -195,7 +198,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		return ticks * 100 / targetTicks;
 	}
 
-	private boolean canSmelt()
+	private boolean canWork()
 	{
 		if (inventory[0] == null && inventory[1] == null && inventory[2] == null) return false;
 
@@ -210,7 +213,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 			int stackSize;
 			if (SmelterRecipeHandler.instance.isVanillaRecipe(stack))
 			{
-				stackSize = inventory[3].stackSize + result.stackSize * getActiveSlots().length;
+				stackSize = inventory[3].stackSize + result.stackSize * getActiveSlots().size();
 			} else stackSize = inventory[3].stackSize + result.stackSize;
 
 			return stackSize <= getInventoryStackLimit() && stackSize <= inventory[3].getMaxStackSize();
@@ -310,9 +313,6 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	{
 		if (inventory[index] != null)
 		{
-			if (!worldObj.isRemote)
-				worldObj.markBlockForUpdate(this.pos);
-
 			if (inventory[index].stackSize <= count)
 			{
 				ItemStack itemStack = inventory[index];
@@ -351,8 +351,6 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		if (stack != null && stack.stackSize > getInventoryStackLimit())
 			stack.stackSize = getInventoryStackLimit();
 		markDirty();
-		if (!worldObj.isRemote)
-			worldObj.markBlockForUpdate(this.pos);
 	}
 
 	@Override
@@ -382,7 +380,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
-		return index == 3 ? false : SmelterRecipeHandler.instance.isValidStack(stack);
+		return index != 3 && SmelterRecipeHandler.instance.isValidStack(stack);
 	}
 
 	@Override
@@ -422,7 +420,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	}
 
 	@Override
-	public IChatComponent getDisplayName()
+	public ITextComponent getDisplayName()
 	{
 		return null;
 	}

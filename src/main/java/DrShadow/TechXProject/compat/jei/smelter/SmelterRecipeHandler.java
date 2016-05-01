@@ -4,10 +4,10 @@ import DrShadow.TechXProject.compat.jei.CategoryUid;
 import DrShadow.TechXProject.util.Util;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import scala.actors.threadpool.Arrays;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,8 +27,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public void init()
 	{
-		addRecipe(new ItemStack(Items.apple, 2), 0.5f, 100, new ItemStack(Items.apple), new ItemStack(Items.wheat_seeds));
-		addRecipe(new ItemStack(Items.ender_pearl, 2), 0.1f, 360, new ItemStack(Items.gunpowder), new ItemStack(Items.ghast_tear), new ItemStack(Items.ender_pearl));
+
 
 		for (Map.Entry<ItemStack, ItemStack> vanillaRecipesEntry : FurnaceRecipes.instance().getSmeltingList().entrySet())
 		{
@@ -41,7 +40,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public void addRecipe(ItemStack out, float xp, int ticks, ItemStack... in)
 	{
-		SmelterRecipe recipe = new SmelterRecipe(in, out, xp, ticks);
+		SmelterRecipe recipe = new SmelterRecipe(Arrays.asList(in), out, xp, ticks);
 
 		recipes.add(recipe);
 	}
@@ -52,7 +51,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			if (Util.isStackArrayEqual(notNullArray, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			if (Util.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[]{})))
 			{
 				return recipe.getOutputs().get(0);
 			}
@@ -80,9 +79,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (SmelterRecipe recipe : recipes)
 		{
-			ItemStack[] noNull = Util.getStackArrayNoNull(in);
-
-			if (Util.isStackArrayEqual(noNull, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
+			if (Util.isStackArrayEqual(in, recipe.getInputs().toArray(new ItemStack[recipe.getInputs().size()])))
 			{
 				return recipe.getTicks();
 			}

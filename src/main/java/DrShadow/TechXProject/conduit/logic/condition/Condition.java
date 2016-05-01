@@ -4,8 +4,8 @@ import DrShadow.TechXProject.util.Util;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -47,14 +47,7 @@ public class Condition
 					{
 						IInventory inventory = (IInventory) tiles[i];
 
-						List<ItemStack> result = new ArrayList<>();
-						int size = inventory.getSizeInventory();
-						for (int k = 0; k < size; k++)
-						{
-							result.add(inventory.getStackInSlot(k));
-						}
-
-						return result.stream().allMatch(stack -> stack != null && stack.stackSize > 0);
+						return Util.inventoryFull(inventory);
 					}
 				}
 				break;

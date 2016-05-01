@@ -1,6 +1,7 @@
 package DrShadow.TechXProject.blocks;
 
-import DrShadow.TechXProject.tileEntities.TileBlockBreaker;
+import DrShadow.TechXProject.blocks.base.BlockContainerBase;
+import DrShadow.TechXProject.blocks.tile.TileBlockBreaker;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -9,7 +10,7 @@ public class BlockBreaker extends BlockContainerBase
 {
 	public BlockBreaker()
 	{
-		super(Material.iron);
+		super(Material.rock, 2.2f, 1, "pickaxe");
 	}
 
 	@Override

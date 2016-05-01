@@ -5,9 +5,9 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -18,7 +18,7 @@ public class ChatUtil
 	private static final int DELETION_ID = 8675309;
 	private static int lastAdded;
 
-	private static void sendNoSpamMessages(IChatComponent[] messages)
+	private static void sendNoSpamMessages(ITextComponent[] messages)
 	{
 		GuiNewChat chat = Util.minecraft().ingameGUI.getChatGUI();
 		for (int i = DELETION_ID + messages.length - 1; i <= lastAdded; i++)
@@ -32,14 +32,14 @@ public class ChatUtil
 		lastAdded = DELETION_ID + messages.length - 1;
 	}
 
-	public static IChatComponent wrap(String s)
+	public static ITextComponent wrap(String s)
 	{
-		return new ChatComponentText(s);
+		return new TextComponentString(s);
 	}
 
-	public static IChatComponent[] wrap(String... s)
+	public static ITextComponent[] wrap(String... s)
 	{
-		IChatComponent[] ret = new IChatComponent[s.length];
+		ITextComponent[] ret = new ITextComponent[s.length];
 		for (int i = 0; i < ret.length; i++)
 		{
 			ret[i] = wrap(s[i]);
@@ -47,9 +47,9 @@ public class ChatUtil
 		return ret;
 	}
 
-	public static IChatComponent wrapFormatted(String s, Object... args)
+	public static ITextComponent wrapFormatted(String s, Object... args)
 	{
-		return new ChatComponentTranslation(s, args);
+		return new TextComponentTranslation(s, args);
 	}
 
 	public static void sendChat(EntityPlayer player, String... lines)
@@ -57,9 +57,9 @@ public class ChatUtil
 		sendChat(player, wrap(lines));
 	}
 
-	public static void sendChat(EntityPlayer player, IChatComponent... lines)
+	public static void sendChat(EntityPlayer player, ITextComponent... lines)
 	{
-		for (IChatComponent c : lines)
+		for (ITextComponent c : lines)
 		{
 			player.addChatComponentMessage(c);
 		}
@@ -70,7 +70,7 @@ public class ChatUtil
 		sendNoSpamClient(wrap(lines));
 	}
 
-	public static void sendNoSpamClient(IChatComponent... lines)
+	public static void sendNoSpamClient(ITextComponent... lines)
 	{
 		sendNoSpamMessages(lines);
 	}
@@ -80,7 +80,7 @@ public class ChatUtil
 		sendNoSpam(player, wrap(lines));
 	}
 
-	public static void sendNoSpam(EntityPlayer player, IChatComponent... lines)
+	public static void sendNoSpam(EntityPlayer player, ITextComponent... lines)
 	{
 		if (player instanceof EntityPlayerMP)
 		{
@@ -93,7 +93,7 @@ public class ChatUtil
 		sendNoSpam(player, wrap(lines));
 	}
 
-	public static void sendNoSpam(EntityPlayerMP player, IChatComponent... lines)
+	public static void sendNoSpam(EntityPlayerMP player, ITextComponent... lines)
 	{
 		if (lines.length > 0)
 		{
@@ -103,14 +103,14 @@ public class ChatUtil
 
 	public static class PacketNoSpamChat implements IMessage
 	{
-		private IChatComponent[] chatLines;
+		private ITextComponent[] chatLines;
 
 		public PacketNoSpamChat()
 		{
-			chatLines = new IChatComponent[0];
+			chatLines = new ITextComponent[0];
 		}
 
-		private PacketNoSpamChat(IChatComponent... lines)
+		private PacketNoSpamChat(ITextComponent... lines)
 		{
 			this.chatLines = lines;
 		}
@@ -119,19 +119,19 @@ public class ChatUtil
 		public void toBytes(ByteBuf buf)
 		{
 			buf.writeInt(chatLines.length);
-			for (IChatComponent c : chatLines)
+			for (ITextComponent c : chatLines)
 			{
-				ByteBufUtils.writeUTF8String(buf, IChatComponent.Serializer.componentToJson(c));
+				ByteBufUtils.writeUTF8String(buf, ITextComponent.Serializer.componentToJson(c));
 			}
 		}
 
 		@Override
 		public void fromBytes(ByteBuf buf)
 		{
-			chatLines = new IChatComponent[buf.readInt()];
+			chatLines = new ITextComponent[buf.readInt()];
 			for (int i = 0; i < chatLines.length; i++)
 			{
-				chatLines[i] = IChatComponent.Serializer.jsonToComponent(ByteBufUtils.readUTF8String(buf));
+				chatLines[i] = ITextComponent.Serializer.jsonToComponent(ByteBufUtils.readUTF8String(buf));
 			}
 		}
 

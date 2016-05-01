@@ -1,17 +1,20 @@
 package DrShadow.TechXProject.api.energy;
 
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileEnergyContainer extends ModTileEntity implements IEnergyContainer
+public class TileEnergyContainer extends ModTileEntity implements IEnergyContainer, ITickable
 {
 	public static final String ENERGY_NBT = "energy";
+	public static final String MAX_ENERGY_NBT = "maxEnergy";
+	public static final String MAX_TRANSFER_ENERGY_NBT = "maxTransferEnergy";
 	protected List<EnumFacing> inputSides;
 	protected List<EnumFacing> outputSides;
 	protected List<EnumFacing> lockedSides;
@@ -25,6 +28,13 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 		inputSides = new ArrayList<>();
 		outputSides = new ArrayList<>();
 		lockedSides = new ArrayList<>();
+	}
+
+	@Override
+	public void update()
+	{
+		addEnergy(0, false);
+		subtractEnergy(0, false);
 	}
 
 	public void setSideInput(EnumFacing input)
@@ -57,7 +67,19 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 		}
 	}
 
-	@Override
+	public void setSideInOut(EnumFacing side)
+	{
+		if (!inputSides.contains(side))
+		{
+			inputSides.add(side);
+		}
+
+		if (!outputSides.contains(side))
+		{
+			outputSides.add(side);
+		}
+	}
+
 	public void toNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound energy = new NBTTagCompound();
@@ -104,7 +126,6 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 		tag.setTag("sides", sides);
 	}
 
-	@Override
 	public void fromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound energy = tag.getCompoundTag(ENERGY_NBT + "NBT");
@@ -157,13 +178,17 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 
 		if (!test)
 		{
-			energy = Util.keepInBounds(lastEnergy, 0, maxEnergy);
+			energy += amount;
+
+			if (energy < 0) energy = 0;
+			if (energy > maxEnergy) energy = maxEnergy;
 		}
 
 		if (lastEnergy > maxEnergy)
 		{
 			return transfer - (lastEnergy - maxEnergy);
 		}
+
 		return transfer;
 	}
 
@@ -175,6 +200,9 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 			if (!test)
 			{
 				this.energy -= energy;
+
+				if (this.energy < 0) this.energy = 0;
+				if (this.energy > maxEnergy) this.energy = maxEnergy;
 			}
 
 			return true;
@@ -193,6 +221,12 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 	public int getMaxTransfer()
 	{
 		return maxTransfer;
+	}
+
+	@Override
+	public void setMaxTransfer(int transfer)
+	{
+		maxTransfer = transfer;
 	}
 
 	@Override
