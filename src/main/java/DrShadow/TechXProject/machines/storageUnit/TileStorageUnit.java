@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.machines.storageUnit;
 
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

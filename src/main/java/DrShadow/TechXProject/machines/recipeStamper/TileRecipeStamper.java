@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.machines.recipeStamper;
 
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.items.ItemMachineRecipe;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketUpdateRecipe;
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

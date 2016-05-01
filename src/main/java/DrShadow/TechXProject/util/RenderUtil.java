@@ -8,12 +8,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class RenderUtil
 {
-	public static void drawFakeBlock(TextureAtlasSprite texture, double minX, double minY, double minZ)
+	public static void drawFakeBlock(ResourceLocation texture, double minX, double minY, double minZ)
 	{
 		if (texture == null)
 			return;
@@ -23,14 +22,14 @@ public class RenderUtil
 		double maxZ = minZ + 1;
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer wr = tessellator.getBuffer();
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 		wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
-		float texMinU = texture.getMinU();
-		float texMinV = texture.getMinV();
-		float texMaxU = texture.getMaxU();
-		float texMaxV = texture.getMaxV();
+		float texMinU = 0;
+		float texMinV = 0;
+		float texMaxU = 16;
+		float texMaxV = 16;
 
 		wr.pos(minX, minY, minZ).tex(texMinU, texMinV).endVertex();
 		wr.pos(maxX, minY, minZ).tex(texMaxU, texMinV).endVertex();

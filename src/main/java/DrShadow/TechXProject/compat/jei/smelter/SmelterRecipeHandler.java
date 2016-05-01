@@ -4,7 +4,6 @@ import DrShadow.TechXProject.compat.jei.CategoryUid;
 import DrShadow.TechXProject.util.Util;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;

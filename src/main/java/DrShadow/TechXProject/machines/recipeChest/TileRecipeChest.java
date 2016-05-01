@@ -1,13 +1,11 @@
 package DrShadow.TechXProject.machines.recipeChest;
 
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 
 public class TileRecipeChest extends ModTileEntity implements IInventory

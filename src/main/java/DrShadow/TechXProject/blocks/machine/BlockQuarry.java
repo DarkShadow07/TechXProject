@@ -18,7 +18,7 @@ public class BlockQuarry extends BlockContainerBase
 {
 	public BlockQuarry()
 	{
-		super(Material.iron);
+		super(Material.iron, 4.7f, 3, "pickaxe");
 	}
 
 	@Override

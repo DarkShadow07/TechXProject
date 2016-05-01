@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.conduit.logic;
 
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.conduit.logic.condition.Condition;
 import DrShadow.TechXProject.conduit.logic.condition.EnumConditionType;
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

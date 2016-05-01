@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.configuration.elements;
 
-import DrShadow.TechXProject.util.OverlayHelper;
+import DrShadow.TechXProject.util.GuiUtil;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -42,7 +42,7 @@ public class ConfigurationElement
 		this.h = 12;
 		this.w = res.getScaledWidth() - 20;
 
-		OverlayHelper overlayHelper = new OverlayHelper();
+		GuiUtil overlayHelper = new GuiUtil();
 		FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
 		overlayHelper.drawPlaneWithFullBorder(x, y, w, h, new Color(0, 0, 0, 0.3f).hashCode(), new Color(0, 0, 0, 0.7f).hashCode());
@@ -57,7 +57,7 @@ public class ConfigurationElement
 	public void renderWithMousePos(int mouseX, int mouseY)
 	{
 		FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
-		OverlayHelper overlayHelper = new OverlayHelper();
+		GuiUtil overlayHelper = new GuiUtil();
 		Rectangle rect = new Rectangle(x, y, w, h);
 
 		if (rect.contains(mouseX, mouseY))

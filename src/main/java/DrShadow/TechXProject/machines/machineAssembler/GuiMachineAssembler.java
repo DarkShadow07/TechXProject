@@ -1,12 +1,12 @@
 package DrShadow.TechXProject.machines.machineAssembler;
 
 
-import DrShadow.TechXProject.gui.GuiContainerBase;
-import DrShadow.TechXProject.gui.widget.GuiButtonExpand;
+import DrShadow.TechXProject.client.gui.GuiContainerBase;
+import DrShadow.TechXProject.client.gui.widget.GuiButtonExpand;
 import DrShadow.TechXProject.items.ItemMachineRecipe;
 import DrShadow.TechXProject.reference.Reference;
+import DrShadow.TechXProject.util.GuiUtil;
 import DrShadow.TechXProject.util.Lang;
-import DrShadow.TechXProject.util.OverlayHelper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -43,7 +43,7 @@ public class GuiMachineAssembler extends GuiContainerBase
 		left = (this.width - this.xSize) / 2;
 		top = (this.height - this.ySize) / 2;
 
-		infoButton = new GuiButtonExpand(this, 0, 122, 74, Color.green, new ResourceLocation(Reference.MOD_ID + ":textures/items/wrench.png"), 0, 0, "Machine Assembler", "This machine is used for Assembling other Machines, it needs a Machine Recipe crafted on a Recipe Stamper that is not consumed");
+		infoButton = new GuiButtonExpand(this, 0, 122, 74, Color.cyan, new ResourceLocation(Reference.MOD_ID + ":textures/gui/icon/icon_Info.png"), 0, 0, "Machine Assembler", "This machine is used for Assembling other Machines, it needs a Machine Recipe crafted on a Recipe Stamper that is not consumed");
 
 		buttonList.add(infoButton);
 	}
@@ -75,12 +75,14 @@ public class GuiMachineAssembler extends GuiContainerBase
 					ItemStack[] stacks = recipe.getType(assembler.getStackInSlot(0)).inputs;
 					if (j + i * 9 < stacks.length && getSlotUnderMouse() != null && getSlotUnderMouse() instanceof ContainerMachineAssembler.SlotAssembler && !getSlotUnderMouse().getHasStack())
 					{
-						OverlayHelper helper = new OverlayHelper();
+						if (stacks[j + i * 9] != null)
+						{
+							GuiUtil guiUtil = new GuiUtil();
 
-						helper.drawPlaneWithBorder(mouseX + 14 - left, mouseY - 10 - top, Math.max(stacks.length * 18, fontRendererObj.getStringWidth("Items needed")), 24, -267386864, 1347420415, true);
-						fontRendererObj.drawStringWithShadow("Items needed", mouseX + 14 - left, mouseY - 10 - top, Color.WHITE.getRGB());
-						drawItemStack(stacks[j + i * 9], mouseX + 14 - left + j * 18, mouseY - top + i * 18);
-
+							guiUtil.drawPlaneWithBorder(mouseX + 14 - left, mouseY - 10 - top, Math.max(stacks.length * 18, fontRendererObj.getStringWidth("Items needed")), 24, -267386864, 1347420415, true);
+							fontRendererObj.drawStringWithShadow("Items needed", mouseX + 14 - left, mouseY - 10 - top, Color.WHITE.getRGB());
+							guiUtil.drawItemStack(stacks[j + i * 9], mouseX + 14 - left + j * 18, mouseY - top + i * 18, itemRender);
+						}
 					}
 				}
 			}
@@ -94,11 +96,6 @@ public class GuiMachineAssembler extends GuiContainerBase
 
 			drawHoveringText(info, mouseX - left, mouseY - top);
 		}
-	}
-
-	private void drawItemStack(ItemStack stack, int x, int y)
-	{
-		itemRender.renderItemAndEffectIntoGUI(stack, x, y);
 	}
 
 	@Override

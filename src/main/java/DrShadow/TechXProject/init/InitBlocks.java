@@ -6,6 +6,11 @@ import DrShadow.TechXProject.blocks.base.IRenderer;
 import DrShadow.TechXProject.blocks.conduit.*;
 import DrShadow.TechXProject.blocks.energy.BlockSolarPanel;
 import DrShadow.TechXProject.blocks.machine.*;
+import DrShadow.TechXProject.blocks.metal.BlockMetalBase;
+import DrShadow.TechXProject.blocks.metal.BlockOreBase;
+import DrShadow.TechXProject.blocks.metal.ItemBlockMetalBase;
+import DrShadow.TechXProject.blocks.metal.ItemBlockOreBase;
+import DrShadow.TechXProject.blocks.tile.TileBlockBreaker;
 import DrShadow.TechXProject.conduit.energy.TileConduitEnergy;
 import DrShadow.TechXProject.conduit.item.TileConduitItem;
 import DrShadow.TechXProject.conduit.logic.TileLogicConduit;
@@ -15,6 +20,7 @@ import DrShadow.TechXProject.machines.capacitor.TileBasicCapacitor;
 import DrShadow.TechXProject.machines.crusher.TileCrusher;
 import DrShadow.TechXProject.machines.energy.TileSolarPanel;
 import DrShadow.TechXProject.machines.energyMonitor.TileEnergyMonitor;
+import DrShadow.TechXProject.machines.farmer.TileFarmer;
 import DrShadow.TechXProject.machines.machineAssembler.TileMachineAssembler;
 import DrShadow.TechXProject.machines.quarry.TileQuarry;
 import DrShadow.TechXProject.machines.recipeChest.TileRecipeChest;
@@ -22,10 +28,7 @@ import DrShadow.TechXProject.machines.recipeStamper.TileRecipeStamper;
 import DrShadow.TechXProject.machines.smelter.TileSmelter;
 import DrShadow.TechXProject.machines.storageUnit.TileStorageUnit;
 import DrShadow.TechXProject.machines.teleporter.TileTeleporter;
-import DrShadow.TechXProject.metal.BlockMetalBase;
-import DrShadow.TechXProject.metal.ItemBlockMetalBase;
 import DrShadow.TechXProject.reference.Reference;
-import DrShadow.TechXProject.tileEntities.TileBlockBreaker;
 import DrShadow.TechXProject.util.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -46,13 +49,14 @@ public enum InitBlocks
 
 	energyMonitor(new BlockEnergyMonitor(), "energyMonitor"),
 
-	recipeStamper(new BlockRecipeStamper(), "recipeStamper"),
 	machineAssembler(new BlockMachineAssembler(), "machineAssembler"),
 	recipeChest(new BlockRecipeChest(), "recipeChest"),
+	recipeStamper(new BlockRecipeStamper(), "recipeStamper"),
 
 	smelter(new BlockSmelter(), "smelter"),
 	crusher(new BlockCrusher(), "crusher"),
 	quarry(new BlockQuarry(), "quarry"),
+	farmer(new BlockFarmer(), "farmer"),
 
 	basicCapacitor(new BlockCapacitorBasic(), "basicCapacitor"),
 
@@ -62,6 +66,7 @@ public enum InitBlocks
 	storageUnit(new BlockStorageUnit(), "storageUnit"),
 	blockBreaker(new BlockBreaker(), "breaker"),
 
+	metalOre(new ItemBlockOreBase(new BlockOreBase()), "metalOre"),
 	metalBlock(new ItemBlockMetalBase(new BlockMetalBase()), "metalBlock"),;
 
 	public Block block;
@@ -115,6 +120,7 @@ public enum InitBlocks
 		registerTile(TileRecipeStamper.class);
 		registerTile(TileMachineAssembler.class);
 		registerTile(TileRecipeChest.class);
+		registerTile(TileFarmer.class);
 	}
 
 	public static void initRecipes()

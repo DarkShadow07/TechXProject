@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.machines.recipeStamper;
 
-import DrShadow.TechXProject.gui.GuiContainerBase;
+import DrShadow.TechXProject.client.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.gui.GuiButton;

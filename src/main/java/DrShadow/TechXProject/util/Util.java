@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.util;
 
-import DrShadow.TechXProject.fx.EntityReddustFXT;
+import DrShadow.TechXProject.client.fx.EntityReddustFXT;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;

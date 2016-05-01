@@ -1,18 +1,17 @@
 package DrShadow.TechXProject.proxy;
 
+import DrShadow.TechXProject.client.keyBindings.KeyBindings;
 import DrShadow.TechXProject.events.*;
-import DrShadow.TechXProject.keyBindings.KeyBindings;
-import DrShadow.TechXProject.reference.Reference;
-import DrShadow.TechXProject.util.InventoryRenderHelper;
+import DrShadow.TechXProject.world.WorldGen;
+import DrShadow.TechXProject.world.WorldTickHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ClientProxy extends CommonProxy
 {
-	private InventoryRenderHelper inventoryRenderHelper;
-
 	@Override
 	public void registerEvents()
 	{
@@ -21,12 +20,17 @@ public class ClientProxy extends CommonProxy
 		MinecraftForge.EVENT_BUS.register(new KeyInputEvent());
 		MinecraftForge.EVENT_BUS.register(new TickEvents());
 		MinecraftForge.EVENT_BUS.register(new AnvilEvent());
+
+		GameRegistry.registerWorldGenerator(new WorldGen(), 10);
+		MinecraftForge.EVENT_BUS.register(new WorldGen());
+
+		MinecraftForge.EVENT_BUS.register(new WorldTickHandler());
 	}
 
 	@Override
 	public void preInit()
 	{
-		inventoryRenderHelper = new InventoryRenderHelper(Reference.MOD_ID);
+
 	}
 
 	@Override
@@ -45,12 +49,6 @@ public class ClientProxy extends CommonProxy
 	public void registerKeyBindings()
 	{
 		ClientRegistry.registerKeyBinding(KeyBindings.configuration);
-	}
-
-	@Override
-	public InventoryRenderHelper getInventoryRenderHelper()
-	{
-		return inventoryRenderHelper;
 	}
 
 	@Override

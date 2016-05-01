@@ -2,9 +2,9 @@ package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.blocks.base.BlockContainerBase;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.teleporter.TileTeleporter;
+import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ public class BlockTeleporter extends BlockContainerBase
 {
 	public BlockTeleporter()
 	{
-		super(Material.iron);
+		super(Material.iron, 4.25f, 3, "pickaxe");
 	}
 
 	@Override

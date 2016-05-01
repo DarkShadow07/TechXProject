@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.configuration.box;
 
-import DrShadow.TechXProject.util.OverlayHelper;
+import DrShadow.TechXProject.util.GuiUtil;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.gui.FontRenderer;
 
@@ -45,7 +45,7 @@ public class IntBox
 		this.x = x;
 		this.y = y;
 
-		OverlayHelper overlayHelper = new OverlayHelper();
+		GuiUtil overlayHelper = new GuiUtil();
 		FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
 		String current = NumberFormat.getInstance().format(getCurrentValue());

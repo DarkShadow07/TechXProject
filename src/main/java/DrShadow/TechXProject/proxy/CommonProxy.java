@@ -3,14 +3,13 @@ package DrShadow.TechXProject.proxy;
 import DrShadow.TechXProject.init.InitBlocks;
 import DrShadow.TechXProject.init.InitItems;
 import DrShadow.TechXProject.packets.PacketHandler;
-import DrShadow.TechXProject.util.InventoryRenderHelper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.File;
 
-public abstract class CommonProxy implements IProxy
+public class CommonProxy implements IProxy
 {
 	public MinecraftServer getMinecraftServer()
 	{
@@ -22,9 +21,22 @@ public abstract class CommonProxy implements IProxy
 		return null;
 	}
 
-	public InventoryRenderHelper getInventoryRenderHelper()
+	@Override
+	public void preInit()
 	{
-		return null;
+
+	}
+
+	@Override
+	public void init()
+	{
+
+	}
+
+	@Override
+	public void postInit()
+	{
+
 	}
 
 	@Override

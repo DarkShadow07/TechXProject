@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.init;
 
-import DrShadow.TechXProject.metal.EnumMetals;
+import DrShadow.TechXProject.blocks.metal.EnumMetals;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 

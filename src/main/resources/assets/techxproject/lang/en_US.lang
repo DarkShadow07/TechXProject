@@ -13,10 +13,16 @@ tile.techxproject.basicCapacitor.name=Basic Energy Capacitor
 tile.techxproject.smelter.name=Energetic Smelter
 tile.techxproject.crusher.name=Energetic Crusher
 tile.techxproject.quarry.name=Energetic Quarry
+tile.techxproject.farmer.name=Energetic Farmer
 tile.techxproject.teleporter.name=Multidimensional Teleporter
 tile.techxproject.storageUnit.name=Storage Unit
 tile.techxproject.solarPanel.name=Solar Panel
 tile.techxproject.recipeChest.name=Machine Recipe Chest
+
+tile.techxproject.copperOre.name=Copper Ore
+tile.techxproject.leadOre.name=Lead Ore
+tile.techxproject.nickelOre.name=Nickel Ore
+tile.techxproject.tinOre.name=Tin Ore
 
 tile.techxproject.copperBlock.name=Copper Block
 tile.techxproject.leadBlock.name=Lead Block
@@ -31,6 +37,7 @@ item.techxproject.wire.name=Wire
 item.techxproject.quarryCard.name=Blank Quarry Card
 item.techxproject.teleporterCard.name=Blank Teleport Card
 item.techxproject.magnet.name=Energised Magnet
+item.techxproject.guide.name=Tech Guide
 item.techxproject.machineRecipe.name=Empty Machine Recipe
 
 item.techxproject.filterName.name=Item Filter (Name)
@@ -64,9 +71,20 @@ item.techxproject.emeraldDust.name=Emerald Dust
 techxproject.container.conduitLogic=Logic Controller
 
 techxproject.gui.assembler=Machine Assembler
+techxproject.gui.recipeChest=Machine Recipe Chest
+techxproject.gui.farmer=Energetic Farmer
 
 techxproject.gui.jei.smelter=Energetic Smelting
 techxproject.gui.jei.crusher=Crushing
+
+######## Guide ########
+guide.entry.Basic Mechanics=Use Machines to create Machines, use Machines to create energy to run Machines. Simple.
+guide.entry.Ores=Added Ore Generation to the world, Ores can spawn in any Dimension.
+guide.entry.Ore Processing=You can directly smelt the Ores or can Double them (Visit ore Doubling). You can use the Energetic Smelter to Triple the Speed of Smelting.
+guide.entry.Ore Doubling=Use the Energetic Crusher, to carefully extract the Mineral from the Ore, double the amount. Then Smelt it.
+guide.entry.Machine Assembling=For Assembling Machines you'll need a Machine, the Machine Assembler. It takes Machine Recipes stamped in the Recipe Stamper that wont be consumed, it uses them as a Template for the Machine Assembling
+guide.entry.Generating Energy=You have many Energy Generating Blocks, the way to start is to use Solar Panels.
+guide.entry.Storing Energy=Use a Capacitor to Store Energy, use a Potato to Waste Energy.
 
 ######## Conditions ########
 techxproject.condition.NO_CONDITION=No Condition (Always Enabled)
@@ -82,6 +100,7 @@ techxproject.condition.INVENTORY_SPACE=Space in Inventory
 
 ######## Creative Tabs ########
 itemGroup.techTab=Tech 'X' Project
+itemGroup.techTabOres=Tech 'X' Project Ores
 
 ######## Configuration ########
 techxproject.config.reset=Reset all to Default

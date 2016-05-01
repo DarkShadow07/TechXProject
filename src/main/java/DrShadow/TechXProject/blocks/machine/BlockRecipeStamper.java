@@ -2,9 +2,9 @@ package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.blocks.base.BlockContainerBase;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.recipeStamper.TileRecipeStamper;
+import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +19,7 @@ public class BlockRecipeStamper extends BlockContainerBase
 {
 	public BlockRecipeStamper()
 	{
-		super(Material.iron);
+		super(Material.iron, 2.4f, 1, "pickaxe");
 	}
 
 	@Override

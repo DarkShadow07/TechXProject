@@ -2,6 +2,7 @@ package DrShadow.TechXProject.items.energy;
 
 import DrShadow.TechXProject.api.energy.item.ItemEnergyContainer;
 import DrShadow.TechXProject.util.VectorUtil;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,8 @@ public class ItemMagnet extends ItemEnergyContainer
 		super(200000, 200000, 1000);
 
 		setEnergy(new ItemStack(this), getMaxEnergy());
+
+		setMaxStackSize(1);
 	}
 
 	@Override
@@ -30,7 +33,7 @@ public class ItemMagnet extends ItemEnergyContainer
 	{
 		addEnergy(stack, 1000, false);
 
-		if (getEnergy(stack) >= drain && entityIn instanceof EntityPlayer && !entityIn.isSneaking())
+		if (getEnergy(stack) >= drain && entityIn instanceof EntityPlayer && !entityIn.isSneaking() && !GuiScreen.isShiftKeyDown())
 		{
 			List<EntityItem> items = worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entityIn.posX - range, entityIn.posY - range, entityIn.posZ - range, entityIn.posX + range, entityIn.posY + range, entityIn.posZ + range));
 
@@ -38,9 +41,7 @@ public class ItemMagnet extends ItemEnergyContainer
 			{
 				if (item != null)
 				{
-					item.setPickupDelay(0);
-
-					Vec3d vec = VectorUtil.multiply(entityIn.getPositionVector().addVector(0, -0.25f, 0).subtract(item.getPositionVector()), 0.25f);
+					Vec3d vec = VectorUtil.multiply(entityIn.getPositionVector().addVector(0, 0.25f, 0).subtract(item.getPositionVector()), 0.25f);
 
 					item.motionX = vec.xCoord;
 					item.motionY = vec.yCoord;

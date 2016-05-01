@@ -1,11 +1,10 @@
 package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.blocks.base.BlockRotatingBase;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.blocks.base.BlockContainerBase;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.capacitor.TileBasicCapacitor;
-import net.minecraft.block.ITileEntityProvider;
+import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,11 +15,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCapacitorBasic extends BlockRotatingBase implements ITileEntityProvider
+public class BlockCapacitorBasic extends BlockContainerBase
 {
 	public BlockCapacitorBasic()
 	{
-		super(Material.iron);
+		super(Material.iron, 4.3f, 2, "pickaxe");
 	}
 
 	@Override

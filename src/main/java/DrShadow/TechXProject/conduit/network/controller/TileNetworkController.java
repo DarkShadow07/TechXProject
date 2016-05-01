@@ -3,10 +3,10 @@ package DrShadow.TechXProject.conduit.network.controller;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.api.network.INetworkRelay;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
+import DrShadow.TechXProject.client.fx.EntityReddustFXT;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
 import DrShadow.TechXProject.conduit.network.NetworkUtil;
-import DrShadow.TechXProject.fx.EntityReddustFXT;
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import DrShadow.TechXProject.util.Util;
 import DrShadow.TechXProject.util.VectorUtil;
 import net.minecraft.nbt.NBTTagCompound;
@@ -49,6 +49,8 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 	public void searchNetwork()
 	{
 		network = NetworkUtil.networkFromPosList(worldObj, elementsPos, this);
+
+		searchRelays();
 	}
 
 	@Override

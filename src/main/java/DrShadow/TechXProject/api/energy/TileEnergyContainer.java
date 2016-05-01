@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.api.energy;
 
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

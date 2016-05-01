@@ -28,15 +28,15 @@ public class AnvilEvent
 		ItemStack left = event.getLeft();
 		ItemStack right = event.getRight();
 
-		if (left.getItem().equals(InitItems.filterBase) && right.getItem().equals(Items.ender_eye))
+		if (left.getItem().equals(InitItems.filterBase.item) && right.getItem().equals(InitItems.wrench.item))
 		{
 			event.setCost(5);
 			event.setOutput(new ItemStack(InitItems.filterMod.item));
-		} else if (left.getItem().equals(InitItems.filterBase) && right.getItem().equals(Items.name_tag))
+		} else if (left.getItem().equals(InitItems.filterBase.item) && right.getItem().equals(Items.name_tag))
 		{
 			event.setCost(7);
 			event.setOutput(new ItemStack(InitItems.filterName.item));
-		} else if (left.getItem().equals(InitItems.filterBase) && right.getItem().equals(Items.writable_book))
+		} else if (left.getItem().equals(InitItems.filterBase.item) && right.getItem().equals(Items.writable_book))
 		{
 			event.setCost(10);
 			event.setOutput(new ItemStack(InitItems.filterOreDict.item));

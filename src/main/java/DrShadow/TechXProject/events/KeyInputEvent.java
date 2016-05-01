@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.events;
 
-import DrShadow.TechXProject.keyBindings.KeyBindings;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.client.keyBindings.KeyBindings;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketOpenGui;
+import DrShadow.TechXProject.reference.Guis;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;

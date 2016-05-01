@@ -174,14 +174,14 @@ public class TileQuarry extends TileEnergyContainer
 
 		if (xOffset > xD)
 		{
+			x = xS;
+
 			if (zOffset < zD)
 			{
 				if (z > zE)
 				{
 					z -= 1;
 				} else z += 1;
-
-				x = xS;
 			} else
 			{
 				working = false;

@@ -3,32 +3,23 @@ package DrShadow.TechXProject.events;
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
 import DrShadow.TechXProject.api.network.INetworkElement;
-import DrShadow.TechXProject.items.itemWire.ItemWire;
-import DrShadow.TechXProject.util.Logger;
 import DrShadow.TechXProject.util.RenderUtil;
 import DrShadow.TechXProject.util.Util;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.text.NumberFormat;
 
 public class RenderEvents
 {
-	public static final String PREFIX = ChatFormatting.AQUA + "[Tech'X'Project]" + ChatFormatting.RESET;
 	public static ScaledResolution resolution;
 
 	@SubscribeEvent
@@ -38,10 +29,12 @@ public class RenderEvents
 
 		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL)
 		{
-			if (Util.minecraft().objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK))
+			if (Util.minecraft().objectMouseOver != null && Util.minecraft().objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK))
 			{
 				World world = Util.world();
 				BlockPos pos = Util.minecraft().objectMouseOver.getBlockPos();
+
+				RenderUtil.drawFakeBlock(new ResourceLocation("textures/blocks/stone.png"), pos.getX(), pos.getY() + 0.5f, pos.getZ());
 
 				TileEntity tile = world.getTileEntity(pos);
 
@@ -74,7 +67,9 @@ public class RenderEvents
 	{
 		if (!Util.minecraft().gameSettings.showDebugInfo) return;
 
-		if (Util.minecraft().objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK))
+		event.getLeft().add(5, "Fx: " + WorldEvents.renderObjects.size());
+
+		if (Util.minecraft().objectMouseOver != null && Util.minecraft().objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK))
 		{
 			World world = Util.world();
 			BlockPos pos = Util.minecraft().objectMouseOver.getBlockPos();

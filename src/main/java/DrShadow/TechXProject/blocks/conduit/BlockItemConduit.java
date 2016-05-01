@@ -2,10 +2,10 @@ package DrShadow.TechXProject.blocks.conduit;
 
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.api.IWrench;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.conduit.energy.TileConduitEnergy;
 import DrShadow.TechXProject.conduit.item.TileConduitItem;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ public class BlockItemConduit extends BlockConduitBase
 		{
 			if (playerIn.getHeldItem(hand) != null && playerIn.getHeldItem(hand).getItem() instanceof IWrench)
 			{
-				TileConduitEnergy tile = (TileConduitEnergy) worldIn.getTileEntity(pos);
+				TileConduitItem tile = (TileConduitItem) worldIn.getTileEntity(pos);
 
 				if (tile.isInput())
 				{

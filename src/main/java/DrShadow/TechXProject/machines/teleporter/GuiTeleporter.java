@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.machines.teleporter;
 
-import DrShadow.TechXProject.gui.GuiContainerBase;
+import DrShadow.TechXProject.client.gui.GuiContainerBase;
 import DrShadow.TechXProject.items.ItemTeleporterCard;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketTeleportEntity;

@@ -15,7 +15,7 @@ public class ContainerRecipeChest extends Container
 		{
 			for (int j = 0; j < 9; j++)
 			{
-				addSlotToContainer(new ContainerRecipeStamper.SlotStamp(inventory, j + i * 9, 8 + j * 18, 8 + i * 18));
+				addSlotToContainer(new ContainerRecipeStamper.SlotStamp(inventory, j + i * 9, 8 + j * 18, 18 + i * 18));
 			}
 		}
 
@@ -23,13 +23,13 @@ public class ContainerRecipeChest extends Container
 		{
 			for (int j = 0; j < 9; j++)
 			{
-				addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 104 + i * 18));
 			}
 		}
 
 		for (int i = 0; i < 9; i++)
 		{
-			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 142));
+			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 162));
 		}
 	}
 

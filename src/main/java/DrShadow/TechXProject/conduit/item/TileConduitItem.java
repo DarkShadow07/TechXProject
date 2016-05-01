@@ -2,6 +2,7 @@ package DrShadow.TechXProject.conduit.item;
 
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.conduit.item.filter.EnumFilterType;
 import DrShadow.TechXProject.conduit.item.filter.IFilterElement;
 import DrShadow.TechXProject.conduit.item.filter.IItemStackFilter;
@@ -10,7 +11,6 @@ import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterMod;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterName;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterOreDict;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;

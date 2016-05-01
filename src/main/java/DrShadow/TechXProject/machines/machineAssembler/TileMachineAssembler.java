@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.machines.machineAssembler;
 
+import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.items.ItemMachineRecipe;
 import DrShadow.TechXProject.machines.recipeStamper.MachineRecipeType;
-import DrShadow.TechXProject.tileEntities.ModTileEntity;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;

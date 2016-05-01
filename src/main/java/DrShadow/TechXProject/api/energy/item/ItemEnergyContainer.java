@@ -108,7 +108,7 @@ public class ItemEnergyContainer extends ItemBase implements IEnergyItem
 	@Override
 	public boolean showDurabilityBar(ItemStack stack)
 	{
-		return true;
+		return getDurabilityForDisplay(stack) > 0;
 	}
 
 	@Override
@@ -117,6 +117,7 @@ public class ItemEnergyContainer extends ItemBase implements IEnergyItem
 		int maxStored = getMaxEnergy();
 		double stored = maxStored - getEnergy(stack);
 		double max = maxStored;
+
 		return stored / max;
 	}
 }

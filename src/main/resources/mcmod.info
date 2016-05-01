@@ -1,16 +1,22 @@
 [
-{
-  "modid": "TechXProject",
-  "name": "Tech 'X' Project'",
-  "description": "Tech Mod based on many others",
-  "version": "1.9-0.00.0 Pre-Alpha",
-  "mcversion": "${mcversion}",
-  "url": "Soon!",
-  "updateUrl": "",
-  "authorList": ["DarkShadow07"],
-  "credits": "",
-  "logoFile": "/logo.png",
-  "screenshots": [],
-  "dependencies": []
-}
+    {
+        "modid":"TechXProject",
+        "name":"Tech 'X' Project'",
+        "description":"Tech Mod based on many others",
+        "version":"1.9-0.00.0 Pre-Alpha",
+        "mcversion":"${mcversion}",
+        "url":"Soon!",
+        "updateUrl":"",
+        "authorList":[
+            "DarkShadow07"
+        ],
+        "credits":"",
+        "logoFile":"/logo.png",
+        "screenshots":[
+
+        ],
+        "dependencies":[
+
+        ]
+    }
 ]

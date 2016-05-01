@@ -2,9 +2,9 @@ package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.blocks.base.BlockRotatingBase;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.crusher.TileCrusher;
+import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +22,7 @@ public class BlockCrusher extends BlockRotatingBase implements ITileEntityProvid
 {
 	public BlockCrusher()
 	{
-		super(Material.iron);
+		super(Material.iron, 3.7f, 2, "pickaxe");
 	}
 
 	@Override

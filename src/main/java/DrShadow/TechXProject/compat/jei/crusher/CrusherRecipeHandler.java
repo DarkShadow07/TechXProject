@@ -1,8 +1,8 @@
 package DrShadow.TechXProject.compat.jei.crusher;
 
+import DrShadow.TechXProject.blocks.metal.EnumMetals;
 import DrShadow.TechXProject.compat.jei.CategoryUid;
 import DrShadow.TechXProject.init.InitItems;
-import DrShadow.TechXProject.metal.EnumMetals;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Blocks;

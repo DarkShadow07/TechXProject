@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.machines.storageUnit;
 
-import DrShadow.TechXProject.gui.GuiContainerBase;
+import DrShadow.TechXProject.client.gui.GuiContainerBase;
 import DrShadow.TechXProject.reference.Reference;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;

@@ -67,6 +67,9 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 
 		if (canWork() && getEnergy() >= drainTick)
 		{
+			markDirty();
+			markForUpdate();
+
 			working = true;
 
 			subtractEnergy(drainTick, false);
@@ -106,6 +109,9 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 			}
 		} else
 		{
+			markDirty();
+			markForUpdate();
+
 			ticks = 0;
 			targetTicks = 1;
 			working = false;

@@ -1,9 +1,8 @@
 package DrShadow.TechXProject;
 
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.configuration.ConfigurationHandler;
-import DrShadow.TechXProject.gui.GuiHandler;
 import DrShadow.TechXProject.init.InitChestLoot;
-import DrShadow.TechXProject.lib.CreativeTabTech;
 import DrShadow.TechXProject.proxy.CommonProxy;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.UpdateChecker;
@@ -28,29 +27,29 @@ public class TechXProject
 	public static ConfigurationHandler configurationHandler;
 
 	public static CreativeTabs techTab = new CreativeTabTech("techTab");
+	public static CreativeTabs oresTab;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		UpdateChecker.init();
-
 		proxy.registerBlocks();
 		proxy.registerItems();
 		proxy.registerKeyBindings();
 		proxy.registerConfiguration(event.getSuggestedConfigurationFile());
 		proxy.registerPacketHandler();
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(TechXProject.instance, new GuiHandler());
+		oresTab = new CreativeTabTech.CreativeTabOres("techTabOres");
 
-		proxy.preInit();
+		NetworkRegistry.INSTANCE.registerGuiHandler(TechXProject.instance, new GuiHandler());
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		proxy.registerEvents();
-
 		proxy.init();
+
+		proxy.registerEvents();
 
 		InitChestLoot.init();
 	}
@@ -58,10 +57,10 @@ public class TechXProject
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
+		proxy.postInit();
+
 		proxy.registerThreads();
 
 		configurationHandler = new ConfigurationHandler();
-
-		proxy.postInit();
 	}
 }

@@ -2,20 +2,17 @@ package DrShadow.TechXProject.init;
 
 import DrShadow.TechXProject.blocks.base.IRecipeProvider;
 import DrShadow.TechXProject.blocks.base.IRenderer;
+import DrShadow.TechXProject.blocks.metal.EnumMetals;
+import DrShadow.TechXProject.blocks.metal.ItemDustBase;
+import DrShadow.TechXProject.blocks.metal.ItemIngotBase;
+import DrShadow.TechXProject.blocks.metal.ItemNuggetBase;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterBase;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterMod;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterName;
 import DrShadow.TechXProject.conduit.item.filter.item.ItemFilterOreDict;
-import DrShadow.TechXProject.items.ItemMachineRecipe;
-import DrShadow.TechXProject.items.ItemQuarryCard;
-import DrShadow.TechXProject.items.ItemTeleporterCard;
-import DrShadow.TechXProject.items.ItemWrench;
+import DrShadow.TechXProject.items.*;
 import DrShadow.TechXProject.items.energy.ItemMagnet;
 import DrShadow.TechXProject.items.itemWire.ItemWire;
-import DrShadow.TechXProject.metal.EnumMetals;
-import DrShadow.TechXProject.metal.ItemDustBase;
-import DrShadow.TechXProject.metal.ItemIngotBase;
-import DrShadow.TechXProject.metal.ItemNuggetBase;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Logger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -35,6 +32,8 @@ public enum InitItems
 	machineRecipe(new ItemMachineRecipe(), "machineRecipe"),
 
 	magnet(new ItemMagnet(), "magnet"),
+
+	guide(new ItemGuide(), "guide"),
 
 	filterBase(new ItemFilterBase(), "filterBase"),
 	filterMod(new ItemFilterMod(), "filterMod"),

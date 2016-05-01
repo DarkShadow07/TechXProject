@@ -28,7 +28,8 @@ public class BlockConduitBase extends BlockContainerBase implements IRenderer
 
 	public BlockConduitBase()
 	{
-		super(Material.circuits);
+		super(Material.iron, 1.9f, 2, "pickaxe");
+
 
 		setDefaultState(blockState.getBaseState().withProperty(direction, EnumFacing.UP));
 	}

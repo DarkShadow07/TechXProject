@@ -15,7 +15,8 @@ public class BlockSolarPanel extends BlockContainerBase
 {
 	public BlockSolarPanel()
 	{
-		super(Material.iron);
+		super(Material.iron, 3.5f, 0, null);
+
 	}
 
 	@Override

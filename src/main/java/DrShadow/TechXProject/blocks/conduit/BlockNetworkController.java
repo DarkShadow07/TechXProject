@@ -27,7 +27,7 @@ public class BlockNetworkController extends BlockContainerBase
 {
 	public BlockNetworkController()
 	{
-		super(Material.iron);
+		super(Material.iron, 3.0f, 2, "pickaxe");
 	}
 
 	@Override

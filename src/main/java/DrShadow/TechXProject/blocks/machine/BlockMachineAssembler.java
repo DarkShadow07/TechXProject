@@ -2,9 +2,9 @@ package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.blocks.base.BlockContainerBase;
-import DrShadow.TechXProject.gui.GuiHandler;
-import DrShadow.TechXProject.lib.Guis;
+import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.machineAssembler.TileMachineAssembler;
+import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ public class BlockMachineAssembler extends BlockContainerBase
 {
 	public BlockMachineAssembler()
 	{
-		super(Material.iron);
+		super(Material.iron, 2.5f, 1, "pickaxe");
 	}
 
 	@Override
