@@ -1,26 +1,24 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techxproject:machineFrame",
-		"transform" : "forge:default-block"
-	},
-	"variants":
-	 {
-		"render":{
-	        "defaults":{
-                "model":"techxproject:machineFrame", "transform":{
-	                "thirdperson":{ "rotation":[ {"x":10}, {"y":-45}, {"z":170} ], "translation":[ 0, 0.09375, -0.171875 ], "scale":[ 0.375, 0.375, 0.375 ] },
-	                "firstperson":{ "rotation":[ {"x":0},  {"y":90},  {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] },
-	                "gui":{         "rotation":[ {"x":0},  {"y":-90}, {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] },
-	                "fixed":{       "rotation":[ {"x":0},  {"y":0},   {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] }
-	            }
-	        }
-	    },
-		"normal": [{}],
-		"inventory": [{ "submodel": "techxproject:crusher" }],
-        "facing=east":  { "submodel": "techxproject:crusher", "y": 90},
-        "facing=west":  { "submodel": "techxproject:crusher", "y": 270},
-        "facing=south": { "submodel": "techxproject:crusher", "y": 180},
-        "facing=north": { "submodel": "techxproject:crusher"}
+    "forge_marker": 1,
+    "defaults": {
+        "model": "techxproject:crusher",
+        "textures": {"frontOn": "techxproject:blocks/machine/crusherFrontOn"},
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}],
+        "facing":
+        {
+        	"north": {},
+        	"east": {"model": "techxproject:crusher", "y": 90},
+        	"south": {"model": "techxproject:crusher", "y": 180},
+        	"west": {"model": "techxproject:crusher", "y": 270}
+        },
+        "working":
+        {
+        	"true": {"model": "techxproject:crusher", "textures": {"north": "#frontOn"}},
+        	"false": {"model": "techxproject:crusher"}
+        }
     }
 }

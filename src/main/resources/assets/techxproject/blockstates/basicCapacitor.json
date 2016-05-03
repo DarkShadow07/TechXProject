@@ -1,26 +1,45 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techxproject:machineFrame",
-		"transform" : "forge:default-block"
-	},
-	"variants":
-	 {
-		"render":{
-	        "defaults":{
-                "model":"techxproject:machineFrame", "transform":{
-	                "thirdperson":{ "rotation":[ {"x":10}, {"y":-45}, {"z":170} ], "translation":[ 0, 0.09375, -0.171875 ], "scale":[ 0.375, 0.375, 0.375 ] },
-	                "firstperson":{ "rotation":[ {"x":0},  {"y":90},  {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] },
-	                "gui":{         "rotation":[ {"x":0},  {"y":-90}, {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] },
-	                "fixed":{       "rotation":[ {"x":0},  {"y":0},   {"z":0}   ], "translation":[ 0, 0, 0 ], "scale":[ 1, 1, 1 ] }
-	            }
-	        }
-	    },
-		"normal": [{}],
-		"inventory": [{ "submodel": "techxproject:basicCapacitor" }],
-        "facing=east":  { "submodel": "techxproject:basicCapacitor", "y": 90},
-        "facing=west":  { "submodel": "techxproject:basicCapacitor", "y": 270},
-        "facing=south": { "submodel": "techxproject:basicCapacitor", "y": 180},
-        "facing=north": { "submodel": "techxproject:basicCapacitor"}
+    "forge_marker": 1,
+    "defaults": {
+        "model": "techxproject:basicCapacitor",
+        "textures": {
+        	"front_0": "techxproject:blocks/machine/capacitor_0",
+        	"front_1": "techxproject:blocks/machine/capacitor_1",
+        	"front_2": "techxproject:blocks/machine/capacitor_2",
+        	"front_3": "techxproject:blocks/machine/capacitor_3",
+        	"front_4": "techxproject:blocks/machine/capacitor_4",
+        	"front_5": "techxproject:blocks/machine/capacitor_5",
+        	"front_6": "techxproject:blocks/machine/capacitor_6",
+        	"front_7": "techxproject:blocks/machine/capacitor_7",
+        	"front_8": "techxproject:blocks/machine/capacitor_8",
+        	"front_9": "techxproject:blocks/machine/capacitor_9",
+        	"front_10": "techxproject:blocks/machine/capacitor_10"
+        	},
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}],
+        "facing":
+        {
+        	"north": {},
+        	"east": {"model": "techxproject:basicCapacitor", "y": 90},
+        	"south": {"model": "techxproject:basicCapacitor", "y": 180},
+        	"west": {"model": "techxproject:basicCapacitor", "y": 270}
+        },
+        "energy":
+        {
+        	"0": {"model": "techxproject:basicCapacitor"},
+        	"1": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_1"}},
+        	"2": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_2"}},
+        	"3": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_3"}},
+        	"4": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_4"}},
+        	"5": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_5"}},
+        	"6": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_6"}},
+        	"7": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_7"}},
+        	"8": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_8"}},
+        	"9": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_9"}},
+        	"10": {"model": "techxproject:basicCapacitor" , "textures": {"north": "#front_10"}}
+        }
     }
 }

@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.packets;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.machines.capacitor;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.util.energy.EnergyTracker;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -68,6 +68,9 @@ public class TileCapacitor extends TileEnergyContainer
 		if (!test)
 		{
 			tracker.receiveEnergy(amount);
+
+			markDirty();
+			markForUpdate();
 		}
 
 		return super.addEnergy(amount, test);
@@ -79,6 +82,9 @@ public class TileCapacitor extends TileEnergyContainer
 		if (!test)
 		{
 			tracker.sendEnergy(energy);
+
+			markDirty();
+			markForUpdate();
 		}
 
 		return super.subtractEnergy(energy, test);

@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.machines.crusher;
 
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.util.Util;

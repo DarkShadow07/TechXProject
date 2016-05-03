@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 
 public class BlockQuarry extends BlockContainerBase
 {
+	// TODO: textures
+
 	public BlockQuarry()
 	{
 		super(Material.iron, 4.7f, 3, "pickaxe");

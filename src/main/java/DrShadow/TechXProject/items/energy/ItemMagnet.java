@@ -1,6 +1,5 @@
 package DrShadow.TechXProject.items.energy;
 
-import DrShadow.TechXProject.api.energy.item.ItemEnergyContainer;
 import DrShadow.TechXProject.util.VectorUtil;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;

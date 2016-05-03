@@ -37,7 +37,7 @@ public class UpdateChecker
 	{
 		try
 		{
-			URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/1.9/src/version/" + MinecraftForge.MC_VERSION + ".txt");
+			URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/version/" + MinecraftForge.MC_VERSION + ".txt");
 			Scanner s = new Scanner(url.openStream());
 
 			newestVersion = s.next() + " " + s.next();

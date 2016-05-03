@@ -1,6 +1,6 @@
 package DrShadow.TechXProject.machines.teleporter;
 
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

@@ -204,6 +204,7 @@ public class GuiButtonExpand extends GuiButton
 		drawRect(x + w - 2, y + 1, x + w - 3, y + 2, black.getRGB());
 		drawRect(x + w - 1, y + 2, x + w - 2, y + 3, black.getRGB());
 		drawRect(x + w - 3, y + 2, x + w - 2, y + 3, body.getRGB());
+		drawRect(x, y, x + 1, y + h, new Color(0, 0, 0, 0.25f).getRGB());
 	}
 
 	private Color mixColor(Color c1, Color c2, float ratio)

@@ -1,6 +1,7 @@
 package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
+import DrShadow.TechXProject.blocks.base.BlockMachineBase;
 import DrShadow.TechXProject.blocks.base.BlockRotatingBase;
 import DrShadow.TechXProject.blocks.base.IRenderer;
 import DrShadow.TechXProject.client.gui.GuiHandler;
@@ -28,7 +29,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 
-public class BlockSmelter extends BlockRotatingBase implements IRenderer, ITileEntityProvider
+public class BlockSmelter extends BlockMachineBase implements IRenderer, ITileEntityProvider
 {
 	public static PropertyBool working = PropertyBool.create("working");
 

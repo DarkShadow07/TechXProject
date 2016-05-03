@@ -2,7 +2,7 @@ package DrShadow.TechXProject.machines.energyMonitor;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.energy.TileConduitEnergy;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;

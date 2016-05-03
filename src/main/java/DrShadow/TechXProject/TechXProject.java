@@ -7,13 +7,15 @@ import DrShadow.TechXProject.proxy.CommonProxy;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.UpdateChecker;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+
+import java.io.File;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = Reference.DEPENDENCIES)
 public class TechXProject
@@ -27,7 +29,7 @@ public class TechXProject
 	public static ConfigurationHandler configurationHandler;
 
 	public static CreativeTabs techTab = new CreativeTabTech("techTab");
-	public static CreativeTabs oresTab;
+	public static CreativeTabs oresTab = new CreativeTabTech.CreativeTabOres("techTabOres");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -39,8 +41,6 @@ public class TechXProject
 		proxy.registerConfiguration(event.getSuggestedConfigurationFile());
 		proxy.registerPacketHandler();
 
-		oresTab = new CreativeTabTech.CreativeTabOres("techTabOres");
-
 		NetworkRegistry.INSTANCE.registerGuiHandler(TechXProject.instance, new GuiHandler());
 	}
 
@@ -48,6 +48,8 @@ public class TechXProject
 	public void init(FMLInitializationEvent event)
 	{
 		proxy.init();
+
+		FMLInterModComms.sendMessage("Waila", "register", Reference.PATH_INTEGRATIONS + "waila.WailaTileHandler.register");
 
 		proxy.registerEvents();
 

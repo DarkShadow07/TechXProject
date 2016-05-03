@@ -2,7 +2,6 @@ package DrShadow.TechXProject.client.render;
 
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,7 +27,7 @@ public class GhostBlockRenderer implements IRenderObject
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ());
 
-		Util.minecraft().getBlockRendererDispatcher().renderBlockBrightness(state, Util.world().getLightBrightness(pos));
+		Util.minecraft().getBlockRendererDispatcher().renderBlockBrightness(state, 0.75f);
 
 		GlStateManager.popMatrix();
 	}

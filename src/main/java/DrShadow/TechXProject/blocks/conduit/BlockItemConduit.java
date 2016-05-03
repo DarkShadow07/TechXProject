@@ -3,7 +3,6 @@ package DrShadow.TechXProject.blocks.conduit;
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.api.IWrench;
 import DrShadow.TechXProject.client.gui.GuiHandler;
-import DrShadow.TechXProject.conduit.energy.TileConduitEnergy;
 import DrShadow.TechXProject.conduit.item.TileConduitItem;
 import DrShadow.TechXProject.reference.Guis;
 import net.minecraft.block.state.IBlockState;

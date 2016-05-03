@@ -1,19 +1,24 @@
 package DrShadow.TechXProject.conduit.energy;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.compat.waila.IWailaBody;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
 import java.util.List;
 
-public class TileConduitEnergy extends TileEnergyContainer implements INetworkElement
+public class TileConduitEnergy extends TileEnergyContainer implements INetworkElement, IWailaBody
 {
 	public ConduitNetwork network;
 
@@ -239,5 +244,17 @@ public class TileConduitEnergy extends TileEnergyContainer implements INetworkEl
 	public boolean hasNetwork()
 	{
 		return network != null;
+	}
+
+	@Override
+	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		super.getWailaBody(itemStack, currenttip, accessor, config);
+
+		String mode = isInput() ? ChatFormatting.GREEN + "Input" : ChatFormatting.RED + "Output";
+
+		currenttip.add("Mode: " + mode);
+
+		return currenttip;
 	}
 }

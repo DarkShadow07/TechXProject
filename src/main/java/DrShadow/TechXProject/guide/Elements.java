@@ -3,7 +3,6 @@ package DrShadow.TechXProject.guide;
 import DrShadow.TechXProject.client.gui.widget.GuiButtonText;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Lang;
-import DrShadow.TechXProject.util.Logger;
 import net.minecraft.client.gui.GuiButton;
 
 import java.awt.*;

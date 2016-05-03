@@ -18,6 +18,8 @@ import net.minecraft.world.World;
 
 public class BlockEnergyMonitor extends BlockContainerBase
 {
+	// TODO: textures
+
 	public BlockEnergyMonitor()
 	{
 		super(Material.iron, 4.1f, 2, "pickaxe");

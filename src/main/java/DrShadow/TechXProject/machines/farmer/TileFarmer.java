@@ -1,10 +1,7 @@
 package DrShadow.TechXProject.machines.farmer;
 
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
-import DrShadow.TechXProject.init.InitBlocks;
-import DrShadow.TechXProject.init.InitItems;
-import DrShadow.TechXProject.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.IGrowable;
@@ -18,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.IPlantable;
@@ -238,7 +234,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 	{
 		BlockPos pos = new BlockPos(x, y, z);
 
-		EnumFacing[] values = {EnumFacing.NORTH ,EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.UP, EnumFacing.DOWN};
+		EnumFacing[] values = {EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.UP, EnumFacing.DOWN};
 
 		for (EnumFacing facing : values)
 		{

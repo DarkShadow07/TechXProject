@@ -19,6 +19,8 @@ import net.minecraft.world.World;
 
 public class BlockMachineAssembler extends BlockContainerBase
 {
+	// TODO: textures
+
 	public BlockMachineAssembler()
 	{
 		super(Material.iron, 2.5f, 1, "pickaxe");

@@ -19,6 +19,8 @@ import net.minecraft.world.World;
 
 public class BlockFarmer extends BlockContainerBase
 {
+	// TODO: textures and model
+
 	public BlockFarmer()
 	{
 		super(Material.iron, 2.7f, 1, "pickaxe");

@@ -19,6 +19,8 @@ import net.minecraft.world.World;
 
 public class BlockStorageUnit extends BlockContainerBase
 {
+	// TODO: textures
+
 	public BlockStorageUnit()
 	{
 		super(Material.iron, 3.8f, 1, "pickaxe");

@@ -8,39 +8,17 @@
     "variants": {
         "normal": [{}],
         "inventory": [{}],
-        "facing=east,working=false": {
-            "model": "techxproject:smelter",
-            "y": 90
+        "facing":
+        {
+        	"north": {},
+        	"east": {"model": "techxproject:smelter", "y": 90},
+        	"south": {"model": "techxproject:smelter", "y": 180},
+        	"west": {"model": "techxproject:smelter", "y": 270}
         },
-        "facing=west,working=false": {
-            "model": "techxproject:smelter",
-            "y": 270
-        },
-        "facing=south,working=false": {
-            "model": "techxproject:smelter",
-            "y": 180
-        },
-        "facing=north,working=false": {
-        	"model": "techxproject:smelter"
-        },
-        "facing=east,working=true": {
-            "model": "techxproject:smelter",
-            "y": 90,
-            "textures": {"north": "#frontOn"}
-        },
-        "facing=west,working=true": {
-            "model": "techxproject:smelter",
-            "y": 270,
-            "textures": {"north": "#frontOn"}
-        },
-        "facing=south,working=true": {
-            "model": "techxproject:smelter",
-            "textures": {"north": "#frontOn"},
-            "y": 180
-        },
-        "facing=north,working=true": {
-            "model": "techxproject:smelter",
-            "textures": {"north": "#frontOn"}
+        "working":
+        {
+        	"true": {"model": "techxproject:smelter", "textures": {"north": "#frontOn"}},
+        	"false": {"model": "techxproject:smelter"}
         }
     }
 }

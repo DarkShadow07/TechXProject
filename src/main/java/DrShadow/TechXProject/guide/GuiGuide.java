@@ -20,12 +20,10 @@ import java.util.List;
 
 public class GuiGuide extends GuiContainerBase
 {
+	private static List<IGuideElement> elements = new ArrayList<>();
 	public int midX, midY;
 	private int top, left;
 	private GuiButton next, prev;
-
-	private static List<IGuideElement> elements = new ArrayList<>();
-
 	private int index;
 
 	public GuiGuide(int index)
@@ -43,6 +41,11 @@ public class GuiGuide extends GuiContainerBase
 		ySize = 180;
 
 		addElements();
+	}
+
+	public static void addElement(IGuideElement element)
+	{
+		elements.add(element);
 	}
 
 	@Override
@@ -67,11 +70,6 @@ public class GuiGuide extends GuiContainerBase
 		elements.clear();
 
 		addElement(new Elements.MainPage(this));
-	}
-
-	public static void addElement(IGuideElement element)
-	{
-		elements.add(element);
 	}
 
 	public int getByName(String name)

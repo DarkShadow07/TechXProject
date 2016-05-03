@@ -19,6 +19,8 @@ import net.minecraft.world.World;
 
 public class BlockTeleporter extends BlockContainerBase
 {
+	// TODO: textures, model and fix teleportation
+
 	public BlockTeleporter()
 	{
 		super(Material.iron, 4.25f, 3, "pickaxe");

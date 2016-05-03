@@ -1,7 +1,7 @@
 package DrShadow.TechXProject.machines.energy;
 
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
-import DrShadow.TechXProject.api.energy.TileEnergyContainer;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import net.minecraft.util.EnumFacing;
 
 public class TileSolarPanel extends TileEnergyContainer implements IEnergyGenerator

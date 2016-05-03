@@ -1,0 +1,10 @@
+{
+  "homepage": "https://github.com/DarkShadow07/TechXProject",
+  "promos": {
+    "1.9-latest": "1.9-0.00.0 Pre-Alpha",
+    "1.9-recommended": "1.9-0.00.0 Pre-Alpha"
+  },
+  "1.9": {
+    "1.9-0.00.0 Pre-Alpha": "Description?"
+  }
+}

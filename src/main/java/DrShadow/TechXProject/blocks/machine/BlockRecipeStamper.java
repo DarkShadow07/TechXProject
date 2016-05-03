@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 
 public class BlockRecipeStamper extends BlockContainerBase
 {
+	// TODO: textures
+
 	public BlockRecipeStamper()
 	{
 		super(Material.iron, 2.4f, 1, "pickaxe");

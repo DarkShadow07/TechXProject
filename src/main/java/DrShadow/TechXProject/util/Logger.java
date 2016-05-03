@@ -1,7 +1,6 @@
 package DrShadow.TechXProject.util;
 
 import DrShadow.TechXProject.reference.Reference;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 

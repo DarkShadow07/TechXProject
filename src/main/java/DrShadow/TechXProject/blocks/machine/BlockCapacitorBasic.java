@@ -1,25 +1,74 @@
 package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
-import DrShadow.TechXProject.blocks.base.BlockContainerBase;
+import DrShadow.TechXProject.blocks.base.BlockMachineBase;
+import DrShadow.TechXProject.blocks.base.BlockRotatingBase;
+import DrShadow.TechXProject.blocks.base.IRenderer;
 import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.capacitor.TileBasicCapacitor;
+import DrShadow.TechXProject.machines.capacitor.TileCapacitor;
 import DrShadow.TechXProject.reference.Guis;
+import DrShadow.TechXProject.reference.Reference;
+import DrShadow.TechXProject.util.Logger;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 
-public class BlockCapacitorBasic extends BlockContainerBase
+public class BlockCapacitorBasic extends BlockMachineBase implements IRenderer, ITileEntityProvider
 {
+	public static PropertyInteger energy = PropertyInteger.create("energy", 0, 10);
+
 	public BlockCapacitorBasic()
 	{
 		super(Material.iron, 4.3f, 2, "pickaxe");
+	}
+
+	@Override
+	public void registerModel()
+	{
+		ModelLoader.setCustomStateMapper(this, new DefaultStateMapper()
+		{
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+			{
+				return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), getPropertyString(state.getProperties()));
+			}
+		});
+
+		for (int i = 0; i < EnumFacing.HORIZONTALS.length; i++)
+		{
+			Logger.info("Registered Custom Model Block " + getUnlocalizedName() + " with Variant " + i + "!");
+
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), "inventory"));
+		}
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	{
+		TileCapacitor tile = (TileCapacitor) worldIn.getTileEntity(pos);
+
+		return getDefaultState().withProperty(energy, tile.getEnergy() * 10 / tile.getMaxEnergy()).withProperty(facing, EnumFacing.getFront(getMetaFromState(state)));
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState()
+	{
+		return new BlockStateContainer(this, facing, energy);
 	}
 
 	@Override

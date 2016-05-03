@@ -26,7 +26,12 @@ public class BlockRotatingBase extends BlockBase
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
-		return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(this.facing, placer.getHorizontalFacing().getOpposite());
+		if (placer.isSneaking())
+		{
+			return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(BlockRotatingBase.facing, placer.getHorizontalFacing().getOpposite());
+		}
+
+		return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(BlockRotatingBase.facing, placer.getHorizontalFacing().getOpposite());
 	}
 
 	@Override

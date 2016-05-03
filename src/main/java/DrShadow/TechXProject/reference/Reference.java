@@ -9,4 +9,5 @@ public class Reference
 	public static final String SERVER_PROXY_CLASS = "DrShadow." + MOD_ID + ".proxy.CommonProxy";
 	public static final String CLIENT_PROXY_CLASS = "DrShadow." + MOD_ID + ".proxy.ClientProxy";
 	public static final String CHANNEL_NAME = "TechPackets";
+	public static final String PATH_INTEGRATIONS= "DrShadow." + MOD_ID + ".compat.";
 }
