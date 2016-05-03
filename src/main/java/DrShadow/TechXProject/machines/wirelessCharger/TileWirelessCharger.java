@@ -19,10 +19,8 @@ public class TileWirelessCharger extends TileEnergyContainer
 	{
 		super(1250000, 20000);
 
-		for (EnumFacing facing : EnumFacing.HORIZONTALS)
-		{
-			setSideInput(facing);
-		}
+		setSideInput(EnumFacing.DOWN);
+		setSideInput(EnumFacing.UP);
 	}
 
 	@Override
@@ -60,7 +58,14 @@ public class TileWirelessCharger extends TileEnergyContainer
 						working = false;
 
 						markForUpdate();
+						markDirty();
 					}
+				}else
+				{
+					working = false;
+
+					markForUpdate();
+					markDirty();
 				}
 			}
 		}

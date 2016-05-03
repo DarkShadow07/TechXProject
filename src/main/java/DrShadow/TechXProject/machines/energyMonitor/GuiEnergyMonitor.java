@@ -1,13 +1,19 @@
 package DrShadow.TechXProject.machines.energyMonitor;
 
 import DrShadow.TechXProject.client.gui.GuiContainerBase;
+import DrShadow.TechXProject.client.gui.widget.GuiButtonExpand;
 import DrShadow.TechXProject.reference.Reference;
+import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +23,8 @@ public class GuiEnergyMonitor extends GuiContainerBase
 	private int top, left;
 
 	private TileEnergyMonitor monitor;
+
+	private GuiTextField minEnergy, maxEnergy;
 
 	public GuiEnergyMonitor(InventoryPlayer inventoryPlayer, TileEnergyMonitor monitor)
 	{
@@ -35,14 +43,69 @@ public class GuiEnergyMonitor extends GuiContainerBase
 
 		left = (this.width - this.xSize) / 2;
 		top = (this.height - this.ySize) / 2;
+
+		buttonList.add(new GuiButtonExpand(this, 0, 122, 74, Color.red, new ResourceLocation("textures/items/redstone_dust.png"), 0, 0, "Redstone Control", "Use the Redstone Control Mode to define at what Levels of Energy the Energy Monitor should Emit a Rendstone Signal"));
+		minEnergy = new GuiTextField(0, fontRendererObj, left + 98, top + 22, 26, 12);
+		minEnergy.setCanLoseFocus(true);
+		minEnergy.setMaxStringLength(3);
+		minEnergy.setVisible(true);
+
+		maxEnergy = new GuiTextField(0, fontRendererObj, left + 98, top + 40, 26, 12);
+		maxEnergy.setCanLoseFocus(true);
+		maxEnergy.setMaxStringLength(3);
+		maxEnergy.setVisible(true);
+	}
+
+	@Override
+	public void updateScreen()
+	{
+		super.updateScreen();
+
+		minEnergy.updateCursorCounter();
+		maxEnergy.updateCursorCounter();
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+	{
+		minEnergy.mouseClicked(mouseX, mouseY, mouseButton);
+		maxEnergy.mouseClicked(mouseX, mouseY, mouseButton);
+
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+	}
+
+	@Override
+	protected void keyTyped(char typedChar, int keyCode) throws IOException
+	{
+		if (Util.isInteger(typedChar + "") || keyCode == Keyboard.KEY_BACK)
+		{
+			minEnergy.textboxKeyTyped(typedChar, keyCode);
+			maxEnergy.textboxKeyTyped(typedChar, keyCode);
+		}
+		super.keyTyped(typedChar, keyCode);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
+		if (!minEnergy.getText().equals(""))
+		{
+			int percent = Integer.valueOf(minEnergy.getText());
+
+			if (percent > 100) minEnergy.setText("100");
+		}
+
+		if (!maxEnergy.getText().equals(""))
+		{
+			int percent = Integer.valueOf(maxEnergy.getText());
+
+			if (percent > 100) maxEnergy.setText("100");
+		}
+
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		ResourceLocation texture = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_EnergyMonitor.png");
 		mc.getTextureManager().bindTexture(texture);
+
 
 		if (monitor.hasNetowork())
 		{
@@ -52,9 +115,12 @@ public class GuiEnergyMonitor extends GuiContainerBase
 				drawTexturedModalRect(22, 8 + 100 - networkEnergy, 186, 100 - networkEnergy, 10, networkEnergy);
 			}
 		}
-
 		int energy = (monitor.getEnergy() * 100) / monitor.getMaxEnergy();
 		drawTexturedModalRect(8, 8 + 100 - energy, 176, 100 - energy, 10, energy);
+
+		fontRendererObj.drawString("Redstone Control Mode", 38, 8, 4210752);
+		fontRendererObj.drawSplitString("Min Energy         %", 38, 24, 140, 4210752);
+		fontRendererObj.drawSplitString("Max Energy        %", 38, 42, 140, 4210752);
 
 		Rectangle energyBar = new Rectangle(left + 8, top + 8, 10, 100);
 		Rectangle networkEnergyBar = new Rectangle(left + 22, top + 8, 10, 100);
@@ -112,5 +178,8 @@ public class GuiEnergyMonitor extends GuiContainerBase
 		ResourceLocation texture = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_EnergyMonitor.png");
 		mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, this.xSize, this.ySize);
+
+		minEnergy.drawTextBox();
+		maxEnergy.drawTextBox();
 	}
 }

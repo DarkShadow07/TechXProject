@@ -4,9 +4,11 @@ import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeCategory;
 import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
 import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeCategory;
 import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
+import DrShadow.TechXProject.init.InitBlocks;
 import DrShadow.TechXProject.machines.crusher.GuiCrusher;
 import DrShadow.TechXProject.machines.smelter.GuiSmelter;
 import mezz.jei.api.*;
+import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -34,6 +36,9 @@ public class TechPlugin implements IModPlugin
 
 		registry.addRecipes(SmelterRecipeHandler.instance.getRecipeList());
 		registry.addRecipes(CrusherRecipeHandler.instance.getRecipeList());
+
+		registry.addRecipeCategoryCraftingItem(new ItemStack(InitBlocks.smelter.block) , CategoryUid.SMELTER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(InitBlocks.crusher.block) , CategoryUid.CRUSHER);
 	}
 
 	@Override

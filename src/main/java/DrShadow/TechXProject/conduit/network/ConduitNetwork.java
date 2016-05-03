@@ -37,9 +37,8 @@ public class ConduitNetwork
 
 	public boolean isInNetwork(INetworkElement is)
 	{
-		if (is == null) return false;
+		return is != null && networkElements.contains(is);
 
-		return networkElements.contains(is);
 	}
 
 	public void update()

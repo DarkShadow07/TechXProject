@@ -64,9 +64,10 @@ public class TileNetworkController extends ModTileEntity implements INetworkCont
 
 				for (INetworkElement relayElement : relay.getElements())
 				{
-					if (relayElement != null && !network.isInNetwork(relayElement))
+					if (relayElement != null)
 					{
-						network.addToNetwork(relayElement);
+						addToNetwork(relayElement);
+						relayElement.setNetwork(network);
 					}
 				}
 			}

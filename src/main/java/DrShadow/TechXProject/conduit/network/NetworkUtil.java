@@ -24,6 +24,7 @@ public class NetworkUtil
 			if (pos != null && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof INetworkElement)
 			{
 				result.addToNetwork((INetworkElement) world.getTileEntity(pos));
+				((INetworkElement) world.getTileEntity(pos)).setNetwork(container.getNetwork());
 			}
 		}
 

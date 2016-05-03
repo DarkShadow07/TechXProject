@@ -5,6 +5,7 @@ import DrShadow.TechXProject.api.energy.IEnergyGenerator;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.util.RenderUtil;
 import DrShadow.TechXProject.util.Util;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.tileentity.TileEntity;
@@ -47,15 +48,15 @@ public class RenderEvents
 					FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
 					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), resolution.getScaledWidth() / 2 + 8, resolution.getScaledHeight() / 2, Color.white.getRGB());
-					fontRenderer.drawStringWithShadow(energy, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 10, Color.cyan.hashCode());
+					fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + energy, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 10, Color.white.hashCode());
 
 					if (tile instanceof IEnergyGenerator)
 					{
 						IEnergyGenerator generator = (IEnergyGenerator) tile;
 
-						String generating = "Generating " + NumberFormat.getInstance().format(generator.getGenerating()) + " TF/t";
+						String generating = String.format("Generating %sTF/t", ChatFormatting.GREEN + NumberFormat.getInstance().format(generator.getGenerating()) + ChatFormatting.GRAY);
 
-						fontRenderer.drawStringWithShadow(generating, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 20, Color.cyan.getRGB());
+						fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + generating, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 20, Color.white.getRGB());
 					}
 				}
 			}

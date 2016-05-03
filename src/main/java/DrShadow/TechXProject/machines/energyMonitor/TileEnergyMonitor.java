@@ -6,6 +6,7 @@ import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.conduit.energy.TileConduitEnergy;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
+import DrShadow.TechXProject.util.Logger;
 import DrShadow.TechXProject.util.energy.EnergyTracker;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
