@@ -28,6 +28,7 @@ import DrShadow.TechXProject.machines.recipeStamper.TileRecipeStamper;
 import DrShadow.TechXProject.machines.smelter.TileSmelter;
 import DrShadow.TechXProject.machines.storageUnit.TileStorageUnit;
 import DrShadow.TechXProject.machines.teleporter.TileTeleporter;
+import DrShadow.TechXProject.machines.wirelessCharger.TileWirelessCharger;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Logger;
 import net.minecraft.block.Block;
@@ -48,6 +49,7 @@ public enum InitBlocks
 	conduitLogic(new BlockLogicConduit(), "conduitLogic"),
 
 	energyMonitor(new BlockEnergyMonitor(), "energyMonitor"),
+	wirelessCharger(new BlockWirelessCharger(), "wirelessCharger"),
 
 	machineAssembler(new BlockMachineAssembler(), "machineAssembler"),
 	recipeChest(new BlockRecipeChest(), "recipeChest"),
@@ -121,6 +123,7 @@ public enum InitBlocks
 		registerTile(TileMachineAssembler.class);
 		registerTile(TileRecipeChest.class);
 		registerTile(TileFarmer.class);
+		registerTile(TileWirelessCharger.class);
 	}
 
 	public static void initRecipes()

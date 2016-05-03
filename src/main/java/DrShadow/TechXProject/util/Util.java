@@ -242,6 +242,11 @@ public class Util
 		return 0;
 	}
 
+	public static boolean intToBoolean(int integer)
+	{
+		return integer > 0;
+	}
+
 	public static boolean equals(Object obj1, Object obj2)
 	{
 		return obj1.equals(obj2);

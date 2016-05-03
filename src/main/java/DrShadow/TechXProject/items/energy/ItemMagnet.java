@@ -22,16 +22,12 @@ public class ItemMagnet extends ItemEnergyContainer
 	{
 		super(200000, 200000, 1000);
 
-		setEnergy(new ItemStack(this), getMaxEnergy());
-
 		setMaxStackSize(1);
 	}
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		addEnergy(stack, 1000, false);
-
 		if (getEnergy(stack) >= drain && entityIn instanceof EntityPlayer && !entityIn.isSneaking() && !GuiScreen.isShiftKeyDown())
 		{
 			List<EntityItem> items = worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entityIn.posX - range, entityIn.posY - range, entityIn.posZ - range, entityIn.posX + range, entityIn.posY + range, entityIn.posZ + range));

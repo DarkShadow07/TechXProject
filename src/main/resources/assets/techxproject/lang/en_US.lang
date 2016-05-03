@@ -18,6 +18,7 @@ tile.techxproject.teleporter.name=Multidimensional Teleporter
 tile.techxproject.storageUnit.name=Storage Unit
 tile.techxproject.solarPanel.name=Solar Panel
 tile.techxproject.recipeChest.name=Machine Recipe Chest
+tile.techxproject.wirelessCharger.name=Wireless Item Charger
 
 tile.techxproject.copperOre.name=Copper Ore
 tile.techxproject.leadOre.name=Lead Ore

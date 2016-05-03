@@ -4,6 +4,7 @@ import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.compat.waila.IWailaBody;
 import DrShadow.TechXProject.util.Util;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -256,6 +258,19 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
+		EnumFacing side = accessor.getSide();
+
+		if (accessor.getPlayer().isSneaking())
+		{
+			currenttip.add("Side: " + ChatFormatting.WHITE + StringUtils.capitalize(side.getName()));
+
+			if (canInsert(side) && canExtract(side))
+			{
+				currenttip.add("Mode: " + ChatFormatting.GREEN + "In" + ChatFormatting.RESET + "/" + ChatFormatting.RED + "Out");
+			} else
+				currenttip.add("Mode: " + (canInsert(side) ? ChatFormatting.GREEN + "Input" : canExtract(side) ? ChatFormatting.RED + "Output" : ChatFormatting.GRAY + "None"));
+		}else currenttip.add(ChatFormatting.ITALIC + "<Hold Shift for more Info>");
+
 		currenttip.add(NumberFormat.getInstance().format(getEnergy()) + "/" + NumberFormat.getInstance().format(getMaxEnergy()));
 
 		return currenttip;

@@ -46,8 +46,8 @@ public class RenderEvents
 
 					FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
-					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), resolution.getScaledWidth() / 2 + 8, resolution.getScaledHeight() / 2, Color.WHITE.getRGB());
-					fontRenderer.drawStringWithShadow(energy, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 10, Color.ORANGE.hashCode());
+					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), resolution.getScaledWidth() / 2 + 8, resolution.getScaledHeight() / 2, Color.white.getRGB());
+					fontRenderer.drawStringWithShadow(energy, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 10, Color.cyan.hashCode());
 
 					if (tile instanceof IEnergyGenerator)
 					{
@@ -55,7 +55,7 @@ public class RenderEvents
 
 						String generating = "Generating " + NumberFormat.getInstance().format(generator.getGenerating()) + " TF/t";
 
-						fontRenderer.drawStringWithShadow(generating, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 20, Color.ORANGE.getRGB());
+						fontRenderer.drawStringWithShadow(generating, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 20, Color.cyan.getRGB());
 					}
 				}
 			}

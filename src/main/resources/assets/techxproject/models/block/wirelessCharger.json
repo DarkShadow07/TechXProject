@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"particle": "techxproject:blocks/machine/wirelessChargerOff",
+		"north": "techxproject:blocks/machine/wirelessChargerOff",
+		"east": "techxproject:blocks/machine/wirelessChargerOff",
+		"west": "techxproject:blocks/machine/wirelessChargerOff",
+		"down": "techxproject:blocks/machine/machineBottom",
+		"south": "techxproject:blocks/machine/wirelessChargerOff",
+		"up": "techxproject:blocks/machine/machineTop"
+	}
+}

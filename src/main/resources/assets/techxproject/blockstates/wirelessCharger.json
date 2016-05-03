@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "techxproject:crusher",
+        "textures": {"frontOn": "techxproject:blocks/machine/wirelessChargerOn"},
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}],
+        "working":
+        {
+        	"true": {"model": "techxproject:wirelessCharger", "textures": {"north": "#frontOn"}},
+        	"false": {"model": "techxproject:wirelessCharger"}
+        }
+    }
+}

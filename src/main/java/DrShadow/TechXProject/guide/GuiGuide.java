@@ -67,8 +67,6 @@ public class GuiGuide extends GuiContainerBase
 
 	public void addElements()
 	{
-		elements.clear();
-
 		addElement(new Elements.MainPage(this));
 	}
 
@@ -147,12 +145,16 @@ public class GuiGuide extends GuiContainerBase
 
 	private void reloadElements()
 	{
+		elements.clear();
+
+		addElements();
+
 		buttonList.clear();
 
 		buttonList.add(prev);
 		buttonList.add(next);
 
-		elements.get(index).init();
+		if (index > 0) elements.get(index).init();
 	}
 
 	public void setIndex(int index)

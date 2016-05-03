@@ -5,6 +5,7 @@ import DrShadow.TechXProject.configuration.ConfigurationHandler;
 import DrShadow.TechXProject.init.InitChestLoot;
 import DrShadow.TechXProject.proxy.CommonProxy;
 import DrShadow.TechXProject.reference.Reference;
+import DrShadow.TechXProject.util.Logger;
 import DrShadow.TechXProject.util.UpdateChecker;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.*;
@@ -42,6 +43,8 @@ public class TechXProject
 		proxy.registerPacketHandler();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(TechXProject.instance, new GuiHandler());
+
+		Logger.info("Pre-Initialization Completed!");
 	}
 
 	@EventHandler
@@ -49,11 +52,17 @@ public class TechXProject
 	{
 		proxy.init();
 
-		FMLInterModComms.sendMessage("Waila", "register", Reference.PATH_INTEGRATIONS + "waila.WailaTileHandler.register");
+		if (Loader.isModLoaded("Waila"))
+		{
+			Logger.info("Waila Integration Loaded Successfully!");
+			FMLInterModComms.sendMessage("Waila", "register", Reference.PATH_INTEGRATIONS + "waila.WailaTileHandler.register");
+		}
 
 		proxy.registerEvents();
 
 		InitChestLoot.init();
+
+		Logger.info("Initialization Completed!");
 	}
 
 	@EventHandler
@@ -64,5 +73,7 @@ public class TechXProject
 		proxy.registerThreads();
 
 		configurationHandler = new ConfigurationHandler();
+
+		Logger.info("Post-Initialization Completed!");
 	}
 }
