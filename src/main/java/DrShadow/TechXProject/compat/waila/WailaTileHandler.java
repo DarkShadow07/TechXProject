@@ -1,8 +1,6 @@
 package DrShadow.TechXProject.compat.waila;
 
 import DrShadow.TechXProject.blocks.base.BlockBase;
-import DrShadow.TechXProject.client.render.IRenderObject;
-import DrShadow.TechXProject.events.WorldEvents;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;

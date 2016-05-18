@@ -1,37 +1,43 @@
 package DrShadow.TechXProject.client.gui.widget;
 
-import DrShadow.TechXProject.client.gui.GuiContainerBase;
 import DrShadow.TechXProject.util.GuiUtil;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.List;
 
 public class GuiButtonExpand extends GuiButton
 {
-	protected boolean expanded = false, expanding = false, fullExpandedW = false, fullExpandedH = false;
+	protected boolean expanded, expanding, fullExpandedW, fullExpandedH;
 	protected Color color;
 	private int x, y, w, h, u, v;
-	private GuiContainerBase guiIn;
+	private GuiScreen guiIn;
+	private Field buttonList;
+
 	private String[] data;
 	private ResourceLocation texture;
 
-	public GuiButtonExpand(GuiContainerBase guiIn, int buttonId, int w, int h, Color color, String... data)
+	public GuiButtonExpand(GuiContainer guiIn, int buttonId, int w, int h, Color color, String... data)
 	{
 		this(guiIn, buttonId, w, h, color, null, 0, 0, data);
 	}
 
-	public GuiButtonExpand(GuiContainerBase guiIn, int buttonId, int w, int h, Color color, @Nullable ResourceLocation texture, @Nullable int u, @Nullable int v, String... data)
+	public GuiButtonExpand(GuiContainer guiIn, int buttonId, int w, int h, Color color, @Nullable ResourceLocation texture, @Nullable int u, @Nullable int v, String... data)
 	{
-		super(buttonId, (guiIn.width - guiIn.xSize) / 2 + guiIn.xSize, (guiIn.height - guiIn.xSize) / 2 + 24 * buttonId, 24, 24, "");
+		super(buttonId, (guiIn.width - guiIn.xSize) / 2 + guiIn.xSize, (guiIn.height - guiIn.ySize) / 2 + 8 + 25 * buttonId, 24, 24, "");
 		this.guiIn = guiIn;
 
 		this.x = (guiIn.width - guiIn.xSize) / 2 + guiIn.xSize;
-		this.y = (guiIn.height - guiIn.xSize) / 2 + 24 * buttonId;
+		this.y = (guiIn.height - guiIn.ySize) / 2 + 8 + 25 * buttonId;
 		this.w = w;
 		this.h = h;
 		this.color = color;
@@ -40,6 +46,17 @@ public class GuiButtonExpand extends GuiButton
 		this.v = v;
 
 		this.texture = texture;
+
+		buttonList = ReflectionHelper.findField(GuiScreen.class, "buttonList");
+		buttonList.setAccessible(true);
+
+		try
+		{
+			((List<GuiButton>) buttonList.get(guiIn)).add(this);
+		} catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public GuiButtonExpand(int x, int y, int buttonId, int w, int h, Color color, @Nullable ResourceLocation texture, @Nullable int u, @Nullable int v, String... data)
@@ -75,14 +92,20 @@ public class GuiButtonExpand extends GuiButton
 		{
 			if (guiIn != null)
 			{
-				for (GuiButton button : guiIn.getButtons())
+				try
 				{
-					if (button != null && button instanceof GuiButtonExpand && button != this)
+					for (GuiButton button : (List<GuiButton>) buttonList.get(guiIn))
 					{
-						GuiButtonExpand buttonExpand = (GuiButtonExpand) button;
+						if (button != null && button instanceof GuiButtonExpand && button != this)
+						{
+							GuiButtonExpand buttonExpand = (GuiButtonExpand) button;
 
-						buttonExpand.expanded = false;
+							buttonExpand.expanded = false;
+						}
 					}
+				} catch (IllegalAccessException e)
+				{
+					e.printStackTrace();
 				}
 			}
 
@@ -158,17 +181,23 @@ public class GuiButtonExpand extends GuiButton
 
 		if (guiIn != null)
 		{
-			for (GuiButton button : guiIn.getButtons())
+			try
 			{
-				if (button != null && button instanceof GuiButtonExpand && button != this && expanding)
+				for (GuiButton button : (List<GuiButton>) buttonList.get(guiIn))
 				{
-					GuiButtonExpand expand = (GuiButtonExpand) button;
-
-					if (expand.id >= id)
+					if (button != null && button instanceof GuiButtonExpand && button != this)
 					{
-						expand.yPosition = expand.y + height - 24;
+						GuiButtonExpand expand = (GuiButtonExpand) button;
+
+						if (expand.id >= id)
+						{
+							expand.yPosition = expand.y + height - 24;
+						}
 					}
 				}
+			} catch (IllegalAccessException e)
+			{
+				e.printStackTrace();
 			}
 		}
 
@@ -204,7 +233,7 @@ public class GuiButtonExpand extends GuiButton
 		drawRect(x + w - 2, y + 1, x + w - 3, y + 2, black.getRGB());
 		drawRect(x + w - 1, y + 2, x + w - 2, y + 3, black.getRGB());
 		drawRect(x + w - 3, y + 2, x + w - 2, y + 3, body.getRGB());
-		drawRect(x, y, x + 1, y + h, new Color(0, 0, 0, 0.25f).getRGB());
+		drawRect(x, y, x + 1, y + h, new Color(0, 0, 0, 0.35f).getRGB());
 	}
 
 	private Color mixColor(Color c1, Color c2, float ratio)

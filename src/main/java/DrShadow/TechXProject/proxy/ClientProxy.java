@@ -22,7 +22,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForge.EVENT_BUS.register(new AnvilEvent());
 
 		GameRegistry.registerWorldGenerator(new WorldGen(), 10);
-		MinecraftForge.EVENT_BUS.register(new WorldGen());
+		MinecraftForge.ORE_GEN_BUS.register(new WorldGen());
 
 		MinecraftForge.EVENT_BUS.register(new WorldTickHandler());
 	}

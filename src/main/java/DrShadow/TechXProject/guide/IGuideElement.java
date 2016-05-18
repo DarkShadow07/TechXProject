@@ -6,6 +6,8 @@ public interface IGuideElement
 {
 	void init();
 
+	void stop();
+
 	void onKeyTyped(char typedChar, int keyCode);
 
 	void onMouseClicked(int x, int y, int button);

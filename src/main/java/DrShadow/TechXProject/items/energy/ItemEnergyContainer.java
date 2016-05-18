@@ -2,7 +2,6 @@ package DrShadow.TechXProject.items.energy;
 
 import DrShadow.TechXProject.api.energy.item.IEnergyItem;
 import DrShadow.TechXProject.items.ItemBase;
-import DrShadow.TechXProject.util.Logger;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

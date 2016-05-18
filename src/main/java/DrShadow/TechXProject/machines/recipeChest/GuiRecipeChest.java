@@ -31,7 +31,7 @@ public class GuiRecipeChest extends GuiContainerBase
 		left = (this.width - this.xSize) / 2;
 		top = (this.height - this.ySize) / 2;
 
-		buttonList.add(new GuiButtonExpand(this, 0, 118, 38, Color.cyan, new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":textures/gui/icon/icon_Info.png"), 0, 0, "Machine Recipe Chest", "A Chest used to Store Machine Recipes"));
+		new GuiButtonExpand(this, 0, 118, 38, Color.cyan, new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":textures/gui/icon/icon_Info.png"), 0, 0, "Machine Recipe Chest", "A Chest used to Store Machine Recipes");
 	}
 
 	@Override

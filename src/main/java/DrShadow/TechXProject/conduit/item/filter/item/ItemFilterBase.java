@@ -23,9 +23,11 @@ public class ItemFilterBase extends ItemBase implements IItemStackFilter
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		tooltip.add("Filtered Items: ");
+
 		for (ItemStack filterStack : getFilteredItems(stack))
 		{
-			tooltip.add(filterStack.getDisplayName());
+			tooltip.add(" " + filterStack.getDisplayName());
 		}
 	}
 
@@ -42,6 +44,11 @@ public class ItemFilterBase extends ItemBase implements IItemStackFilter
 
 			if (ghostStack == null || filteredItems.contains(GhostItemUtil.getStackFromGhost(ghostStack).getItem()))
 				continue;
+
+			if (GhostItemUtil.getStackFromGhost(ghostStack).getItem() instanceof IItemStackFilter)
+			{
+				filteredItems.addAll(((IItemStackFilter) GhostItemUtil.getStackFromGhost(ghostStack).getItem()).getFilteredItems(GhostItemUtil.getStackFromGhost(ghostStack)));
+			}
 
 			filteredItems.add(GhostItemUtil.getStackFromGhost(ghostStack));
 		}

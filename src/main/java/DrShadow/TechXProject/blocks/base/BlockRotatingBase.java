@@ -10,7 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockRotatingBase extends BlockBase
+public class BlockRotatingBase extends BlockBase implements IRenderer
 {
 	public static final PropertyEnum<EnumFacing> facing = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
 
@@ -51,5 +51,11 @@ public class BlockRotatingBase extends BlockBase
 	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer.Builder(this).add(facing).build();
+	}
+
+	@Override
+	public void registerModel()
+	{
+
 	}
 }

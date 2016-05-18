@@ -184,6 +184,27 @@ public class Util
 		return ret;
 	}
 
+	public static boolean isStackArrayExactEqual(ItemStack[] stack, ItemStack[] toCompare)
+	{
+		boolean ret = false;
+
+		ItemStack[] newStack = getStackArrayNoNull(stack);
+		ItemStack[] newCompare = getStackArrayNoNull(toCompare);
+
+		if (newStack.length <= 0 || newCompare.length <= 0) return false;
+		if (newStack.length != newCompare.length) return false;
+
+		for (int i = 0; i < newStack.length; i++)
+		{
+			if (!OreDictionary.itemMatches(newStack[i], newCompare[i], true) || newStack[i].stackSize < newCompare[i].stackSize)
+			{
+				return false;
+			} else ret = true;
+		}
+
+		return ret;
+	}
+
 	public static boolean isArrayEqual(Object[] array, Object[] toCompare)
 	{
 		if (array.length <= 0 || toCompare.length <= 0) return false;

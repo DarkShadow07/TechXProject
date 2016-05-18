@@ -2,7 +2,6 @@ package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.blocks.base.BlockContainerBase;
 import DrShadow.TechXProject.blocks.base.IRenderer;
-import DrShadow.TechXProject.machines.crusher.TileCrusher;
 import DrShadow.TechXProject.machines.wirelessCharger.TileWirelessCharger;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Logger;

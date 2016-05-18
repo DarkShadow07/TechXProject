@@ -56,11 +56,9 @@ public class PacketTeleportEntity implements IMessage
 		@Override
 		public IMessage onMessage(PacketTeleportEntity message, MessageContext ctx)
 		{
-			Teleporter.TeleportLocation location = new Teleporter.TeleportLocation(message.pos.getX(), message.pos.getY(), message.pos.getZ(), message.dim);
-
 			EntityLivingBase entity = (EntityLivingBase) TechXProject.proxy.getMinecraftServer().getEntityFromUuid(message.uuid);
 
-			location.sendEntityToCoords(entity);
+			Teleporter.teleport(entity, message.pos, message.dim);
 
 			return null;
 		}

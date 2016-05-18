@@ -2,20 +2,77 @@ package DrShadow.TechXProject.guide;
 
 import DrShadow.TechXProject.client.gui.widget.GuiButtonText;
 import DrShadow.TechXProject.reference.Reference;
-import DrShadow.TechXProject.util.Lang;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Elements
 {
+	public static class NewsPage extends GuideElementBase
+	{
+		private String desc;
+
+		public NewsPage(String name, String desc, GuiGuide gui)
+		{
+			super(name, gui);
+
+			this.desc = desc;
+		}
+
+		@Override
+		public void stop()
+		{
+
+		}
+
+		@Override
+		public void render()
+		{
+			String desc = "";
+
+			try
+			{
+				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/version/" + MinecraftForge.MC_VERSION + ".txt");
+				Scanner s = new Scanner(url.openStream());
+
+				while (s.hasNextLine())
+				{
+					desc = desc + s.nextLine();
+				}
+
+				s.close();
+			} catch (Exception ignored)
+			{
+
+			}
+
+			font.drawString(name, 180 / 2 - font.getStringWidth(name) / 2, 12, Color.black.getRGB());
+
+			String[] data = desc.split("%n%");
+
+			int lines = 0;
+
+			if (data.length > 0)
+			{
+				for (String string : data)
+				{
+					font.drawSplitString(string, 16, lines + 24, 150, Color.black.getRGB());
+
+					lines += font.splitStringWidth(string, 150) + 5;
+				}
+			} else font.drawSplitString(desc, 16, 24, 150, Color.black.getRGB());
+		}
+	}
+
 	public static class MainPage extends GuideElementBase
 	{
+		public static List<String> entries = new ArrayList<>();
 		List<GuiButtonText> buttons = new ArrayList<>();
-
-		List<String> entries = new ArrayList<>();
 
 		public MainPage(GuiGuide gui)
 		{
@@ -40,32 +97,15 @@ public class Elements
 			for (int i = 0; i < entries.size(); i++)
 			{
 				buttons.add(new GuiButtonText(gui.getButtons().size(), gui.guiLeft + 16, gui.midY + 24 + 12 * i, entries.get(i)));
-
-				class EntryPage extends GuideElementBase
-				{
-					private String desc;
-
-					public EntryPage(String name, String desc, GuiGuide gui)
-					{
-						super(name, gui);
-
-						this.desc = desc;
-					}
-
-					@Override
-					public void render()
-					{
-						String title = name.substring(8);
-						font.drawString(title, 180 / 2 - font.getStringWidth(title) / 2, 12, Color.black.getRGB());
-
-						font.drawSplitString(desc, 16, 24, 150, Color.black.getRGB());
-					}
-				}
-
-				GuiGuide.addElement(new EntryPage("Entry - " + entries.get(i), Lang.localize("guide.entry." + entries.get(i), false), gui));
 			}
 
 			gui.getButtons().addAll(buttons);
+		}
+
+		@Override
+		public void stop()
+		{
+			gui.getButtons().removeAll(buttons);
 		}
 
 		@Override
@@ -88,6 +128,45 @@ public class Elements
 		{
 			String title = Reference.MOD_NAME + " Guide";
 			font.drawString(title, 180 / 2 - font.getStringWidth(title) / 2, 12, Color.black.getRGB());
+		}
+	}
+
+	public static class EntryPage extends GuideElementBase
+	{
+		private String desc;
+
+		public EntryPage(String name, String desc, GuiGuide gui)
+		{
+			super(name, gui);
+
+			this.desc = desc;
+		}
+
+		@Override
+		public void stop()
+		{
+
+		}
+
+		@Override
+		public void render()
+		{
+			String title = name.substring(8);
+			font.drawString(title, 180 / 2 - font.getStringWidth(title) / 2, 12, Color.black.getRGB());
+
+			String[] data = desc.split("%n%");
+
+			int lines = 0;
+
+			if (data.length > 0)
+			{
+				for (String string : data)
+				{
+					font.drawSplitString(string, 16, lines + 24, 150, Color.black.getRGB());
+
+					lines += font.splitStringWidth(string, 150) + 5;
+				}
+			} else font.drawSplitString(desc, 16, 24, 150, Color.black.getRGB());
 		}
 	}
 }

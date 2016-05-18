@@ -1,7 +1,6 @@
 package DrShadow.TechXProject.blocks.tile;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.blocks.tile.ModTileEntity;
 import DrShadow.TechXProject.compat.waila.IWailaBody;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -41,8 +40,7 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 	@Override
 	public void update()
 	{
-		addEnergy(0, false);
-		subtractEnergy(0, false);
+
 	}
 
 	public void setSideInput(EnumFacing input)
@@ -269,7 +267,7 @@ public class TileEnergyContainer extends ModTileEntity implements IEnergyContain
 				currenttip.add("Mode: " + ChatFormatting.GREEN + "In" + ChatFormatting.RESET + "/" + ChatFormatting.RED + "Out");
 			} else
 				currenttip.add("Mode: " + (canInsert(side) ? ChatFormatting.GREEN + "Input" : canExtract(side) ? ChatFormatting.RED + "Output" : ChatFormatting.GRAY + "None"));
-		}else currenttip.add(ChatFormatting.ITALIC + "<Hold Shift for more Info>");
+		} else currenttip.add(ChatFormatting.ITALIC + "<Hold Shift for more Info>");
 
 		currenttip.add(NumberFormat.getInstance().format(getEnergy()) + "/" + NumberFormat.getInstance().format(getMaxEnergy()));
 

@@ -34,6 +34,30 @@ public class BlockEnergyMonitor extends BlockContainerBase
 	}
 
 	@Override
+	public boolean canProvidePower(IBlockState state)
+	{
+		return true;
+	}
+
+	@Override
+	public float getEnchantPowerBonus(World world, BlockPos pos)
+	{
+		return super.getEnchantPowerBonus(world, pos);
+	}
+
+	@Override
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
+		return ((TileEnergyMonitor) blockAccess.getTileEntity(pos)).getRedstoneLevel();
+	}
+
+	@Override
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
+		return ((TileEnergyMonitor) blockAccess.getTileEntity(pos)).getRedstoneLevel();
+	}
+
+	@Override
 	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
 	{
 		return true;
@@ -44,7 +68,7 @@ public class BlockEnergyMonitor extends BlockContainerBase
 	{
 		TileEnergyMonitor tile = (TileEnergyMonitor) worldIn.getTileEntity(pos);
 
-		return (int) (tile.getNetworkEnergy() * 15 / tile.getMaxNetworkEnergy());
+		return tile.getRedstoneLevel();
 	}
 
 	@Override

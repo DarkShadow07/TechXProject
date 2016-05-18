@@ -1,9 +1,9 @@
 package DrShadow.TechXProject.conduit.energy;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
-import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.compat.waila.IWailaBody;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;

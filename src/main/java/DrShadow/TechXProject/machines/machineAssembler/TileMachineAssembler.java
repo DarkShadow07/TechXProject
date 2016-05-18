@@ -36,6 +36,9 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 
 	private void assemble()
 	{
+		markDirty();
+		markForUpdate();
+
 		if (working)
 		{
 			progress += 1;
@@ -49,7 +52,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 			ItemStack[] newInv = inventory;
 			newInv = ArrayUtils.removeAll(newInv, 0, 1);
 
-			working = Util.isStackArrayEqual(newInv, type.inputs) && (ItemConduitUtil.canStack(inventory[1], type.out) || inventory[1] == null);
+			working = Util.isStackArrayExactEqual(newInv, type.inputs) && (ItemConduitUtil.canStack(inventory[1], type.out) || inventory[1] == null);
 
 			if (progress >= 500)
 			{
@@ -59,7 +62,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 
 				for (int i = 2; i < inventory.length; i++)
 				{
-					decrStackSize(i, 1);
+					setInventorySlotContents(i, null);
 				}
 			}
 		} else working = false;
@@ -114,7 +117,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 		}
 	}
 
-	public boolean isInType(ItemStack stack, MachineRecipeType type)
+	private boolean isInType(ItemStack stack, MachineRecipeType type)
 	{
 		if (stack != null && type != null)
 		{

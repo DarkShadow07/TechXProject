@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "techxproject:machineAssembler",
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}],
+        "facing":
+        {
+        	"north": {},
+        	"east": {"model": "techxproject:machineAssembler", "y": 90},
+        	"south": {"model": "techxproject:machineAssembler", "y": 180},
+        	"west": {"model": "techxproject:machineAssembler", "y": 270}
+        }
+    }
+}

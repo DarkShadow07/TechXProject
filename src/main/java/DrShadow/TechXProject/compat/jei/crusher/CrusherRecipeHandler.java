@@ -9,6 +9,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import scala.actors.threadpool.Arrays;
 
 import javax.annotation.Nonnull;
@@ -28,24 +30,24 @@ public class CrusherRecipeHandler implements IRecipeHandler<CrusherRecipe>
 
 	public void init()
 	{
-		addRecipe(new ItemStack(Blocks.stone), 100, new ItemStack(Blocks.cobblestone));
-		addRecipe(new ItemStack(Blocks.cobblestone), 80, new ItemStack(Blocks.gravel));
-		addRecipe(new ItemStack(Blocks.gravel), 60, new ItemStack(Blocks.sand));
-		addRecipe(new ItemStack(Blocks.lapis_ore), 200, new ItemStack(Items.dye, 6, 4), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
-		addRecipe(new ItemStack(Blocks.redstone_ore), 210, new ItemStack(Items.redstone, 8), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
-		addRecipe(new ItemStack(Blocks.quartz_ore), 220, new ItemStack(Items.quartz, 4), new ItemStack(Blocks.netherrack));
-		addRecipe(new ItemStack(Blocks.iron_ore), 160, new ItemStack(InitItems.dust.item, 2, EnumMetals.IRON.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
-		addRecipe(new ItemStack(Blocks.gold_ore), 180, new ItemStack(InitItems.dust.item, 2, EnumMetals.GOLD.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
-		addRecipe(new ItemStack(Blocks.coal_ore), 120, new ItemStack(InitItems.dust.item, 4, EnumMetals.COAL.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
-		addRecipe(new ItemStack(Blocks.diamond_ore), 240, new ItemStack(InitItems.dust.item, 2, EnumMetals.DIAMOND.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
-		addRecipe(new ItemStack(Blocks.emerald_ore), 280, new ItemStack(InitItems.dust.item, 2, EnumMetals.EMERALD.ordinal()), new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()));
+		addRecipe(new ItemStack(Blocks.stone), 100, new ImmutablePair<>(new ItemStack(Blocks.cobblestone), 1.0f), new ImmutablePair<>(new ItemStack(Blocks.gravel), 0.25f));
+		addRecipe(new ItemStack(Blocks.cobblestone), 80, new ImmutablePair<>(new ItemStack(Blocks.gravel), 1.0f), new ImmutablePair<>(new ItemStack(Items.flint), 0.25f));
+		addRecipe(new ItemStack(Blocks.gravel), 60, new ImmutablePair<>(new ItemStack(Blocks.sand), 1.0f));
+		addRecipe(new ItemStack(Blocks.lapis_ore), 200, new ImmutablePair<>(new ItemStack(Items.dye, 6, 4), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
+		addRecipe(new ItemStack(Blocks.redstone_ore), 210, new ImmutablePair<>(new ItemStack(Items.redstone, 8), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
+		addRecipe(new ItemStack(Blocks.quartz_ore), 220, new ImmutablePair<>(new ItemStack(Items.quartz, 4), 1.0f), new ImmutablePair<>(new ItemStack(Blocks.netherrack), 0.75f));
+		addRecipe(new ItemStack(Blocks.iron_ore), 160, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 2, EnumMetals.IRON.ordinal()), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
+		addRecipe(new ItemStack(Blocks.gold_ore), 180, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 2, EnumMetals.GOLD.ordinal()), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
+		addRecipe(new ItemStack(Blocks.coal_ore), 120, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 4, EnumMetals.COAL.ordinal()), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
+		addRecipe(new ItemStack(Blocks.diamond_ore), 240, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 2, EnumMetals.DIAMOND.ordinal()), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
+		addRecipe(new ItemStack(Blocks.emerald_ore), 280, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 2, EnumMetals.EMERALD.ordinal()), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.5f));
 	}
 
-	public void addRecipe(ItemStack in, int ticks, ItemStack... out)
+	public void addRecipe(ItemStack in, int ticks, Pair<ItemStack, Float>... out)
 	{
 		List<ItemStack> inStacks = new ArrayList<>();
 
-		if (OreDictionary.getOreIDs(in).length != 0)
+		if (OreDictionary.getOreIDs(in).length > 0)
 		{
 			for (int id : OreDictionary.getOreIDs(in))
 			{
@@ -66,7 +68,14 @@ public class CrusherRecipeHandler implements IRecipeHandler<CrusherRecipe>
 			{
 				if (OreDictionary.itemMatches(stack, in, true))
 				{
-					return recipe.getOutputs();
+					List<ItemStack> result = new ArrayList<>();
+
+					for (Pair<ItemStack, Float> pair : recipe.getOutputPairs())
+					{
+						result.add(pair.getLeft());
+					}
+
+					return result;
 				}
 			}
 		}
@@ -74,7 +83,23 @@ public class CrusherRecipeHandler implements IRecipeHandler<CrusherRecipe>
 		return null;
 	}
 
-	public int getSmeltingTicks(ItemStack in)
+	public int getItemChance(ItemStack in)
+	{
+		for (CrusherRecipe recipe : recipes)
+		{
+			for (Pair<ItemStack, Float> pair : recipe.getOutputPairs())
+			{
+				if (OreDictionary.itemMatches(pair.getLeft(), in, true))
+				{
+					return (int) (pair.getRight() * 100);
+				}
+			}
+		}
+
+		return 0;
+	}
+
+	public int getCrushingTicks(ItemStack in)
 	{
 		for (CrusherRecipe recipe : recipes)
 		{

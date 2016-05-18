@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class ItemDustBase extends ItemBase implements IRenderer, IRecipeProvider
 		{
 			if (metal.contains(EnumMetalType.DUST) && metal.contains(EnumMetalType.INGOT) && metal.registerRecipe())
 			{
-				CrusherRecipeHandler.instance.addRecipe(new ItemStack(InitItems.ingot.item, 1, metal.ordinal()), 260, new ItemStack(InitItems.dust.item, 1, metal.ordinal()));
+				CrusherRecipeHandler.instance.addRecipe(new ItemStack(InitItems.ingot.item, 1, metal.ordinal()), 260, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, metal.ordinal()), 1.0f));
 				GameRegistry.addSmelting(new ItemStack(InitItems.dust.item, 1, metal.ordinal()), new ItemStack(InitItems.ingot.item, 1, metal.ordinal()), 0.7f);
 			}
 		}

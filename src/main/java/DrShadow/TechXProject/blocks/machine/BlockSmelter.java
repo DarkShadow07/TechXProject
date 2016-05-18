@@ -2,7 +2,6 @@ package DrShadow.TechXProject.blocks.machine;
 
 import DrShadow.TechXProject.TechXProject;
 import DrShadow.TechXProject.blocks.base.BlockMachineBase;
-import DrShadow.TechXProject.blocks.base.BlockRotatingBase;
 import DrShadow.TechXProject.blocks.base.IRenderer;
 import DrShadow.TechXProject.client.gui.GuiHandler;
 import DrShadow.TechXProject.machines.smelter.TileSmelter;
@@ -29,7 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 
-public class BlockSmelter extends BlockMachineBase implements IRenderer, ITileEntityProvider
+public class BlockSmelter extends BlockMachineBase
 {
 	public static PropertyBool working = PropertyBool.create("working");
 
@@ -38,26 +37,6 @@ public class BlockSmelter extends BlockMachineBase implements IRenderer, ITileEn
 		super(Material.iron, 3.5f, 2, "pickaxe");
 
 		setDefaultState(blockState.getBaseState().withProperty(working, false));
-	}
-
-	@Override
-	public void registerModel()
-	{
-		ModelLoader.setCustomStateMapper(this, new DefaultStateMapper()
-		{
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-			{
-				return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), getPropertyString(state.getProperties()));
-			}
-		});
-
-		for (int i = 0; i < EnumFacing.HORIZONTALS.length; i++)
-		{
-			Logger.info("Registered Custom Model Block " + getUnlocalizedName() + " with Variant " + i + "!");
-
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), "inventory"));
-		}
 	}
 
 	@Override

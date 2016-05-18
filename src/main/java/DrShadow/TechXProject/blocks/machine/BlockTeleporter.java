@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class BlockTeleporter extends BlockContainerBase
 {
-	// TODO: textures, model and fix teleportation
+	// TODO: textures and model
 
 	public BlockTeleporter()
 	{

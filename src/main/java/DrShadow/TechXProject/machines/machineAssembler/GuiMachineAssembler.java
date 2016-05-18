@@ -7,9 +7,13 @@ import DrShadow.TechXProject.items.ItemMachineRecipe;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.GuiUtil;
 import DrShadow.TechXProject.util.Lang;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import com.sun.xml.internal.ws.util.StringUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -22,8 +26,6 @@ public class GuiMachineAssembler extends GuiContainerBase
 	private int top, left;
 
 	private TileMachineAssembler assembler;
-
-	private GuiButtonExpand infoButton;
 
 	public GuiMachineAssembler(InventoryPlayer inventoryPlayer, TileMachineAssembler assembler)
 	{
@@ -43,9 +45,7 @@ public class GuiMachineAssembler extends GuiContainerBase
 		left = (this.width - this.xSize) / 2;
 		top = (this.height - this.ySize) / 2;
 
-		infoButton = new GuiButtonExpand(this, 0, 122, 74, Color.cyan, new ResourceLocation(Reference.MOD_ID + ":textures/gui/icon/icon_Info.png"), 0, 0, "Machine Assembler", "This machine is used for Assembling other Machines, it needs a Machine Recipe crafted on a Recipe Stamper that is not consumed");
-
-		buttonList.add(infoButton);
+		new GuiButtonExpand(this, 0, 122, 74, Color.cyan, new ResourceLocation(Reference.MOD_ID + ":textures/gui/icon/icon_Info.png"), 0, 0, "Machine Assembler", "This machine is used for Assembling other Machines, it needs a Machine Recipe crafted on a Recipe Stamper that is not consumed");
 	}
 
 	@Override
@@ -68,22 +68,38 @@ public class GuiMachineAssembler extends GuiContainerBase
 
 			fontRendererObj.drawStringWithShadow(recipe.getType(assembler.getStackInSlot(0)).name, 29, 22, Color.WHITE.getRGB());
 
-			for (int i = 0; i < 3; i++)
-			{
-				for (int j = 0; j < 9; j++)
-				{
-					ItemStack[] stacks = recipe.getType(assembler.getStackInSlot(0)).inputs;
-					if (j + i * 9 < stacks.length && getSlotUnderMouse() != null && getSlotUnderMouse() instanceof ContainerMachineAssembler.SlotAssembler && !getSlotUnderMouse().getHasStack())
-					{
-						if (stacks[j + i * 9] != null)
-						{
-							GuiUtil guiUtil = new GuiUtil();
+			ItemStack[] stacks = recipe.getType(assembler.getStackInSlot(0)).inputs;
 
-							guiUtil.drawPlaneWithBorder(mouseX + 14 - left, mouseY - 10 - top, Math.max(stacks.length * 18, fontRendererObj.getStringWidth("Items needed")), 24, -267386864, 1347420415, true);
-							fontRendererObj.drawStringWithShadow("Items needed", mouseX + 14 - left, mouseY - 10 - top, Color.WHITE.getRGB());
-							guiUtil.drawItemStack(stacks[j + i * 9], mouseX + 14 - left + j * 18, mouseY - top + i * 18, itemRender);
-						}
-					}
+			for (Slot slot : inventorySlots.inventorySlots)
+			{
+				if (slot instanceof ContainerMachineAssembler.SlotAssembler && slot.getSlotIndex() > stacks.length + 1)
+				{
+					drawRect(slot.xDisplayPosition, slot.yDisplayPosition, slot.xDisplayPosition + 16, slot.yDisplayPosition + 16, new Color(0.75f, 0.0f, 0.015f, 0.15f).getRGB());
+				}
+			}
+
+			for (int i = 0; i < stacks.length; i++)
+			{
+				Slot slot = inventorySlots.getSlot(i + 2);
+
+				GuiUtil guiUtil = new GuiUtil();
+
+				if (!slot.getHasStack())
+				{
+					guiUtil.drawItemStack(stacks[i], slot.xDisplayPosition, slot.yDisplayPosition, itemRender, true);
+				}
+
+				Slot slotUnder = getSlotUnderMouse();
+
+				if (slotUnder != null && slotUnder instanceof ContainerMachineAssembler.SlotAssembler && !slotUnder.getHasStack() && slotUnder.getSlotIndex() < stacks.length + 2)
+				{
+					List<String> info = new ArrayList<>();
+					info.add(stacks[slotUnder.getSlotIndex() - 2].getDisplayName() + " (" + stacks[slotUnder.getSlotIndex() - 2].stackSize + "x)");
+
+					info.add(ChatFormatting.DARK_GRAY + Item.itemRegistry.getNameForObject(stacks[slotUnder.getSlotIndex() - 2].getItem()).toString());
+					info.add(String.format("%s%s" + StringUtils.capitalize(Item.itemRegistry.getNameForObject(stacks[slotUnder.getSlotIndex() - 2].getItem()).getResourceDomain()), ChatFormatting.BLUE, ChatFormatting.ITALIC));
+
+					drawHoveringText(info, mouseX - left, mouseY - top);
 				}
 			}
 		}

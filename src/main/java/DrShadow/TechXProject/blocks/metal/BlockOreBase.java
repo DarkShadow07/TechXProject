@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.List;
 
@@ -123,7 +124,7 @@ public class BlockOreBase extends BlockBase implements IRenderer, IRecipeProvide
 
 			if (metal.contains(EnumMetalType.DUST) && metal.contains(EnumMetalType.ORE) && metal.registerRecipe())
 			{
-				CrusherRecipeHandler.instance.addRecipe(new ItemStack(InitBlocks.metalOre.block, 1, metal.ordinal()), 240, new ItemStack(InitItems.dust.item, 2, metal.ordinal()));
+				CrusherRecipeHandler.instance.addRecipe(new ItemStack(InitBlocks.metalOre.block, 1, metal.ordinal()), 240, new ImmutablePair<>(new ItemStack(InitItems.dust.item, 2, metal.ordinal()), 1.0f), new ImmutablePair<>(new ItemStack(InitItems.dust.item, 1, EnumMetals.STONE.ordinal()), 0.25f));
 			}
 		}
 	}

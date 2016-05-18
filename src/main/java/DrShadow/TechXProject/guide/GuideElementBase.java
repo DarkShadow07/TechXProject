@@ -28,6 +28,12 @@ public class GuideElementBase implements IGuideElement
 	}
 
 	@Override
+	public void stop()
+	{
+
+	}
+
+	@Override
 	public void onKeyTyped(char typedChar, int keyCode)
 	{
 

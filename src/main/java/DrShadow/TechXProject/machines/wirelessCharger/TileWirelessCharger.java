@@ -53,14 +53,14 @@ public class TileWirelessCharger extends TileEnergyContainer
 						subtractEnergy(item.addEnergy(stack, max, false), false);
 
 						break;
-					}else
+					} else
 					{
 						working = false;
 
 						markForUpdate();
 						markDirty();
 					}
-				}else
+				} else
 				{
 					working = false;
 

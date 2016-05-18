@@ -5,7 +5,7 @@ import DrShadow.TechXProject.container.ContainerDummy;
 import DrShadow.TechXProject.init.InitItems;
 import DrShadow.TechXProject.items.ItemGuide;
 import DrShadow.TechXProject.reference.Reference;
-import DrShadow.TechXProject.util.Util;
+import DrShadow.TechXProject.util.Lang;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,10 +20,10 @@ import java.util.List;
 
 public class GuiGuide extends GuiContainerBase
 {
-	private static List<IGuideElement> elements = new ArrayList<>();
+	public static List<IGuideElement> elements = new ArrayList<>();
 	public int midX, midY;
 	private int top, left;
-	private GuiButton next, prev;
+	private GuiButton next, prev, main;
 	private int index;
 
 	public GuiGuide(int index)
@@ -39,8 +39,6 @@ public class GuiGuide extends GuiContainerBase
 
 		xSize = 360;
 		ySize = 180;
-
-		addElements();
 	}
 
 	public static void addElement(IGuideElement element)
@@ -59,15 +57,45 @@ public class GuiGuide extends GuiContainerBase
 		midX = left + xSize / 2;
 		midY = top;
 
-		prev = new ButtonArrow(0, midX + 22, top + ySize - 22, true);
-		next = new ButtonArrow(1, left + xSize - 42, top + ySize - 22, false);
+		prev = new ButtonArrow(0, midX + 22, top + ySize - 22, 0);
+		next = new ButtonArrow(1, left + xSize - 42, top + ySize - 22, 1);
+		main = new ButtonArrow(2, left - 11, top + 8, 2);
+		main.visible = index > 0;
 
-		reloadElements();
+		buttonList.add(prev);
+		buttonList.add(next);
+		buttonList.add(main);
+
+		addElements();
 	}
 
 	public void addElements()
 	{
+		elements.clear();
+
 		addElement(new Elements.MainPage(this));
+		for (int i = 0; i < Elements.MainPage.entries.size(); i++)
+		{
+			GuiGuide.addElement(new Elements.EntryPage("Entry - " + Elements.MainPage.entries.get(i), Lang.localize("guide.entry." + Elements.MainPage.entries.get(i), false), this));
+		}
+
+		elements.get(index).init();
+	}
+
+	private void reloadElements()
+	{
+		buttonList.clear();
+
+		buttonList.add(prev);
+		buttonList.add(next);
+		buttonList.add(main);
+
+		for (IGuideElement element : elements)
+		{
+			element.stop();
+		}
+
+		elements.get(index).init();
 	}
 
 	public int getByName(String name)
@@ -91,15 +119,13 @@ public class GuiGuide extends GuiContainerBase
 		switch (button.id)
 		{
 			case 0:
-				index -= 1;
-				reloadElements();
+				setIndex(index - 1);
 				break;
 			case 1:
-				index += 1;
-				reloadElements();
+				setIndex(index + 1);
 				break;
-			default:
-				reloadElements();
+			case 2:
+				setIndex(0);
 				break;
 		}
 	}
@@ -143,20 +169,6 @@ public class GuiGuide extends GuiContainerBase
 		super.onResize(mcIn, w, h);
 	}
 
-	private void reloadElements()
-	{
-		elements.clear();
-
-		addElements();
-
-		buttonList.clear();
-
-		buttonList.add(prev);
-		buttonList.add(next);
-
-		if (index > 0) elements.get(index).init();
-	}
-
 	public void setIndex(int index)
 	{
 		this.index = index;
@@ -167,10 +179,10 @@ public class GuiGuide extends GuiContainerBase
 	@Override
 	public void updateScreen()
 	{
-		index = Util.keepInBounds(index, 0, elements.size() - 1);
-
 		next.enabled = index < elements.size() - 1;
 		prev.enabled = index > 0;
+		main.enabled = index > 0;
+		main.visible = index > 0;
 	}
 
 	@Override
@@ -182,27 +194,31 @@ public class GuiGuide extends GuiContainerBase
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
+		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		ResourceLocation texture = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_Guide.png");
-		ResourceLocation textureLeft = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_GuideLeft.png");
+		ResourceLocation leftTexture = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_Guide.png");
+		ResourceLocation rightTexture = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_GuideR.png");
 
-		mc.getTextureManager().bindTexture(texture);
-		drawTexturedModalRect(left + 180, top, 0, 0, 180, 180);
-		mc.getTextureManager().bindTexture(textureLeft);
+		mc.getTextureManager().bindTexture(leftTexture);
 		drawTexturedModalRect(left, top, 0, 0, 180, 180);
+		mc.getTextureManager().bindTexture(rightTexture);
+		drawTexturedModalRect(left + 180, top, 0, 0, 180, 180);
 
-		fontRendererObj.drawString(String.format("%s/%s", index + 1, elements.size()), midX + xSize / 4 - fontRendererObj.getStringWidth(String.format("%s/%s", index + 1, elements.size())) / 2, top + ySize - 20, Color.black.getRGB());
+		String page = String.format("%s/%s", index + 1, elements.size());
+
+		fontRendererObj.drawString(page, midX + 180 / 2 - fontRendererObj.getStringWidth(page) / 2, top + ySize - 20, Color.black.getRGB());
 	}
 
 	private class ButtonArrow extends GuiButton
 	{
-		private boolean inverted = false;
+		private int mode = 0;
 
-		private ButtonArrow(int buttonId, int x, int y, boolean inverted)
+		private ButtonArrow(int buttonId, int x, int y, int mode)
 		{
-			super(buttonId, x, y, 18, 10, "");
+			super(buttonId, x, y, mode == 2 ? 14 : 18, mode == 2 ? 17 : 10, "");
 
-			this.inverted = inverted;
+			this.mode = mode;
 		}
 
 		@Override
@@ -214,24 +230,37 @@ public class GuiGuide extends GuiContainerBase
 
 			Rectangle button = new Rectangle(xPosition, yPosition, width, height);
 
-			if (button.contains(mouseX, mouseY) && enabled)
+			if (!visible) return;
+
+			switch (mode)
 			{
-				if (inverted)
-				{
-					drawTexturedModalRect(xPosition, yPosition, 18, 193, 18, 10);
-				} else
-				{
-					drawTexturedModalRect(xPosition, yPosition, 18, 180, 18, 10);
-				}
-			} else
-			{
-				if (inverted)
-				{
-					drawTexturedModalRect(xPosition, yPosition, 0, 193, 18, 10);
-				} else
-				{
-					drawTexturedModalRect(xPosition, yPosition, 0, 180, 18, 10);
-				}
+				case 0:
+				case 1:
+					if (button.contains(mouseX, mouseY) && enabled)
+					{
+						if (mode == 0)
+						{
+							drawTexturedModalRect(xPosition, yPosition, 18, 193, 18, 10);
+						} else
+						{
+							drawTexturedModalRect(xPosition, yPosition, 18, 180, 18, 10);
+						}
+					} else
+					{
+						if (mode == 0)
+						{
+							drawTexturedModalRect(xPosition, yPosition, 0, 193, 18, 10);
+						} else
+						{
+							drawTexturedModalRect(xPosition, yPosition, 0, 180, 18, 10);
+						}
+					}
+					break;
+				case 2:
+					if (button.contains(mouseX, mouseY) && enabled)
+					{
+						drawTexturedModalRect(xPosition, yPosition, 50, 180, 14, 17);
+					} else drawTexturedModalRect(xPosition, yPosition, 36, 180, 14, 17);
 			}
 		}
 	}

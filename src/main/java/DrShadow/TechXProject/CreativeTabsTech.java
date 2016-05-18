@@ -4,17 +4,20 @@ import DrShadow.TechXProject.init.InitBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class CreativeTabTech extends CreativeTabs
+public class CreativeTabsTech
 {
-	public CreativeTabTech(String label)
+	public static class CreativeTabTech extends CreativeTabs
 	{
-		super(label);
-	}
+		public CreativeTabTech(String label)
+		{
+			super(label);
+		}
 
-	@Override
-	public Item getTabIconItem()
-	{
-		return Item.getItemFromBlock(InitBlocks.networkController.block);
+		@Override
+		public Item getTabIconItem()
+		{
+			return Item.getItemFromBlock(InitBlocks.networkController.block);
+		}
 	}
 
 	public static class CreativeTabOres extends CreativeTabs

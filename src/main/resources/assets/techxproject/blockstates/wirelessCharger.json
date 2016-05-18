@@ -10,7 +10,7 @@
         "inventory": [{}],
         "working":
         {
-        	"true": {"model": "techxproject:wirelessCharger", "textures": {"side": "#frontOn"}},
+        	"true": {"model": "techxproject:wirelessCharger", "textures": {"north": "#frontOn", "east": "#frontOn", "south": "#frontOn", "west": "#frontOn"}},
         	"false": {"model": "techxproject:wirelessCharger"}
         }
     }

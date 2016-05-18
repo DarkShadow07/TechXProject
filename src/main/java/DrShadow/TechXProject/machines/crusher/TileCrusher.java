@@ -5,20 +5,19 @@ import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
 import DrShadow.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 {
@@ -55,14 +54,6 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 	@Override
 	public void update()
 	{
-		if (working)
-		{
-			int r = worldObj.rand.nextInt(100);
-
-			if (r < 15)
-				worldObj.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.block_furnace_fire_crackle, SoundCategory.BLOCKS, 0.5f, worldObj.rand.nextFloat() * 0.2f, false);
-		}
-
 		transferItems();
 
 		if (canWork() && getEnergy() >= drainTick)
@@ -71,7 +62,7 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 
 			subtractEnergy(drainTick, false);
 
-			targetTicks = CrusherRecipeHandler.instance.getSmeltingTicks(inventory[0]);
+			targetTicks = CrusherRecipeHandler.instance.getCrushingTicks(inventory[0]);
 
 			if (ticks < targetTicks) ticks += 1;
 
@@ -91,7 +82,14 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 						return;
 					}
 
-					setInventorySlotContents(getAvailableSlot(resultStack), Util.ItemStackUtil.stack(inventory[getAvailableSlot(resultStack)], resultStack));
+					int chance = CrusherRecipeHandler.instance.getItemChance(resultStack);
+
+					Random r = new Random();
+
+					if (r.nextInt(100) <= chance)
+					{
+						setInventorySlotContents(getAvailableSlot(resultStack), Util.ItemStackUtil.stack(inventory[getAvailableSlot(resultStack)], resultStack));
+					}
 				}
 
 				decrStackSize(0, 1);

@@ -26,18 +26,17 @@ public class ContainerConduitBase extends Container
 
 		itemInventory.initializeInventory(filter);
 
-		addSlotToContainer(new SlotItemFilter(this, inventory, 0, 80, 35));
+		addSlotToContainer(new SlotItemFilter(this, inventory, 0, 8, 32));
 
 		if (inventory.getStackInSlot(0) != null)
 		{
-			addSlotToContainer(new SlotGhostItem(itemInventory, 0, 57, 12));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 1, 80, 11));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 2, 103, 12));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 3, 104, 35));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 4, 103, 58));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 5, 80, 59));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 6, 57, 58));
-			addSlotToContainer(new SlotGhostItem(itemInventory, 7, 56, 35));
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					addSlotToContainer(new SlotGhostItem(itemInventory, j + i * 4, 30 + j * 18, 32 + i * 20));
+				}
+			}
 		}
 
 		for (int i = 0; i < 3; i++)
@@ -65,27 +64,24 @@ public class ContainerConduitBase extends Container
 
 				if (slot instanceof SlotGhostItem)
 				{
-					if ((dragType == 0 || dragType == 1) && (dragType == 0 || dragType == 1))
+					if (dragType == 0 || dragType == 1)
 					{
 						ItemStack slotStack = slot.getStack();
 						ItemStack heldStack = inventoryPlayer.getItemStack();
 
 						if (dragType == 0)
 						{
-							if (dragType == 0)
+							if (heldStack != null)
 							{
-								if (heldStack != null)
+								if (!((SlotGhostItem) slot).canBeAccessed())
 								{
-									if (!((SlotGhostItem) slot).canBeAccessed())
-									{
-										return super.func_184996_a(slotId, dragType, mode, player);
-									} else
-									{
-										ItemStack copyStack = heldStack.copy();
-										GhostItemUtil.setItemGhostAmount(copyStack, 0);
-										copyStack.stackSize = 1;
-										slot.putStack(copyStack);
-									}
+									return super.func_184996_a(slotId, dragType, mode, player);
+								} else
+								{
+									ItemStack copyStack = heldStack.copy();
+									GhostItemUtil.setItemGhostAmount(copyStack, 0);
+									copyStack.stackSize = 1;
+									slot.putStack(copyStack);
 								}
 							} else
 							{
@@ -171,19 +167,6 @@ public class ContainerConduitBase extends Container
 		public boolean isItemValid(ItemStack itemStack)
 		{
 			return itemStack.getItem() instanceof IItemStackFilter;
-		}
-
-		@Override
-		public void onSlotChanged()
-		{
-			super.onSlotChanged();
-			for (int i = 1; i <= 8; i++)
-			{
-				itemInventory.initializeInventory(getStack());
-
-				Slot slot = container.getSlot(i);
-				slot.onSlotChanged();
-			}
 		}
 
 		@Override

@@ -79,13 +79,13 @@ techxproject.gui.jei.smelter=Energetic Smelting
 techxproject.gui.jei.crusher=Crushing
 
 ######## Guide ########
-guide.entry.Basic Mechanics=Use Machines to create Machines, use Machines to create energy to run Machines. Simple.
-guide.entry.Ores=Added Ore Generation to the world, Ores can spawn in any Dimension.
-guide.entry.Ore Processing=You can directly smelt the Ores or can Double them (Visit ore Doubling). You can use the Energetic Smelter to Triple the Speed of Smelting.
-guide.entry.Ore Doubling=Use the Energetic Crusher, to carefully extract the Mineral from the Ore, double the amount. Then Smelt it.
-guide.entry.Machine Assembling=For Assembling Machines you'll need a Machine, the Machine Assembler. It takes Machine Recipes stamped in the Recipe Stamper that wont be consumed, it uses them as a Template for the Machine Assembling
-guide.entry.Generating Energy=You have many Energy Generating Blocks, the way to start is to use Solar Panels.
-guide.entry.Storing Energy=Use a Capacitor to Store Energy, use a Potato to Waste Energy.
+guide.entry.Basic Mechanics= Use Machines to create Machines, use Machines to create energy to run Machines. Simple. %n% This mod is all about Machines, Energy and adding new Mechanics to Minecraft. %n% Continue this Guide to Learn everything that this Mod can Offer.
+guide.entry.Ores= Added Ore Generation to the world, Ores can spawn in any Dimension. %n% Ores can be used to create better Machines, the different Metals have specific uses.
+guide.entry.Ore Processing= You can simply smelt the Ores or you can Double them (See Ore Doubling). %n% You can use the Energetic Smelter to Triple the Speed of Smelting.
+guide.entry.Ore Doubling= Use the Energetic Crusher, to carefully extract the Mineral from the Ore, it will double the amount with a Random Chance. Then Smelt it. %n% There is no other way to Double the Ores.
+guide.entry.Machine Assembling= For Assembling Machines you'll need a Machine, the Machine Assembler. %n% It takes Machine Recipes stamped in the Recipe Stamper that wont be consumed, it uses them as a Template for the Machine Assembling. %n% Machine Assembling is a complicated process that takes a bit of time to perform.
+guide.entry.Generating Energy= You have many ways to generate Energy, do your best to find the Best combination to get large amounts of Energy, with a little price. %n% The best way to start is with Solar Panels, but they only work at Day Time...
+guide.entry.Storing Energy= Use a Capacitor to Store Energy, use a Potato to Waste Energy. %n% There are different Tiers of Capacitors that you can use, they offer Large amounts of Energy to be Stored at a good rate per tick.
 
 ######## Conditions ########
 techxproject.condition.NO_CONDITION=No Condition (Always Enabled)

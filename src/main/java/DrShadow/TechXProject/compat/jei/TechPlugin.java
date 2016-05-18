@@ -5,9 +5,12 @@ import DrShadow.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
 import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeCategory;
 import DrShadow.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DrShadow.TechXProject.init.InitBlocks;
+import DrShadow.TechXProject.machines.crusher.ContainerCrusher;
 import DrShadow.TechXProject.machines.crusher.GuiCrusher;
+import DrShadow.TechXProject.machines.smelter.ContainerSmelter;
 import DrShadow.TechXProject.machines.smelter.GuiSmelter;
 import mezz.jei.api.*;
+import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -32,13 +35,15 @@ public class TechPlugin implements IModPlugin
 		);
 
 		registry.addRecipeClickArea(GuiSmelter.class, 74, 25, 30, 30, CategoryUid.SMELTER);
-		registry.addRecipeClickArea(GuiCrusher.class, 82, 29, 14, 14, CategoryUid.CRUSHER);
+		registry.addRecipeClickArea(GuiCrusher.class, 7, 61, 18, 18, CategoryUid.CRUSHER);
 
 		registry.addRecipes(SmelterRecipeHandler.instance.getRecipeList());
 		registry.addRecipes(CrusherRecipeHandler.instance.getRecipeList());
 
-		registry.addRecipeCategoryCraftingItem(new ItemStack(InitBlocks.smelter.block) , CategoryUid.SMELTER);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(InitBlocks.crusher.block) , CategoryUid.CRUSHER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(InitBlocks.smelter.block), CategoryUid.SMELTER);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(InitBlocks.crusher.block), CategoryUid.CRUSHER);
+
+		IRecipeTransferRegistry transferRegistry = registry.getRecipeTransferRegistry();
 	}
 
 	@Override

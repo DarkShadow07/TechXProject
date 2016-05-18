@@ -10,6 +10,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.*;
+
 @SideOnly(Side.CLIENT)
 public class GuiConduitBase extends GuiContainer
 {
@@ -44,14 +46,13 @@ public class GuiConduitBase extends GuiContainer
 			ResourceLocation soulForgeGuiTextures = new ResourceLocation(Reference.MOD_ID + ":textures/gui/gui_Conduit.png");
 			mc.getTextureManager().bindTexture(soulForgeGuiTextures);
 
-			drawTexturedModalRect(56, 11, 0, 166, 18, 18);
-			drawTexturedModalRect(79, 10, 0, 166, 18, 18);
-			drawTexturedModalRect(102, 11, 0, 166, 18, 18);
-			drawTexturedModalRect(103, 34, 0, 166, 18, 18);
-			drawTexturedModalRect(102, 57, 0, 166, 18, 18);
-			drawTexturedModalRect(79, 58, 0, 166, 18, 18);
-			drawTexturedModalRect(56, 57, 0, 166, 18, 18);
-			drawTexturedModalRect(55, 34, 0, 166, 18, 18);
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					drawRect(29 + j * 18, 31 + i * 20, 29 + j * 18 + 18, 31 + i * 20 + 18, new Color(1, 1, 1, 0.35f).getRGB());
+				}
+			}
 		}
 	}
 

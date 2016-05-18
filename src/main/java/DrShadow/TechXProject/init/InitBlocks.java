@@ -51,9 +51,9 @@ public enum InitBlocks
 	energyMonitor(new BlockEnergyMonitor(), "energyMonitor"),
 	wirelessCharger(new BlockWirelessCharger(), "wirelessCharger"),
 
-	machineAssembler(new BlockMachineAssembler(), "machineAssembler"),
-	recipeChest(new BlockRecipeChest(), "recipeChest"),
 	recipeStamper(new BlockRecipeStamper(), "recipeStamper"),
+	recipeChest(new BlockRecipeChest(), "recipeChest"),
+	machineAssembler(new BlockMachineAssembler(), "machineAssembler"),
 
 	smelter(new BlockSmelter(), "smelter"),
 	crusher(new BlockCrusher(), "crusher"),

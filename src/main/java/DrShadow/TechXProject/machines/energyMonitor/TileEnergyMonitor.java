@@ -2,12 +2,12 @@ package DrShadow.TechXProject.machines.energyMonitor;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
-import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.api.network.INetworkElement;
+import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.conduit.energy.TileConduitEnergy;
 import DrShadow.TechXProject.conduit.network.ConduitNetwork;
-import DrShadow.TechXProject.util.Logger;
 import DrShadow.TechXProject.util.energy.EnergyTracker;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
@@ -16,23 +16,43 @@ import java.util.Arrays;
 public class TileEnergyMonitor extends TileEnergyContainer
 {
 	public EnergyTracker networkTracker = new EnergyTracker();
+	public int maxE = 75, minE = 15;
 	private ConduitNetwork network;
+	private boolean emiting = false;
 
 	public TileEnergyMonitor()
 	{
 		super(500000, 500);
 	}
 
+	public int getRedstoneLevel()
+	{
+		if (!hasNetowork()) return 0;
+		int percent = (int) ((getNetworkEnergy() * 100) / getMaxNetworkEnergy());
+
+		if (percent < minE)
+		{
+			emiting = true;
+		}
+
+		if (percent >= maxE)
+		{
+			emiting = false;
+		}
+
+		return emiting ? 15 : 0;
+	}
+
 	@Override
 	public void update()
 	{
+		markForUpdate();
+
 		networkTracker.tickStart(getNetworkEnergy());
 
 		checkForNetwork();
 
 		subtractEnergy(1, false);
-
-		worldObj.updateComparatorOutputLevel(pos, getBlockType());
 
 		networkTracker.tickEnd(getNetworkEnergy());
 
@@ -40,6 +60,31 @@ public class TileEnergyMonitor extends TileEnergyContainer
 		{
 			setSideInput(facing);
 		}
+	}
+
+
+	@Override
+	public void fromNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound data = tag.getCompoundTag("dataEnergy");
+
+		minE = data.getInteger("minE");
+		maxE = data.getInteger("maxE");
+
+		super.fromNBT(tag);
+	}
+
+	@Override
+	public void toNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound data = new NBTTagCompound();
+
+		data.setInteger("minE", minE);
+		data.setInteger("maxE", maxE);
+
+		tag.setTag("dataEnergy", data);
+
+		super.toNBT(tag);
 	}
 
 	private void checkForNetwork()
@@ -60,7 +105,7 @@ public class TileEnergyMonitor extends TileEnergyContainer
 
 	public long getNetworkEnergy()
 	{
-		long networkEnergy = 0;
+		long networkEnergy = 1;
 
 		if (getEnergy() >= 1 && network != null && network.getElements() != null && !network.getElements().isEmpty())
 		{
@@ -85,7 +130,7 @@ public class TileEnergyMonitor extends TileEnergyContainer
 
 	public long getMaxNetworkEnergy()
 	{
-		long maxNetworkEnergy = 0;
+		long maxNetworkEnergy = 1;
 
 		if (getEnergy() >= 1 && network != null && network.getElements() != null && !network.getElements().isEmpty())
 		{

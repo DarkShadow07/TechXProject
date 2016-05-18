@@ -2,7 +2,6 @@ package DrShadow.TechXProject.events;
 
 import DrShadow.TechXProject.api.energy.IEnergyContainer;
 import DrShadow.TechXProject.api.energy.IEnergyGenerator;
-import DrShadow.TechXProject.api.network.INetworkElement;
 import DrShadow.TechXProject.util.RenderUtil;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -69,21 +68,5 @@ public class RenderEvents
 		if (!Util.minecraft().gameSettings.showDebugInfo) return;
 
 		event.getLeft().add(5, "Fx: " + WorldEvents.renderObjects.size());
-
-		if (Util.minecraft().objectMouseOver != null && Util.minecraft().objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK))
-		{
-			World world = Util.world();
-			BlockPos pos = Util.minecraft().objectMouseOver.getBlockPos();
-
-			TileEntity tile = world.getTileEntity(pos);
-
-			if (tile != null && tile instanceof INetworkElement)
-			{
-				INetworkElement element = (INetworkElement) tile;
-
-				event.getRight().add("input: " + element.isInput());
-				event.getRight().add("output: " + element.isOutput());
-			}
-		}
 	}
 }

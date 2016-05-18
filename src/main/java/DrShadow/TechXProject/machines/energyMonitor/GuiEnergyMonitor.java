@@ -2,10 +2,11 @@ package DrShadow.TechXProject.machines.energyMonitor;
 
 import DrShadow.TechXProject.client.gui.GuiContainerBase;
 import DrShadow.TechXProject.client.gui.widget.GuiButtonExpand;
+import DrShadow.TechXProject.packets.PacketHandler;
+import DrShadow.TechXProject.packets.PacketUpdateMonitor;
 import DrShadow.TechXProject.reference.Reference;
 import DrShadow.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -44,16 +45,20 @@ public class GuiEnergyMonitor extends GuiContainerBase
 		left = (this.width - this.xSize) / 2;
 		top = (this.height - this.ySize) / 2;
 
-		buttonList.add(new GuiButtonExpand(this, 0, 122, 74, Color.red, new ResourceLocation("textures/items/redstone_dust.png"), 0, 0, "Redstone Control", "Use the Redstone Control Mode to define at what Levels of Energy the Energy Monitor should Emit a Rendstone Signal"));
+		new GuiButtonExpand(this, 0, 126, 74, Color.red, new ResourceLocation("textures/items/redstone_dust.png"), 0, 0, "Redstone Control", "Use the Redstone Control Mode to define at what Levels of Energy thee Monitor should Emit a Rendstone Signal");
+
 		minEnergy = new GuiTextField(0, fontRendererObj, left + 98, top + 22, 26, 12);
 		minEnergy.setCanLoseFocus(true);
 		minEnergy.setMaxStringLength(3);
 		minEnergy.setVisible(true);
 
-		maxEnergy = new GuiTextField(0, fontRendererObj, left + 98, top + 40, 26, 12);
+		maxEnergy = new GuiTextField(1, fontRendererObj, left + 98, top + 40, 26, 12);
 		maxEnergy.setCanLoseFocus(true);
 		maxEnergy.setMaxStringLength(3);
 		maxEnergy.setVisible(true);
+
+		minEnergy.setText(monitor.minE + "");
+		maxEnergy.setText(monitor.maxE + "");
 	}
 
 	@Override
@@ -63,6 +68,17 @@ public class GuiEnergyMonitor extends GuiContainerBase
 
 		minEnergy.updateCursorCounter();
 		maxEnergy.updateCursorCounter();
+	}
+
+	@Override
+	public void onGuiClosed()
+	{
+		PacketHandler.sendToServer(new PacketUpdateMonitor(monitor, Integer.valueOf(minEnergy.getText()), Integer.valueOf(maxEnergy.getText())));
+
+		monitor.minE = Integer.valueOf(minEnergy.getText());
+		monitor.maxE = Integer.valueOf(maxEnergy.getText());
+
+		super.onGuiClosed();
 	}
 
 	@Override
@@ -153,7 +169,7 @@ public class GuiEnergyMonitor extends GuiContainerBase
 					if (generating > 0)
 					{
 						info.add(ChatFormatting.GREEN + "+" + NumberFormat.getInstance().format(generating));
-					} else
+					} else if (generating < 0)
 					{
 						info.add(ChatFormatting.RED + NumberFormat.getInstance().format(generating));
 					}

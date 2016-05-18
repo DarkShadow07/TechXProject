@@ -1,243 +1,125 @@
 package DrShadow.TechXProject.util;
 
-import DrShadow.TechXProject.init.InitSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateHealth;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
 public class Teleporter
 {
-	@SuppressWarnings("unchecked")
-	private static void teleportEntity(Entity entity, TeleportLocation destination)
+	public static void teleport(Entity entity, BlockPos pos, int dim)
 	{
-		if (entity != null)
+		if (entity.dimension == dim)
 		{
-			if (entity.timeUntilPortal <= 0)
+			teleportSameDim(entity, pos);
+		} else teleportToDim(entity, pos, dim);
+	}
+
+	private static void teleportSameDim(Entity entity, BlockPos pos)
+	{
+		if (entity != null && entity.timeUntilPortal <= 0)
+		{
+			if (entity instanceof EntityPlayer)
 			{
-				MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
-				WorldServer oldWorldServer = server.worldServerForDimension(entity.dimension);
-				WorldServer newWorldServer = server.worldServerForDimension(destination.getDimension());
+				EntityPlayerMP player = (EntityPlayerMP) entity;
 
-				if (entity instanceof EntityPlayer)
-				{
-					EntityPlayerMP player = (EntityPlayerMP) entity;
+				player.setPositionAndUpdate(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+				player.worldObj.updateEntityWithOptionalForce(player, false);
+				player.playerNetServerHandler.sendPacket(new SPacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
+				player.timeUntilPortal = 20;
+			} else
+			{
+				WorldServer worldServer = (WorldServer) entity.worldObj;
 
-					if (!player.worldObj.isRemote)
-					{
-						if (player.dimension != destination.getDimension())
-						{
-							player.changeDimension(destination.getDimension());
-						}
-
-						player.setPositionAndUpdate(destination.xCoord + 0.5, destination.yCoord + 0.5, destination.zCoord + 0.5);
-						player.worldObj.updateEntityWithOptionalForce(player, false);
-						player.playerNetServerHandler.sendPacket(new SPacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
-					}
-
-				} else if (!entity.worldObj.isRemote)
-				{
-					NBTTagCompound tag = new NBTTagCompound();
-
-					entity.writeToNBTOptional(tag);
-					entity.setDead();
-
-					Entity teleportedEntity = EntityList.createEntityFromNBT(tag, newWorldServer);
-					if (teleportedEntity != null)
-					{
-						teleportedEntity.setLocationAndAngles(destination.xCoord + 0.5, destination.yCoord + 0.5, destination.zCoord + 0.5, entity.rotationYaw, entity.rotationPitch);
-						teleportedEntity.forceSpawn = true;
-						newWorldServer.spawnEntityInWorld(teleportedEntity);
-						teleportedEntity.setWorld(newWorldServer);
-						teleportedEntity.timeUntilPortal = teleportedEntity instanceof EntityPlayer ? 150 : 20;
-					}
-
-					oldWorldServer.resetUpdateEntityTick();
-					newWorldServer.resetUpdateEntityTick();
-				}
-				entity.timeUntilPortal = entity instanceof EntityLiving ? 150 : 20;
+				entity.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+				entity.timeUntilPortal = 20;
+				worldServer.resetUpdateEntityTick();
 			}
 		}
 	}
 
-	public static class TeleportLocation
+	private static void teleportToDim(Entity entity, BlockPos pos, int dim)
 	{
-		protected double xCoord;
-		protected double yCoord;
-		protected double zCoord;
-		protected int dimension;
-		protected float pitch;
-		protected float yaw;
-		protected String name;
-		protected String dimensionName = "";
-		protected boolean writeProtected = false;
+		World oldWorld = entity.getEntityWorld();
 
-		public TeleportLocation()
+		if (entity.timeUntilPortal <= 0)
+		{
+			MinecraftServer server = FMLServerHandler.instance().getServer();
+			WorldServer oldWorldServer = server.worldServerForDimension(entity.dimension);
+			WorldServer newWorldServer = server.worldServerForDimension(dim);
+
+			if (entity instanceof EntityPlayer)
+			{
+				EntityPlayerMP player = (EntityPlayerMP) entity;
+
+				if (!player.worldObj.isRemote)
+				{
+					server.getPlayerList().transferPlayerToDimension(player, dim, new TechTeleporter(newWorldServer));
+					player.setPositionAndUpdate(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+					player.worldObj.updateEntityWithOptionalForce(player, false);
+					player.playerNetServerHandler.sendPacket(new SPacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
+					player.timeUntilPortal = 20;
+				}
+			}else
+			{
+				NBTTagCompound tag = new NBTTagCompound();
+				entity.writeToNBTOptional(tag);
+				entity.setDead();
+
+				Entity teleported = EntityList.createEntityFromNBT(tag, newWorldServer);
+
+				if (teleported != null)
+				{
+					teleported.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,entity.rotationYaw, entity.rotationPitch);
+					teleported.forceSpawn = true;
+					newWorldServer.spawnEntityInWorld(teleported);
+					teleported.setWorld(newWorldServer);
+					teleported.timeUntilPortal = 20;
+				}
+
+				oldWorldServer.resetUpdateEntityTick();
+				newWorldServer.resetUpdateEntityTick();
+			}
+		}
+	}
+
+	private static class TechTeleporter extends net.minecraft.world.Teleporter
+	{
+		public TechTeleporter(WorldServer worldServer)
+		{
+			super(worldServer);
+		}
+
+		@Override
+		public boolean makePortal(Entity entity)
+		{
+			return false;
+		}
+
+		@Override
+		public void removeStalePortalLocations(long worldTime)
 		{
 
 		}
 
-		public TeleportLocation(double x, double y, double z, int dimension)
+		@Override
+		public boolean placeInExistingPortal(Entity entityIn, float rotationYaw)
 		{
-			this.xCoord = x;
-			this.yCoord = y;
-			this.zCoord = z;
-			this.dimension = dimension;
-			this.pitch = 0;
-			this.yaw = 0;
+			return false;
 		}
 
-		public TeleportLocation(double x, double y, double z, int dimension, float pitch, float yaw)
+		@Override
+		public void placeInPortal(Entity entity, float rotationYaw)
 		{
-			this.xCoord = x;
-			this.yCoord = y;
-			this.zCoord = z;
-			this.dimension = dimension;
-			this.pitch = pitch;
-			this.yaw = yaw;
-		}
-
-		public TeleportLocation(double x, double y, double z, int dimension, float pitch, float yaw, String name)
-		{
-			this.xCoord = x;
-			this.yCoord = y;
-			this.zCoord = z;
-			this.dimension = dimension;
-			this.pitch = pitch;
-			this.yaw = yaw;
-			this.name = name;
-		}
-
-		public double getXCoord()
-		{
-			return xCoord;
-		}
-
-		public void setXCoord(double x)
-		{
-			xCoord = x;
-		}
-
-		public double getYCoord()
-		{
-			return yCoord;
-		}
-
-		public void setYCoord(double y)
-		{
-			yCoord = y;
-		}
-
-		public double getZCoord()
-		{
-			return zCoord;
-		}
-
-		public void setZCoord(double z)
-		{
-			zCoord = z;
-		}
-
-		public int getDimension()
-		{
-			return dimension;
-		}
-
-		public void setDimension(int d)
-		{
-			dimension = d;
-		}
-
-		public String getDimensionName()
-		{
-			return dimensionName;
-		}
-
-		public void setDimensionName(String dimensionName)
-		{
-			this.dimensionName = dimensionName;
-		}
-
-		public float getPitch()
-		{
-			return pitch;
-		}
-
-		public void setPitch(float p)
-		{
-			pitch = p;
-		}
-
-		public float getYaw()
-		{
-			return yaw;
-		}
-
-		public void setYaw(float y)
-		{
-			yaw = y;
-		}
-
-		public String getName()
-		{
-			return name;
-		}
-
-		public void setName(String s)
-		{
-			name = s;
-		}
-
-		public boolean getWriteProtected()
-		{
-			return writeProtected;
-		}
-
-		public void setWriteProtected(boolean b)
-		{
-			writeProtected = b;
-		}
-
-		public void writeToNBT(NBTTagCompound compound)
-		{
-			compound.setDouble("X", xCoord);
-			compound.setDouble("Y", yCoord);
-			compound.setDouble("Z", zCoord);
-			compound.setInteger("Dimension", dimension);
-			compound.setFloat("Pitch", pitch);
-			compound.setFloat("Yaw", yaw);
-			compound.setString("Name", name);
-			compound.setString("DimentionName", dimensionName);
-			compound.setBoolean("WP", writeProtected);
-		}
-
-		public void readFromNBT(NBTTagCompound compound)
-		{
-			xCoord = compound.getDouble("X");
-			yCoord = compound.getDouble("Y");
-			zCoord = compound.getDouble("Z");
-			dimension = compound.getInteger("Dimension");
-			pitch = compound.getFloat("Pitch");
-			yaw = compound.getFloat("Yaw");
-			name = compound.getString("Name");
-			dimensionName = compound.getString("DimentionName");
-			writeProtected = compound.getBoolean("WP");
-		}
-
-		public void sendEntityToCoords(Entity entity)
-		{
-			entity.worldObj.playSound(null, entity.getPosition(), InitSounds.teleport, SoundCategory.PLAYERS, 0.1F, entity.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-
-			teleportEntity(entity, this);
-
-			entity.worldObj.playSound(null, entity.getPosition(), InitSounds.teleport, SoundCategory.PLAYERS, 0.1F, entity.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			entity.setLocationAndAngles(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY) + 2, MathHelper.floor_double(entity.posZ), entity.rotationYaw, entity.rotationPitch);
 		}
 	}
 }
