@@ -2,6 +2,7 @@ package DrShadow.TechXProject.machines.quarry;
 
 import DrShadow.TechXProject.blocks.tile.TileEnergyContainer;
 import DrShadow.TechXProject.conduit.item.ItemConduitUtil;
+import DrShadow.TechXProject.events.WorldEvents;
 import DrShadow.TechXProject.packets.PacketHandler;
 import DrShadow.TechXProject.packets.PacketUpdateEnergy;
 import DrShadow.TechXProject.util.Util;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Random;

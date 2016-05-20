@@ -1,0 +1,16 @@
+Added Energy %n%
+Added Energy and Item Conduits %n%
+Added Conduit Logic Controller %n%
+Added Conduit Networking System %n%
+Added Solar Panels %n%
+Added Basic Capacitors %n%
+Added Energetic Crusher %n%
+Added Energetic Smelter %n%
+Added Energy Monitor %n%
+Added Farmer %n%
+Added Machine Assembling System %n%
+Added Storage Units %n%
+Added Teleporter %n%
+Added Wireless Charger %n%
+Added Metal Blocks, Ores, Items and Dusts %n%
+Added Block Breaker %n%

@@ -41,6 +41,21 @@ public class GuiGuide extends GuiContainerBase
 		ySize = 180;
 	}
 
+	public void addElements()
+	{
+		elements.clear();
+
+		addElement(new Elements.MainPage(this));
+
+		addElement(new Elements.NewsPage("What's New?", this));
+		for (int i = 0; i < Elements.MainPage.entries.size(); i++)
+		{
+			GuiGuide.addElement(new Elements.EntryPage("Entry - " + Elements.MainPage.entries.get(i), Lang.localize("guide.entry." + Elements.MainPage.entries.get(i), false), this));
+		}
+
+		elements.get(index).init();
+	}
+
 	public static void addElement(IGuideElement element)
 	{
 		elements.add(element);
@@ -67,19 +82,6 @@ public class GuiGuide extends GuiContainerBase
 		buttonList.add(main);
 
 		addElements();
-	}
-
-	public void addElements()
-	{
-		elements.clear();
-
-		addElement(new Elements.MainPage(this));
-		for (int i = 0; i < Elements.MainPage.entries.size(); i++)
-		{
-			GuiGuide.addElement(new Elements.EntryPage("Entry - " + Elements.MainPage.entries.get(i), Lang.localize("guide.entry." + Elements.MainPage.entries.get(i), false), this));
-		}
-
-		elements.get(index).init();
 	}
 
 	private void reloadElements()

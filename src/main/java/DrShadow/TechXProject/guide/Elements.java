@@ -3,7 +3,6 @@ package DrShadow.TechXProject.guide;
 import DrShadow.TechXProject.client.gui.widget.GuiButtonText;
 import DrShadow.TechXProject.reference.Reference;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.awt.*;
 import java.net.URL;
@@ -15,13 +14,9 @@ public class Elements
 {
 	public static class NewsPage extends GuideElementBase
 	{
-		private String desc;
-
-		public NewsPage(String name, String desc, GuiGuide gui)
+		public NewsPage(String name, GuiGuide gui)
 		{
 			super(name, gui);
-
-			this.desc = desc;
 		}
 
 		@Override
@@ -37,7 +32,7 @@ public class Elements
 
 			try
 			{
-				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/version/" + MinecraftForge.MC_VERSION + ".txt");
+				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/1.9/src/changelogs/" + Reference.VERSION + ".txt");
 				Scanner s = new Scanner(url.openStream());
 
 				while (s.hasNextLine())
@@ -57,13 +52,20 @@ public class Elements
 
 			int lines = 0;
 
+			int x = 16;
+
 			if (data.length > 0)
 			{
 				for (String string : data)
 				{
-					font.drawSplitString(string, 16, lines + 24, 150, Color.black.getRGB());
+					if (lines >= 12)
+					{
+						x = 196;
+					}
 
-					lines += font.splitStringWidth(string, 150) + 5;
+					font.drawSplitString(string, x, lines + 24, 150, Color.black.getRGB());
+
+					lines += font.splitStringWidth(string, 150) + 2;
 				}
 			} else font.drawSplitString(desc, 16, 24, 150, Color.black.getRGB());
 		}
