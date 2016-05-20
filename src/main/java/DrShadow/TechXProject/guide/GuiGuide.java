@@ -46,7 +46,7 @@ public class GuiGuide extends GuiContainerBase
 		elements.clear();
 
 		addElement(new Elements.MainPage(this));
-
+		
 		addElement(new Elements.NewsPage("What's New?", this));
 		for (int i = 0; i < Elements.MainPage.entries.size(); i++)
 		{

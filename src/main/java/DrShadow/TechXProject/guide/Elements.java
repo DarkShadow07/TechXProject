@@ -14,25 +14,19 @@ public class Elements
 {
 	public static class NewsPage extends GuideElementBase
 	{
+		String desc = "";
+
 		public NewsPage(String name, GuiGuide gui)
 		{
 			super(name, gui);
 		}
 
 		@Override
-		public void stop()
+		public void init()
 		{
-
-		}
-
-		@Override
-		public void render()
-		{
-			String desc = "";
-
 			try
 			{
-				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/1.9/src/changelogs/" + Reference.VERSION + ".txt");
+				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/changelogs/" + Reference.CHANGELOG + ".txt");
 				Scanner s = new Scanner(url.openStream());
 
 				while (s.hasNextLine())
@@ -41,16 +35,20 @@ public class Elements
 				}
 
 				s.close();
-			} catch (Exception ignored)
+			} catch (Exception e)
 			{
-
+				e.printStackTrace();
 			}
+		}
 
+		@Override
+		public void render()
+		{
 			font.drawString(name, 180 / 2 - font.getStringWidth(name) / 2, 12, Color.black.getRGB());
 
 			String[] data = desc.split("%n%");
 
-			int lines = 0;
+			int lines = 0, linesR = 0;
 
 			int x = 16;
 
@@ -58,14 +56,26 @@ public class Elements
 			{
 				for (String string : data)
 				{
-					if (lines >= 12)
+					if (lines >= 130)
 					{
 						x = 196;
+
+						if (linesR > 110)
+						{
+							font.drawString("...", 180 + 180  / 2- font.getStringWidth("...") / 2, linesR + 24, Color.black.getRGB());
+
+							return;
+						}
+
+						font.drawSplitString(string, x, linesR + 24, 150, Color.black.getRGB());
+
+						linesR += font.splitStringWidth(string, 150) + 2;
+					}else
+					{
+						font.drawSplitString(string, x, lines + 24, 150, Color.black.getRGB());
+
+						lines += font.splitStringWidth(string, 150) + 2;
 					}
-
-					font.drawSplitString(string, x, lines + 24, 150, Color.black.getRGB());
-
-					lines += font.splitStringWidth(string, 150) + 2;
 				}
 			} else font.drawSplitString(desc, 16, 24, 150, Color.black.getRGB());
 		}
@@ -158,15 +168,29 @@ public class Elements
 
 			String[] data = desc.split("%n%");
 
-			int lines = 0;
+			int lines = 0, linesR = 0;
+
+			int x = 16;
 
 			if (data.length > 0)
 			{
 				for (String string : data)
 				{
-					font.drawSplitString(string, 16, lines + 24, 150, Color.black.getRGB());
+					if (lines > 260) return;
 
-					lines += font.splitStringWidth(string, 150) + 5;
+					if (lines >= 130)
+					{
+						x = 196;
+
+						font.drawSplitString(string, x, linesR + 24, 150, Color.black.getRGB());
+
+						linesR += font.splitStringWidth(string, 150) + 5;
+					}else
+					{
+						font.drawSplitString(string, x, lines + 24, 150, Color.black.getRGB());
+
+						lines += font.splitStringWidth(string, 150) + 5;
+					}
 				}
 			} else font.drawSplitString(desc, 16, 24, 150, Color.black.getRGB());
 		}
