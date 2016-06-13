@@ -1,10 +1,14 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techxproject:storageUnit"
-	},
-	"variants": {
-		"normal": [{}],
-		"inventory": [{}]
-	}
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:storageUnit"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
+  }
 }

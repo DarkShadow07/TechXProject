@@ -1,9 +1,9 @@
 {
   "homepage": "https://github.com/DarkShadow07/TechXProject",
   "promos": {
-    "1.9-latest": "1.9-0.00.1 Pre-Alpha",
-    "1.9-recommended": "1.9-0.00.1 Pre-Alpha",
-    "latest": "1.9-0.00.0 Pre-Alpha",
-    "recommended": "1.9-0.00.0 Pre-Alpha"
+    "1.9-latest": "1.9.4-0.00.1 Pre-Alpha",
+    "1.9-recommended": "1.9.4-0.00.1 Pre-Alpha",
+    "latest": "1.9.4-0.00.0 Pre-Alpha",
+    "recommended": "1.9.4-0.00.0 Pre-Alpha"
   }
 }

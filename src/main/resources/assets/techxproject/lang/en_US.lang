@@ -5,6 +5,7 @@ tile.techxproject.conduitLogic.name=Logic Controller
 tile.techxproject.energyMonitor.name=Energy Monitor
 tile.techxproject.recipeStamper.name=Machine Recipe Stamper
 tile.techxproject.machineAssembler.name=Machine Assembler
+tile.techxproject.meteorStone.name=Meteor Stone
 
 tile.techxproject.controller.name=Node Controller
 tile.techxproject.relay.name=Network Relay
@@ -19,11 +20,13 @@ tile.techxproject.storageUnit.name=Storage Unit
 tile.techxproject.solarPanel.name=Solar Panel
 tile.techxproject.recipeChest.name=Machine Recipe Chest
 tile.techxproject.wirelessCharger.name=Wireless Item Charger
+tile.techxproject.inventoryScanner.name=Inventory Scanner
 
 tile.techxproject.copperOre.name=Copper Ore
 tile.techxproject.leadOre.name=Lead Ore
 tile.techxproject.nickelOre.name=Nickel Ore
 tile.techxproject.tinOre.name=Tin Ore
+tile.techxproject.meteorOre.name=Meteor Ore
 
 tile.techxproject.copperBlock.name=Copper Block
 tile.techxproject.leadBlock.name=Lead Block
@@ -74,6 +77,7 @@ techxproject.container.conduitLogic=Logic Controller
 techxproject.gui.assembler=Machine Assembler
 techxproject.gui.recipeChest=Machine Recipe Chest
 techxproject.gui.farmer=Energetic Farmer
+techxproject.gui.teleporter=Multidimensional Teleporter
 
 techxproject.gui.jei.smelter=Energetic Smelting
 techxproject.gui.jei.crusher=Crushing
@@ -86,6 +90,7 @@ guide.entry.Ore Doubling= Use the Energetic Crusher, to carefully extract the Mi
 guide.entry.Machine Assembling= For Assembling Machines you'll need a Machine, the Machine Assembler. %n% It takes Machine Recipes stamped in the Recipe Stamper that wont be consumed, it uses them as a Template for the Machine Assembling. %n% Machine Assembling is a complicated process that takes a bit of time to perform.
 guide.entry.Generating Energy= You have many ways to generate Energy, do your best to find the Best combination to get large amounts of Energy, with a little price. %n% The best way to start is with Solar Panels, but they only work at Day Time...
 guide.entry.Storing Energy= Use a Capacitor to Store Energy, use a Potato to Waste Energy. %n% There are different Tiers of Capacitors that you can use, they offer Large amounts of Energy to be Stored at a good rate per tick.
+guide.entry.Meteors=Strange Meteors are falling from the sky! %n% They seem to contain strange Metals and Materials...
 
 ######## Conditions ########
 techxproject.condition.NO_CONDITION=No Condition (Always Enabled)
@@ -107,4 +112,3 @@ itemGroup.techTabOres=Tech 'X' Project Ores
 techxproject.config.reset=Reset all to Default
 
 ######## Dead Messages ########
-death.attack.teslaDeath=%1$s was reduced to ash

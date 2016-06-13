@@ -1,24 +1,44 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "model": "techxproject:crusher",
-        "textures": {"frontOn": "techxproject:blocks/machine/crusherFrontOn"},
-        "transform": "forge:default-block"
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:crusher",
+    "textures": {
+      "frontOn": "techxproject:blocks/machine/crusherFrontOn"
     },
-    "variants": {
-        "normal": [{}],
-        "inventory": [{}],
-        "facing":
-        {
-        	"north": {},
-        	"east": {"model": "techxproject:crusher", "y": 90},
-        	"south": {"model": "techxproject:crusher", "y": 180},
-        	"west": {"model": "techxproject:crusher", "y": 270}
-        },
-        "working":
-        {
-        	"true": {"model": "techxproject:crusher", "textures": {"north": "#frontOn"}},
-        	"false": {"model": "techxproject:crusher"}
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "facing": {
+      "north": {},
+      "east": {
+        "model": "techxproject:crusher",
+        "y": 90
+      },
+      "south": {
+        "model": "techxproject:crusher",
+        "y": 180
+      },
+      "west": {
+        "model": "techxproject:crusher",
+        "y": 270
+      }
+    },
+    "working": {
+      "true": {
+        "model": "techxproject:crusher",
+        "textures": {
+          "north": "#frontOn"
         }
+      },
+      "false": {
+        "model": "techxproject:crusher"
+      }
     }
+  }
 }

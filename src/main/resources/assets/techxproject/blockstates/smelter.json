@@ -1,24 +1,44 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "model": "techxproject:smelter",
-        "textures": {"frontOn": "techxproject:blocks/machine/smelterFrontOn"},
-        "transform": "forge:default-block"
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:smelter",
+    "textures": {
+      "frontOn": "techxproject:blocks/machine/smelterFrontOn"
     },
-    "variants": {
-        "normal": [{}],
-        "inventory": [{}],
-        "facing":
-        {
-        	"north": {},
-        	"east": {"model": "techxproject:smelter", "y": 90},
-        	"south": {"model": "techxproject:smelter", "y": 180},
-        	"west": {"model": "techxproject:smelter", "y": 270}
-        },
-        "working":
-        {
-        	"true": {"model": "techxproject:smelter", "textures": {"north": "#frontOn"}},
-        	"false": {"model": "techxproject:smelter"}
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "facing": {
+      "north": {},
+      "east": {
+        "model": "techxproject:smelter",
+        "y": 90
+      },
+      "south": {
+        "model": "techxproject:smelter",
+        "y": 180
+      },
+      "west": {
+        "model": "techxproject:smelter",
+        "y": 270
+      }
+    },
+    "working": {
+      "true": {
+        "model": "techxproject:smelter",
+        "textures": {
+          "north": "#frontOn"
         }
+      },
+      "false": {
+        "model": "techxproject:smelter"
+      }
     }
+  }
 }

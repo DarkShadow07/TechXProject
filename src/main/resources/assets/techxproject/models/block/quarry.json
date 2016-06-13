@@ -1,6 +1,8 @@
 {
-	"parent": "block/cube_all",
-	"textures": {
-		"all": "techxproject:blocks/quarry"
-	}
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techxproject:blocks/machine/quarryFront",
+    "up": "techxproject:blocks/machine/machineTop",
+    "down": "techxproject:blocks/machine/machineBottom"
+  }
 }

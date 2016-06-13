@@ -1,22 +1,18 @@
 [
     {
         "modid":"TechXProject",
-        "name":"Tech 'X' Project'",
+        "name":"Tech 'X' Project",
         "description":"Tech Mod based on many others",
-        "version":"1.9-0.00.0 Pre-Alpha",
+        "version":"1.9.4-0.00.0 Pre-Alpha",
         "mcversion":"${mcversion}",
         "url":"https://github.com/DarkShadow07/TechXProject",
         "updateUrl":"",
-        "authorList":[
-            "DarkShadow07"
-        ],
+        "authorList":["DarkS_"],
         "credits":"",
         "logoFile":"/logo.png",
         "screenshots":[
-
         ],
         "dependencies":[
-
         ]
     }
 ]

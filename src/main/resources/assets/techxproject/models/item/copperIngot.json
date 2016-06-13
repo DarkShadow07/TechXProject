@@ -1,6 +1,6 @@
 {
-    "parent": "techxproject:item/baseItem",
-    "textures": {
-        "layer0": "techxproject:items/ingot/copperIngot"
-    }
+  "parent": "techxproject:item/baseItem",
+  "textures": {
+    "layer0": "techxproject:items/ingot/copperIngot"
+  }
 }

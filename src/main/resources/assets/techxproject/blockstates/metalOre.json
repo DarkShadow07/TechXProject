@@ -1,0 +1,29 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:ore/copperOre",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "metal": {
+      "copper": {
+        "model": "techxproject:ore/copperOre"
+      },
+      "lead": {
+        "model": "techxproject:ore/leadOre"
+      },
+      "nickel": {
+        "model": "techxproject:ore/nickelOre"
+      },
+      "tin": {
+        "model": "techxproject:ore/tinOre"
+      },
+      "meteor": {
+        "model": "techxproject:ore/meteorOre"
+      }
+    }
+  }
+}

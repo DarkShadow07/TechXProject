@@ -1,12 +1,12 @@
 {
-	"parent": "block/cube_all",
-	"textures": {
-		"particle": "techxproject:blocks/machine/assemblerFront",
-		"north": "techxproject:blocks/machine/assemblerFront",
-		"east": "techxproject:blocks/machine/machineSideBasic",
-		"west": "techxproject:blocks/machine/machineSideBasic",
-		"down": "techxproject:blocks/machine/machineBottomBasic",
-		"south": "techxproject:blocks/machine/machineBackBasic",
-		"up": "techxproject:blocks/machine/machineTopBasic"
-	}
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "techxproject:blocks/machine/assemblerFront",
+    "north": "techxproject:blocks/machine/assemblerFront",
+    "east": "techxproject:blocks/machine/machineSideBasic",
+    "west": "techxproject:blocks/machine/machineSideBasic",
+    "down": "techxproject:blocks/machine/machineBottomBasic",
+    "south": "techxproject:blocks/machine/machineBackBasic",
+    "up": "techxproject:blocks/machine/machineTopBasic"
+  }
 }

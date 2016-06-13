@@ -1,6 +1,6 @@
 {
-    "parent": "techxproject:item/baseItem",
-    "textures": {
-        "layer0": "techxproject:items/dust/dustGold"
-    }
+  "parent": "techxproject:item/baseItem",
+  "textures": {
+    "layer0": "techxproject:items/dust/dustGold"
+  }
 }

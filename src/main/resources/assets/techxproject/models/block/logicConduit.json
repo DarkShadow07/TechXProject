@@ -1,6 +1,6 @@
 {
-	"parent": "block/cube_all",
-	"textures": {
-		"all": "techxproject:blocks/logicConduit"
-	}
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techxproject:blocks/logicConduit"
+  }
 }
