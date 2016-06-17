@@ -17,6 +17,7 @@ import DarkS.TechXProject.conduit.item.TileConduitItem;
 import DarkS.TechXProject.conduit.logic.TileLogicConduit;
 import DarkS.TechXProject.conduit.network.controller.TileNetworkController;
 import DarkS.TechXProject.conduit.network.relay.TileNetworkRelay;
+import DarkS.TechXProject.machines.activator.TileActivator;
 import DarkS.TechXProject.machines.capacitor.TileBasicCapacitor;
 import DarkS.TechXProject.machines.crusher.TileCrusher;
 import DarkS.TechXProject.machines.energy.TileSolarPanel;
@@ -67,6 +68,8 @@ public enum InitBlocks
 	teleporter(new BlockTeleporter(), "teleporter"),
 	storageUnit(new BlockStorageUnit(), "storageUnit"),
 	blockBreaker(new BlockBreaker(), "breaker"),
+
+	activator(new BlockActivator(), "activator"),
 
 	metalOre(new ItemBlockOreBase(new BlockOreBase()), "metalOre"),
 	metalBlock(new ItemBlockMetalBase(new BlockMetalBase()), "metalBlock"),
@@ -126,6 +129,7 @@ public enum InitBlocks
 		registerTile(TileRecipeChest.class);
 		registerTile(TileFarmer.class);
 		registerTile(TileWirelessCharger.class);
+		registerTile(TileActivator.class);
 	}
 
 	public static void initRecipes()

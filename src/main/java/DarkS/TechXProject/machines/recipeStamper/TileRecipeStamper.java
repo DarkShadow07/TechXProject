@@ -1,6 +1,6 @@
 package DarkS.TechXProject.machines.recipeStamper;
 
-import DarkS.TechXProject.blocks.tile.ModTileEntity;
+import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.items.ItemMachineRecipe;
 import DarkS.TechXProject.packets.PacketHandler;
 import DarkS.TechXProject.packets.PacketUpdateRecipe;
@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.ITextComponent;
 
-public class TileRecipeStamper extends ModTileEntity implements IInventory
+public class TileRecipeStamper extends TileBase implements IInventory
 {
 	public int selected = 0;
 	private ItemStack[] inventory;

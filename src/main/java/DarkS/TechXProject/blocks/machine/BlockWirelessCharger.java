@@ -22,7 +22,7 @@ import net.minecraftforge.client.model.ModelLoader;
 
 public class BlockWirelessCharger extends BlockContainerBase implements IRenderer
 {
-	public static PropertyBool working = PropertyBool.create("working");
+	public static PropertyBool working = PropertyBool.create("active");
 
 	public BlockWirelessCharger()
 	{

@@ -1,14 +1,14 @@
 ######## Blocks ########
-tile.techxproject.itemConduit.name=Item Node
-tile.techxproject.energyConduit.name=Energy Node
 tile.techxproject.conduitLogic.name=Logic Controller
 tile.techxproject.energyMonitor.name=Energy Monitor
 tile.techxproject.recipeStamper.name=Machine Recipe Stamper
 tile.techxproject.machineAssembler.name=Machine Assembler
 tile.techxproject.meteorStone.name=Meteor Stone
 
+tile.techxproject.itemConduit.name=Item Node
+tile.techxproject.energyConduit.name=Energy Node
 tile.techxproject.controller.name=Node Controller
-tile.techxproject.relay.name=Network Relay
+tile.techxproject.relay.name=Node Relay
 
 tile.techxproject.basicCapacitor.name=Basic Energy Capacitor
 tile.techxproject.smelter.name=Energetic Smelter
@@ -20,7 +20,7 @@ tile.techxproject.storageUnit.name=Storage Unit
 tile.techxproject.solarPanel.name=Solar Panel
 tile.techxproject.recipeChest.name=Machine Recipe Chest
 tile.techxproject.wirelessCharger.name=Wireless Item Charger
-tile.techxproject.inventoryScanner.name=Inventory Scanner
+tile.techxproject.activator.name=Redstone Activator
 
 tile.techxproject.copperOre.name=Copper Ore
 tile.techxproject.leadOre.name=Lead Ore

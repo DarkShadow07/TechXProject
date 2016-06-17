@@ -1,6 +1,6 @@
 package DarkS.TechXProject.machines.storageUnit;
 
-import DarkS.TechXProject.blocks.tile.ModTileEntity;
+import DarkS.TechXProject.blocks.tile.TileBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileStorageUnit extends ModTileEntity implements IInventory
+public class TileStorageUnit extends TileBase implements IInventory
 {
 	private ItemStack[] inventory;
 

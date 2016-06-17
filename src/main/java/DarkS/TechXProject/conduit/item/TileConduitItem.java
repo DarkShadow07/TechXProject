@@ -3,7 +3,7 @@ package DarkS.TechXProject.conduit.item;
 import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
-import DarkS.TechXProject.blocks.tile.ModTileEntity;
+import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.conduit.item.filter.EnumFilterType;
 import DarkS.TechXProject.conduit.item.filter.IFilterElement;
 import DarkS.TechXProject.conduit.item.filter.IItemStackFilter;
@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileConduitItem extends ModTileEntity implements INetworkElement<TileConduitItem>, ISidedInventory, IFilterElement
+public class TileConduitItem extends TileBase implements INetworkElement<TileConduitItem>, ISidedInventory, IFilterElement
 {
 	public int size = 1;
 	public ItemStack[] itemInventory;

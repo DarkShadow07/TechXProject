@@ -1,14 +1,14 @@
 package DarkS.TechXProject.conduit.logic;
 
 import DarkS.TechXProject.api.network.INetworkElement;
-import DarkS.TechXProject.blocks.tile.ModTileEntity;
+import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.conduit.logic.condition.Condition;
 import DarkS.TechXProject.conduit.logic.condition.EnumConditionType;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
-public class TileLogicConduit extends ModTileEntity
+public class TileLogicConduit extends TileBase
 {
 	public Condition condition;
 	public boolean conditionChanged = false;

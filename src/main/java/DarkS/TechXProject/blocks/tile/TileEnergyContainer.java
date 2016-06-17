@@ -16,7 +16,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileEnergyContainer extends ModTileEntity implements IEnergyContainer, ITickable, IWailaBody
+public class TileEnergyContainer extends TileBase implements IEnergyContainer, ITickable, IWailaBody
 {
 	public static final String ENERGY_NBT = "generator";
 	public static final String MAX_ENERGY_NBT = "maxEnergy";

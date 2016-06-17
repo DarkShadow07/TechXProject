@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -50,7 +51,7 @@ public class WorldGen implements IWorldGenerator
 			addOreSpawn(InitBlocks.metalOre.block.getDefaultState().withProperty(BlockMetalBase.METAL, EnumMetals.TIN), Blocks.STONE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 8, 8, 18, 60);
 		}
 
-		if (world.provider.getDimensionType().equals(DimensionType.OVERWORLD))
+		if ((world.getWorldType().equals(WorldType.DEFAULT) || world.getWorldType().equals(WorldType.AMPLIFIED)) && world.provider.getDimensionType().equals(DimensionType.OVERWORLD))
 		{
 			if (world.getChunkFromChunkCoords(chunkX, chunkZ).getInhabitedTime() < 1000 && random.nextInt(3000) <= 1)
 				new MeteorGenerator().generate(world, random, new BlockPos(chunkX * 16 + random.nextInt(16), 0, chunkZ * 16 + random.nextInt(16)));

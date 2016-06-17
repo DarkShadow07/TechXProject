@@ -24,18 +24,6 @@ public class ItemWrench extends ItemBase implements IWrench
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-	{
-		if (!worldIn.isRemote)
-		{
-			EntityDefender defender = new EntityDefender(worldIn, playerIn);
-			worldIn.spawnEntityInWorld(defender);
-		}
-
-		return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
-	}
-
-	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		Block block = world.getBlockState(pos).getBlock();

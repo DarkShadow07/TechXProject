@@ -1,0 +1,59 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:activator",
+    "textures": {
+      "on": "techxproject:blocks/activatorOn",
+      "off": "techxproject:blocks/activatorOff"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "active": {
+      "true": {
+        "textures": {
+          "top": "#on"
+        }
+      },
+      "false": {
+        "textures": {
+          "top": "#off"
+        }
+      }
+    },
+    "facing": {
+      "up": {
+        "model": "techxproject:activator",
+        "x": 180
+      },
+      "down": {
+        "model": "techxproject:activator"
+      },
+      "north": {
+        "model": "techxproject:activator",
+        "x": 90,
+        "y": 180
+      },
+      "east": {
+        "model": "techxproject:activator",
+        "x": 90,
+        "y": 270
+      },
+      "south": {
+        "model": "techxproject:activator",
+        "x": 90
+      },
+      "west": {
+        "model": "techxproject:activator",
+        "x": 90,
+        "y": 90
+      }
+    }
+  }
+}

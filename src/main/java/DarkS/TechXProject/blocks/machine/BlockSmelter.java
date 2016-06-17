@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 public class BlockSmelter extends BlockMachineBase
 {
-	public static PropertyBool working = PropertyBool.create("working");
+	public static PropertyBool working = PropertyBool.create("active");
 
 	public BlockSmelter()
 	{

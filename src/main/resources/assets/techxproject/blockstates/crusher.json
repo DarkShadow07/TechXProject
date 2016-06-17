@@ -29,7 +29,7 @@
         "y": 270
       }
     },
-    "working": {
+    "active": {
       "true": {
         "model": "techxproject:crusher",
         "textures": {

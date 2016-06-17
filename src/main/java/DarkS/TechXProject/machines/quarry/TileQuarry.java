@@ -215,7 +215,7 @@ public class TileQuarry extends TileEnergyContainer
 		data.setInteger("fortune", fortune);
 
 		data.setBoolean("started", started);
-		data.setBoolean("working", working);
+		data.setBoolean("active", working);
 		data.setBoolean("silktouch", silktouch);
 		data.setBoolean("end", end);
 
@@ -247,7 +247,7 @@ public class TileQuarry extends TileEnergyContainer
 		fortune = data.getInteger("fortune");
 
 		started = data.getBoolean("started");
-		working = data.getBoolean("working");
+		working = data.getBoolean("active");
 		silktouch = data.getBoolean("silktouch");
 		end = data.getBoolean("end");
 	}

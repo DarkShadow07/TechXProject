@@ -3,6 +3,7 @@ package DarkS.TechXProject.world.worldGenerator;
 import DarkS.TechXProject.blocks.metal.BlockOreBase;
 import DarkS.TechXProject.blocks.metal.EnumMetals;
 import DarkS.TechXProject.init.InitBlocks;
+import DarkS.TechXProject.util.Util;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -12,11 +13,13 @@ import java.util.Random;
 
 public class MeteorGenerator extends WorldGenerator
 {
-	private static final int meteorRad = 12;
+	private int meteorRad;
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos pos)
 	{
+		meteorRad = Util.keepInBounds(meteorRad, 8, rand.nextInt(12));
+
 		generateCylinder(worldIn, rand, pos);
 		generateExplosion(worldIn, rand, pos);
 		generateMeteor(worldIn, rand, pos);

@@ -4,7 +4,7 @@ import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.INetworkRelay;
-import DarkS.TechXProject.blocks.tile.ModTileEntity;
+import DarkS.TechXProject.blocks.tile.TileBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileNetworkRelay extends ModTileEntity implements INetworkRelay, INetworkElement<TileNetworkRelay>
+public class TileNetworkRelay extends TileBase implements INetworkRelay, INetworkElement<TileNetworkRelay>
 {
 	private ArrayList<BlockPos> elementsPos = new ArrayList<>();
 

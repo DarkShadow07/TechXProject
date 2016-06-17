@@ -1,6 +1,6 @@
 package DarkS.TechXProject.machines.machineAssembler;
 
-import DarkS.TechXProject.blocks.tile.ModTileEntity;
+import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.conduit.item.ItemConduitUtil;
 import DarkS.TechXProject.items.ItemMachineRecipe;
 import DarkS.TechXProject.machines.recipeStamper.MachineRecipeType;
@@ -16,7 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class TileMachineAssembler extends ModTileEntity implements ISidedInventory
+public class TileMachineAssembler extends TileBase implements ISidedInventory
 {
 	private static final int[] slotsIn = {0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28};
 	private static final int[] slotsOut = {1};
@@ -93,7 +93,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 		NBTTagCompound data = new NBTTagCompound();
 
 		data.setInteger("progress", progress);
-		data.setBoolean("working", working);
+		data.setBoolean("active", working);
 
 		tag.setTag("data", data);
 
@@ -119,7 +119,7 @@ public class TileMachineAssembler extends ModTileEntity implements ISidedInvento
 		NBTTagCompound data = tag.getCompoundTag("data");
 
 		progress = data.getInteger("progress");
-		working = data.getBoolean("working");
+		working = data.getBoolean("active");
 
 		NBTTagList nbttaglist = tag.getTagList("Items", 10);
 		inventory = new ItemStack[this.getSizeInventory()];

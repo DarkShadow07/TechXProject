@@ -14,7 +14,7 @@
     "inventory": [
       {}
     ],
-    "working": {
+    "active": {
       "true": {
         "model": "techxproject:wirelessCharger",
         "textures": {

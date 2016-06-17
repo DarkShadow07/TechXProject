@@ -14,27 +14,24 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class ModTileEntity extends TileEntity implements ITickable
+public class TileBase extends TileEntity implements ITickable
 {
 	public void markForUpdate()
 	{
-		if (this.worldObj != null)
-		{
-			this.worldObj.markBlockRangeForRenderUpdate(pos, pos);
+		worldObj.markBlockRangeForRenderUpdate(pos, pos);
 
-			Block block = worldObj.getBlockState(this.pos).getBlock();
+		Block block = worldObj.getBlockState(pos).getBlock();
 
-			int xCoord = this.pos.getX();
-			int yCoord = this.pos.getY();
-			int zCoord = this.pos.getZ();
+		int xCoord = pos.getX();
+		int yCoord = pos.getY();
+		int zCoord = pos.getZ();
 
-			this.worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord), block);
-			this.worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord + 1, zCoord), block);
-			this.worldObj.notifyBlockOfStateChange(new BlockPos(xCoord - 1, yCoord, zCoord), block);
-			this.worldObj.notifyBlockOfStateChange(new BlockPos(xCoord + 1, yCoord, zCoord), block);
-			this.worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord - 1), block);
-			this.worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord + 1), block);
-		}
+		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord), block);
+		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord + 1, zCoord), block);
+		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord - 1, yCoord, zCoord), block);
+		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord + 1, yCoord, zCoord), block);
+		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord - 1), block);
+		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord + 1), block);
 	}
 
 	@Override
