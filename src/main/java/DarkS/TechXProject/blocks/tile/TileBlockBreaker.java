@@ -1,12 +1,13 @@
 package DarkS.TechXProject.blocks.tile;
 
-import DarkS.TechXProject.conduit.item.ItemConduitUtil;
+import DarkS.TechXProject.node.item.NodeUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class TileBlockBreaker extends TileBase
+public class TileBlockBreaker extends TileBase implements ITickable
 {
 	private boolean isActive = false;
 	private EnumFacing rotation;
@@ -59,7 +60,7 @@ public class TileBlockBreaker extends TileBase
 				{
 					for (ItemStack stack : worldObj.getBlockState(pos).getBlock().getDrops(worldObj, pos, worldObj.getBlockState(pos), 0))
 					{
-						if (ItemConduitUtil.transferStack(stack, inventory, rotation.getOpposite()) != null)
+						if (NodeUtil.transferStack(stack, inventory, rotation.getOpposite()) != null)
 						{
 							worldObj.destroyBlock(pos, false);
 						}

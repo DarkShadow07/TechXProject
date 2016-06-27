@@ -2,7 +2,6 @@ package DarkS.TechXProject.entity.item;
 
 import DarkS.TechXProject.api.energy.item.IEnergyItem;
 import DarkS.TechXProject.items.energy.ItemMagnet;
-import DarkS.TechXProject.util.Logger;
 import DarkS.TechXProject.util.VectorUtil;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;

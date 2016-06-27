@@ -5,8 +5,8 @@ tile.techxproject.recipeStamper.name=Machine Recipe Stamper
 tile.techxproject.machineAssembler.name=Machine Assembler
 tile.techxproject.meteorStone.name=Meteor Stone
 
-tile.techxproject.itemConduit.name=Item Node
-tile.techxproject.energyConduit.name=Energy Node
+tile.techxproject.nodeItem.name=Item Node
+tile.techxproject.nodeEnergy.name=Energy Node
 tile.techxproject.controller.name=Node Controller
 tile.techxproject.relay.name=Node Relay
 
@@ -58,6 +58,7 @@ item.techxproject.copperIngot.name=Copper Ingot
 item.techxproject.leadIngot.name=Lead Ingot
 item.techxproject.nickelIngot.name=Nickel Ingot
 item.techxproject.tinIngot.name=Tin Ingot
+item.techxproject.grapheneIngot.name=Graphene Bar
 
 item.techxproject.copperDust.name=Pulverised Copper
 item.techxproject.leadDust.name=Pulverised Lead

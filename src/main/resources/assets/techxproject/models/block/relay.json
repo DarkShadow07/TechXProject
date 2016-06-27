@@ -1,6 +1,36 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "techxproject:blocks/relay"
-  }
+    "textures": {
+      "particle": "techxproject:blocks/node/relayTop",
+        "0": "techxproject:blocks/node/relaySide",
+        "1": "techxproject:blocks/node/relayTop",
+        "2": "techxproject:blocks/node/relayBottom"
+    },
+    "elements": [
+        {
+            "name": "base",
+            "from": [ 3.0, 0.0, 3.0 ],
+            "to": [ 13.0, 2.0, 13.0 ],
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 3.0, 14.0, 13.0, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 3.0, 14.0, 13.0, 16.0 ] },
+                "south": { "texture": "#0", "uv": [ 3.0, 14.0, 13.0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 3.0, 14.0, 13.0, 16.0 ] },
+                "up": { "texture": "#1", "uv": [ 3.0, 3.0, 13.0, 13.0 ] },
+                "down": { "texture": "#2", "uv": [ 3.0, 3.0, 13.0, 13.0 ] }
+            }
+        },
+        {
+            "name": "top",
+            "from": [ 4.0, 2.0, 4.0 ],
+            "to": [ 12.0, 3.0, 12.0 ],
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 4.0, 13.0, 12.0, 14.0 ] },
+                "east": { "texture": "#0", "uv": [ 4.0, 13.0, 12.0, 14.0 ] },
+                "south": { "texture": "#0", "uv": [ 4.0, 13.0, 12.0, 14.0 ] },
+                "west": { "texture": "#0", "uv": [ 4.0, 13.0, 12.0, 14.0 ] },
+                "up": { "texture": "#1", "uv": [ 4.0, 4.0, 12.0, 12.0 ] },
+                "down": { "texture": "#2", "uv": [ 4.0, 4.0, 12.0, 12.0 ] }
+            }
+        }
+    ]
 }

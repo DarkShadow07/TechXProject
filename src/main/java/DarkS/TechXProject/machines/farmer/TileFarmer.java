@@ -1,7 +1,7 @@
 package DarkS.TechXProject.machines.farmer;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
-import DarkS.TechXProject.conduit.item.ItemConduitUtil;
+import DarkS.TechXProject.node.item.NodeUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.IGrowable;
@@ -29,7 +29,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 	public static final int drainTick = 20;
 
 	public static final int rad = 4;
-	public static final int radHarvest = rad ^ 2;
+	public static final int radHarvest = rad;
 
 	private int[] slots = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
@@ -61,7 +61,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 			started = true;
 
 			x = pos.getX() - radHarvest;
-			y = pos.getY() + radHarvest * 4;
+			y = pos.getY() + radHarvest * 10;
 			z = pos.getZ() - radHarvest;
 
 			xP = pos.getX() - rad;
@@ -130,7 +130,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 			{
 				for (ItemStack stack : state.getBlock().getDrops(worldObj, pos, state, 0))
 				{
-					if (ItemConduitUtil.transferStack(stack, this, EnumFacing.DOWN) == null)
+					if (NodeUtil.transferStack(stack, this, EnumFacing.DOWN) == null)
 					{
 						return;
 					}
@@ -156,7 +156,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 
 						decrStackSize(i, 1);
 					}
-				} else if (Block.getBlockFromItem(stack.getItem()) != null)
+				} else
 				{
 					Block block = Block.getBlockFromItem(stack.getItem());
 
@@ -200,7 +200,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 		{
 			for (ItemStack stack : state.getBlock().getDrops(worldObj, pos, state, 0))
 			{
-				if (ItemConduitUtil.transferStack(stack, this, EnumFacing.DOWN) == null)
+				if (NodeUtil.transferStack(stack, this, EnumFacing.DOWN) == null)
 				{
 					return;
 				}
@@ -211,7 +211,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 				inventory[0].damageItem(1, new EntityCow(worldObj));
 			}
 
-			worldObj.setBlockToAir(pos);
+			worldObj.destroyBlock(pos, false);
 		}
 	}
 
@@ -239,23 +239,25 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 
 		for (EnumFacing facing : values)
 		{
-			if (worldObj.getBlockState(pos.offset(facing)).getBlock().isLeaves(worldObj.getBlockState(pos.offset(facing)), worldObj, pos.offset(facing)))
+			IBlockState state = worldObj.getBlockState(pos.offset(facing));
+
+			if (state.getBlock().isLeaves(state, worldObj, pos.offset(facing)))
 			{
 				x = pos.getX() + facing.getFrontOffsetX();
 				y = pos.getY() + facing.getFrontOffsetY();
 				z = pos.getZ() + facing.getFrontOffsetZ();
-			} else if (Arrays.asList(values).stream().allMatch(facing1 -> !worldObj.getBlockState(pos.offset(facing1)).getBlock().isLeaves(worldObj.getBlockState(pos.offset(facing1)), worldObj, pos.offset(facing1))))
+			} else if (Arrays.asList(values).stream().allMatch(facing1 -> !state.getBlock().isLeaves(state, worldObj, pos.offset(facing1))))
 			{
 				if (worldObj.getBlockState(pos.offset(facing)).getBlock().isWood(worldObj, pos.offset(facing)))
 				{
 					x = pos.getX() + facing.getFrontOffsetX();
 					y = pos.getY() + facing.getFrontOffsetY();
 					z = pos.getZ() + facing.getFrontOffsetZ();
-				} else if (Arrays.asList(EnumFacing.values()).stream().allMatch(facing1 -> !worldObj.getBlockState(pos.offset(facing1)).getBlock().isWood(worldObj, pos.offset(facing1))))
+				} else if (Arrays.asList(EnumFacing.values()).stream().allMatch(facing1 -> !state.getBlock().isWood(worldObj, pos.offset(facing1))))
 				{
 					y += 1;
 
-					if (y >= this.pos.getY() + radHarvest * 4)
+					if (y >= this.pos.getY() + radHarvest * 10)
 					{
 						y = this.pos.getY() - 1;
 
@@ -276,6 +278,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 				}
 			}
 		}
+
 	}
 
 	@Override

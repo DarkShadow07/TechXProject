@@ -1,13 +1,8 @@
 package DarkS.TechXProject.client.gui;
 
 import DarkS.TechXProject.TechXProject;
-import DarkS.TechXProject.conduit.item.ContainerConduitBase;
-import DarkS.TechXProject.conduit.item.gui.GuiConduitBase;
-import DarkS.TechXProject.conduit.logic.ContainerLogicConduit;
-import DarkS.TechXProject.conduit.logic.TileLogicConduit;
-import DarkS.TechXProject.conduit.logic.gui.GuiLogicConduit;
 import DarkS.TechXProject.configuration.GuiConfiguration;
-import DarkS.TechXProject.container.ContainerDummy;
+import DarkS.TechXProject.blocks.base.ContainerDummy;
 import DarkS.TechXProject.guide.GuiGuide;
 import DarkS.TechXProject.machines.capacitor.ContainerCapacitor;
 import DarkS.TechXProject.machines.capacitor.GuiCapacitor;
@@ -39,6 +34,11 @@ import DarkS.TechXProject.machines.storageUnit.TileStorageUnit;
 import DarkS.TechXProject.machines.teleporter.ContainerTeleporter;
 import DarkS.TechXProject.machines.teleporter.GuiTeleporter;
 import DarkS.TechXProject.machines.teleporter.TileTeleporter;
+import DarkS.TechXProject.node.item.ContainerItemNode;
+import DarkS.TechXProject.node.item.gui.GuiItemNode;
+import DarkS.TechXProject.node.logic.ContainerLogicConduit;
+import DarkS.TechXProject.node.logic.TileLogicConduit;
+import DarkS.TechXProject.node.logic.gui.GuiLogicConduit;
 import DarkS.TechXProject.reference.Guis;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,7 +79,7 @@ public class GuiHandler implements IGuiHandler
 			case Guis.CONFIGURATION:
 				return new ContainerDummy();
 			case Guis.CONDUIT:
-				return new ContainerConduitBase(player.inventory, (IInventory) tile);
+				return new ContainerItemNode(player.inventory, (IInventory) tile);
 			case Guis.CONDUIT_LOGIC:
 				return new ContainerLogicConduit(player.inventory, (TileLogicConduit) tile);
 			case Guis.SMELTER:
@@ -120,7 +120,7 @@ public class GuiHandler implements IGuiHandler
 			case Guis.CONFIGURATION:
 				return new GuiConfiguration();
 			case Guis.CONDUIT:
-				return new GuiConduitBase(player.inventory, (IInventory) tile);
+				return new GuiItemNode(player.inventory, (IInventory) tile);
 			case Guis.CONDUIT_LOGIC:
 				return new GuiLogicConduit(player.inventory, (TileLogicConduit) tile);
 			case Guis.SMELTER:

@@ -5,11 +5,5 @@
       "techxproject:telepad/teleport1",
       "techxproject:telepad/teleport2"
     ]
-  },
-  "telepad_active": {
-    "category": "block",
-    "sounds": [
-      "techxproject:telepad/telepad_active"
-    ]
   }
 }

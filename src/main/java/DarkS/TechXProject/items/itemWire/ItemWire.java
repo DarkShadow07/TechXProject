@@ -2,8 +2,8 @@ package DarkS.TechXProject.items.itemWire;
 
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.INetworkRelay;
-import DarkS.TechXProject.conduit.network.NetworkUtil;
 import DarkS.TechXProject.items.ItemBase;
+import DarkS.TechXProject.node.network.NetworkUtil;
 import DarkS.TechXProject.util.ChatUtil;
 import DarkS.TechXProject.util.NBTUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;

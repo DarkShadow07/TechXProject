@@ -1,0 +1,114 @@
+######## Blocks ########
+tile.techxproject.conduitLogic.name=Controlador de Lógica
+tile.techxproject.energyMonitor.name=Monitor de Energía
+tile.techxproject.recipeStamper.name=Estampador de Recetas de Máquinas
+tile.techxproject.machineAssembler.name=Ensamblador de Máquinas
+tile.techxproject.meteorStone.name=Piedra de Meteorito
+
+tile.techxproject.nodeItem.name=Nodo de Objetos
+tile.techxproject.nodeEnergy.name=Nodo de Energía
+tile.techxproject.controller.name=Controlador de Nodos
+tile.techxproject.relay.name=Relé de Nodos
+
+tile.techxproject.basicCapacitor.name=Capacitador de Energía Básico
+tile.techxproject.smelter.name=Funditor Energetizado
+tile.techxproject.crusher.name=Trituradora Energetizada
+tile.techxproject.quarry.name=Cantera Energetizada
+tile.techxproject.farmer.name=Agricultor Energetizado
+tile.techxproject.teleporter.name=Teletransportador Multidimensional
+tile.techxproject.storageUnit.name=Unidad de Almacenamiento
+tile.techxproject.solarPanel.name=Panel Solar
+tile.techxproject.recipeChest.name=Cofre de Recetas de Máquinas
+tile.techxproject.wirelessCharger.name=Cargador de Items Inalámbrico
+tile.techxproject.activator.name=Activador de Redstone
+
+tile.techxproject.copperOre.name=Mena de Cobre
+tile.techxproject.leadOre.name=Mena de Plomo
+tile.techxproject.nickelOre.name=Mena de Níquel
+tile.techxproject.tinOre.name=Mena de Estaño
+tile.techxproject.meteorOre.name=Mena de Meteorito
+
+tile.techxproject.copperBlock.name=Bloque de Cobre
+tile.techxproject.leadBlock.name=Bloque de Plomo
+tile.techxproject.nickelBlock.name=Bloque de Níquel
+tile.techxproject.tinBlock.name=Bloque de Estaño
+
+tile.techxproject.breaker.name=Rompedor de Bloques
+
+######## Items #######
+item.techxproject.wrench.name=Llave Inglesa
+item.techxproject.wire.name=Cable
+item.techxproject.quarryCard.name=Targeta de Cantera Vacía
+item.techxproject.teleporterCard.name=Targeta de Teletransporte Vacía
+item.techxproject.magnet.name=Imán Magnetizado
+item.techxproject.guide.name=Guía Tech
+item.techxproject.machineRecipe.name=Receta de Máquina Vacía
+
+item.techxproject.filterName.name=Filtro de Objetos (Nombre)
+item.techxproject.filterBase.name=Filtro de Objetos (Base)
+item.techxproject.filterMod.name=Filtro de Objetos (Mod)
+item.techxproject.filterOreDict.name=Filtro de Objetos (OreDictionary)
+
+item.techxproject.copperNugget.name=Pepita de Cobre
+item.techxproject.leadNugget.name=Pepita de Plomo
+item.techxproject.nickelNugget.name=Pepita de Níquel
+item.techxproject.tinNugget.name=Pepita de Estaño
+
+item.techxproject.copperIngot.name=Lingote de Cobre
+item.techxproject.leadIngot.name=Lingote de Plomo
+item.techxproject.nickelIngot.name=Lingote de Níquel
+item.techxproject.tinIngot.name=Lingote de Estaño
+
+item.techxproject.copperDust.name=Cobre Pulverizado
+item.techxproject.leadDust.name=Plomo Pulverizado
+item.techxproject.nickelDust.name=Níquel Pulverizado
+item.techxproject.tinDust.name=Estaño Pulverizado
+item.techxproject.ironDust.name=Hierro Pulverizado
+item.techxproject.goldDust.name=Oro Pulverizado
+item.techxproject.coalDust.name=Polvo de Carbón
+item.techxproject.stoneDust.name=Piedra Pulverizada
+item.techxproject.diamondDust.name=Polvo de Diamante
+item.techxproject.emeraldDust.name=Polvo de Esmeralda
+
+
+######## Gui ########
+techxproject.container.conduitLogic=Controlador de Lógica
+
+techxproject.gui.assembler=Ensamblador de Máquinas
+techxproject.gui.recipeChest=Cofre de Recetas de Máquinas
+techxproject.gui.farmer=Agricultor Energetizado
+techxproject.gui.teleporter=Teletransportador Multidimensional
+
+techxproject.gui.jei.smelter=Fundición Energetizada
+techxproject.gui.jei.crusher=Trituración Energetizada
+
+######## Guide ########
+guide.entry.Basic Mechanics= Use Machines to create Machines, use Machines to create energy to run Machines. Simple. %n% This mod is all about Machines, Energy and adding new Mechanics to Minecraft. %n% Continue this Guide to Learn everything that this Mod can Offer.
+guide.entry.Ores= Added Ore Generation to the world, Ores can spawn in any Dimension. %n% Ores can be used to create better Machines, the different Metals have specific uses.
+guide.entry.Ore Processing= You can simply smelt the Ores or you can Double them (See Ore Doubling). %n% You can use the Energetic Smelter to Triple the Speed of Smelting.
+guide.entry.Ore Doubling= Use the Energetic Crusher, to carefully extract the Mineral from the Ore, it will double the amount with a Random Chance. Then Smelt it. %n% There is no other way to Double the Ores.
+guide.entry.Machine Assembling= For Assembling Machines you'll need a Machine, the Machine Assembler. %n% It takes Machine Recipes stamped in the Recipe Stamper that wont be consumed, it uses them as a Template for the Machine Assembling. %n% Machine Assembling is a complicated process that takes a bit of time to perform.
+guide.entry.Generating Energy= You have many ways to generate Energy, do your best to find the Best combination to get large amounts of Energy, with a little price. %n% The best way to start is with Solar Panels, but they only work at Day Time...
+guide.entry.Storing Energy= Use a Capacitor to Store Energy, use a Potato to Waste Energy. %n% There are different Tiers of Capacitors that you can use, they offer Large amounts of Energy to be Stored at a good rate per tick.
+guide.entry.Meteors=Strange Meteors are falling from the sky! %n% They seem to contain strange Metals and Materials...
+
+######## Conditions ########
+techxproject.condition.NO_CONDITION=No Condition (Always Enabled)
+techxproject.condition.REDSTONE_ON=Redstone On
+techxproject.condition.REDSTONE_OFF=Redstone Off
+techxproject.condition.TIME_DAY=World Time Day
+techxproject.condition.TIME_NIGHT=World Time Night
+techxproject.condition.LIGHT_HIGH=Block Light High
+techxproject.condition.LIGHT_LOW=Block Light Low
+techxproject.condition.INVENTORY_FULL=Inventory Full
+techxproject.condition.INVENTORY_EMPTY=Inventory Empty
+techxproject.condition.INVENTORY_SPACE=Space in Inventory
+
+######## Creative Tabs ########
+itemGroup.techTab=Tech 'X' Project
+itemGroup.techTabOres=Tech 'X' Project Ores
+
+######## Configuration ########
+techxproject.config.reset=Restablecer Todos los Valores Predeterminados
+
+######## Dead Messages ########

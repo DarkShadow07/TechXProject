@@ -1,7 +1,8 @@
 package DarkS.TechXProject.blocks.machine;
 
-import DarkS.TechXProject.api.IWrench;
 import DarkS.TechXProject.blocks.base.BlockRotatingBase;
+import DarkS.TechXProject.highlight.IHighlightProvider;
+import DarkS.TechXProject.highlight.SelectionBox;
 import DarkS.TechXProject.machines.activator.TileActivator;
 import DarkS.TechXProject.util.ChatUtil;
 import DarkS.TechXProject.util.Util;
@@ -11,6 +12,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -21,18 +23,19 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class BlockActivator extends BlockRotatingBase implements ITileEntityProvider
 {
-	// TODO: fix me!
-
 	public static PropertyBool active = PropertyBool.create("active");
 
 	public BlockActivator()
@@ -40,6 +43,22 @@ public class BlockActivator extends BlockRotatingBase implements ITileEntityProv
 		super(Material.IRON, 5.4f, 1, "pickaxe");
 
 		setDefaultState(getDefaultState().withProperty(active, false).withProperty(facing, EnumFacing.UP));
+	}
+
+	@Override
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
+	{
+		for (SelectionBox box : ((IHighlightProvider) worldIn.getTileEntity(pos)).getBoxes())
+			if (box != null)
+				for (AxisAlignedBB aabb : box.getBoxes())
+					addCollisionBoxToList(pos, entityBox, collidingBoxes, aabb);
+	}
+
+	@Nullable
+	@Override
+	public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end)
+	{
+		return ((IHighlightProvider) worldIn.getTileEntity(pos)).rayTrace(pos, start, end);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -97,8 +116,6 @@ public class BlockActivator extends BlockRotatingBase implements ITileEntityProv
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		TileActivator tile = (TileActivator) worldIn.getTileEntity(pos);
-
-		if (playerIn.getHeldItem(hand) == null || !(playerIn.getHeldItem(hand).getItem() instanceof IWrench)) return false;
 
 		if (tile != null)
 			if (playerIn.isSneaking())

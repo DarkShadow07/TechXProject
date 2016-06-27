@@ -1,7 +1,7 @@
 package DarkS.TechXProject.guide;
 
 import DarkS.TechXProject.client.gui.GuiContainerBase;
-import DarkS.TechXProject.container.ContainerDummy;
+import DarkS.TechXProject.blocks.base.ContainerDummy;
 import DarkS.TechXProject.init.InitItems;
 import DarkS.TechXProject.items.ItemGuide;
 import DarkS.TechXProject.reference.Reference;

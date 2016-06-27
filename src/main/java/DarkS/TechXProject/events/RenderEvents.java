@@ -64,11 +64,11 @@ public class RenderEvents
 				Vec3d look = event.getPlayer().getLook(event.getPartialTicks());
 				Vec3d end = start.addVector(look.xCoord * blockReachDistance, look.yCoord * blockReachDistance, look.zCoord * blockReachDistance);
 
-				for (SelectionBox box : provider.getSelectionBoxes())
+				for (SelectionBox box : provider.getSelectedBoxes(pos, start, end))
 				{
-					if (box.getSelectedBoxes(pos, start, end).length > 0)
+					if (box != null)
 					{
-						for (AxisAlignedBB selectedBox : box.getSelectedBoxes(pos, start, end))
+						for (AxisAlignedBB selectedBox : box.getBoxes())
 						{
 							AxisAlignedBB expBox = selectedBox.expand(0.002, 0.002, 0.002);
 							drawBox(expBox.minX, expBox.minY, expBox.minZ, expBox.maxX, expBox.maxY, expBox.maxZ);

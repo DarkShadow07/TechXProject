@@ -1,8 +1,8 @@
 package DarkS.TechXProject.packets;
 
 import DarkS.TechXProject.TechXProject;
-import DarkS.TechXProject.conduit.logic.TileLogicConduit;
-import DarkS.TechXProject.conduit.logic.condition.EnumConditionType;
+import DarkS.TechXProject.node.logic.TileLogicConduit;
+import DarkS.TechXProject.node.logic.condition.EnumConditionType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

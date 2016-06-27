@@ -1,6 +1,5 @@
 package DarkS.TechXProject.entity;
 
-import DarkS.TechXProject.client.ModelTransformer;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

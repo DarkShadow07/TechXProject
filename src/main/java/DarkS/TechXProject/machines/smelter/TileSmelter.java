@@ -2,7 +2,8 @@ package DarkS.TechXProject.machines.smelter;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
-import DarkS.TechXProject.conduit.item.ItemConduitUtil;
+import DarkS.TechXProject.node.item.NodeUtil;
+import DarkS.TechXProject.util.Logger;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -88,7 +89,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 
 				for (int slot : getActiveSlots())
 				{
-					boolean vanilla = SmelterRecipeHandler.instance.isVanillaRecipe(getStackInSlot(slot));
+					boolean vanilla = SmelterRecipeHandler.instance.isVanillaRecipe(inventory[0], inventory[1], inventory[2]);
 
 					if (vanilla && !called)
 					{
@@ -97,7 +98,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 						resultCopy.stackSize *= getActiveSlots().size();
 					}
 
-					decrStackSize(slot, 1);
+					decrStackSize(slot, SmelterRecipeHandler.instance.getMinStack(result, getStackInSlot(slot)));
 				}
 
 				setInventorySlotContents(3, stack(inventory[3], resultCopy));
@@ -157,7 +158,7 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 
 				if (getStackInSlot(3) != null)
 				{
-					ItemConduitUtil.transferStack(getStackInSlot(3), inventory, outputFacing);
+					NodeUtil.transferStack(getStackInSlot(3), inventory, outputFacing);
 
 					if (getStackInSlot(3) != null && getStackInSlot(3).stackSize <= 0)
 					{

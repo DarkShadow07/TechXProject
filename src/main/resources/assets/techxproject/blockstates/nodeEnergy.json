@@ -1,0 +1,44 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:nodeEnergy",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "rotation":
+    {
+      "down": {
+        "model": "techxproject:nodeEnergy"
+      },
+      "up": {
+        "model": "techxproject:nodeEnergy",
+        "x": 180
+      },
+      "west": {
+        "model": "techxproject:nodeEnergy",
+        "x": 90,
+        "y": 90
+      },
+      "east": {
+        "model": "techxproject:nodeEnergy",
+        "x": 90,
+        "y": 270
+      },
+      "north": {
+        "model": "techxproject:nodeEnergy",
+        "x": 90,
+        "y": 180
+      },
+      "south": {
+        "model": "techxproject:nodeEnergy",
+        "x": 90
+      }
+    }
+  }
+}

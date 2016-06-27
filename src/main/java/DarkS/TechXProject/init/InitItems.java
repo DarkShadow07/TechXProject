@@ -6,13 +6,14 @@ import DarkS.TechXProject.blocks.metal.EnumMetals;
 import DarkS.TechXProject.blocks.metal.ItemDustBase;
 import DarkS.TechXProject.blocks.metal.ItemIngotBase;
 import DarkS.TechXProject.blocks.metal.ItemNuggetBase;
-import DarkS.TechXProject.conduit.item.filter.item.ItemFilterBase;
-import DarkS.TechXProject.conduit.item.filter.item.ItemFilterMod;
-import DarkS.TechXProject.conduit.item.filter.item.ItemFilterName;
-import DarkS.TechXProject.conduit.item.filter.item.ItemFilterOreDict;
+import DarkS.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DarkS.TechXProject.items.*;
 import DarkS.TechXProject.items.energy.ItemMagnet;
 import DarkS.TechXProject.items.itemWire.ItemWire;
+import DarkS.TechXProject.node.item.filter.item.ItemFilterBase;
+import DarkS.TechXProject.node.item.filter.item.ItemFilterMod;
+import DarkS.TechXProject.node.item.filter.item.ItemFilterName;
+import DarkS.TechXProject.node.item.filter.item.ItemFilterOreDict;
 import DarkS.TechXProject.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
@@ -90,6 +91,8 @@ public enum InitItems
 		GameRegistry.addSmelting(new ItemStack(dust.item, 1, EnumMetals.GOLD.ordinal()), new ItemStack(Items.GOLD_INGOT), 0.6f);
 		GameRegistry.addSmelting(new ItemStack(dust.item, 1, EnumMetals.DIAMOND.ordinal()), new ItemStack(Items.DIAMOND), 0.6f);
 		GameRegistry.addSmelting(new ItemStack(dust.item, 1, EnumMetals.EMERALD.ordinal()), new ItemStack(Items.EMERALD), 0.6f);
+
+		SmelterRecipeHandler.instance.addRecipe(new ItemStack(ingot.item, 1, EnumMetals.GRAPHENE.ordinal()), 0.3f, 600, new ItemStack(Items.IRON_INGOT), new ItemStack(dust.item, 1, EnumMetals.LEAD.ordinal()), new ItemStack(Blocks.OBSIDIAN));
 	}
 
 	public static Item registerItem(Item item, String name)

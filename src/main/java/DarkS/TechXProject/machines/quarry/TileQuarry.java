@@ -1,7 +1,7 @@
 package DarkS.TechXProject.machines.quarry;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
-import DarkS.TechXProject.conduit.item.ItemConduitUtil;
+import DarkS.TechXProject.node.item.NodeUtil;
 import DarkS.TechXProject.packets.PacketHandler;
 import DarkS.TechXProject.packets.PacketUpdateEnergy;
 import DarkS.TechXProject.util.Util;
@@ -111,7 +111,7 @@ public class TileQuarry extends TileEnergyContainer
 				{
 					if (silktouch)
 					{
-						if (ItemConduitUtil.transferStack(new ItemStack(block), inventory, EnumFacing.DOWN) != null)
+						if (NodeUtil.transferStack(new ItemStack(block), inventory, EnumFacing.DOWN) != null)
 						{
 							worldObj.destroyBlock(mining, false);
 						}
@@ -124,7 +124,7 @@ public class TileQuarry extends TileEnergyContainer
 							ItemStack dropStack = stack.copy();
 							dropStack.stackSize = block.quantityDroppedWithBonus(fortune, r);
 
-							if (ItemConduitUtil.transferStack(dropStack, inventory, EnumFacing.DOWN) != null)
+							if (NodeUtil.transferStack(dropStack, inventory, EnumFacing.DOWN) != null)
 							{
 								worldObj.destroyBlock(mining, false);
 							}

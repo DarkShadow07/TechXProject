@@ -1,7 +1,7 @@
 package DarkS.TechXProject.events;
 
-import DarkS.TechXProject.conduit.item.filter.IItemStackFilter;
 import DarkS.TechXProject.init.InitItems;
+import DarkS.TechXProject.node.item.filter.IItemStackFilter;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;

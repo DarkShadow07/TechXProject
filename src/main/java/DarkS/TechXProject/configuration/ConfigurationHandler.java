@@ -19,7 +19,7 @@ public class ConfigurationHandler
 	public static List<ConfigurationElement> elements = new ArrayList<>();
 	public static List<ConfigurationElement> filteredElements = new ArrayList<>();
 
-	public static ConfigurationElement itemNodeRate = new ConfigurationInt("Item Node Transfer Speed", "Sets the Rate/Speed the Item Nodes will try to transfer Items", 1, 64, 8);
+	public static ConfigurationElement itemNodeRate = new ConfigurationInt("Item Node Transfer Speed", "Sets the Rate/Speed the Item Nodes will try to transfer Items", 1, 8, 64);
 
 	private File configFile;
 
@@ -142,7 +142,7 @@ public class ConfigurationHandler
 			FileWriter writer = new FileWriter(configFile);
 			BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-			Map<String, String> data = new LinkedHashMap<String, String>();
+			Map<String, String> data = new LinkedHashMap<>();
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

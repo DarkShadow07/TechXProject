@@ -4,19 +4,14 @@ import DarkS.TechXProject.blocks.BlockBreaker;
 import DarkS.TechXProject.blocks.BlockMeteorStone;
 import DarkS.TechXProject.blocks.base.IRecipeProvider;
 import DarkS.TechXProject.blocks.base.IRenderer;
-import DarkS.TechXProject.blocks.conduit.*;
 import DarkS.TechXProject.blocks.machine.*;
 import DarkS.TechXProject.blocks.machine.generator.BlockSolarPanel;
 import DarkS.TechXProject.blocks.metal.BlockMetalBase;
 import DarkS.TechXProject.blocks.metal.BlockOreBase;
 import DarkS.TechXProject.blocks.metal.ItemBlockMetalBase;
 import DarkS.TechXProject.blocks.metal.ItemBlockOreBase;
+import DarkS.TechXProject.blocks.node.*;
 import DarkS.TechXProject.blocks.tile.TileBlockBreaker;
-import DarkS.TechXProject.conduit.energy.TileConduitEnergy;
-import DarkS.TechXProject.conduit.item.TileConduitItem;
-import DarkS.TechXProject.conduit.logic.TileLogicConduit;
-import DarkS.TechXProject.conduit.network.controller.TileNetworkController;
-import DarkS.TechXProject.conduit.network.relay.TileNetworkRelay;
 import DarkS.TechXProject.machines.activator.TileActivator;
 import DarkS.TechXProject.machines.capacitor.TileBasicCapacitor;
 import DarkS.TechXProject.machines.crusher.TileCrusher;
@@ -31,6 +26,11 @@ import DarkS.TechXProject.machines.smelter.TileSmelter;
 import DarkS.TechXProject.machines.storageUnit.TileStorageUnit;
 import DarkS.TechXProject.machines.teleporter.TileTeleporter;
 import DarkS.TechXProject.machines.wirelessCharger.TileWirelessCharger;
+import DarkS.TechXProject.node.energy.TileEnergyNode;
+import DarkS.TechXProject.node.item.TileItemNode;
+import DarkS.TechXProject.node.logic.TileLogicConduit;
+import DarkS.TechXProject.node.network.controller.TileNetworkController;
+import DarkS.TechXProject.node.network.relay.TileNetworkRelay;
 import DarkS.TechXProject.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -42,8 +42,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public enum InitBlocks
 {
-	conduitItem(new BlockItemConduit(), "itemConduit"),
-	conduitEnergy(new BlockEnergyConduit(), "energyConduit"),
+	nodeItem(new BlockItemNode(), "nodeItem"),
+	nodeEnergy(new BlockEnergyNode(), "nodeEnergy"),
 	networkRelay(new BlockNetworkRelay(), "relay"),
 	networkController(new BlockNetworkController(), "controller"),
 
@@ -111,8 +111,8 @@ public enum InitBlocks
 	private static void registerTileEntities()
 	{
 		registerTile(TileNetworkController.class);
-		registerTile(TileConduitItem.class);
-		registerTile(TileConduitEnergy.class);
+		registerTile(TileItemNode.class);
+		registerTile(TileEnergyNode.class);
 		registerTile(TileLogicConduit.class);
 		registerTile(TileEnergyMonitor.class);
 		registerTile(TileNetworkRelay.class);

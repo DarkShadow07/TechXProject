@@ -5,7 +5,7 @@ import DarkS.TechXProject.api.energy.IEnergyGenerator;
 import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
-import DarkS.TechXProject.conduit.energy.TileConduitEnergy;
+import DarkS.TechXProject.node.energy.TileEnergyNode;
 import DarkS.TechXProject.util.energy.EnergyTracker;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -91,13 +91,13 @@ public class TileEnergyMonitor extends TileEnergyContainer
 	{
 		for (TileEntity tile : getTilesOnSides())
 		{
-			if (tile != null && tile instanceof TileConduitEnergy && ((TileConduitEnergy) tile).hasNetwork())
+			if (tile != null && tile instanceof TileEnergyNode && ((TileEnergyNode) tile).hasNetwork())
 			{
-				network = ((TileConduitEnergy) tile).getNetwork();
+				network = ((TileEnergyNode) tile).getNetwork();
 			}
 		}
 
-		if (Arrays.asList(getTilesOnSides()).stream().allMatch(tileEntity -> tileEntity == null || !(tileEntity instanceof TileConduitEnergy) || !((TileConduitEnergy) tileEntity).hasNetwork()))
+		if (Arrays.asList(getTilesOnSides()).stream().allMatch(tileEntity -> tileEntity == null || !(tileEntity instanceof TileEnergyNode) || !((TileEnergyNode) tileEntity).hasNetwork()))
 		{
 			network = null;
 		}

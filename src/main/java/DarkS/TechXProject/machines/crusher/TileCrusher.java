@@ -2,7 +2,7 @@ package DarkS.TechXProject.machines.crusher;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
-import DarkS.TechXProject.conduit.item.ItemConduitUtil;
+import DarkS.TechXProject.node.item.NodeUtil;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -109,7 +109,7 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 	{
 		for (int i = 1; i < 5; i++)
 		{
-			if (ItemConduitUtil.canStack(stack, inventory[i]))
+			if (NodeUtil.canStack(stack, inventory[i]))
 			{
 				return i;
 			}
@@ -132,7 +132,7 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 				{
 					if (getStackInSlot(i) != null)
 					{
-						ItemConduitUtil.transferStack(getStackInSlot(i), inventory, outputFacing);
+						NodeUtil.transferStack(getStackInSlot(i), inventory, outputFacing);
 
 						if (getStackInSlot(i) != null && getStackInSlot(i).stackSize <= 0)
 						{

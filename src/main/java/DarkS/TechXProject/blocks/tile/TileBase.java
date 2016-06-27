@@ -8,30 +8,27 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 
-public class TileBase extends TileEntity implements ITickable
+public abstract class TileBase extends TileEntity
 {
 	public void markForUpdate()
 	{
+		if (worldObj == null) return;
+
 		worldObj.markBlockRangeForRenderUpdate(pos, pos);
 
 		Block block = worldObj.getBlockState(pos).getBlock();
 
-		int xCoord = pos.getX();
-		int yCoord = pos.getY();
-		int zCoord = pos.getZ();
+		if (ForgeEventFactory.onNeighborNotify(worldObj, pos, worldObj.getBlockState(pos), EnumSet.allOf(EnumFacing.class)).isCanceled())
+			return;
 
-		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord), block);
-		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord + 1, zCoord), block);
-		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord - 1, yCoord, zCoord), block);
-		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord + 1, yCoord, zCoord), block);
-		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord - 1), block);
-		worldObj.notifyBlockOfStateChange(new BlockPos(xCoord, yCoord - 1, zCoord + 1), block);
+		worldObj.notifyNeighborsOfStateChange(pos, block);
 	}
 
 	@Override
@@ -39,7 +36,6 @@ public class TileBase extends TileEntity implements ITickable
 	{
 		return oldState.getBlock() != newState.getBlock();
 	}
-
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
@@ -99,11 +95,5 @@ public class TileBase extends TileEntity implements ITickable
 			for (int i = 0; i < 6; i++) result[i] = worldObj.getTileEntity(pos.offset(EnumFacing.getFront(i)));
 		}
 		return result;
-	}
-
-	@Override
-	public void update()
-	{
-
 	}
 }

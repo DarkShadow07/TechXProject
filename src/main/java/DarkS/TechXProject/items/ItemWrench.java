@@ -1,13 +1,10 @@
 package DarkS.TechXProject.items;
 
 import DarkS.TechXProject.api.IWrench;
-import DarkS.TechXProject.conduit.logic.TileLogicConduit;
-import DarkS.TechXProject.entity.EntityDefender;
+import DarkS.TechXProject.node.logic.TileLogicConduit;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;

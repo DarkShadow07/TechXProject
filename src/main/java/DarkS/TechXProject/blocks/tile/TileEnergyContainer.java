@@ -190,9 +190,6 @@ public class TileEnergyContainer extends TileBase implements IEnergyContainer, I
 
 			if (energy < 0) energy = 0;
 			if (energy > maxEnergy) energy = maxEnergy;
-
-			markDirty();
-			markForUpdate();
 		}
 
 		if (lastEnergy > maxEnergy)
@@ -214,9 +211,6 @@ public class TileEnergyContainer extends TileBase implements IEnergyContainer, I
 
 				if (this.energy < 0) this.energy = 0;
 				if (this.energy > maxEnergy) this.energy = maxEnergy;
-
-				markDirty();
-				markForUpdate();
 			}
 
 			return true;

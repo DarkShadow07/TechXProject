@@ -34,7 +34,7 @@ public class BooleanBox
 		GuiUtil overlayHelper = new GuiUtil();
 		FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
 
-		overlayHelper.drawPlaneWithFullBorder(x, y, 126, 10, Color.BLACK.hashCode(), Color.GRAY.hashCode());
+		overlayHelper.drawPlaneWithFullBorder(x, y, 126, 16, Color.BLACK.hashCode(), Color.GRAY.hashCode());
 
 		fontRenderer.drawString(currentValue + "", x + (128 / 2) - (fontRenderer.getStringWidth(currentValue + "") / 2), y + 1, Color.WHITE.hashCode(), true);
 	}

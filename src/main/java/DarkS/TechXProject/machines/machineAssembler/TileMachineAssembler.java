@@ -1,9 +1,9 @@
 package DarkS.TechXProject.machines.machineAssembler;
 
 import DarkS.TechXProject.blocks.tile.TileBase;
-import DarkS.TechXProject.conduit.item.ItemConduitUtil;
 import DarkS.TechXProject.items.ItemMachineRecipe;
 import DarkS.TechXProject.machines.recipeStamper.MachineRecipeType;
+import DarkS.TechXProject.node.item.NodeUtil;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -12,11 +12,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class TileMachineAssembler extends TileBase implements ISidedInventory
+public class TileMachineAssembler extends TileBase implements ISidedInventory, ITickable
 {
 	private static final int[] slotsIn = {0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28};
 	private static final int[] slotsOut = {1};
@@ -71,7 +72,7 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory
 			ItemStack[] newInv = inventory;
 			newInv = ArrayUtils.removeAll(newInv, 0, 1);
 
-			working = Util.isStackArrayExactEqual(newInv, type.inputs) && (ItemConduitUtil.canStack(inventory[1], type.out) || inventory[1] == null);
+			working = Util.isStackArrayExactEqual(newInv, type.inputs) && (NodeUtil.canStack(inventory[1], type.out) || inventory[1] == null);
 
 			if (progress >= 800)
 			{
