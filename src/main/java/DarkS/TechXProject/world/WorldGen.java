@@ -53,7 +53,7 @@ public class WorldGen implements IWorldGenerator
 
 		if ((world.getWorldType().equals(WorldType.DEFAULT) || world.getWorldType().equals(WorldType.AMPLIFIED)) && world.provider.getDimensionType().equals(DimensionType.OVERWORLD))
 		{
-			if (world.getChunkFromChunkCoords(chunkX, chunkZ).getInhabitedTime() < 1000 && random.nextInt(3000) <= 1)
+			if (world.getChunkFromChunkCoords(chunkX, chunkZ).getInhabitedTime() < 1000 && random.nextInt(3000) == 1)
 				new MeteorGenerator().generate(world, random, new BlockPos(chunkX * 16 + random.nextInt(16), 0, chunkZ * 16 + random.nextInt(16)));
 		}
 	}

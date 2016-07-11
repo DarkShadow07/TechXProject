@@ -1,24 +1,85 @@
 package DarkS.TechXProject.util;
 
-import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
+import java.awt.*;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Util
 {
-	public static final PropertyInteger meta = PropertyInteger.create("meta", 0, 15);
 	static Random rand = new Random();
+
+	public static NBTTagCompound blocksToNBT(World world, List<BlockPos> positions, List<IBlockState> states, NBTTagCompound tag)
+	{
+		NBTTagList list = new NBTTagList();
+
+		for (BlockPos pos : positions)
+			for (IBlockState state : states)
+			{
+				NBTTagCompound blockTag = new NBTTagCompound();
+
+				blockTag.setInteger("meta", state.getBlock().getMetaFromState(state));
+
+				blockTag.setInteger("block", Block.REGISTRY.getIDForObject(state.getBlock()));
+
+				if (state.getBlock() instanceof ITileEntityProvider && world.getTileEntity(pos) != null)
+					blockTag.setTag("tileTag", world.getTileEntity(pos).getTileData());
+
+				blockTag.setTag("blockPos", net.minecraft.nbt.NBTUtil.createPosTag(pos));
+
+				list.appendTag(blockTag);
+			}
+
+		tag.setTag("blockList", list);
+
+		return tag;
+	}
+
+	public static List<Pair<BlockPos, IBlockState>> blocksFromNBT(World world, NBTTagCompound tag)
+	{
+		List<Pair<BlockPos, IBlockState>> blocks = new ArrayList<>();
+
+		NBTTagList list = tag.getTagList("blockList", 10);
+
+		for (int i = 0; i < list.tagCount(); i++)
+		{
+			NBTTagCompound blockTag = list.getCompoundTagAt(i);
+
+			int meta = blockTag.getInteger("meta");
+
+			int block = blockTag.getInteger("block");
+
+			BlockPos pos = net.minecraft.nbt.NBTUtil.getPosFromTag(blockTag.getCompoundTag("blockPos"));
+
+			Block b = Block.REGISTRY.getObjectById(block);
+			IBlockState state = b.getStateFromMeta(meta);
+
+			blocks.add(new ImmutablePair<>(pos, state));
+		}
+
+		return blocks;
+	}
 
 	public static boolean inventoryFull(IInventory inventory)
 	{
@@ -179,9 +240,8 @@ public class Util
 		pos += 1;
 
 		if (pos < array.length)
-		{
 			return pos;
-		} else if (pos > array.length) return 0;
+		else if (pos > array.length) return 0;
 
 		return 0;
 	}
@@ -243,33 +303,6 @@ public class Util
 		return obj1.equals(obj2);
 	}
 
-	public static int keepInBounds(int value, int min, int max)
-	{
-		if (value >= min && value <= max) return value;
-		if (value < min) return min;
-		if (value > max) return max;
-
-		return value;
-	}
-
-	public static float keepInBounds(float value, float min, float max)
-	{
-		if (value >= min && value <= max) return value;
-		if (value < min) return min;
-		if (value > max) return max;
-
-		return value;
-	}
-
-	public static double keepInBounds(double value, double min, double max)
-	{
-		if (value >= min && value <= max) return value;
-		if (value < min) return min;
-		if (value > max) return max;
-
-		return value;
-	}
-
 	public static double slowlyEqualize(double variable, double goal, double speed)
 	{
 		return slowlyEqualize((float) variable, (float) goal, (float) speed);
@@ -299,6 +332,19 @@ public class Util
 			}
 		}
 		return result;
+	}
+
+	public static float fluctuate(double speed, double offset)
+	{
+		long wtt = (long) (world().getTotalWorldTime() + offset);
+		double helper = (wtt % speed) / (speed / 2F);
+		return (float) (helper > 1 ? 2 - helper : helper);
+	}
+
+	public static float fluctuateSmooth(double speed, double offset)
+	{
+		float fluctuate = fluctuate(speed, offset), prevFluctuate = fluctuate(speed, offset - 1);
+		return PartialTicksUtil.calculatePos(prevFluctuate, fluctuate);
 	}
 
 	public static int randomInt(int scale)
@@ -355,9 +401,19 @@ public class Util
 
 	public static class GL
 	{
+		public static Color getScreenColor(int x, int y)
+		{
+			IntBuffer pixels = BufferUtils.createIntBuffer(1);
+
+			GL11.glReadPixels(x, y, 1, 1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixels);
+
+			Color inverse = new Color(pixels.get());
+
+			return new Color(255 - inverse.getRed(), 255 - inverse.getGreen(),255 - inverse.getBlue());
+		}
+
 		public static void startOpaqueRendering()
 		{
-			GlStateManager.depthMask(false);
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.alphaFunc(GL11.GL_GREATER, 0);
@@ -367,10 +423,9 @@ public class Util
 		public static void endOpaqueRendering()
 		{
 			GlStateManager.disableBlend();
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GlStateManager.depthMask(true);
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+			GlStateManager.alphaFunc(GL11.GL_GREATER, 1.0F);
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
 		}
 	}
 }

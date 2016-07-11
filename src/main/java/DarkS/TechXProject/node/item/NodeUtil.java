@@ -1,7 +1,7 @@
 package DarkS.TechXProject.node.item;
 
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkElement;
+import DarkS.TechXProject.api.network.NodeNetwork;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -18,16 +18,16 @@ import java.util.*;
 
 public class NodeUtil
 {
-	public static List<String> getNetworkInfo(@Nonnull ConduitNetwork network)
+	public static List<String> getNetworkInfo(@Nonnull NodeNetwork network)
 	{
 		BlockPos controllerPos = network.getController().getController().getPos();
 
 		List<String> info = new ArrayList<>();
 
 		info.add(ChatFormatting.GRAY + "---- " + ChatFormatting.WHITE + "Node Network Info" + ChatFormatting.GRAY + " ----");
-		info.add(String.format("Controller: x:%s y:%s z:%s", controllerPos.getX(), controllerPos.getY(), controllerPos.getZ()));
+		info.add(String.format("Controller: x:%s y:%s z:%s, Using %sTF/t", controllerPos.getX(), controllerPos.getY(), controllerPos.getZ(), 8 + network.getElements().size() * 4));
 		info.add("");
-		info.add("Elements:");
+		info.add(" Elements:");
 
 		for (INetworkElement element : network.getElements())
 		{
@@ -48,7 +48,7 @@ public class NodeUtil
 
 		List<INetworkElement> finalList = new ArrayList<>();
 
-		ConduitNetwork network = element.getNetwork();
+		NodeNetwork network = element.getNetwork();
 
 		Map<Integer, INetworkElement> elementDistances = new HashMap<>();
 		List<INetworkElement> elements = network.getElements();
@@ -56,44 +56,15 @@ public class NodeUtil
 
 		for (INetworkElement networkElement : elements)
 		{
-			elementDistances.put(element.distanceTo(networkElement.getTile()), networkElement);
+			double d = element.getTile().getPos().getDistance(networkElement.getTile().getPos().getX(), networkElement.getTile().getPos().getY(), networkElement.getTile().getPos().getZ());
+
+			elementDistances.put((int) d, networkElement);
 		}
 
 		List<Integer> distances = new ArrayList<>();
 		distances.addAll(elementDistances.keySet());
 
 		Collections.sort(distances);
-
-		for (int distance : distances)
-		{
-			finalList.add(elementDistances.get(distance));
-		}
-
-		return finalList;
-	}
-
-	public static List<INetworkElement> sortElementsInverse(INetworkElement element)
-	{
-		if (!element.hasNetwork()) return null;
-
-		List<INetworkElement> finalList = new ArrayList<>();
-
-		ConduitNetwork network = element.getNetwork();
-
-		Map<Integer, INetworkElement> elementDistances = new HashMap<>();
-		List<INetworkElement> elements = network.getElements();
-		elements.remove(element);
-
-		for (INetworkElement networkElement : elements)
-		{
-			elementDistances.put(element.distanceTo(networkElement.getTile()), networkElement);
-		}
-
-		List<Integer> distances = new ArrayList<>();
-		distances.addAll(elementDistances.keySet());
-
-		Collections.sort(distances);
-		Collections.reverse(distances);
 
 		for (int distance : distances)
 		{
@@ -231,7 +202,7 @@ public class NodeUtil
 
 	public static boolean isSameMod(ItemStack filterStack, ItemStack testStack)
 	{
-		if (filterStack != null && testStack != null && filterStack.getItem() != null && testStack.getItem() != null)
+		if (filterStack != null && testStack != null)
 		{
 			String keyId = getModID(filterStack.getItem());
 			String checkedId = getModID(testStack.getItem());

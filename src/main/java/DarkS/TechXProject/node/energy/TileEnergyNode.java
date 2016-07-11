@@ -2,9 +2,9 @@ package DarkS.TechXProject.node.energy;
 
 import DarkS.TechXProject.api.IWrench;
 import DarkS.TechXProject.api.energy.IEnergyContainer;
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
+import DarkS.TechXProject.api.network.NodeNetwork;
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.highlight.IHighlightProvider;
 import DarkS.TechXProject.highlight.SelectionBox;
@@ -25,11 +25,11 @@ import java.util.Random;
 
 public class TileEnergyNode extends TileEnergyContainer implements INetworkElement<TileEnergyNode>, IHighlightProvider
 {
-	public ConduitNetwork network;
+	private NodeNetwork network;
 
 	private IEnergyContainer energyContainer;
 
-	private boolean active = true, isInput = false, isOutput = false;
+	private boolean isInput = false, isOutput = false;
 
 	public TileEnergyNode()
 	{
@@ -39,6 +39,8 @@ public class TileEnergyNode extends TileEnergyContainer implements INetworkEleme
 	@Override
 	public void update()
 	{
+		if (!isActive()) return;
+
 		updateEnergyContainer();
 
 		doTransfer();
@@ -60,27 +62,27 @@ public class TileEnergyNode extends TileEnergyContainer implements INetworkEleme
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.toNBT(tag);
-
 		NBTTagCompound booleans = new NBTTagCompound();
 
 		booleans.setBoolean("input", isInput);
 		booleans.setBoolean("output", isOutput);
 
 		tag.setTag("booleans", booleans);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagCompound booleans = tag.getCompoundTag("booleans");
 
 		isInput = booleans.getBoolean("input");
 		isOutput = booleans.getBoolean("output");
+
+		super.readFromNBT(tag);
 	}
 
 	public void doTransfer()
@@ -163,31 +165,15 @@ public class TileEnergyNode extends TileEnergyContainer implements INetworkEleme
 	}
 
 	@Override
-	public ConduitNetwork getNetwork()
+	public NodeNetwork getNetwork()
 	{
 		return network;
 	}
 
 	@Override
-	public void setNetwork(ConduitNetwork network)
+	public void setNetwork(NodeNetwork network)
 	{
 		this.network = network;
-	}
-
-	@Override
-	public ConduitNetwork addToNetwork(INetworkElement toAdd)
-	{
-		network.addToNetwork(toAdd);
-
-		return network;
-	}
-
-	@Override
-	public ConduitNetwork removeFromNetwork(INetworkElement toRemove)
-	{
-		network.removeFromNetwork(toRemove);
-
-		return network;
 	}
 
 	@Override
@@ -206,12 +192,6 @@ public class TileEnergyNode extends TileEnergyContainer implements INetworkEleme
 	public boolean isAttached()
 	{
 		return energyContainer != null;
-	}
-
-	@Override
-	public int distanceTo(TileEntity to)
-	{
-		return (int) getTile().getPos().distanceSq(to.getPos());
 	}
 
 	@Override
@@ -245,13 +225,7 @@ public class TileEnergyNode extends TileEnergyContainer implements INetworkEleme
 	@Override
 	public boolean isActive()
 	{
-		return active;
-	}
-
-	@Override
-	public void setActive(boolean act)
-	{
-		active = act;
+		return hasNetwork() && network.getController().isActive();
 	}
 
 	@Override

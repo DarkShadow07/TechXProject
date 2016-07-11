@@ -6,40 +6,44 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class TileStorageUnit extends TileBase implements IInventory
 {
 	private ItemStack[] inventory;
 
+	IItemHandler handlerAll;
+
 	public TileStorageUnit()
 	{
 		inventory = new ItemStack[72];
-	}
 
-	public List<ItemStack> getStacks()
-	{
-		List<ItemStack> result = new ArrayList<>();
-
-		for (int i = 0; i < inventory.length; i++)
-		{
-			if (inventory[i] != null)
-			{
-				result.add(inventory[i]);
-			}
-		}
-
-		return result;
+		handlerAll = new InvWrapper(this);
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 	{
-		super.toNBT(tag);
+		if (facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			return (T) handlerAll;
 
+		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	{
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
+	{
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < inventory.length; ++i)
@@ -54,13 +58,13 @@ public class TileStorageUnit extends TileBase implements IInventory
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return tag;
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagList nbttaglist = tag.getTagList("Items", 10);
 		inventory = new ItemStack[this.getSizeInventory()];
 

@@ -1,8 +1,8 @@
 package DarkS.TechXProject.client.gui;
 
 import DarkS.TechXProject.TechXProject;
-import DarkS.TechXProject.configuration.GuiConfiguration;
 import DarkS.TechXProject.blocks.base.ContainerDummy;
+import DarkS.TechXProject.configuration.GuiConfiguration;
 import DarkS.TechXProject.guide.GuiGuide;
 import DarkS.TechXProject.machines.capacitor.ContainerCapacitor;
 import DarkS.TechXProject.machines.capacitor.GuiCapacitor;
@@ -36,9 +36,8 @@ import DarkS.TechXProject.machines.teleporter.GuiTeleporter;
 import DarkS.TechXProject.machines.teleporter.TileTeleporter;
 import DarkS.TechXProject.node.item.ContainerItemNode;
 import DarkS.TechXProject.node.item.gui.GuiItemNode;
-import DarkS.TechXProject.node.logic.ContainerLogicConduit;
-import DarkS.TechXProject.node.logic.TileLogicConduit;
-import DarkS.TechXProject.node.logic.gui.GuiLogicConduit;
+import DarkS.TechXProject.node.transport.TileTransportNode;
+import DarkS.TechXProject.node.transport.gui.GuiTransportNode;
 import DarkS.TechXProject.reference.Guis;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,8 +79,6 @@ public class GuiHandler implements IGuiHandler
 				return new ContainerDummy();
 			case Guis.CONDUIT:
 				return new ContainerItemNode(player.inventory, (IInventory) tile);
-			case Guis.CONDUIT_LOGIC:
-				return new ContainerLogicConduit(player.inventory, (TileLogicConduit) tile);
 			case Guis.SMELTER:
 				return new ContainerSmelter(player.inventory, (TileSmelter) tile);
 			case Guis.CAPACITOR:
@@ -104,6 +101,8 @@ public class GuiHandler implements IGuiHandler
 				return new ContainerFarmer(player.inventory, (TileFarmer) tile);
 			case Guis.GUIDE:
 				return new ContainerDummy();
+			case Guis.TRANSPORT:
+				return new ContainerDummy();
 		}
 
 		return null;
@@ -121,8 +120,6 @@ public class GuiHandler implements IGuiHandler
 				return new GuiConfiguration();
 			case Guis.CONDUIT:
 				return new GuiItemNode(player.inventory, (IInventory) tile);
-			case Guis.CONDUIT_LOGIC:
-				return new GuiLogicConduit(player.inventory, (TileLogicConduit) tile);
 			case Guis.SMELTER:
 				return new GuiSmelter(player.inventory, (TileSmelter) tile);
 			case Guis.CAPACITOR:
@@ -145,6 +142,8 @@ public class GuiHandler implements IGuiHandler
 				return new GuiFarmer(player.inventory, (TileFarmer) tile);
 			case Guis.GUIDE:
 				return new GuiGuide();
+			case Guis.TRANSPORT:
+				return new GuiTransportNode((TileTransportNode) tile);
 		}
 
 		return null;

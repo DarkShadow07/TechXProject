@@ -6,7 +6,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class TileRecipeChest extends TileBase implements IInventory
 {
@@ -18,7 +22,7 @@ public class TileRecipeChest extends TileBase implements IInventory
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -34,10 +38,12 @@ public class TileRecipeChest extends TileBase implements IInventory
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return tag;
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagList nbttaglist = tag.getTagList("Items", 10);
 		inventory = new ItemStack[this.getSizeInventory()];

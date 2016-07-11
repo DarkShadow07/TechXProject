@@ -55,7 +55,7 @@ public class ItemWire extends ItemBase
 			{
 				setPos(stack, BlockPos.ORIGIN);
 
-				ChatUtil.sendNoSpamClient(ChatFormatting.RED + "That's not a Valid Network Element!");
+				ChatUtil.sendNoSpam(playerIn, ChatFormatting.RED + "That's not a Valid Network Element!");
 				return EnumActionResult.FAIL;
 			}
 
@@ -67,14 +67,14 @@ public class ItemWire extends ItemBase
 		if (nbtPos.equals(BlockPos.ORIGIN))
 		{
 			setPos(stack, pos);
-			ChatUtil.sendNoSpamClient(ChatFormatting.GREEN + "Starting Connection");
+			ChatUtil.sendNoSpam(playerIn, ChatFormatting.GREEN + "Starting Connection");
 
 			worldIn.playSound(null, pos, SoundEvents.ENTITY_ITEMFRAME_PLACE, SoundCategory.BLOCKS, 0.5f, 0.7f);
 		} else
 		{
 			stack.stackSize -= 1;
 
-			ChatUtil.sendNoSpamClient(ChatFormatting.AQUA + "Connection Done!");
+			ChatUtil.sendNoSpam(playerIn, ChatFormatting.AQUA + "Connection Done!");
 			TileEntity nbtTile = worldIn.getTileEntity(nbtPos);
 
 			NetworkUtil.link(nbtTile, tile);

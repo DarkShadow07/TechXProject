@@ -41,10 +41,8 @@ public class TileTeleporter extends TileEnergyContainer implements IInventory
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.toNBT(tag);
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < inventory.length; ++i)
@@ -59,13 +57,13 @@ public class TileTeleporter extends TileEnergyContainer implements IInventory
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagList nbttaglist = tag.getTagList("Items", 10);
 		inventory = new ItemStack[this.getSizeInventory()];
 
@@ -79,6 +77,8 @@ public class TileTeleporter extends TileEnergyContainer implements IInventory
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class TileRecipeStamper extends TileBase implements IInventory, ITickable
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -72,10 +72,12 @@ public class TileRecipeStamper extends TileBase implements IInventory, ITickable
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return tag;
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagList nbttaglist = tag.getTagList("Items", 10);
 		inventory = new ItemStack[this.getSizeInventory()];

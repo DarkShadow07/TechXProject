@@ -4,13 +4,15 @@ import DarkS.TechXProject.compat.jei.CategoryUid;
 import DarkS.TechXProject.util.Util;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
-import scala.actors.threadpool.Arrays;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,8 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 			addRecipe(out, getSmeltingXP(out), getSmeltingTicks(in), in);
 		}
+
+		addRecipe(new ItemStack(Blocks.OBSIDIAN), 0.5f, 700, new ItemStack(Items.IRON_INGOT));
 	}
 
 	@SuppressWarnings("incomplete")
@@ -76,6 +80,8 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public ItemStack getSmeltingResult(ItemStack... in)
 	{
+		in = Util.getStackArrayNoNull(in);
+
 		for (SmelterRecipe recipe : recipes)
 			if (Util.isStackArrayExactEqual(in, recipe.getInputs().toArray(new ItemStack[0])))
 				return recipe.getOutputs().get(0);
@@ -127,7 +133,7 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 	public boolean isVanillaRecipe(ItemStack... in)
 	{
-		if (in == null) return false;
+		if (in.length < 1) return false;
 
 		FurnaceRecipes recipes = FurnaceRecipes.instance();
 
@@ -135,10 +141,13 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 		for (ItemStack stack : in)
 		{
-			prevItem = stack;
+			if (stack != null)
+			{
+				prevItem = stack;
 
-			if (recipes.getSmeltingResult(stack) == null || !OreDictionary.itemMatches(prevItem, stack, true))
-				return false;
+				if (recipes.getSmeltingResult(stack) == null || !OreDictionary.itemMatches(prevItem, stack, true))
+					return false;
+			}
 		}
 
 		return true;

@@ -4,7 +4,6 @@ import DarkS.TechXProject.blocks.base.BlockContainerBase;
 import DarkS.TechXProject.blocks.base.IRenderer;
 import DarkS.TechXProject.machines.wirelessCharger.TileWirelessCharger;
 import DarkS.TechXProject.reference.Reference;
-import DarkS.TechXProject.util.Logger;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -43,8 +42,6 @@ public class BlockWirelessCharger extends BlockContainerBase implements IRendere
 
 		for (int i = 0; i < EnumFacing.HORIZONTALS.length; i++)
 		{
-			Logger.info("Registered Custom Model Block " + getUnlocalizedName() + " with Variant " + i + "!");
-
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), "inventory"));
 		}
 	}

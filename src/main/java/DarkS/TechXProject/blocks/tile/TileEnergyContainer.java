@@ -2,7 +2,6 @@ package DarkS.TechXProject.blocks.tile;
 
 import DarkS.TechXProject.api.energy.IEnergyContainer;
 import DarkS.TechXProject.compat.waila.IWailaBody;
-import DarkS.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -11,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.MathHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class TileEnergyContainer extends TileBase implements IEnergyContainer, I
 		}
 	}
 
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound energy = new NBTTagCompound();
 
@@ -129,9 +129,11 @@ public class TileEnergyContainer extends TileBase implements IEnergyContainer, I
 		sides.appendTag(locked);
 
 		tag.setTag("sides", sides);
+
+		return super.writeToNBT(tag);
 	}
 
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound energy = tag.getCompoundTag(ENERGY_NBT + "NBT");
 
@@ -153,10 +155,12 @@ public class TileEnergyContainer extends TileBase implements IEnergyContainer, I
 			EnumFacing out = EnumFacing.getFront(output.getInteger("output_" + i));
 			EnumFacing lock = EnumFacing.getFront(locked.getInteger("locked_" + i));
 
-			if (in != null && !inputSides.contains(in)) inputSides.add(in);
-			if (out != null && !outputSides.contains(out)) outputSides.add(out);
-			if (lock != null && !lockedSides.contains(lock)) lockedSides.add(lock);
+			if (!inputSides.contains(in)) inputSides.add(in);
+			if (!outputSides.contains(out)) outputSides.add(out);
+			if (!lockedSides.contains(lock)) lockedSides.add(lock);
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override
@@ -170,10 +174,7 @@ public class TileEnergyContainer extends TileBase implements IEnergyContainer, I
 	{
 		this.energy = energy;
 
-		this.energy = Util.keepInBounds(this.energy, 0, maxEnergy);
-
-		markDirty();
-		markForUpdate();
+		this.energy = MathHelper.clamp_int(this.energy, 0, maxEnergy);
 	}
 
 	@Override

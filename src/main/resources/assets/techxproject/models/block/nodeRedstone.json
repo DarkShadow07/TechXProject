@@ -1,0 +1,35 @@
+{
+    "textures": {
+        "particle": "techxproject:blocks/node/nodeTopRedstone",
+        "0": "techxproject:blocks/node/nodeSide",
+        "1": "techxproject:blocks/node/nodeTopRedstone",
+        "2": "techxproject:blocks/node/nodeBottom"
+    },
+    "elements": [
+        {
+            "name": "base",
+            "from": [ 1.0, 0.0, 1.0 ],
+            "to": [ 15.0, 2.0, 15.0 ],
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 1.0, 14.0, 15.0, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 1.0, 14.0, 15.0, 16.0 ] },
+                "south": { "texture": "#0", "uv": [ 1.0, 14.0, 15.0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 1.0, 14.0, 15.0, 16.0 ] },
+                "up": { "texture": "#1", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "down": { "texture": "#2", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "top",
+            "from": [ 3.0, 1.0, 3.0 ],
+            "to": [ 13.0, 3.0, 13.0 ],
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 3.0, 13.0, 13.0, 14.0 ] },
+                "east": { "texture": "#0", "uv": [ 3.0, 13.0, 13.0, 14.0 ] },
+                "south": { "texture": "#0", "uv": [ 3.0, 13.0, 13.0, 14.0 ] },
+                "west": { "texture": "#0", "uv": [ 3.0, 13.0, 13.0, 14.0 ] },
+                "up": { "texture": "#1", "uv": [ 3.0, 3.0, 13.0, 13.0 ] }
+            }
+        }
+    ]
+}

@@ -27,11 +27,14 @@ public enum InitItems
 {
 	wrench(new ItemWrench(), "wrench"),
 
-	quarryCard(new ItemQuarryCard(), "quarryCard"),
+	areaCard(new ItemAreaCard(), "areaCard"),
+	structureCard(new ItemStructureCard(), "structureCard"),
 	teleporterCard(new ItemTeleporterCard(), "teleporterCard"),
 	machineRecipe(new ItemMachineRecipe(), "machineRecipe"),
 
 	magnet(new ItemMagnet(), "magnet"),
+
+	paintBrush(new ItemPaintBrush(), "paintBrush"),
 
 	guide(new ItemGuide(), "guide"),
 

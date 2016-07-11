@@ -62,8 +62,6 @@ public class BlockRotatingBase extends BlockBase implements IRenderer
 
 		for (int i = 0; i < EnumFacing.HORIZONTALS.length; i++)
 		{
-			Logger.info("Registered Custom Model Block " + getUnlocalizedName() + " with Variant " + i + "!");
-
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getUnlocalizedName().substring(18), "inventory"));
 		}
 	}

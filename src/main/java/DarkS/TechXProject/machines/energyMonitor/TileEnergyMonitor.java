@@ -2,8 +2,8 @@ package DarkS.TechXProject.machines.energyMonitor;
 
 import DarkS.TechXProject.api.energy.IEnergyContainer;
 import DarkS.TechXProject.api.energy.IEnergyGenerator;
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkElement;
+import DarkS.TechXProject.api.network.NodeNetwork;
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.node.energy.TileEnergyNode;
 import DarkS.TechXProject.util.energy.EnergyTracker;
@@ -17,7 +17,7 @@ public class TileEnergyMonitor extends TileEnergyContainer
 {
 	public EnergyTracker networkTracker = new EnergyTracker();
 	public int maxE = 75, minE = 15;
-	private ConduitNetwork network;
+	private NodeNetwork network;
 	private boolean emiting = false;
 
 	public TileEnergyMonitor()
@@ -64,18 +64,7 @@ public class TileEnergyMonitor extends TileEnergyContainer
 
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
-	{
-		NBTTagCompound data = tag.getCompoundTag("dataEnergy");
-
-		minE = data.getInteger("minE");
-		maxE = data.getInteger("maxE");
-
-		super.fromNBT(tag);
-	}
-
-	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = new NBTTagCompound();
 
@@ -84,7 +73,18 @@ public class TileEnergyMonitor extends TileEnergyContainer
 
 		tag.setTag("dataEnergy", data);
 
-		super.toNBT(tag);
+		return super.writeToNBT(tag);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound data = tag.getCompoundTag("dataEnergy");
+
+		minE = data.getInteger("minE");
+		maxE = data.getInteger("maxE");
+
+		super.readFromNBT(tag);
 	}
 
 	private void checkForNetwork()

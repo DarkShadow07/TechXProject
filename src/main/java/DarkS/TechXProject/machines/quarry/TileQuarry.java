@@ -136,7 +136,6 @@ public class TileQuarry extends TileEnergyContainer
 
 					PacketHandler.sendToAllAround(new PacketUpdateEnergy(getEnergy(), this), this);
 				}
-				;
 			}
 		}
 	}
@@ -191,17 +190,15 @@ public class TileQuarry extends TileEnergyContainer
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.toNBT(tag);
-
 		NBTTagCompound data = new NBTTagCompound();
 
 		data.setInteger("mined", mined);
 
-		data.setInteger("x", x);
-		data.setInteger("y", y);
-		data.setInteger("z", z);
+		data.setInteger("xM", x);
+		data.setInteger("yM", y);
+		data.setInteger("zM", z);
 
 		data.setInteger("xS", xS);
 		data.setInteger("yS", yS);
@@ -220,20 +217,20 @@ public class TileQuarry extends TileEnergyContainer
 		data.setBoolean("end", end);
 
 		tag.setTag("data", data);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagCompound data = tag.getCompoundTag("data");
 
 		mined = data.getInteger("mined");
 
-		x = data.getInteger("x");
-		y = data.getInteger("y");
-		z = data.getInteger("z");
+		x = data.getInteger("xM");
+		y = data.getInteger("yM");
+		z = data.getInteger("zM");
 
 		xS = data.getInteger("xS");
 		yS = data.getInteger("yS");
@@ -250,5 +247,7 @@ public class TileQuarry extends TileEnergyContainer
 		working = data.getBoolean("active");
 		silktouch = data.getBoolean("silktouch");
 		end = data.getBoolean("end");
+
+		super.readFromNBT(tag);
 	}
 }

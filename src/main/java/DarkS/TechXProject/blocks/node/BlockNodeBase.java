@@ -37,7 +37,6 @@ public class BlockNodeBase extends BlockContainerBase implements IRenderer
 	{
 		super(Material.IRON, 1.9f, 2, "pickaxe");
 
-
 		setDefaultState(blockState.getBaseState().withProperty(direction, EnumFacing.UP));
 	}
 
@@ -118,8 +117,6 @@ public class BlockNodeBase extends BlockContainerBase implements IRenderer
 	{
 		for (int i = 0; i < EnumFacing.VALUES.length; i++)
 		{
-			Logger.info("Registered Custom Model Block " + getUnlocalizedName() + " with Variant " + i + "!");
-
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(Reference.MOD_ID + ":" + getUnlocalizedName().substring(18), "inventory"));
 		}
 	}

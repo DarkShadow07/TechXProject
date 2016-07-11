@@ -56,7 +56,7 @@ public class TileActivator extends TileBase implements IWailaBody, ITickable, IH
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		timeOn = tag.getInteger("timeOn");
 		timeOff = tag.getInteger("timeOff");
@@ -68,7 +68,7 @@ public class TileActivator extends TileBase implements IWailaBody, ITickable, IH
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		tag.setInteger("timeOn", timeOn);
 		tag.setInteger("timeOff", timeOff);
@@ -77,6 +77,8 @@ public class TileActivator extends TileBase implements IWailaBody, ITickable, IH
 		tag.setInteger("defOff", defaultOff);
 
 		tag.setInteger("power", power);
+
+		return tag;
 	}
 
 	public int getPower()

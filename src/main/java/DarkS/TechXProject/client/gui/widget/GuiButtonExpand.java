@@ -1,21 +1,23 @@
 package DarkS.TechXProject.client.gui.widget;
 
 import DarkS.TechXProject.util.GuiUtil;
-import DarkS.TechXProject.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import org.lwjgl.opengl.GL11;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class GuiButtonExpand extends GuiButton
 {
 	protected boolean expanded, expanding, fullExpandedW, fullExpandedH;
@@ -145,8 +147,8 @@ public class GuiButtonExpand extends GuiButton
 				height += value * ratio;
 			}
 
-			width = Util.keepInBounds(width, 24, w);
-			height = Util.keepInBounds(height, 24, h);
+			width = MathHelper.clamp_int(width, 24, w);
+			height = MathHelper.clamp_int(height, 24, h);
 		} else
 		{
 			if (width > 24)
@@ -159,8 +161,8 @@ public class GuiButtonExpand extends GuiButton
 				height -= value * ratio;
 			}
 
-			width = Util.keepInBounds(width, 24, w);
-			height = Util.keepInBounds(height, 24, h);
+			width = MathHelper.clamp_int(width, 24, w);
+			height = MathHelper.clamp_int(height, 24, h);
 		}
 
 		if (visible)
@@ -182,7 +184,6 @@ public class GuiButtonExpand extends GuiButton
 
 		if (data.length > 1 && data[1] != null && fullExpandedW && fullExpandedW)
 		{
-			GL11.glScissor(x, y, width, height);
 			mc.fontRendererObj.drawSplitString(data[1], x + 2, y + 16, w, Color.black.getRGB());
 		}
 

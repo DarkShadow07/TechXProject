@@ -26,7 +26,7 @@ public class Elements
 		{
 			try
 			{
-				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/changelogs/" + Reference.CHANGELOG + ".txt");
+				URL url = new URL("https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/version/changelog/" + Reference.CHANGELOG + ".txt");
 				Scanner s = new Scanner(url.openStream());
 
 				desc = "";
@@ -39,7 +39,7 @@ public class Elements
 				s.close();
 			} catch (Exception e)
 			{
-				e.printStackTrace();
+				desc = "Failed to read Changelog for Version " + Reference.VERSION + ", check your Internet Connection, if its a bug Report to the Mod Author";
 			}
 		}
 
@@ -48,7 +48,7 @@ public class Elements
 		{
 			font.drawString(name, 180 / 2 - font.getStringWidth(name) / 2, 12, Color.black.getRGB());
 
-			String[] data = desc.split("%n%");
+			String[] data = desc.split("/n");
 
 			int lines = 0, linesR = 0;
 
@@ -169,7 +169,7 @@ public class Elements
 			String title = name.substring(8);
 			font.drawString(title, 180 / 2 - font.getStringWidth(title) / 2, 12, Color.black.getRGB());
 
-			String[] data = desc.split("%n%");
+			String[] data = desc.split("/n");
 
 			int lines = 0, linesR = 0;
 

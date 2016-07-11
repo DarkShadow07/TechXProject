@@ -13,24 +13,28 @@ import DarkS.TechXProject.blocks.metal.ItemBlockOreBase;
 import DarkS.TechXProject.blocks.node.*;
 import DarkS.TechXProject.blocks.tile.TileBlockBreaker;
 import DarkS.TechXProject.machines.activator.TileActivator;
+import DarkS.TechXProject.machines.canvas.TileCanvas;
 import DarkS.TechXProject.machines.capacitor.TileBasicCapacitor;
 import DarkS.TechXProject.machines.crusher.TileCrusher;
 import DarkS.TechXProject.machines.energy.TileSolarPanel;
 import DarkS.TechXProject.machines.energyMonitor.TileEnergyMonitor;
 import DarkS.TechXProject.machines.farmer.TileFarmer;
+import DarkS.TechXProject.machines.fluidTank.TileFluidTank;
 import DarkS.TechXProject.machines.machineAssembler.TileMachineAssembler;
 import DarkS.TechXProject.machines.quarry.TileQuarry;
 import DarkS.TechXProject.machines.recipeChest.TileRecipeChest;
 import DarkS.TechXProject.machines.recipeStamper.TileRecipeStamper;
 import DarkS.TechXProject.machines.smelter.TileSmelter;
 import DarkS.TechXProject.machines.storageUnit.TileStorageUnit;
+import DarkS.TechXProject.machines.structureSaver.TileStructureSaver;
 import DarkS.TechXProject.machines.teleporter.TileTeleporter;
 import DarkS.TechXProject.machines.wirelessCharger.TileWirelessCharger;
 import DarkS.TechXProject.node.energy.TileEnergyNode;
 import DarkS.TechXProject.node.item.TileItemNode;
-import DarkS.TechXProject.node.logic.TileLogicConduit;
 import DarkS.TechXProject.node.network.controller.TileNetworkController;
 import DarkS.TechXProject.node.network.relay.TileNetworkRelay;
+import DarkS.TechXProject.node.redstone.TileRedstoneNode;
+import DarkS.TechXProject.node.transport.TileTransportNode;
 import DarkS.TechXProject.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -44,10 +48,14 @@ public enum InitBlocks
 {
 	nodeItem(new BlockItemNode(), "nodeItem"),
 	nodeEnergy(new BlockEnergyNode(), "nodeEnergy"),
+	nodeTransport(new BlockTransportNode(), "nodeTransport"),
+	nodeRedstone(new BlockNodeRedstone(), "nodeRedstone"),
 	networkRelay(new BlockNetworkRelay(), "relay"),
 	networkController(new BlockNetworkController(), "controller"),
 
-	conduitLogic(new BlockLogicConduit(), "conduitLogic"),
+	structureSaver(new BlockStructureSaver(), "structureSaver"),
+
+	canvas(new BlockCanvas(), "canvas"),
 
 	energyMonitor(new BlockEnergyMonitor(), "energyMonitor"),
 	wirelessCharger(new BlockWirelessCharger(), "wirelessCharger"),
@@ -64,6 +72,8 @@ public enum InitBlocks
 	basicCapacitor(new BlockCapacitorBasic(), "basicCapacitor"),
 
 	solarPanel(new BlockSolarPanel(), "solarPanel"),
+
+	fluidTank(new BlockFluidTank(), "fluidTank"),
 
 	teleporter(new BlockTeleporter(), "teleporter"),
 	storageUnit(new BlockStorageUnit(), "storageUnit"),
@@ -113,7 +123,6 @@ public enum InitBlocks
 		registerTile(TileNetworkController.class);
 		registerTile(TileItemNode.class);
 		registerTile(TileEnergyNode.class);
-		registerTile(TileLogicConduit.class);
 		registerTile(TileEnergyMonitor.class);
 		registerTile(TileNetworkRelay.class);
 		registerTile(TileSmelter.class);
@@ -130,6 +139,11 @@ public enum InitBlocks
 		registerTile(TileFarmer.class);
 		registerTile(TileWirelessCharger.class);
 		registerTile(TileActivator.class);
+		registerTile(TileTransportNode.class);
+		registerTile(TileFluidTank.class);
+		registerTile(TileRedstoneNode.class);
+		registerTile(TileStructureSaver.class);
+		registerTile(TileCanvas.class);
 	}
 
 	public static void initRecipes()

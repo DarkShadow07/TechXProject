@@ -4,17 +4,16 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConduitNetwork
+public class NodeNetwork
 {
 	private INetworkContainer controller = null;
 	private List<INetworkElement> networkElements = new ArrayList<>();
 
-	public ConduitNetwork(INetworkContainer controller)
+	public NodeNetwork(INetworkContainer controller)
 	{
 		this.controller = controller;
 	}
 
-	@Nullable
 	public List<INetworkElement> getElements()
 	{
 		return networkElements;
@@ -24,12 +23,16 @@ public class ConduitNetwork
 	{
 		networkElements.add(toAdd);
 
-		toAdd.setNetwork(this);
+		if (toAdd != null)
+			toAdd.setNetwork(this);
 	}
 
 	public void removeFromNetwork(INetworkElement toRemove)
 	{
 		networkElements.remove(toRemove);
+
+		if (toRemove != null)
+			toRemove.setNetwork(null);
 	}
 
 	public boolean isInNetwork(INetworkElement is)

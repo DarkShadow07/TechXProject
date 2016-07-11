@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "techxproject:controller"
+    "model": "techxproject:controller",
+    "textures": {
+      "off": "techxproject:blocks/controllerOff"
+    }
   },
   "variants": {
     "normal": [
@@ -9,6 +12,17 @@
     ],
     "inventory": [
       {}
-    ]
+    ],
+    "active": {
+      "true": {
+        "model": "techxproject:controller"
+      },
+      "false": {
+        "model": "techxproject:controller",
+        "textures": {
+          "all": "#off"
+        }
+      }
+    }
   }
 }

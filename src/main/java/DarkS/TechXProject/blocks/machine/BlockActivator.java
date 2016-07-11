@@ -5,7 +5,6 @@ import DarkS.TechXProject.highlight.IHighlightProvider;
 import DarkS.TechXProject.highlight.SelectionBox;
 import DarkS.TechXProject.machines.activator.TileActivator;
 import DarkS.TechXProject.util.ChatUtil;
-import DarkS.TechXProject.util.Util;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -21,10 +20,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -122,9 +118,9 @@ public class BlockActivator extends BlockRotatingBase implements ITileEntityProv
 			{
 				tile.defaultOn -= GuiScreen.isCtrlKeyDown() ? 10 : 1;
 
-				tile.defaultOn = Util.keepInBounds(tile.defaultOn, 5, Integer.MAX_VALUE);
+				tile.defaultOn = MathHelper.clamp_int(tile.defaultOn, 5, Integer.MAX_VALUE);
 
-				ChatUtil.sendNoSpamClient("Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
+				ChatUtil.sendNoSpam(playerIn, "Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
 
 				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.BLOCKS, 1.0f, 1.1f);
 
@@ -133,9 +129,9 @@ public class BlockActivator extends BlockRotatingBase implements ITileEntityProv
 			{
 				tile.defaultOn += GuiScreen.isCtrlKeyDown() ? 10 : 1;
 
-				tile.defaultOn = Util.keepInBounds(tile.defaultOn, 5, Integer.MAX_VALUE);
+				tile.defaultOn = MathHelper.clamp_int(tile.defaultOn, 5, Integer.MAX_VALUE);
 
-				ChatUtil.sendNoSpamClient("Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
+				ChatUtil.sendNoSpam(playerIn, "Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
 
 				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundCategory.BLOCKS, 1.0f, 1.25f);
 
@@ -155,18 +151,18 @@ public class BlockActivator extends BlockRotatingBase implements ITileEntityProv
 			{
 				tile.defaultOff -= GuiScreen.isCtrlKeyDown() ? 10 : 1;
 
-				tile.defaultOff = Util.keepInBounds(tile.defaultOff, 5, Integer.MAX_VALUE);
+				tile.defaultOff = MathHelper.clamp_int(tile.defaultOff, 5, Integer.MAX_VALUE);
 
-				ChatUtil.sendNoSpamClient("Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
+				ChatUtil.sendNoSpam(playerIn, "Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
 
 				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.BLOCKS, 1.0f, 1.1f);
 			} else
 			{
 				tile.defaultOff += GuiScreen.isCtrlKeyDown() ? 10 : 1;
 
-				tile.defaultOff = Util.keepInBounds(tile.defaultOff, 5, Integer.MAX_VALUE);
+				tile.defaultOff = MathHelper.clamp_int(tile.defaultOff, 5, Integer.MAX_VALUE);
 
-				ChatUtil.sendNoSpamClient("Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
+				ChatUtil.sendNoSpam(playerIn, "Time On: " + tile.defaultOn, "Time Off: " + tile.defaultOff);
 
 				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundCategory.BLOCKS, 1.0f, 1.5f);
 			}

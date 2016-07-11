@@ -6,6 +6,7 @@ import DarkS.TechXProject.util.Util;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
 import java.awt.*;
@@ -73,6 +74,6 @@ public class FloatBox
 
 	public void setCurrentValue(float value)
 	{
-		this.currentValue = Util.keepInBounds(value, minValue, maxValue);
+		this.currentValue = MathHelper.clamp_float(value, minValue, maxValue);
 	}
 }

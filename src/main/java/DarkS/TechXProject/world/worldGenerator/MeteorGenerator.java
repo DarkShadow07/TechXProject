@@ -3,9 +3,9 @@ package DarkS.TechXProject.world.worldGenerator;
 import DarkS.TechXProject.blocks.metal.BlockOreBase;
 import DarkS.TechXProject.blocks.metal.EnumMetals;
 import DarkS.TechXProject.init.InitBlocks;
-import DarkS.TechXProject.util.Util;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -18,7 +18,7 @@ public class MeteorGenerator extends WorldGenerator
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos pos)
 	{
-		meteorRad = Util.keepInBounds(meteorRad, 8, rand.nextInt(12));
+		meteorRad = MathHelper.clamp_int(meteorRad, 8, rand.nextInt(12));
 
 		generateCylinder(worldIn, rand, pos);
 		generateExplosion(worldIn, rand, pos);

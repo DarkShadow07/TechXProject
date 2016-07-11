@@ -3,7 +3,6 @@ package DarkS.TechXProject.machines.smelter;
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
 import DarkS.TechXProject.node.item.NodeUtil;
-import DarkS.TechXProject.util.Logger;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -16,6 +15,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	private List<EnumFacing> itemInputSides = new ArrayList<>();
 	private List<EnumFacing> itemOutputSides = new ArrayList<>();
 	private int ticks = 0, targetTicks = 1;
+
+	IItemHandler handlerNorth, handlerSouth, handlerUp, handlerDown, handlerEast, handlerWest;
 
 	public TileSmelter()
 	{
@@ -51,6 +56,42 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		}
 
 		setSideItemOutput(EnumFacing.DOWN);
+
+		handlerNorth = new SidedInvWrapper(this, EnumFacing.NORTH);
+		handlerSouth = new SidedInvWrapper(this, EnumFacing.SOUTH);
+		handlerUp = new SidedInvWrapper(this, EnumFacing.UP);
+		handlerDown = new SidedInvWrapper(this, EnumFacing.DOWN);
+		handlerEast = new SidedInvWrapper(this, EnumFacing.EAST);
+		handlerWest = new SidedInvWrapper(this, EnumFacing.WEST);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	{
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing != null)
+			switch (facing)
+			{
+				case NORTH:
+					return (T) handlerNorth;
+				case SOUTH:
+					return (T) handlerSouth;
+				case UP:
+					return (T) handlerUp;
+				case DOWN:
+					return (T) handlerDown;
+				case EAST:
+					return (T) handlerEast;
+				case WEST:
+					return (T) handlerWest;
+			}
+
+		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	{
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 
 	@Override
@@ -224,10 +265,8 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.toNBT(tag);
-
 		NBTTagCompound integers = new NBTTagCompound();
 
 		integers.setInteger("ticks", ticks);
@@ -249,13 +288,13 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagCompound integers = tag.getCompoundTag("integers");
 
 		ticks = integers.getInteger("ticks");
@@ -274,6 +313,8 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override

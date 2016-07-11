@@ -1,8 +1,10 @@
 package DarkS.TechXProject.items;
 
 import DarkS.TechXProject.api.IWrench;
-import DarkS.TechXProject.node.logic.TileLogicConduit;
+import DarkS.TechXProject.util.Logger;
+import DarkS.TechXProject.util.Util;
 import net.minecraft.block.Block;
+import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -13,8 +15,6 @@ import net.minecraft.world.World;
 
 public class ItemWrench extends ItemBase implements IWrench
 {
-	private BlockPos tilePos = null;
-
 	public ItemWrench()
 	{
 		setMaxStackSize(1);
@@ -28,18 +28,6 @@ public class ItemWrench extends ItemBase implements IWrench
 		if (block.rotateBlock(world, pos, EnumFacing.UP))
 		{
 			return EnumActionResult.SUCCESS;
-		}
-		if (!player.isSneaking())
-		{
-			if (tilePos == null)
-			{
-				tilePos = pos;
-			} else if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileLogicConduit)
-			{
-				TileLogicConduit logicConduit = (TileLogicConduit) world.getTileEntity(pos);
-
-				if (tilePos != null) logicConduit.setTilePos(tilePos);
-			}
 		}
 
 		return EnumActionResult.FAIL;

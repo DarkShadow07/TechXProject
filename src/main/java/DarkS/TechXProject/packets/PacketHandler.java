@@ -17,11 +17,13 @@ public class PacketHandler
 	{
 		INSTANCE.registerMessage(ChatUtil.PacketNoSpamChat.Handler.class, ChatUtil.PacketNoSpamChat.class, 0, Side.CLIENT);
 		INSTANCE.registerMessage(PacketOpenGui.Handler.class, PacketOpenGui.class, 1, Side.SERVER);
-		INSTANCE.registerMessage(PacketUpdateCondition.Handler.class, PacketUpdateCondition.class, 2, Side.CLIENT);
-		INSTANCE.registerMessage(PacketUpdateEnergy.Handler.class, PacketUpdateEnergy.class, 3, Side.CLIENT);
-		INSTANCE.registerMessage(PacketTeleportEntity.Handler.class, PacketTeleportEntity.class, 4, Side.SERVER);
-		INSTANCE.registerMessage(PacketUpdateRecipe.Handler.class, PacketUpdateRecipe.class, 5, Side.SERVER);
-		INSTANCE.registerMessage(PacketUpdateMonitor.Handler.class, PacketUpdateMonitor.class, 6, Side.SERVER);
+		INSTANCE.registerMessage(PacketUpdateEnergy.Handler.class, PacketUpdateEnergy.class, 2, Side.CLIENT);
+		INSTANCE.registerMessage(PacketTeleportEntity.Handler.class, PacketTeleportEntity.class, 3, Side.SERVER);
+		INSTANCE.registerMessage(PacketUpdateRecipe.Handler.class, PacketUpdateRecipe.class, 4, Side.SERVER);
+		INSTANCE.registerMessage(PacketUpdateMonitor.Handler.class, PacketUpdateMonitor.class, 5, Side.SERVER);
+		INSTANCE.registerMessage(PacketMove.Handler.class, PacketMove.class, 6, Side.SERVER);
+		INSTANCE.registerMessage(PacketSetName.Handler.class, PacketSetName.class, 7, Side.SERVER);
+		INSTANCE.registerMessage(PacketSendNetwork.Handler.class, PacketSendNetwork.class, 8, Side.CLIENT);
 	}
 
 	public static void sendToAllAround(IMessage message, TileEntity te, int range)

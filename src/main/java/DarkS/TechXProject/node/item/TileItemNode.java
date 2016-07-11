@@ -1,9 +1,9 @@
 package DarkS.TechXProject.node.item;
 
 import DarkS.TechXProject.api.IWrench;
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
+import DarkS.TechXProject.api.network.NodeNetwork;
 import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.highlight.IHighlightProvider;
 import DarkS.TechXProject.highlight.SelectionBox;
@@ -40,9 +40,9 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 {
 	public int size = 1;
 	private ItemStack[] itemInventory;
-	private ConduitNetwork network;
+	private NodeNetwork network;
 	private IInventory inventory = null;
-	private boolean isInput = false, isOutput = false, active = true;
+	private boolean isInput = false, isOutput = false;
 
 	private IItemStackFilter filter;
 
@@ -57,6 +57,8 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	@Override
 	public void update()
 	{
+		if (!isActive()) return;
+
 		updateInventory();
 
 		if (Util.player() != null && Util.player().getHeldItemMainhand() != null && Util.player().getHeldItemMainhand().getItem() instanceof IWrench)
@@ -210,31 +212,15 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	}
 
 	@Override
-	public ConduitNetwork getNetwork()
+	public NodeNetwork getNetwork()
 	{
 		return network;
 	}
 
 	@Override
-	public void setNetwork(ConduitNetwork network)
+	public void setNetwork(NodeNetwork network)
 	{
 		this.network = network;
-	}
-
-	@Override
-	public ConduitNetwork addToNetwork(INetworkElement toAdd)
-	{
-		network.addToNetwork(toAdd);
-
-		return network;
-	}
-
-	@Override
-	public ConduitNetwork removeFromNetwork(INetworkElement toRemove)
-	{
-		network.removeFromNetwork(toRemove);
-
-		return network;
 	}
 
 	@Override
@@ -253,12 +239,6 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	public boolean isAttached()
 	{
 		return inventory != null;
-	}
-
-	@Override
-	public int distanceTo(TileEntity to)
-	{
-		return (int) getTile().getPos().distanceSq(to.getPos());
 	}
 
 	@Override
@@ -304,13 +284,7 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	@Override
 	public boolean isActive()
 	{
-		return active;
-	}
-
-	@Override
-	public void setActive(boolean act)
-	{
-		active = act;
+		return hasNetwork() && network.getController().isActive();
 	}
 
 	@Override
@@ -320,7 +294,7 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound booleans = new NBTTagCompound();
 
@@ -343,10 +317,12 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 		}
 
 		tag.setTag("Items", items);
+
+		return tag;
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound booleans = tag.getCompoundTag("booleans");
 
@@ -383,7 +359,7 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	@Override
 	public boolean hasFilter()
 	{
-		return filter == null ? false : true;
+		return filter != null;
 	}
 
 	@Override
@@ -573,7 +549,7 @@ public class TileItemNode extends TileBase implements INetworkElement<TileItemNo
 	@Override
 	public SelectionBox[] getBoxes()
 	{
-		return new SelectionBox[]{new SelectionBox(0, new AxisAlignedBB(0.0625, 0, 0.0625, 0.9375, 0.125, 0.9375), new AxisAlignedBB(0.1875, 0.125, 0.1875, 0.8125, 0.1875, 0.8125)).rotate(EnumFacing.getFront(getBlockMetadata()).getOpposite())};
+		return new SelectionBox[]{new SelectionBox(0,new AxisAlignedBB(0.0625, 0, 0.0625, 0.9375, 0.125, 0.9375), new AxisAlignedBB(0.1875, 0.125, 0.1875, 0.8125, 0.1875, 0.8125)).rotate(EnumFacing.getFront(getBlockMetadata()).getOpposite())};
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package DarkS.TechXProject.guide;
 
-import DarkS.TechXProject.client.gui.GuiContainerBase;
 import DarkS.TechXProject.blocks.base.ContainerDummy;
+import DarkS.TechXProject.client.gui.GuiContainerBase;
 import DarkS.TechXProject.init.InitItems;
 import DarkS.TechXProject.items.ItemGuide;
 import DarkS.TechXProject.reference.Reference;
@@ -97,7 +97,8 @@ public class GuiGuide extends GuiContainerBase
 			element.stop();
 		}
 
-		elements.get(index).init();
+		if (elements.size() > index)
+			elements.get(index).init();
 	}
 
 	public int getByName(String name)
@@ -208,8 +209,6 @@ public class GuiGuide extends GuiContainerBase
 		String page = String.format("%s/%s", index + 1, elements.size());
 
 		fontRendererObj.drawString(page, midX + 180 / 2 - fontRendererObj.getStringWidth(page) / 2, top + ySize - 20, Color.black.getRGB());
-
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 	}
 
 	private class ButtonArrow extends GuiButton

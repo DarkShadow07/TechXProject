@@ -8,7 +8,6 @@ import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.GuiUtil;
 import DarkS.TechXProject.util.Lang;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.sun.xml.internal.ws.util.StringUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,6 +15,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -2,12 +2,12 @@ package DarkS.TechXProject.machines.recipeStamper;
 
 import DarkS.TechXProject.client.gui.GuiContainerBase;
 import DarkS.TechXProject.reference.Reference;
-import DarkS.TechXProject.util.Util;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class GuiRecipeStamper extends GuiContainerBase
 			if (direction > 1 && tile.hasPrev()) tile.selected -= 1;
 			if (direction < 1 && tile.hasNext()) tile.selected += 1;
 
-			tile.selected = Util.keepInBounds(tile.selected, 0, MachineRecipeType.values().length - 1);
+			tile.selected = MathHelper.clamp_int(tile.selected, 0, MachineRecipeType.values().length - 1);
 
 			tile.stamp();
 		}

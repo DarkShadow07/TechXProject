@@ -1,0 +1,44 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:nodeTransport",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "rotation":
+    {
+      "down": {
+        "model": "techxproject:nodeTransport"
+      },
+      "up": {
+        "model": "techxproject:nodeTransport",
+        "x": 180
+      },
+      "west": {
+        "model": "techxproject:nodeTransport",
+        "x": 90,
+        "y": 90
+      },
+      "east": {
+        "model": "techxproject:nodeTransport",
+        "x": 90,
+        "y": 270
+      },
+      "north": {
+        "model": "techxproject:nodeTransport",
+        "x": 90,
+        "y": 180
+      },
+      "south": {
+        "model": "techxproject:nodeTransport",
+        "x": 90
+      }
+    }
+  }
+}

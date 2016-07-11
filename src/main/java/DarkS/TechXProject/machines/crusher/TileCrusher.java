@@ -182,10 +182,8 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.toNBT(tag);
-
 		NBTTagCompound integers = new NBTTagCompound();
 
 		integers.setInteger("ticks", ticks);
@@ -207,13 +205,13 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagCompound integers = tag.getCompoundTag("integers");
 
 		ticks = integers.getInteger("ticks");
@@ -232,6 +230,8 @@ public class TileCrusher extends TileEnergyContainer implements ISidedInventory
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 

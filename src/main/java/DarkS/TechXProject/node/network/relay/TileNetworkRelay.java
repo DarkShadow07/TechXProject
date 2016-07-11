@@ -1,9 +1,9 @@
 package DarkS.TechXProject.node.network.relay;
 
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.INetworkRelay;
+import DarkS.TechXProject.api.network.NodeNetwork;
 import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.highlight.IHighlightProvider;
 import DarkS.TechXProject.highlight.SelectionBox;
@@ -12,7 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -21,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileNetworkRelay extends TileBase implements INetworkRelay, INetworkElement<TileNetworkRelay>, ITickable, IHighlightProvider
+public class TileNetworkRelay extends TileBase implements INetworkRelay, INetworkElement<TileNetworkRelay>, IHighlightProvider
 {
 	private ArrayList<BlockPos> elementsPos = new ArrayList<>();
 
@@ -31,25 +30,7 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 	}
 
 	@Override
-	public void update()
-	{
-		EnumFacing facing = EnumFacing.getFront(getBlockMetadata());
-
-		TileEntity tile = worldObj.getTileEntity(pos.offset(facing));
-
-		if (tile != null && tile instanceof INetworkContainer)
-		{
-			INetworkContainer container = (INetworkContainer) tile;
-
-			for (INetworkElement element : getElements())
-			{
-				setNetwork(container.addToNetwork(element));
-			}
-		}
-	}
-
-	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagList elements = new NBTTagList();
 
@@ -58,19 +39,21 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 			if (pos != null)
 			{
 				NBTTagCompound elementPos = new NBTTagCompound();
-				elementPos.setInteger("x", pos.getX());
-				elementPos.setInteger("y", pos.getY());
-				elementPos.setInteger("z", pos.getZ());
+				elementPos.setInteger("xPos", pos.getX());
+				elementPos.setInteger("yPos", pos.getY());
+				elementPos.setInteger("zPos", pos.getZ());
 
 				elements.appendTag(elementPos);
 			}
 		}
 
 		tag.setTag("elements", elements);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagList elements = tag.getTagList("elements", 10);
 
@@ -78,14 +61,16 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 
 		for (int i = 0; i < elements.tagCount(); i++)
 		{
-			int x = elements.getCompoundTagAt(i).getInteger("x");
-			int y = elements.getCompoundTagAt(i).getInteger("y");
-			int z = elements.getCompoundTagAt(i).getInteger("z");
+			int x = elements.getCompoundTagAt(i).getInteger("xPos");
+			int y = elements.getCompoundTagAt(i).getInteger("yPos");
+			int z = elements.getCompoundTagAt(i).getInteger("zPos");
 
 			BlockPos elementPos = new BlockPos(x, y, z);
 
 			elementsPos.add(elementPos);
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override
@@ -122,7 +107,7 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 	}
 
 	@Override
-	public ConduitNetwork getNetwork()
+	public NodeNetwork getNetwork()
 	{
 		EnumFacing facing = EnumFacing.getFront(getBlockMetadata());
 
@@ -136,21 +121,9 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 	}
 
 	@Override
-	public void setNetwork(ConduitNetwork network)
+	public void setNetwork(NodeNetwork network)
 	{
 
-	}
-
-	@Override
-	public ConduitNetwork addToNetwork(INetworkElement toAdd)
-	{
-		return null;
-	}
-
-	@Override
-	public ConduitNetwork removeFromNetwork(INetworkElement toRemove)
-	{
-		return null;
 	}
 
 	@Override
@@ -169,12 +142,6 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 	public boolean isAttached()
 	{
 		return false;
-	}
-
-	@Override
-	public int distanceTo(TileEntity to)
-	{
-		return 0;
 	}
 
 	@Override
@@ -198,13 +165,7 @@ public class TileNetworkRelay extends TileBase implements INetworkRelay, INetwor
 	@Override
 	public boolean isActive()
 	{
-		return false;
-	}
-
-	@Override
-	public void setActive(boolean act)
-	{
-
+		return true;
 	}
 
 	@Override

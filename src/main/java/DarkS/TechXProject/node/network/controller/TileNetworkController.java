@@ -1,43 +1,65 @@
 package DarkS.TechXProject.node.network.controller;
 
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.INetworkRelay;
-import DarkS.TechXProject.blocks.tile.TileBase;
+import DarkS.TechXProject.api.network.NodeNetwork;
+import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.node.network.NetworkUtil;
+import DarkS.TechXProject.packets.PacketHandler;
+import DarkS.TechXProject.packets.PacketSendNetwork;
+import DarkS.TechXProject.packets.PacketUpdateEnergy;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TileNetworkController extends TileBase implements INetworkContainer, ITickable
+public class TileNetworkController extends TileEnergyContainer implements INetworkContainer, ITickable
 {
-	private List<BlockPos> elementsPos = new ArrayList<>();
-	private ConduitNetwork network;
+	private NodeNetwork network;
+
+	private int drain;
 
 	public TileNetworkController()
 	{
+		super(25000, 2500);
+
 		initNetwork();
+
+		for (EnumFacing facing : EnumFacing.values())
+			setSideInput(facing);
 	}
 
 	@Override
 	public void update()
 	{
+		if (!isActive()) return;
 		searchNetwork();
+
+		drain = 8 + network.getElements().size() * 4;
+
+		if (!worldObj.isRemote)
+		{
+			subtractEnergy(drain, false);
+
+			PacketHandler.sendToAllAround(new PacketUpdateEnergy(getEnergy(), this), this);
+		}
 	}
 
 	@Override
-	public ConduitNetwork getNetwork()
+	public boolean isActive()
+	{
+		return getEnergy() >= drain;
+	}
+
+	@Override
+	public NodeNetwork getNetwork()
 	{
 		return network;
 	}
 
 	@Override
-	public void setNetwork(ConduitNetwork network)
+	public void setNetwork(NodeNetwork network)
 	{
 		this.network = network;
 	}
@@ -45,61 +67,63 @@ public class TileNetworkController extends TileBase implements INetworkContainer
 	@Override
 	public void searchNetwork()
 	{
-		network = NetworkUtil.networkFromPosList(worldObj, elementsPos, this);
+		network.clear();
 
-		searchRelays();
-	}
+		for (TileEntity tile : getTilesOnSides())
+			if (tile != null && tile instanceof INetworkRelay)
+				((INetworkRelay) tile).getElements().forEach(this::addToNetwork);
 
-	@Override
-	public void searchRelays()
-	{
 		for (INetworkElement element : network.getElements())
-		{
-			if (element != null && element instanceof INetworkRelay)
+			if (element != null)
 			{
-				INetworkRelay relay = (INetworkRelay) element;
-
-				for (INetworkElement relayElement : relay.getElements())
+				if (element instanceof INetworkRelay)
 				{
-					if (relayElement != null && !network.isInNetwork(relayElement))
-					{
-						addToNetwork(relayElement);
-					}
+					INetworkRelay relay = (INetworkRelay) element;
+
+					for (INetworkElement relayElement : relay.getElements())
+						if (relayElement != null && !network.isInNetwork(relayElement))
+							addToNetwork(relayElement);
 				}
+
+				element.setNetwork(network);
 			}
-		}
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NetworkUtil.writeNetworkNBT(tag, network);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		elementsPos = NetworkUtil.readNetworkNBT(tag);
+		network = NetworkUtil.readNetwork(worldObj, NetworkUtil.readNetworkNBT(tag), this);
+
+		super.readFromNBT(tag);
 	}
 
 	@Override
-	public ConduitNetwork addToNetwork(INetworkElement toAdd)
+	public NodeNetwork addToNetwork(INetworkElement toAdd)
 	{
 		if (!network.isInNetwork(toAdd))
 		{
-			elementsPos.add(toAdd.getTile().getPos());
 			network.addToNetwork(toAdd);
 
 			toAdd.setNetwork(network);
+
+			if (!worldObj.isRemote)
+				PacketHandler.sendToAllAround(new PacketSendNetwork(toAdd), toAdd.getTile());
 		}
 
 		return network;
 	}
 
 	@Override
-	public ConduitNetwork removeFromNetwork(INetworkElement toRemove)
+	public NodeNetwork removeFromNetwork(INetworkElement toRemove)
 	{
-		elementsPos.remove(toRemove.getTile().getPos());
 		network.removeFromNetwork(toRemove);
 
 		toRemove.setNetwork(null);
@@ -123,9 +147,7 @@ public class TileNetworkController extends TileBase implements INetworkContainer
 	public void initNetwork()
 	{
 		if (network == null)
-		{
-			network = new ConduitNetwork(this);
-		}
+			network = new NodeNetwork(this);
 	}
 
 	@Override

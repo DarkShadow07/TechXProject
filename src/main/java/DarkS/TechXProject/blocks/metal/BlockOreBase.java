@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
@@ -36,6 +37,12 @@ public class BlockOreBase extends BlockBase implements IRenderer, IRecipeProvide
 		setCreativeTab(TechXProject.oresTab);
 
 		setDefaultState(blockState.getBaseState().withProperty(METAL, EnumMetals.COPPER));
+	}
+
+	@Override
+	public BlockRenderLayer getBlockLayer()
+	{
+		return BlockRenderLayer.TRANSLUCENT;
 	}
 
 	@Override

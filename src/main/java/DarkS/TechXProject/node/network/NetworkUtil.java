@@ -1,10 +1,13 @@
 package DarkS.TechXProject.node.network;
 
-import DarkS.TechXProject.api.network.ConduitNetwork;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.INetworkRelay;
+import DarkS.TechXProject.api.network.NodeNetwork;
+import DarkS.TechXProject.node.network.controller.TileNetworkController;
 import DarkS.TechXProject.util.ChatUtil;
+import DarkS.TechXProject.util.Logger;
+import DarkS.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -13,64 +16,53 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NetworkUtil
 {
-	public static ConduitNetwork networkFromPosList(World world, List<BlockPos> positions, INetworkContainer container)
+	public static NodeNetwork readNetwork(World world, List<BlockPos> positions, INetworkContainer container)
 	{
-		ConduitNetwork result = new ConduitNetwork(container);
+		if (container == null) container = new TileNetworkController();
+
+		NodeNetwork result = new NodeNetwork(container);
 
 		for (BlockPos pos : positions)
-		{
-			if (pos != null && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof INetworkElement)
-			{
-				result.addToNetwork((INetworkElement) world.getTileEntity(pos));
-				((INetworkElement) world.getTileEntity(pos)).setNetwork(container.getNetwork());
-			}
-		}
+			result.addToNetwork((INetworkElement) world.getTileEntity(pos));
 
 		return result;
 	}
 
-	public static void writeNetworkNBT(NBTTagCompound tag, ConduitNetwork network)
+	public static void writeNetworkNBT(NBTTagCompound tag, NodeNetwork network)
 	{
-		List<BlockPos> positions = new ArrayList<>();
-
-		for (INetworkElement element : network.getElements())
-		{
-			if (element != null && element.getTile() != null) positions.add(element.getTile().getPos());
-		}
+		List<BlockPos> positions = network.getElements().stream().map(element -> element.getTile().getPos()).collect(Collectors.toList());
 
 		NBTTagList tagList = new NBTTagList();
 
 		for (BlockPos pos : positions)
 		{
-			if (pos != null)
-			{
-				NBTTagCompound posTag = new NBTTagCompound();
+			NBTTagCompound posTag = new NBTTagCompound();
 
-				posTag.setInteger("x", pos.getX());
-				posTag.setInteger("y", pos.getY());
-				posTag.setInteger("z", pos.getZ());
+			posTag.setInteger("xPos", pos.getX());
+			posTag.setInteger("yPos", pos.getY());
+			posTag.setInteger("zPos", pos.getZ());
 
-				tagList.appendTag(posTag);
-			}
+			tagList.appendTag(posTag);
 		}
 
-		tag.setTag("positions", tagList);
+		tag.setTag("elementPos", tagList);
 	}
 
 	public static List<BlockPos> readNetworkNBT(NBTTagCompound tag)
 	{
 		List<BlockPos> positions = new ArrayList<>();
 
-		NBTTagList tagList = tag.getTagList("positions", 10);
+		NBTTagList tagList = tag.getTagList("elementPos", 10);
 
 		for (int i = 0; i < tagList.tagCount(); i++)
 		{
 			NBTTagCompound posTag = tagList.getCompoundTagAt(i);
 
-			positions.add(new BlockPos(posTag.getInteger("x"), posTag.getInteger("y"), posTag.getInteger("z")));
+			positions.add(new BlockPos(posTag.getInteger("xPos"), posTag.getInteger("yPos"), posTag.getInteger("zPos")));
 		}
 
 		return positions;
@@ -80,7 +72,7 @@ public class NetworkUtil
 	{
 		if (from == null || to == null)
 		{
-			ChatUtil.sendNoSpamClient(ChatFormatting.RED + "Connection Failed!");
+			ChatUtil.sendNoSpam(Util.player(), ChatFormatting.RED + "Connection Failed!");
 
 			return;
 		}
@@ -91,10 +83,10 @@ public class NetworkUtil
 		} else if (from instanceof INetworkRelay && to instanceof INetworkElement)
 		{
 			link((INetworkRelay) from, (INetworkElement) to);
-		} else ChatUtil.sendNoSpamClient(ChatFormatting.RED + "Connection Failed!");
+		} else ChatUtil.sendNoSpam(Util.player(), ChatFormatting.RED + "Connection Failed!");
 	}
 
-	public static void link(INetworkElement from, INetworkRelay to)
+	private static void link(INetworkElement from, INetworkRelay to)
 	{
 		from.setNetwork(((INetworkElement) to).getNetwork());
 
@@ -103,7 +95,7 @@ public class NetworkUtil
 		from.setNetwork(((INetworkElement) to).getNetwork());
 	}
 
-	public static void link(INetworkRelay from, INetworkElement to)
+	private static void link(INetworkRelay from, INetworkElement to)
 	{
 		to.setNetwork(((INetworkElement) from).getNetwork());
 

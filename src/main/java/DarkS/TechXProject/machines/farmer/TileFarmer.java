@@ -102,7 +102,7 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 		{
 			Random r = new Random();
 
-			if (r.nextInt(200) <= 1 && worldObj.getBlockState(pos).getBlock() != null && worldObj.getBlockState(pos).getBlock() instanceof IGrowable)
+			if (r.nextInt(200) <= 1 && worldObj.getBlockState(pos).getBlock() instanceof IGrowable)
 			{
 				IGrowable growable = (IGrowable) worldObj.getBlockState(pos).getBlock();
 
@@ -282,10 +282,8 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.toNBT(tag);
-
 		NBTTagCompound posTag = new NBTTagCompound();
 
 		posTag.setInteger("x", x);
@@ -313,13 +311,13 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return super.writeToNBT(tag);
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.fromNBT(tag);
-
 		NBTTagCompound posTag = tag.getCompoundTag("harvesting");
 
 		x = posTag.getInteger("x");
@@ -344,6 +342,8 @@ public class TileFarmer extends TileEnergyContainer implements ISidedInventory
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override

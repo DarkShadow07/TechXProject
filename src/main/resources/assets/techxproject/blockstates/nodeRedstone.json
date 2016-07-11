@@ -1,0 +1,44 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:nodeRedstone",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "rotation":
+    {
+      "down": {
+        "model": "techxproject:nodeRedstone"
+      },
+      "up": {
+        "model": "techxproject:nodeRedstone",
+        "x": 180
+      },
+      "west": {
+        "model": "techxproject:nodeRedstone",
+        "x": 90,
+        "y": 90
+      },
+      "east": {
+        "model": "techxproject:nodeRedstone",
+        "x": 90,
+        "y": 270
+      },
+      "north": {
+        "model": "techxproject:nodeRedstone",
+        "x": 90,
+        "y": 180
+      },
+      "south": {
+        "model": "techxproject:nodeRedstone",
+        "x": 90
+      }
+    }
+  }
+}

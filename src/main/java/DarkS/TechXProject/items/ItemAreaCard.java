@@ -1,6 +1,7 @@
 package DarkS.TechXProject.items;
 
 import DarkS.TechXProject.machines.quarry.TileQuarry;
+import DarkS.TechXProject.machines.structureSaver.TileStructureSaver;
 import DarkS.TechXProject.util.ChatUtil;
 import DarkS.TechXProject.util.NBTUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -15,9 +16,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ItemQuarryCard extends ItemBase
+public class ItemAreaCard extends ItemBase
 {
-	public ItemQuarryCard()
+	public ItemAreaCard()
 	{
 
 	}
@@ -44,7 +45,7 @@ public class ItemQuarryCard extends ItemBase
 		if (start.equals(BlockPos.ORIGIN))
 		{
 			setPosStart(stack, pos);
-			ChatUtil.sendNoSpamClient("Start Position set to " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+			ChatUtil.sendNoSpam(playerIn, "Start Position set to " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
 		} else if (end.equals(BlockPos.ORIGIN))
 		{
 			int x = start.getX() - pos.getX();
@@ -60,18 +61,28 @@ public class ItemQuarryCard extends ItemBase
 			if (distance <= 256)
 			{
 				setPosEnd(stack, pos);
-				ChatUtil.sendNoSpamClient("End Position set to " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+				ChatUtil.sendNoSpam(playerIn, "End Position set to " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
 			} else
-			{
-				ChatUtil.sendNoSpamClient(ChatFormatting.RED + "Max Distance is 256 Blocks! (" + distance + ")");
-			}
-		} else if (worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileQuarry)
+				ChatUtil.sendNoSpam(playerIn, ChatFormatting.RED + "Max Distance is 256 Blocks! (" + distance + ")");
+		} else if (worldIn.getTileEntity(pos) != null)
 		{
-			setPosStart(stack, BlockPos.ORIGIN);
-			setPosEnd(stack, BlockPos.ORIGIN);
-			stack.stackSize -= 1;
-			((TileQuarry) worldIn.getTileEntity(pos)).start(start, end);
-			ChatUtil.sendNoSpamClient("Quarry Started! (" + start.getX() + " " + start.getY() + " " + start.getZ() + " to " + end.getX() + " " + end.getY() + " " + end.getZ() + ")");
+			if (worldIn.getTileEntity(pos) instanceof TileQuarry)
+			{
+				((TileQuarry) worldIn.getTileEntity(pos)).start(start, end);
+
+				setPosStart(stack, BlockPos.ORIGIN);
+				setPosEnd(stack, BlockPos.ORIGIN);
+
+				ChatUtil.sendNoSpam(playerIn, "Quarry Started! (" + start.getX() + " " + start.getY() + " " + start.getZ() + " to " + end.getX() + " " + end.getY() + " " + end.getZ() + ")");
+			}else if (worldIn.getTileEntity(pos) instanceof TileStructureSaver)
+			{
+				((TileStructureSaver) worldIn.getTileEntity(pos)).start(start, end);
+
+				setPosStart(stack, BlockPos.ORIGIN);
+				setPosEnd(stack, BlockPos.ORIGIN);
+
+				ChatUtil.sendNoSpam(playerIn, "Saving Structure! (" + start.getX() + " " + start.getY() + " " + start.getZ() + " to " + end.getX() + " " + end.getY() + " " + end.getZ() + ")");
+			}
 		}
 
 		return EnumActionResult.SUCCESS;

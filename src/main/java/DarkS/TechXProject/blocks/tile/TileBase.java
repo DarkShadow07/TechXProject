@@ -2,14 +2,11 @@ package DarkS.TechXProject.blocks.tile;
 
 import DarkS.TechXProject.util.Util;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -32,61 +29,42 @@ public abstract class TileBase extends TileEntity
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	public NBTTagCompound getUpdateTag()
 	{
-		return oldState.getBlock() != newState.getBlock();
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		toNBT(compound);
-
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		fromNBT(compound);
-
-		super.readFromNBT(compound);
+		return writeToNBT(new NBTTagCompound());
 	}
 
 	@Nullable
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound data = new NBTTagCompound();
-		writeToNBT(data);
-		return new SPacketUpdateTileEntity(this.pos, 1, data);
+		return new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
 	}
 
 	@Override
 	public void onDataPacket(NetworkManager networkManager, SPacketUpdateTileEntity s35PacketUpdateTileEntity)
 	{
+		super.onDataPacket(networkManager, s35PacketUpdateTileEntity);
+
 		readFromNBT(s35PacketUpdateTileEntity.getNbtCompound());
-		worldObj.markBlockRangeForRenderUpdate(this.pos, this.pos);
+		worldObj.markBlockRangeForRenderUpdate(pos, pos);
+
 		markForUpdate();
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		return writeToNBT(new NBTTagCompound());
+		return super.writeToNBT(tag);
 	}
 
-	public void toNBT(NBTTagCompound tag)
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
 	{
-
+		super.readFromNBT(tag);
 	}
 
-	public void fromNBT(NBTTagCompound tag)
-	{
-
-	}
-
-	public TileEntity[] getTilesOnSides()
+	protected TileEntity[] getTilesOnSides()
 	{
 		TileEntity[] result = new TileEntity[6];
 

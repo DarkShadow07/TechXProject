@@ -89,7 +89,7 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 	}
 
 	@Override
-	public void toNBT(NBTTagCompound tag)
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = new NBTTagCompound();
 
@@ -112,10 +112,12 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 		}
 
 		tag.setTag("Items", nbttaglist);
+
+		return tag;
 	}
 
 	@Override
-	public void fromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = tag.getCompoundTag("data");
 

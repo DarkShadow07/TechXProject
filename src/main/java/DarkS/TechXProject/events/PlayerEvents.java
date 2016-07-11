@@ -2,13 +2,19 @@ package DarkS.TechXProject.events;
 
 import DarkS.TechXProject.highlight.IHighlightProvider;
 import DarkS.TechXProject.highlight.SelectionBox;
+import DarkS.TechXProject.items.ItemPaintBrush;
 import DarkS.TechXProject.util.PartialTicksUtil;
+import DarkS.TechXProject.util.Util;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PlayerEvents
 {

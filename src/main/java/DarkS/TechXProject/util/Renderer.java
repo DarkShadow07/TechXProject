@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
@@ -12,7 +13,6 @@ import java.awt.*;
 public class Renderer
 {
 	public static final LineRenderer LINES = new LineRenderer();
-	public static final ParticleRenderer PARTICLE = new ParticleRenderer();
 	public static final PosRenderer POS = new PosRenderer();
 	public static final PosColorRenderer POS_COLOR = new PosColorRenderer();
 	public static final PosUVRenderer POS_UV = new PosUVRenderer();
@@ -30,7 +30,7 @@ public class Renderer
 
 	private Renderer addColor(float r, float g, float b, float a)
 	{
-		renderer.color(Util.keepInBounds(r, 0, 1), Util.keepInBounds(g, 0, 1), Util.keepInBounds(b, 0, 1), Util.keepInBounds(a, 0, 1));
+		renderer.color(MathHelper.clamp_float(r, 0, 1), MathHelper.clamp_float(g, 0, 1), MathHelper.clamp_float(b, 0, 1), MathHelper.clamp_float(a, 0, 1));
 		return instance;
 	}
 
@@ -107,36 +107,11 @@ public class Renderer
 		}
 	}
 
-	public static class ParticleRenderer extends RendererBase
-	{
-		public void addVertex(double xPos, double yPos, double zPos, float u, float v, Color color, int xLight, int yLight)
-		{
-			addVertex(xPos, yPos, zPos, u, v, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha(), xLight, yLight);
-		}
-
-		public void addVertex(double xPos, double yPos, double zPos, float u, float v, float red, float green, float blue, float alpha, int xLight, int yLight)
-		{
-			instance.addVertexData(xPos, yPos, zPos, u, v).addColor(red, green, blue, alpha).lightmap(xLight, yLight).endVertex();
-		}
-
-		public void addVertex(Vec3d pos, float u, float v, Color color, int xLight, int yLight)
-		{
-			addVertex(pos.xCoord, pos.yCoord, pos.zCoord, u, v, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha(), xLight, yLight);
-		}
-
-		@Override
-		public VertexFormat getVertexFormat()
-		{
-			return DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP;
-		}
-
-	}
-
 	public static class PosColorRenderer extends RendererBase
 	{
 		public void addVertex(double xPos, double yPos, double zPos, Color color)
 		{
-			instance.addPos(xPos, yPos, zPos).addColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+			instance.addPos(xPos, yPos, zPos).addColor(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, color.getAlpha() / 255.0f).endVertex();
 		}
 
 		public void addVertex(double xPos, double yPos, double zPos, float r, float g, float b, float a)
@@ -147,7 +122,7 @@ public class Renderer
 		@Override
 		public VertexFormat getVertexFormat()
 		{
-			return DefaultVertexFormats.POSITION_TEX_COLOR;
+			return DefaultVertexFormats.POSITION_COLOR;
 		}
 	}
 
@@ -227,7 +202,7 @@ public class Renderer
 		@Override
 		public VertexFormat getVertexFormat()
 		{
-			return DefaultVertexFormats.POSITION_TEX_NORMAL;
+			return DefaultVertexFormats.POSITION_TEX;
 		}
 	}
 

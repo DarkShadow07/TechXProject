@@ -46,27 +46,13 @@ public class ContainerSmelter extends Container
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-
-			if (index >= 0 && index <= 2)
+			if (index > 2)
 			{
 				if (SmelterRecipeHandler.instance.isValidStack(itemstack1))
-				{
-					if (!this.mergeItemStack(itemstack1, 4, 4 + 36, true))
-					{
+					if (!this.mergeItemStack(itemstack1, 0, 3, false))
 						return null;
-					}
-				}
 
 				slot.onSlotChange(itemstack1, itemstack);
-			} else if (index > 3)
-			{
-				if (SmelterRecipeHandler.instance.isValidStackNoVanilla(itemstack1))
-				{
-					if (!this.mergeItemStack(itemstack1, 0, 3, false))
-					{
-						return null;
-					}
-				}
 			} else if (!this.mergeItemStack(itemstack1, 4, 36, false))
 			{
 				return null;

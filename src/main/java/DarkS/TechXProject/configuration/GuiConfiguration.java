@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -69,7 +70,7 @@ public class GuiConfiguration extends GuiScreen
 			if (direction > 1) offset -= 1;
 			if (direction < 1) offset += 1;
 
-			offset = Util.keepInBounds(offset, 0, handler.filteredElements.size() - maxElements);
+			offset = MathHelper.clamp_int(offset, 0, handler.filteredElements.size() - maxElements);
 		}
 	}
 

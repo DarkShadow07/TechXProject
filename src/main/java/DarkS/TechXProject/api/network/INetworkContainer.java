@@ -5,18 +5,25 @@ import net.minecraft.tileentity.TileEntity;
 public interface INetworkContainer<T extends TileEntity>
 {
 	/**
-	 * Returns the ConduitNetwork
+	 * Returns if the NodeNetwork is currently active
 	 *
-	 * @return ConduitNetwork
+	 * @return If the NodeNetwork is currently active
 	 */
-	ConduitNetwork getNetwork();
+	boolean isActive();
 
 	/**
-	 * Sets the ConduitNetwork
+	 * Returns the NodeNetwork
 	 *
-	 * @param network ConduitNetwork to set
+	 * @return NodeNetwork
 	 */
-	void setNetwork(ConduitNetwork network);
+	NodeNetwork getNetwork();
+
+	/**
+	 * Sets the NodeNetwork
+	 *
+	 * @param network NodeNetwork to set
+	 */
+	void setNetwork(NodeNetwork network);
 
 	/**
 	 * Called when should search {@link INetworkElement}
@@ -24,45 +31,40 @@ public interface INetworkContainer<T extends TileEntity>
 	void searchNetwork();
 
 	/**
-	 * Called when should search {@link INetworkRelay}
-	 */
-	void searchRelays();
-
-	/**
-	 * Adds a {@link INetworkElement} to the ConduitNetwork
+	 * Adds a {@link INetworkElement} to the NodeNetwork
 	 *
-	 * @param toAdd INetworkElement to add to the ConduitNetwork
-	 * @return {@link ConduitNetwork} with the INetworkElement added to it
+	 * @param toAdd INetworkElement to add to the NodeNetwork
+	 * @return {@link NodeNetwork} with the INetworkElement added to it
 	 */
-	ConduitNetwork addToNetwork(INetworkElement toAdd);
+	NodeNetwork addToNetwork(INetworkElement toAdd);
 
 	/**
-	 * Removes a {@link INetworkElement} from the ConduitNetwork
+	 * Removes a {@link INetworkElement} from the NodeNetwork
 	 *
-	 * @param toRemove INetworkElement to remove from the ConduitNetwork
-	 * @return {@link ConduitNetwork} without the INetworkElement removed from it
+	 * @param toRemove INetworkElement to remove from the NodeNetwork
+	 * @return {@link NodeNetwork} without the INetworkElement removed from it
 	 */
-	ConduitNetwork removeFromNetwork(INetworkElement toRemove);
+	NodeNetwork removeFromNetwork(INetworkElement toRemove);
 
 	/**
-	 * Called when should update the ConduitNetwork
+	 * Called when should update the NodeNetwork
 	 */
 	void updateNetwork();
 
 	/**
-	 * Returns the {@link TileEntity} that contains the ConduitNetwork
+	 * Returns the {@link TileEntity} that contains the NodeNetwork
 	 *
 	 * @return
 	 */
 	T getController();
 
 	/**
-	 * Called when should init the ConduitNetwork
+	 * Called when should init the NodeNetwork
 	 */
 	void initNetwork();
 
 	/**
-	 * Called when should draw lines to all the {@link INetworkElement} in the ConduitNetwork
+	 * Called when should draw lines to all the {@link INetworkElement} in the NodeNetwork
 	 */
 	void drawLines();
 }

@@ -5,34 +5,18 @@ import net.minecraft.tileentity.TileEntity;
 public interface INetworkElement<T extends TileEntity>
 {
 	/**
-	 * Returns the {@link ConduitNetwork} that contains the INetworkElement
+	 * Returns the {@link NodeNetwork} that contains the INetworkElement
 	 *
-	 * @return ConduitNetwork of the INetworkElement
+	 * @return NodeNetwork of the INetworkElement
 	 */
-	ConduitNetwork getNetwork();
+	NodeNetwork getNetwork();
 
 	/**
-	 * Sets the {@link ConduitNetwork} of the INetworkElement
+	 * Sets the {@link NodeNetwork} of the INetworkElement
 	 *
-	 * @param network ConduitNetwork to set
+	 * @param network NodeNetwork to set
 	 */
-	void setNetwork(ConduitNetwork network);
-
-	/**
-	 * Adds a INetworkElement to the {@link ConduitNetwork}
-	 *
-	 * @param toAdd INetworkElement to add to the ConduitNetwork
-	 * @return {@link ConduitNetwork} with the INetworkElement added to it
-	 */
-	ConduitNetwork addToNetwork(INetworkElement toAdd);
-
-	/**
-	 * Removes a INetworkElement from the {@link ConduitNetwork}
-	 *
-	 * @param toRemove INetworkElement to remove form  the ConduitNetwork
-	 * @return {@link ConduitNetwork} without the INetworkElement
-	 */
-	ConduitNetwork removeFromNetwork(INetworkElement toRemove);
+	void setNetwork(NodeNetwork network);
 
 	/**
 	 * Returns the {@link TileEntity} that contains the INetworkElement
@@ -56,17 +40,9 @@ public interface INetworkElement<T extends TileEntity>
 	boolean isAttached();
 
 	/**
-	 * Returns the distance of the INetworkElement to the given {@link TileEntity}
+	 * Returns the {@link INetworkContainer} of the attached {@link NodeNetwork}
 	 *
-	 * @param to TileEntity to get the distance to
-	 * @return The Distance of the INetworkElement to the TileEntity
-	 */
-	int distanceTo(TileEntity to);
-
-	/**
-	 * Returns the {@link INetworkContainer} of the attached {@link ConduitNetwork}
-	 *
-	 * @return The INetworkContainer of the attached ConduitNetwork
+	 * @return The INetworkContainer of the attached NodeNetwork
 	 */
 	INetworkContainer getController();
 
@@ -92,16 +68,9 @@ public interface INetworkElement<T extends TileEntity>
 	boolean isActive();
 
 	/**
-	 * Sets the INetworkElement active
+	 * Returns if the INetworkElement is attached to a {@link NodeNetwork}
 	 *
-	 * @param act
-	 */
-	void setActive(boolean act);
-
-	/**
-	 * Returns if the INetworkElement is attached to a {@link ConduitNetwork}
-	 *
-	 * @return If the INetworkElement is attached to a ConduitNetwork
+	 * @return If the INetworkElement is attached to a NodeNetwork
 	 */
 	boolean hasNetwork();
 }

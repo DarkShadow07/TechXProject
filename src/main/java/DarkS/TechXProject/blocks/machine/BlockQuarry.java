@@ -30,13 +30,13 @@ public class BlockQuarry extends BlockContainerBase
 		{
 			if (tile.end)
 			{
-				ChatUtil.sendNoSpamClient(ChatFormatting.GREEN + "Quarry Ended!" + " (" + tile.mined + " Blocks Mined)");
+				ChatUtil.sendNoSpam(playerIn, ChatFormatting.GREEN + "Quarry Ended!" + " (" + tile.mined + " Blocks Mined)");
 			} else if (tile.working)
 			{
-				ChatUtil.sendNoSpamClient("Mining at " + tile.x + " " + tile.y + " " + tile.z + " (" + tile.mined + " Blocks Mined)");
+				ChatUtil.sendNoSpam(playerIn, "Mining at " + tile.x + " " + tile.y + " " + tile.z + " (" + tile.mined + " Blocks Mined)");
 			} else
 			{
-				ChatUtil.sendNoSpamClient(ChatFormatting.RED + tile.error);
+				ChatUtil.sendNoSpam(playerIn, ChatFormatting.RED + tile.error);
 			}
 		}
 

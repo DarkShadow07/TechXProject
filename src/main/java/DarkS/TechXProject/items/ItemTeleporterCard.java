@@ -26,7 +26,7 @@ public class ItemTeleporterCard extends ItemBase
 		if (!playerIn.isSneaking())
 		{
 			setPos(stack, pos, playerIn.dimension, stack.getDisplayName());
-			ChatUtil.sendNoSpamClient("Location set! " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " (Dimension " + playerIn.dimension + ")");
+			ChatUtil.sendNoSpam(playerIn, "Location set! " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " (Dimension " + playerIn.dimension + ")");
 		} else setPos(stack, BlockPos.ORIGIN, 0, "");
 
 		return EnumActionResult.SUCCESS;
