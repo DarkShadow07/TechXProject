@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class GuiUtil extends GuiScreen
 {
@@ -26,13 +27,12 @@ public class GuiUtil extends GuiScreen
 		drawRect(x + w + 3, y - 3, x + w + 4, y + h + 3, bgColor);
 	}
 
-	public void drawItemStack(ItemStack stack, int x, int y, RenderItem renderItem, FontRenderer fontRenderer, boolean transparent)
+	public void drawItemStack(ItemStack stack, int x, int y, RenderItem renderItem, FontRenderer fontRenderer, int overlayColor)
 	{
 		zLevel = 50.0f;
 		renderItem.zLevel = 50.0f;
 
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-		int colorOverlay = new Color(1.0f, 1.0f, 1.0f, 0.65f).hashCode();
 
 		RenderHelper.enableGUIStandardItemLighting();
 		renderItem.renderItemAndEffectIntoGUI(stack, x, y);
@@ -43,14 +43,14 @@ public class GuiUtil extends GuiScreen
 		String stackSize = "";
 		if (stack.stackSize >= 1000)
 		{
-			int value = stack.stackSize / 1000;
+			float value = (float) stack.stackSize / 1000;
 			String unit = "k";
 			if (value >= 1000)
 			{
 				value /= 1000;
 				unit = "m";
 			}
-			stackSize = value + unit;
+			stackSize = new DecimalFormat("#.#").format(value) + unit;
 		} else if (stack.stackSize > 1)
 			stackSize = Integer.toString(stack.stackSize);
 
@@ -60,6 +60,8 @@ public class GuiUtil extends GuiScreen
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 16, y + 16, 0);
 
+		GlStateManager.scale(0.5f, 0.5f, 0.5f);
+
 		fontRenderer.drawStringWithShadow(stackSize, 1 - fontRenderer.getStringWidth(stackSize), -8, Color.white.getRGB());
 
 		GlStateManager.popMatrix();
@@ -68,16 +70,15 @@ public class GuiUtil extends GuiScreen
 
 		renderItem.renderItemOverlayIntoGUI(fontRenderer, stack, x, y, "");
 
-
 		GlStateManager.disableDepth();
 		GlStateManager.colorMask(true, true, true, false);
 
-		if (transparent)
+		if (overlayColor != 0)
 		{
 			zLevel = 100.0f;
 			renderItem.zLevel = 100.0f;
 
-			drawPlane(x, y, 16, 16, colorOverlay);
+			drawPlane(x, y, 16, 16, overlayColor);
 		}
 
 		GlStateManager.colorMask(true, true, true, true);

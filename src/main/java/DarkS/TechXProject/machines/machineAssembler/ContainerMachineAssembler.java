@@ -1,9 +1,7 @@
 package DarkS.TechXProject.machines.machineAssembler;
 
-import DarkS.TechXProject.items.ItemMachineRecipe;
 import DarkS.TechXProject.machines.crusher.ContainerCrusher;
 import DarkS.TechXProject.machines.recipeStamper.ContainerRecipeStamper;
-import DarkS.TechXProject.machines.recipeStamper.MachineRecipeType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -40,17 +38,30 @@ public class ContainerMachineAssembler extends Container
 	}
 
 	@Override
-	public void putStackInSlot(int slotID, ItemStack stack)
-	{
-		super.putStackInSlot(slotID, stack);
-
-		detectAndSendChanges();
-	}
-
-	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
 	{
-		return null;
+		ItemStack itemstack = null;
+		Slot slot = this.inventorySlots.get(index);
+
+		if (slot != null && slot.getHasStack())
+		{
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			if (index < 2 || index <= 28)
+			{
+				if (!this.mergeItemStack(itemstack1, 28, this.inventorySlots.size(), false))
+					return null;
+			} else if (!this.mergeItemStack(itemstack1, 0, 28, false))
+				return null;
+
+			if (itemstack1.stackSize == 0)
+				slot.putStack(null);
+			else
+				slot.onSlotChanged();
+		}
+
+		return itemstack;
 	}
 
 	@Override
@@ -63,30 +74,17 @@ public class ContainerMachineAssembler extends Container
 	{
 		private TileMachineAssembler assembler;
 
-		private MachineRecipeType type;
-
 		public SlotAssembler(TileMachineAssembler inventoryIn, int index, int xPosition, int yPosition)
 		{
 			super(inventoryIn, index, xPosition, yPosition);
 
 			assembler = inventoryIn;
-
-			if (assembler.getStackInSlot(0) != null)
-			{
-				type = ((ItemMachineRecipe) assembler.getStackInSlot(0).getItem()).getType(assembler.getStackInSlot(0));
-			} else type = MachineRecipeType.CLEAR;
-		}
-
-		@Override
-		public int getSlotStackLimit()
-		{
-			return type.inputs[getSlotIndex() - 2].stackSize;
 		}
 
 		@Override
 		public boolean isItemValid(ItemStack stack)
 		{
-			return type.inputs.length > getSlotIndex() - 2 && type.inputs[getSlotIndex() - 2].isItemEqual(stack);
+			return assembler.isItemValidForSlot(slotNumber, stack);
 		}
 	}
 }

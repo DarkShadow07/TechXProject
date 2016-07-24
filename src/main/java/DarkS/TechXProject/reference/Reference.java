@@ -5,7 +5,7 @@ public class Reference
 	public static final String MOD_NAME = "Tech 'X' Project";
 	public static final String MOD_ID = "TechXProject";
 	public static final String DEPENDENCIES = "after:JEI";
-	public static final String VERSION = "0.00.0-A";
+	public static final String VERSION = "1102.0.00.0-A";
 	public static final String CHANGELOG = VERSION;
 	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/DarkShadow07/TechXProject/master/src/version/update.json";
 	public static final String SERVER_PROXY_CLASS = "DarkS." + MOD_ID + ".proxy.CommonProxy";

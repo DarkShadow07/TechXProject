@@ -16,7 +16,7 @@ public class TileFluidTankRender extends TileEntitySpecialRenderer<TileFluidTank
 	{
 		if (te.tank.getFluid() == null) return;
 
-		float level = 0.125f + (float) te.tank.getFluidAmount() / te.tank.getCapacity() * 0.75f;
+		float level = 0.1875f + (float) te.tank.getFluidAmount() / te.tank.getCapacity() * 0.624f;
 
 		TextureAtlasSprite sprite = Util.minecraft().getTextureMapBlocks().registerSprite(te.tank.getFluid().getFluid().getStill());
 		Util.minecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -26,7 +26,7 @@ public class TileFluidTankRender extends TileEntitySpecialRenderer<TileFluidTank
 		float vMin = sprite.getMinV();
 		float vMax = sprite.getMaxV();
 
-		float offsetSide = 0.18754f, offsetTop = 0.125f;
+		float offset = 0.18755f;
 
 		GlStateManager.pushMatrix();
 
@@ -42,41 +42,41 @@ public class TileFluidTankRender extends TileEntitySpecialRenderer<TileFluidTank
 
 		Renderer.POS_UV.beginQuads();
 
-		Renderer.POS_UV.addVertex(offsetSide, offsetTop, offsetSide, uMin, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, offsetTop, offsetSide, uMax, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, offsetTop, 1 - offsetSide, uMax, vMax);
-		Renderer.POS_UV.addVertex(offsetSide, offsetTop, 1 - offsetSide, uMin, vMax);
+		Renderer.POS_UV.addVertex(offset, offset, offset, uMin, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, offset, offset, uMax, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, offset, 1 - offset, uMax, vMax);
+		Renderer.POS_UV.addVertex(offset, offset, 1 - offset, uMin, vMax);
 
-		Renderer.POS_UV.addVertex(offsetSide, level, 1 - offsetSide, uMin, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, level, 1 - offsetSide, uMax, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, level, offsetSide, uMax, vMax);
-		Renderer.POS_UV.addVertex(offsetSide, level, offsetSide, uMin, vMax);
+		Renderer.POS_UV.addVertex(offset, level, 1 - offset, uMin, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, level, 1 - offset, uMax, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, level, offset, uMax, vMax);
+		Renderer.POS_UV.addVertex(offset, level, offset, uMin, vMax);
 
-		Renderer.POS_UV.addVertex(offsetSide, offsetTop, 1 - offsetSide, uMin, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, offsetTop, 1 - offsetSide, uMax, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, level, 1 - offsetSide, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
-		Renderer.POS_UV.addVertex(offsetSide, level, 1 - offsetSide, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(offset, offset, 1 - offset, uMin, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, offset, 1 - offset, uMax, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, level, 1 - offset, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(offset, level, 1 - offset, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
 
-		Renderer.POS_UV.addVertex(offsetSide, level, offsetSide, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
-		Renderer.POS_UV.addVertex(1 - offsetSide, level, offsetSide, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
-		Renderer.POS_UV.addVertex(1 - offsetSide, offsetTop, offsetSide, uMax, vMin);
-		Renderer.POS_UV.addVertex(offsetSide, offsetTop, offsetSide, uMin, vMin);
+		Renderer.POS_UV.addVertex(offset, level, offset, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(1 - offset, level, offset, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(1 - offset, offset, offset, uMax, vMin);
+		Renderer.POS_UV.addVertex(offset, offset, offset, uMin, vMin);
 
-		Renderer.POS_UV.addVertex(1 - offsetSide, level, offsetSide, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
-		Renderer.POS_UV.addVertex(1 - offsetSide, level, 1 - offsetSide, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
-		Renderer.POS_UV.addVertex(1 - offsetSide, offsetTop, 1 - offsetSide, uMax, vMin);
-		Renderer.POS_UV.addVertex(1 - offsetSide, offsetTop, offsetSide, uMin, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, level, offset, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(1 - offset, level, 1 - offset, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(1 - offset, offset, 1 - offset, uMax, vMin);
+		Renderer.POS_UV.addVertex(1 - offset, offset, offset, uMin, vMin);
 
-		Renderer.POS_UV.addVertex(offsetSide, offsetTop, offsetSide, uMin, vMin);
-		Renderer.POS_UV.addVertex(offsetSide, offsetTop, 1 - offsetSide, uMax, vMin);
-		Renderer.POS_UV.addVertex(offsetSide, level, 1 - offsetSide, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
-		Renderer.POS_UV.addVertex(offsetSide, level, offsetSide, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(offset, offset, offset, uMin, vMin);
+		Renderer.POS_UV.addVertex(offset, offset, 1 - offset, uMax, vMin);
+		Renderer.POS_UV.addVertex(offset, level, 1 - offset, uMax, vMin + (vMax - vMin) * (16 * level) / 16);
+		Renderer.POS_UV.addVertex(offset, level, offset, uMin, vMin + (vMax - vMin) * (16 * level) / 16);
 
 		Renderer.POS_UV.draw();
 
-		GlStateManager.enableLighting();
-
 		Util.GL.endOpaqueRendering();
+
+		GlStateManager.enableLighting();
 
 		GlStateManager.popMatrix();
 	}

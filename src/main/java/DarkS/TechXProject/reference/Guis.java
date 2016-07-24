@@ -16,4 +16,5 @@ public class Guis
 	public static final int FARMER = 11;
 	public static final int GUIDE = 12;
 	public static final int TRANSPORT = 13;
+	public static final int INTERFACE = 14;
 }

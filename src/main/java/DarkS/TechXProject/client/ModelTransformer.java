@@ -64,7 +64,7 @@ public class ModelTransformer
 
 	public static interface IVertexTransformer
 	{
-		public float[] transform(BakedQuad quad, VertexFormatElement.EnumType type, VertexFormatElement.EnumUsage usage, float... data);
+		float[] transform(BakedQuad quad, VertexFormatElement.EnumType type, VertexFormatElement.EnumUsage usage, float... data);
 	}
 
 	private static final class TransformedModel implements IBakedModel

@@ -8,11 +8,14 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -20,15 +23,82 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.nio.IntBuffer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 public class Util
 {
 	static Random rand = new Random();
+
+	public static List<ItemStack> mergeSameItem(@Nonnull List<ItemStack> stacks)
+	{
+		List<ItemStack> result = new ArrayList<>();
+
+		for (ItemStack stack : stacks)
+			if (!containsItemStack(result, stack))
+			{
+				int count = stack.stackSize;
+
+				for (ItemStack stack1 : stacks)
+					if (stack1 != stack && OreDictionary.itemMatches(stack, stack1, true))
+						count += stack1.stackSize;
+
+				ItemStack resultStack = stack.copy();
+				resultStack.stackSize = count;
+
+				result.add(resultStack);
+			}
+
+
+		return result;
+	}
+
+	public static boolean containsItemStack(List<ItemStack> stacks, ItemStack stack)
+	{
+		for (ItemStack found : stacks)
+			if (OreDictionary.itemMatches(found, stack, true)) return true;
+
+		return false;
+	}
+
+	public static String getMod(ItemStack stack)
+	{
+		String modID = Item.REGISTRY.getNameForObject(stack.getItem()).getResourceDomain();
+
+		for (ModContainer mod : Loader.instance().getModList())
+			if (mod.getModId().equalsIgnoreCase(modID))
+				return mod.getName();
+
+		return "Minecraft";
+	}
+
+	public static void stackTrace()
+	{
+		StringBuilder Return = new StringBuilder();
+
+		StackTraceElement[] a1 = Thread.currentThread().getStackTrace();
+		int length = 0;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		Return.append("Invoke time: ").append(dateFormat.format(cal.getTime())).append("\n");
+		for (int i = 2; i < a1.length; i++)
+		{
+			StackTraceElement a = a1[i];
+			String s = a.toString();
+			Return.append(s).append("\n");
+			length = Math.max(s.length(), length);
+		}
+		for (int b = 0; b < length / 4; b++) Return.append("_/\\_");
+
+		Logger.info(Return.toString());
+	}
 
 	public static NBTTagCompound blocksToNBT(World world, List<BlockPos> positions, List<IBlockState> states, NBTTagCompound tag)
 	{
@@ -409,7 +479,7 @@ public class Util
 
 			Color inverse = new Color(pixels.get());
 
-			return new Color(255 - inverse.getRed(), 255 - inverse.getGreen(),255 - inverse.getBlue());
+			return new Color(255 - inverse.getRed(), 255 - inverse.getGreen(), 255 - inverse.getBlue());
 		}
 
 		public static void startOpaqueRendering()

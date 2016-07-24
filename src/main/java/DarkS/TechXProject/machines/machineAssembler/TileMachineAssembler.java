@@ -2,8 +2,8 @@ package DarkS.TechXProject.machines.machineAssembler;
 
 import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.items.ItemMachineRecipe;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
 import DarkS.TechXProject.machines.recipeStamper.MachineRecipeType;
-import DarkS.TechXProject.node.item.NodeUtil;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -34,7 +34,6 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 	public void update()
 	{
 		if (inventory[0] == null && !worldObj.isRemote)
-		{
 			for (int i = 2; i < getSizeInventory(); ++i)
 			{
 				ItemStack itemstack = getStackInSlot(i);
@@ -47,22 +46,14 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 				}
 			}
 
-			markDirty();
-			markForUpdate();
-		}
-
 		assemble();
 	}
 
 	private void assemble()
 	{
-		markDirty();
-		markForUpdate();
-
 		if (working)
-		{
 			progress += 1;
-		} else progress = 0;
+		else progress = 0;
 
 		if (inventory[0] != null)
 		{
@@ -80,10 +71,9 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 
 				setInventorySlotContents(1, Util.ItemStackUtil.stack(inventory[1], type.out));
 
-				for (int i = 2; i < inventory.length; i++)
-				{
-					setInventorySlotContents(i, null);
-				}
+				for (int i = 0; i < type.inputs.length; i++)
+					decrStackSize(i + 2, type.inputs[i].stackSize);
+
 			}
 		} else working = false;
 	}
@@ -113,7 +103,7 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 
 		tag.setTag("Items", nbttaglist);
 
-		return tag;
+		return super.writeToNBT(tag);
 	}
 
 	@Override
@@ -137,20 +127,16 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	private boolean isInType(ItemStack stack, MachineRecipeType type)
 	{
 		if (stack != null && type != null)
-		{
 			for (ItemStack recipe : type.inputs)
-			{
 				if (OreDictionary.itemMatches(recipe, stack, true))
-				{
 					return true;
-				}
-			}
-		}
 
 		return false;
 	}
@@ -258,7 +244,11 @@ public class TileMachineAssembler extends TileBase implements ISidedInventory, I
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
-		return inventory[0] != null && isInType(stack, ((ItemMachineRecipe) inventory[0].getItem()).getType(inventory[0]));
+		if (inventory[0] == null) return false;
+
+		MachineRecipeType type = ((ItemMachineRecipe) inventory[0].getItem()).getType(inventory[0]);
+
+		return type.inputs.length > index - 2 && type.inputs[index - 2].isItemEqual(stack);
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package DarkS.TechXProject.machines.recipeStamper;
 import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.items.ItemMachineRecipe;
 import DarkS.TechXProject.packets.PacketHandler;
-import DarkS.TechXProject.packets.PacketUpdateRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -73,7 +72,7 @@ public class TileRecipeStamper extends TileBase implements IInventory, ITickable
 
 		tag.setTag("Items", nbttaglist);
 
-		return tag;
+		return super.writeToNBT(tag);
 	}
 
 	@Override
@@ -92,6 +91,8 @@ public class TileRecipeStamper extends TileBase implements IInventory, ITickable
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override

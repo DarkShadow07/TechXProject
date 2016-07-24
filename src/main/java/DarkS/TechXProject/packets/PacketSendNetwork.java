@@ -1,11 +1,10 @@
 package DarkS.TechXProject.packets;
 
 import DarkS.TechXProject.TechXProject;
+import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.api.network.INetworkElement;
-import DarkS.TechXProject.api.network.NodeNetwork;
 import DarkS.TechXProject.blocks.tile.TileBase;
-import DarkS.TechXProject.node.network.NetworkUtil;
-import DarkS.TechXProject.node.transport.TileTransportNode;
+import DarkS.TechXProject.machines.node.network.NetworkUtil;
 import DarkS.TechXProject.util.Util;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,18 +15,23 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSendNetwork extends MessageTileEntity<TileBase>
 {
-	protected NodeNetwork network;
+	protected NBTTagCompound network;
 
 	public PacketSendNetwork()
 	{
 
 	}
 
-	public PacketSendNetwork(INetworkElement node)
+	public PacketSendNetwork(TileBase node)
 	{
-		super((TileBase) node.getTile());
+		super(node);
 
-		this.network = node.getNetwork();
+		network = new NBTTagCompound();
+
+		if (node instanceof INetworkElement)
+			NetworkUtil.writeNetworkNBT(network, ((INetworkElement) node).getNetwork());
+		else if (node instanceof INetworkContainer)
+			NetworkUtil.writeNetworkNBT(network, ((INetworkContainer) node).getNetwork());
 	}
 
 	@Override
@@ -35,7 +39,7 @@ public class PacketSendNetwork extends MessageTileEntity<TileBase>
 	{
 		super.fromBytes(buf);
 
-		network = NetworkUtil.readNetwork(Util.world(), NetworkUtil.readNetworkNBT(ByteBufUtils.readTag(buf)), null);
+		network = ByteBufUtils.readTag(buf);
 	}
 
 	@Override
@@ -43,10 +47,7 @@ public class PacketSendNetwork extends MessageTileEntity<TileBase>
 	{
 		super.toBytes(buf);
 
-		NBTTagCompound tag = new NBTTagCompound();
-		NetworkUtil.writeNetworkNBT(tag, network);
-
-		ByteBufUtils.writeTag(buf, tag);
+		ByteBufUtils.writeTag(buf, network);
 	}
 
 	public static class Handler implements IMessageHandler<PacketSendNetwork, IMessage>
@@ -54,10 +55,12 @@ public class PacketSendNetwork extends MessageTileEntity<TileBase>
 		@Override
 		public IMessage onMessage(PacketSendNetwork message, MessageContext ctx)
 		{
-			INetworkElement element = (INetworkElement) message.getTileEntity(TechXProject.proxy.getClientWorld());
+			TileBase element = message.getTileEntity(TechXProject.proxy.getClientWorld());
 
-			if (element != null)
-				element.setNetwork(message.network);
+			if (element instanceof INetworkElement)
+				((INetworkElement) element).setNetwork(NetworkUtil.readNetwork(TechXProject.proxy.getClientWorld(), NetworkUtil.readNetworkNBT(message.network), null));
+			else if (element instanceof INetworkContainer)
+				((INetworkContainer) element).setNetwork(NetworkUtil.readNetwork(TechXProject.proxy.getClientWorld(), NetworkUtil.readNetworkNBT(message.network), null));
 
 			return null;
 		}

@@ -4,8 +4,6 @@ import DarkS.TechXProject.compat.jei.CategoryUid;
 import DarkS.TechXProject.util.Util;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
@@ -36,8 +34,6 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 
 			addRecipe(out, getSmeltingXP(out), getSmeltingTicks(in), in);
 		}
-
-		addRecipe(new ItemStack(Blocks.OBSIDIAN), 0.5f, 700, new ItemStack(Items.IRON_INGOT));
 	}
 
 	@SuppressWarnings("incomplete")
@@ -199,6 +195,13 @@ public class SmelterRecipeHandler implements IRecipeHandler<SmelterRecipe>
 	@Nonnull
 	@Override
 	public String getRecipeCategoryUid()
+	{
+		return CategoryUid.SMELTER;
+	}
+
+	@Nonnull
+	@Override
+	public String getRecipeCategoryUid(@Nonnull SmelterRecipe recipe)
 	{
 		return CategoryUid.SMELTER;
 	}

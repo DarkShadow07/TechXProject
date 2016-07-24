@@ -25,6 +25,8 @@ public class GhostItemUtil
 
 	public static ItemStack getStackFromGhost(ItemStack ghostStack)
 	{
+		if (ghostStack == null) return ghostStack;
+
 		ItemStack newStack = ghostStack.copy();
 
 		if (newStack.getTagCompound() == null) newStack.setTagCompound(new NBTTagCompound());

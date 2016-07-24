@@ -3,7 +3,6 @@ package DarkS.TechXProject.machines.energyMonitor;
 import DarkS.TechXProject.client.gui.GuiContainerBase;
 import DarkS.TechXProject.client.gui.widget.GuiButtonExpand;
 import DarkS.TechXProject.packets.PacketHandler;
-import DarkS.TechXProject.packets.PacketUpdateMonitor;
 import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -181,7 +180,7 @@ public class GuiEnergyMonitor extends GuiContainerBase
 		{
 			List<String> info = new ArrayList<>();
 
-			info.add(ChatFormatting.RED + "Need to be attached to a Conduit Network!");
+			info.add(ChatFormatting.RED + "Need to be attached to a Node Network!");
 
 			drawHoveringText(info, mouseX - left, mouseY - top);
 		}

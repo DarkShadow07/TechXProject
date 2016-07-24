@@ -1,6 +1,6 @@
 package DarkS.TechXProject.blocks.node;
 
-import DarkS.TechXProject.node.transport.TileTransportNode;
+import DarkS.TechXProject.machines.node.transport.TileTransportNode;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

@@ -20,10 +20,12 @@ public class TileCapacitor extends TileEnergyContainer
 	{
 		tracker.tickStart(getEnergy());
 
+		doTransferForSides();
+
 		tracker.tickEnd(getEnergy());
 	}
 
-	protected void doTransferForSides()
+	private void doTransferForSides()
 	{
 		for (EnumFacing side : outputSides)
 		{
@@ -68,9 +70,6 @@ public class TileCapacitor extends TileEnergyContainer
 		if (!test)
 		{
 			tracker.receiveEnergy(amount);
-
-			markDirty();
-			markForUpdate();
 		}
 
 		return super.addEnergy(amount, test);
@@ -82,9 +81,6 @@ public class TileCapacitor extends TileEnergyContainer
 		if (!test)
 		{
 			tracker.sendEnergy(energy);
-
-			markDirty();
-			markForUpdate();
 		}
 
 		return super.subtractEnergy(energy, test);

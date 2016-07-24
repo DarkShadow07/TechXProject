@@ -3,7 +3,7 @@ package DarkS.TechXProject.items.itemWire;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.INetworkRelay;
 import DarkS.TechXProject.items.ItemBase;
-import DarkS.TechXProject.node.network.NetworkUtil;
+import DarkS.TechXProject.machines.node.network.NetworkUtil;
 import DarkS.TechXProject.util.ChatUtil;
 import DarkS.TechXProject.util.NBTUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -35,9 +35,7 @@ public class ItemWire extends ItemBase
 
 		BlockPos pos = getPos(stack);
 		if (pos != null)
-		{
 			tooltip.add("Linking from: " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
-		}
 	}
 
 	@Override
@@ -72,9 +70,27 @@ public class ItemWire extends ItemBase
 			worldIn.playSound(null, pos, SoundEvents.ENTITY_ITEMFRAME_PLACE, SoundCategory.BLOCKS, 0.5f, 0.7f);
 		} else
 		{
-			stack.stackSize -= 1;
+			int dx = pos.getX() - nbtPos.getX();
+			int dy = pos.getY() - nbtPos.getY();
+			int dz = pos.getZ() - nbtPos.getZ();
 
-			ChatUtil.sendNoSpam(playerIn, ChatFormatting.AQUA + "Connection Done!");
+			dx = dx * dx;
+			dy = dy * dy;
+			dz = dz * dz;
+
+			double distance = Math.sqrt(dx + dy + dz);
+
+			if (distance > 24)
+			{
+				ChatUtil.sendNoSpam(playerIn, ChatFormatting.RED + "This Wire is too Short, Max Distance is 24 Blocks");
+
+				return EnumActionResult.FAIL;
+			}
+
+			if (!playerIn.capabilities.isCreativeMode)
+				stack.stackSize -= 1;
+
+			ChatUtil.sendNoSpam(playerIn, ChatFormatting.GREEN + "Connection Done!");
 			TileEntity nbtTile = worldIn.getTileEntity(nbtPos);
 
 			NetworkUtil.link(nbtTile, tile);
@@ -89,7 +105,7 @@ public class ItemWire extends ItemBase
 
 	private void setPos(ItemStack stack, BlockPos pos)
 	{
-		stack = NBTUtil.checkNBT(stack);
+		NBTUtil.checkNBT(stack);
 
 		NBTTagCompound tag = stack.getTagCompound();
 

@@ -12,7 +12,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public abstract class TileBase extends TileEntity
+public class TileBase extends TileEntity
 {
 	public void markForUpdate()
 	{
@@ -38,7 +38,7 @@ public abstract class TileBase extends TileEntity
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		return new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
+		return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
 	}
 
 	@Override
@@ -47,9 +47,6 @@ public abstract class TileBase extends TileEntity
 		super.onDataPacket(networkManager, s35PacketUpdateTileEntity);
 
 		readFromNBT(s35PacketUpdateTileEntity.getNbtCompound());
-		worldObj.markBlockRangeForRenderUpdate(pos, pos);
-
-		markForUpdate();
 	}
 
 	@Override

@@ -88,7 +88,8 @@ public class ConfigurationHandler
 
 			if (elements != null)
 			{
-				elements.forEach(element -> {
+				elements.forEach(element ->
+				{
 					if (fromJson != null && element != null)
 					{
 						element.setValue(fromJson.get(element.getName()).getAsString());

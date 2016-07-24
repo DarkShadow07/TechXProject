@@ -1,6 +1,7 @@
 package DarkS.TechXProject.client.gui;
 
 import DarkS.TechXProject.TechXProject;
+import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.blocks.base.ContainerDummy;
 import DarkS.TechXProject.configuration.GuiConfiguration;
 import DarkS.TechXProject.guide.GuiGuide;
@@ -16,9 +17,16 @@ import DarkS.TechXProject.machines.energyMonitor.TileEnergyMonitor;
 import DarkS.TechXProject.machines.farmer.ContainerFarmer;
 import DarkS.TechXProject.machines.farmer.GuiFarmer;
 import DarkS.TechXProject.machines.farmer.TileFarmer;
+import DarkS.TechXProject.machines.itemInterface.ContainerItemInterface;
+import DarkS.TechXProject.machines.itemInterface.GuiItemInterface;
+import DarkS.TechXProject.machines.itemInterface.TileItemInterface;
 import DarkS.TechXProject.machines.machineAssembler.ContainerMachineAssembler;
 import DarkS.TechXProject.machines.machineAssembler.GuiMachineAssembler;
 import DarkS.TechXProject.machines.machineAssembler.TileMachineAssembler;
+import DarkS.TechXProject.machines.node.item.ContainerItemNode;
+import DarkS.TechXProject.machines.node.item.gui.GuiNode;
+import DarkS.TechXProject.machines.node.transport.TileTransportNode;
+import DarkS.TechXProject.machines.node.transport.gui.GuiTransportNode;
 import DarkS.TechXProject.machines.recipeChest.ContainerRecipeChest;
 import DarkS.TechXProject.machines.recipeChest.GuiRecipeChest;
 import DarkS.TechXProject.machines.recipeChest.TileRecipeChest;
@@ -34,10 +42,6 @@ import DarkS.TechXProject.machines.storageUnit.TileStorageUnit;
 import DarkS.TechXProject.machines.teleporter.ContainerTeleporter;
 import DarkS.TechXProject.machines.teleporter.GuiTeleporter;
 import DarkS.TechXProject.machines.teleporter.TileTeleporter;
-import DarkS.TechXProject.node.item.ContainerItemNode;
-import DarkS.TechXProject.node.item.gui.GuiItemNode;
-import DarkS.TechXProject.node.transport.TileTransportNode;
-import DarkS.TechXProject.node.transport.gui.GuiTransportNode;
 import DarkS.TechXProject.reference.Guis;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -78,7 +82,7 @@ public class GuiHandler implements IGuiHandler
 			case Guis.CONFIGURATION:
 				return new ContainerDummy();
 			case Guis.CONDUIT:
-				return new ContainerItemNode(player.inventory, (IInventory) tile);
+				return new ContainerItemNode(player.inventory, tile instanceof IInventory ? (IInventory) tile : null);
 			case Guis.SMELTER:
 				return new ContainerSmelter(player.inventory, (TileSmelter) tile);
 			case Guis.CAPACITOR:
@@ -103,6 +107,8 @@ public class GuiHandler implements IGuiHandler
 				return new ContainerDummy();
 			case Guis.TRANSPORT:
 				return new ContainerDummy();
+			case Guis.INTERFACE:
+				return new ContainerItemInterface(player.inventory, (TileItemInterface) tile);
 		}
 
 		return null;
@@ -119,7 +125,7 @@ public class GuiHandler implements IGuiHandler
 			case Guis.CONFIGURATION:
 				return new GuiConfiguration();
 			case Guis.CONDUIT:
-				return new GuiItemNode(player.inventory, (IInventory) tile);
+				return new GuiNode(player.inventory, (INetworkElement) tile);
 			case Guis.SMELTER:
 				return new GuiSmelter(player.inventory, (TileSmelter) tile);
 			case Guis.CAPACITOR:
@@ -144,6 +150,8 @@ public class GuiHandler implements IGuiHandler
 				return new GuiGuide();
 			case Guis.TRANSPORT:
 				return new GuiTransportNode((TileTransportNode) tile);
+			case Guis.INTERFACE:
+				return new GuiItemInterface(player.inventory, (TileItemInterface) tile);
 		}
 
 		return null;

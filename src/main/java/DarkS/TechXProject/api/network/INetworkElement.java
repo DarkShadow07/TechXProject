@@ -53,12 +53,16 @@ public interface INetworkElement<T extends TileEntity>
 	 */
 	boolean isInput();
 
+	void setInput(boolean input);
+
 	/**
 	 * Returns if the INetworkElement is output
 	 *
 	 * @return If the INetworkElement is output
 	 */
 	boolean isOutput();
+
+	void setOutput(boolean output);
 
 	/**
 	 * Returns if the INetworkElement is active

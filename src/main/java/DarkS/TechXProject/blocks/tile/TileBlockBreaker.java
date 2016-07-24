@@ -1,6 +1,6 @@
 package DarkS.TechXProject.blocks.tile;
 
-import DarkS.TechXProject.node.item.NodeUtil;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -70,7 +70,7 @@ public class TileBlockBreaker extends TileBase implements ITickable
 					worldObj.destroyBlock(pos, true);
 				}
 
-				worldObj.sendBlockBreakProgress(0, pos, 0);
+				worldObj.sendBlockBreakProgress(0, pos, -1);
 			}
 		}
 	}

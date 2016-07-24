@@ -23,17 +23,13 @@ public class PerTickCalculator
 	{
 		int numTicks = tickCount + writeSize * 20;
 		if (numTicks == 0)
-		{
 			return 0;
-		}
 		float totalPower = lastSecondTotal;
 		for (int idx = writeIndex, cnt = writeSize; cnt-- > 0; )
 		{
 			totalPower += secondsCache[idx];
 			if (++idx == secondsCache.length)
-			{
 				idx = 0;
-			}
 		}
 		return totalPower / numTicks;
 	}
@@ -46,13 +42,9 @@ public class PerTickCalculator
 		{
 			secondsCache[writeIndex++] = lastSecondTotal;
 			if (writeIndex > writeSize)
-			{
 				writeSize = writeIndex;
-			}
 			if (writeIndex == secondsCache.length)
-			{
 				writeIndex = 0;
-			}
 			lastSecondTotal = 0;
 			tickCount = 0;
 		}

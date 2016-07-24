@@ -45,9 +45,7 @@ public class PacketUpdateEnergy extends MessageTileEntity<TileEnergyContainer>
 			TileEntity tile = message.getTileEntity(TechXProject.proxy.getClientWorld());
 
 			if (tile != null)
-			{
 				((TileEnergyContainer) tile).setEnergy(message.energy);
-			}
 
 			return null;
 		}

@@ -15,9 +15,8 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class TileStorageUnit extends TileBase implements IInventory
 {
-	private ItemStack[] inventory;
-
 	IItemHandler handlerAll;
+	private ItemStack[] inventory;
 
 	public TileStorageUnit()
 	{
@@ -59,7 +58,7 @@ public class TileStorageUnit extends TileBase implements IInventory
 
 		tag.setTag("Items", nbttaglist);
 
-		return tag;
+		return super.writeToNBT(tag);
 	}
 
 	@Override
@@ -78,6 +77,8 @@ public class TileStorageUnit extends TileBase implements IInventory
 				inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
+
+		super.readFromNBT(tag);
 	}
 
 	@Override

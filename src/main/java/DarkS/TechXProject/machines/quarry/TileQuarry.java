@@ -1,7 +1,7 @@
 package DarkS.TechXProject.machines.quarry;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
-import DarkS.TechXProject.node.item.NodeUtil;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
 import DarkS.TechXProject.packets.PacketHandler;
 import DarkS.TechXProject.packets.PacketUpdateEnergy;
 import DarkS.TechXProject.util.Util;

@@ -1,7 +1,9 @@
 package DarkS.TechXProject.blocks.node;
 
-import DarkS.TechXProject.api.IWrench;
-import DarkS.TechXProject.node.energy.TileEnergyNode;
+import DarkS.TechXProject.TechXProject;
+import DarkS.TechXProject.client.gui.GuiHandler;
+import DarkS.TechXProject.machines.node.energy.TileEnergyNode;
+import DarkS.TechXProject.reference.Guis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,23 +25,11 @@ public class BlockEnergyNode extends BlockNodeBase
 	{
 		if (!playerIn.isSneaking())
 		{
-			if (playerIn.getHeldItem(hand) != null && playerIn.getHeldItem(hand).getItem() instanceof IWrench)
-			{
-				TileEnergyNode tile = (TileEnergyNode) worldIn.getTileEntity(pos);
-
-				if (tile.isInput())
-				{
-					tile.setInput(false);
-					tile.setOutput(true);
-				} else if (tile.isOutput())
-				{
-					tile.setOutput(false);
-					tile.setInput(true);
-				}
-			}
+			GuiHandler.openGui(playerIn, TechXProject.instance, Guis.CONDUIT, pos);
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override

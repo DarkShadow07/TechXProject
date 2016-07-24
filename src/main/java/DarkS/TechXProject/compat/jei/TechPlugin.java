@@ -16,6 +16,14 @@ import javax.annotation.Nonnull;
 @JEIPlugin
 public class TechPlugin implements IModPlugin
 {
+	public static boolean jeiLoaded = false;
+	private static IJeiRuntime runtime;
+
+	public static void setSearchText(String text)
+	{
+		runtime.getItemListOverlay().setFilterText(text);
+	}
+
 	@Override
 	public void register(@Nonnull IModRegistry registry)
 	{
@@ -47,6 +55,7 @@ public class TechPlugin implements IModPlugin
 	@Override
 	public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime)
 	{
-
+		runtime = jeiRuntime;
+		jeiLoaded = true;
 	}
 }

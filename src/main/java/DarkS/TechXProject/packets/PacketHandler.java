@@ -1,5 +1,14 @@
 package DarkS.TechXProject.packets;
 
+import DarkS.TechXProject.capability.PacketEnergyCapability;
+import DarkS.TechXProject.machines.energyMonitor.PacketUpdateMonitor;
+import DarkS.TechXProject.machines.itemInterface.PacketExtractFromNetwork;
+import DarkS.TechXProject.machines.itemInterface.PacketSendInventory;
+import DarkS.TechXProject.machines.node.PacketUpdateIO;
+import DarkS.TechXProject.machines.node.transport.PacketMove;
+import DarkS.TechXProject.machines.node.transport.PacketSetName;
+import DarkS.TechXProject.machines.recipeStamper.PacketUpdateRecipe;
+import DarkS.TechXProject.machines.teleporter.PacketTeleportEntity;
 import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.ChatUtil;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -24,6 +33,10 @@ public class PacketHandler
 		INSTANCE.registerMessage(PacketMove.Handler.class, PacketMove.class, 6, Side.SERVER);
 		INSTANCE.registerMessage(PacketSetName.Handler.class, PacketSetName.class, 7, Side.SERVER);
 		INSTANCE.registerMessage(PacketSendNetwork.Handler.class, PacketSendNetwork.class, 8, Side.CLIENT);
+		INSTANCE.registerMessage(PacketEnergyCapability.Handler.class, PacketEnergyCapability.class, 9, Side.CLIENT);
+		INSTANCE.registerMessage(PacketUpdateIO.Handler.class, PacketUpdateIO.class, 10, Side.SERVER);
+		INSTANCE.registerMessage(PacketSendInventory.Handler.class, PacketSendInventory.class, 11, Side.CLIENT);
+		INSTANCE.registerMessage(PacketExtractFromNetwork.Handler.class, PacketExtractFromNetwork.class, 12, Side.SERVER);
 	}
 
 	public static void sendToAllAround(IMessage message, TileEntity te, int range)

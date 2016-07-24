@@ -3,8 +3,8 @@ package DarkS.TechXProject.blocks.node;
 import DarkS.TechXProject.api.network.INetworkContainer;
 import DarkS.TechXProject.blocks.base.BlockContainerBase;
 import DarkS.TechXProject.blocks.base.IRenderer;
-import DarkS.TechXProject.node.item.NodeUtil;
-import DarkS.TechXProject.node.network.controller.TileNetworkController;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
+import DarkS.TechXProject.machines.node.network.controller.TileNetworkController;
 import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.ChatUtil;
 import DarkS.TechXProject.util.Util;
@@ -38,7 +38,7 @@ public class BlockNetworkController extends BlockContainerBase implements IRende
 	{
 		TileNetworkController tile = (TileNetworkController) worldIn.getTileEntity(pos);
 
-		if (tile != null)
+		if (tile != null && !tile.getNetwork().getElements().isEmpty() && !worldIn.isRemote)
 			ChatUtil.sendNoSpam(playerIn, NodeUtil.getNetworkInfo(tile.getNetwork()).toArray(new String[0]));
 
 		return true;

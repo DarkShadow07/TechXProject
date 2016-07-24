@@ -1,7 +1,7 @@
 package DarkS.TechXProject.machines.farmer;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
-import DarkS.TechXProject.node.item.NodeUtil;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.IGrowable;

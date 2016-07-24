@@ -2,7 +2,6 @@ package DarkS.TechXProject.blocks.base;
 
 import DarkS.TechXProject.api.IWrenchable;
 import DarkS.TechXProject.reference.Reference;
-import DarkS.TechXProject.util.Logger;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;

@@ -2,9 +2,11 @@ package DarkS.TechXProject.events;
 
 import DarkS.TechXProject.api.energy.IEnergyContainer;
 import DarkS.TechXProject.api.energy.IEnergyGenerator;
+import DarkS.TechXProject.blocks.tile.highlight.IHighlightProvider;
+import DarkS.TechXProject.blocks.tile.highlight.SelectionBox;
+import DarkS.TechXProject.capability.CustomCapabilities;
 import DarkS.TechXProject.client.EffectManager;
-import DarkS.TechXProject.highlight.IHighlightProvider;
-import DarkS.TechXProject.highlight.SelectionBox;
+import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.PartialTicksUtil;
 import DarkS.TechXProject.util.Renderer;
 import DarkS.TechXProject.util.Util;
@@ -12,10 +14,13 @@ import DarkS.TechXProject.util.VectorUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -141,10 +146,39 @@ public class RenderEvents
 	@SubscribeEvent
 	public void renderOverlayEvent(RenderGameOverlayEvent.Post event)
 	{
-		ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
+		ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
 
 		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL)
 		{
+			FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
+
+			if (Util.player().hasCapability(CustomCapabilities.ENERGY_CAPABILITY, null) && !Util.player().capabilities.isCreativeMode)
+			{
+				CustomCapabilities.IEnergyData data = Util.player().getCapability(CustomCapabilities.ENERGY_CAPABILITY, null);
+
+				if (data.getEnergy() > 0)
+				{
+					GlStateManager.pushMatrix();
+
+					GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+
+					Util.minecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/icon/energyBarEmpty.png"));
+					Gui.drawModalRectWithCustomSizedTexture(res.getScaledWidth() / 2 - 182 / 2, res.getScaledHeight() - 28, 0, 0, 182, 5, 182, 5);
+
+					Util.minecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/icon/energyBar.png"));
+					Gui.drawModalRectWithCustomSizedTexture(res.getScaledWidth() / 2 - 182 / 2, res.getScaledHeight() - 28, 0, 0, (int) ((float) data.getEnergy() / data.getMaxEnergy() * 182), 5, 182, 5);
+
+					String energy = String.format("%s/%s", NumberFormat.getInstance().format(data.getEnergy()), NumberFormat.getInstance().format(data.getMaxEnergy()));
+
+					GlStateManager.scale(0.75f, 0.75f, 0.75f);
+
+					if (GuiScreen.isAltKeyDown())
+						fontRenderer.drawString(energy, (res.getScaledWidth() / 2 + 182 / 2 + 2) * 1.33f, (res.getScaledHeight() - 28) * 1.33f, Color.white.getRGB(), true);
+
+					GlStateManager.popMatrix();
+				}
+			}
+
 			if (Util.minecraft().objectMouseOver != null && Util.minecraft().objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK))
 			{
 				World world = Util.world();
@@ -158,10 +192,8 @@ public class RenderEvents
 
 					String energy = NumberFormat.getInstance().format(container.getEnergy()) + "/" + NumberFormat.getInstance().format(container.getMaxEnergy());
 
-					FontRenderer fontRenderer = Util.minecraft().fontRendererObj;
-
-					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), resolution.getScaledWidth() / 2 + 8, resolution.getScaledHeight() / 2, Color.white.getRGB());
-					fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + energy, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 10, Color.white.hashCode());
+					fontRenderer.drawStringWithShadow(tile.getBlockType().getLocalizedName(), res.getScaledWidth() / 2 + 8, res.getScaledHeight() / 2, Color.white.getRGB());
+					fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + energy, (res.getScaledWidth() / 2) + 8, res.getScaledHeight() / 2 + 10, Color.white.hashCode());
 
 					if (tile instanceof IEnergyGenerator)
 					{
@@ -169,7 +201,7 @@ public class RenderEvents
 
 						String generating = String.format("Generating %sTF/t", ChatFormatting.GREEN + NumberFormat.getInstance().format(generator.getGenerating()) + ChatFormatting.GRAY);
 
-						fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + generating, (resolution.getScaledWidth() / 2) + 8, resolution.getScaledHeight() / 2 + 20, Color.white.getRGB());
+						fontRenderer.drawStringWithShadow(ChatFormatting.GRAY + generating, (res.getScaledWidth() / 2) + 8, res.getScaledHeight() / 2 + 20, Color.white.getRGB());
 					}
 				}
 			}

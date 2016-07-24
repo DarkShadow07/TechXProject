@@ -1,7 +1,6 @@
 package DarkS.TechXProject.items;
 
 import DarkS.TechXProject.machines.quarry.TileQuarry;
-import DarkS.TechXProject.machines.structureSaver.TileStructureSaver;
 import DarkS.TechXProject.util.ChatUtil;
 import DarkS.TechXProject.util.NBTUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -74,14 +73,6 @@ public class ItemAreaCard extends ItemBase
 				setPosEnd(stack, BlockPos.ORIGIN);
 
 				ChatUtil.sendNoSpam(playerIn, "Quarry Started! (" + start.getX() + " " + start.getY() + " " + start.getZ() + " to " + end.getX() + " " + end.getY() + " " + end.getZ() + ")");
-			}else if (worldIn.getTileEntity(pos) instanceof TileStructureSaver)
-			{
-				((TileStructureSaver) worldIn.getTileEntity(pos)).start(start, end);
-
-				setPosStart(stack, BlockPos.ORIGIN);
-				setPosEnd(stack, BlockPos.ORIGIN);
-
-				ChatUtil.sendNoSpam(playerIn, "Saving Structure! (" + start.getX() + " " + start.getY() + " " + start.getZ() + " to " + end.getX() + " " + end.getY() + " " + end.getZ() + ")");
 			}
 		}
 

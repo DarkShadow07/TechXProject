@@ -152,6 +152,13 @@ public class CrusherRecipeHandler implements IRecipeHandler<CrusherRecipe>
 
 	@Nonnull
 	@Override
+	public String getRecipeCategoryUid(@Nonnull CrusherRecipe recipe)
+	{
+		return CategoryUid.CRUSHER;
+	}
+
+	@Nonnull
+	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull CrusherRecipe recipe)
 	{
 		return recipe;

@@ -2,10 +2,9 @@ package DarkS.TechXProject.blocks.node;
 
 import DarkS.TechXProject.blocks.base.BlockContainerBase;
 import DarkS.TechXProject.blocks.base.IRenderer;
-import DarkS.TechXProject.highlight.IHighlightProvider;
-import DarkS.TechXProject.highlight.SelectionBox;
+import DarkS.TechXProject.blocks.tile.highlight.IHighlightProvider;
+import DarkS.TechXProject.blocks.tile.highlight.SelectionBox;
 import DarkS.TechXProject.reference.Reference;
-import DarkS.TechXProject.util.Logger;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;

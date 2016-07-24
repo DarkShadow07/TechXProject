@@ -1,0 +1,30 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "techxproject:energyMonitor",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "facing": {
+      "north": {},
+      "east": {
+        "model": "techxproject:energyMonitor",
+        "y": 90
+      },
+      "south": {
+        "model": "techxproject:energyMonitor",
+        "y": 180
+      },
+      "west": {
+        "model": "techxproject:energyMonitor",
+        "y": 270
+      }
+    }
+  }
+}

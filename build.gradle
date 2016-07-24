@@ -15,15 +15,15 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = "194.0.00.0-A"
+version = "110.0.00.0-A"
 group = "DrShadow.TechXProject"
 archivesBaseName = "Tech 'X' Project"
 
 minecraft {
-    version = "${mc_version}-12.17.0.1909-1.9.4"
-    runDir = "run"
-
     mappings = "snapshot_20160518"
+
+    version = "${forge_version}"
+    runDir = "run"
 
     useDepAts = true
 }
@@ -47,7 +47,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
+    deobfCompile "mcp.mobius.waila:Waila:${waila_version}:dev"
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
 }
 

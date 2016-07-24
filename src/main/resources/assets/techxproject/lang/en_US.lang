@@ -18,14 +18,13 @@ tile.techxproject.smelter.name=Energetic Smelter
 tile.techxproject.crusher.name=Energetic Crusher
 tile.techxproject.quarry.name=Energetic Quarry
 tile.techxproject.farmer.name=Energetic Farmer
-tile.techxproject.teleporter.name=Multidimensional Teleporter
+tile.techxproject.teleporter.name=Dimensional Telepad
 tile.techxproject.storageUnit.name=Storage Unit
 tile.techxproject.solarPanel.name=Solar Panel
 tile.techxproject.recipeChest.name=Machine Recipe Chest
 tile.techxproject.wirelessCharger.name=Wireless Item Charger
 tile.techxproject.activator.name=Redstone Activator
-tile.techxproject.structureSaver.name=Structure Saver
-tile.techxproject.canvas.name=Paint Canvas
+tile.techxproject.itemInterface.name=Item Interface
 
 tile.techxproject.copperOre.name=Copper Ore
 tile.techxproject.leadOre.name=Lead Ore
@@ -42,15 +41,16 @@ tile.techxproject.breaker.name=Block Breaker
 
 ######## Items #######
 item.techxproject.wrench.name=Wrench
-item.techxproject.wire.name=Wire
+item.techxproject.nodeBase.name=Node Chassis
+item.techxproject.energyCore.name=Unstable Energy Core
+item.techxproject.processingMatrix.name=Processing Matrix
+item.techxproject.wire.name=Optic Fiber Wire
 item.techxproject.areaCard.name=Area Card
 item.techxproject.teleporterCard.name=Teleport Card
 item.techxproject.magnet.name=Energised Magnet
 item.techxproject.guide.name=Tech Guide
-item.techxproject.machineRecipe.name=Empty Machine Recipe
-item.techxproject.structureCard.name=Structure Card
-
-item.techxproject.paintBrush.name=Paint Brush
+item.techxproject.machineRecipe.name=Machine Recipe
+item.techxproject.plasticBall.name=Plastic Ball
 
 item.techxproject.filterName.name=Item Filter (Name)
 item.techxproject.filterBase.name=Item Filter (Basic)
@@ -67,6 +67,7 @@ item.techxproject.leadIngot.name=Lead Ingot
 item.techxproject.nickelIngot.name=Nickel Ingot
 item.techxproject.tinIngot.name=Tin Ingot
 item.techxproject.grapheneIngot.name=Graphene Bar
+item.techxproject.meteorShard.name=Meteor Shard
 
 item.techxproject.copperDust.name=Pulverised Copper
 item.techxproject.leadDust.name=Pulverised Lead
@@ -100,6 +101,8 @@ guide.entry.Machine Assembling= For Assembling Machines you'll need a Machine, t
 guide.entry.Generating Energy= You have many ways to generate Energy, do your best to find the Best combination to get large amounts of Energy, with a little price. /n The best way to start is with Solar Panels, but they only work at Day Time...
 guide.entry.Storing Energy= Use a Capacitor to Store Energy, use a Potato to Waste Energy. /n There are different Tiers of Capacitors that you can use, they offer Large amounts of Energy to be Stored at a good rate per tick.
 guide.entry.Meteors=Strange Meteors are falling from the sky! /n They seem to contain strange Metals and Materials...
+guide.entry.Static Energy= You can store Energy on yourself, but... with what cost? /n Storing Energy into a player is dangerous, it can be unstable and Shock you! /n If the player gets damaged, energy will scape out of it.
+guide.entry.Using Static Energy=Static Energy can be used to Charge Energy Items, repair Armor and Tools with the Energy Repair (I, II, III) Enchantment.
 
 ######## Creative Tabs ########
 itemGroup.techTab=Tech 'X' Project
@@ -109,3 +112,8 @@ itemGroup.techTabOres=Tech 'X' Project Ores
 techxproject.config.reset=Reset all to Default
 
 ######## Dead Messages ########
+death.attack.energyShock=%1$s was shocked by a energy overflow
+death.attack.energyScape=%1$s was shocked by a energy scape
+
+######## Enchantment ########
+enchantment.energyRepair=Energy Repair

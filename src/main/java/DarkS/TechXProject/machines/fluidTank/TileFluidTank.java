@@ -2,31 +2,26 @@ package DarkS.TechXProject.machines.fluidTank;
 
 import DarkS.TechXProject.blocks.tile.TileBase;
 import DarkS.TechXProject.compat.waila.IWailaBody;
-import DarkS.TechXProject.highlight.IHighlightProvider;
-import DarkS.TechXProject.highlight.SelectionBox;
-import DarkS.TechXProject.util.Logger;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
+import javax.annotation.Nullable;
 import java.text.NumberFormat;
 import java.util.List;
 
-public class TileFluidTank extends TileBase implements IFluidHandler, IWailaBody, IHighlightProvider
+public class TileFluidTank extends TileBase implements IFluidHandler, IWailaBody
 {
 	public FluidTank tank;
-
-	private int maxOut = 500;
+	;
 
 	public TileFluidTank()
 	{
@@ -51,45 +46,21 @@ public class TileFluidTank extends TileBase implements IFluidHandler, IWailaBody
 	}
 
 	@Override
-	public int fill(EnumFacing from, FluidStack resource, boolean doFill)
-	{
-		return tank.fill(resource, doFill);
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
-	{
-		return drain(from, maxOut, doDrain);
-	}
-
-	@Override
-	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
-	{
-		return tank.drain(maxDrain, doDrain);
-	}
-
-	@Override
-	public boolean canFill(EnumFacing from, Fluid fluid)
-	{
-		return tank.getFluidAmount() < tank.getCapacity();
-	}
-
-	@Override
-	public boolean canDrain(EnumFacing from, Fluid fluid)
-	{
-		return tank.getFluidAmount() > 0;
-	}
-
-	@Override
-	public FluidTankInfo[] getTankInfo(EnumFacing from)
-	{
-		return new FluidTankInfo[]{tank.getInfo()};
-	}
-
-	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 	{
+		if (capability.equals(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY))
+			return (T) this;
+
 		return (T) this;
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	{
+		if (capability.equals(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY))
+			return true;
+
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
@@ -102,26 +73,28 @@ public class TileFluidTank extends TileBase implements IFluidHandler, IWailaBody
 	}
 
 	@Override
-	public SelectionBox[] getBoxes()
+	public IFluidTankProperties[] getTankProperties()
 	{
-		return new SelectionBox[]{new SelectionBox(0, new AxisAlignedBB(0.15625f, 0.0f, 0.15625f, 0.84375f, 0.125f, 0.84375f), new AxisAlignedBB(0.15625f, 0.875f, 0.15625f, 0.84375f, 1.0f, 0.84375f), new AxisAlignedBB(0.1875f, 0.125f, 0.1875f, 0.8125f, 0.875f, 0.8125f))};
+		return tank.getTankProperties();
 	}
 
 	@Override
-	public SelectionBox[] getSelectedBoxes(BlockPos pos, Vec3d start, Vec3d end)
+	public int fill(FluidStack resource, boolean doFill)
 	{
-		return getBoxes();
+		return tank.fill(resource, doFill);
 	}
 
+	@Nullable
 	@Override
-	public RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end)
+	public FluidStack drain(FluidStack resource, boolean doDrain)
 	{
-		return SelectionBox.rayTraceAll(getBoxes(), pos, start, end);
+		return tank.drain(resource, doDrain);
 	}
 
+	@Nullable
 	@Override
-	public boolean onBoxClicked(SelectionBox box, EntityPlayer clicker)
+	public FluidStack drain(int maxDrain, boolean doDrain)
 	{
-		return false;
+		return tank.drain(maxDrain, doDrain);
 	}
 }

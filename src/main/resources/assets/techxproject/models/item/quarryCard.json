@@ -1,6 +1,0 @@
-{
-  "parent": "techxproject:item/baseItem",
-  "textures": {
-    "layer0": "techxproject:items/quarryCard"
-  }
-}

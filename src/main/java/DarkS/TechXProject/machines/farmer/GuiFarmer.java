@@ -47,11 +47,11 @@ public class GuiFarmer extends GuiContainerBase
 		GuiUtil guiUtil = new GuiUtil();
 
 		if (tile.getStackInSlot(0) == null)
-			guiUtil.drawItemStack(new ItemStack(Items.STONE_AXE), 27, 18, itemRender, fontRendererObj, true);
+			guiUtil.drawItemStack(new ItemStack(Items.STONE_AXE), 27, 18, itemRender, fontRendererObj, new Color(139, 139, 139, 160).hashCode());
 		if (tile.getStackInSlot(6) == null)
-			guiUtil.drawItemStack(new ItemStack(Items.DYE, 0, 15), 67, 18, itemRender, fontRendererObj, true);
+			guiUtil.drawItemStack(new ItemStack(Items.DYE, 0, 15), 67, 18, itemRender, fontRendererObj, new Color(139, 139, 139, 160).hashCode());
 		if (tile.getStackInSlot(7) == null)
-			guiUtil.drawItemStack(new ItemStack(Items.DYE, 0, 15), 85, 18, itemRender, fontRendererObj, true);
+			guiUtil.drawItemStack(new ItemStack(Items.DYE, 0, 15), 85, 18, itemRender, fontRendererObj, new Color(139, 139, 139, 160).hashCode());
 
 		fontRendererObj.drawString(I18n.format("container.inventory"), 8, 78, 4210752);
 		fontRendererObj.drawString(Lang.localize("gui.farmer"), 8, 6, 4210752);

@@ -1,11 +1,13 @@
 package DarkS.TechXProject.proxy;
 
+import DarkS.TechXProject.enchantment.EnchantmentEnergyRepair;
 import DarkS.TechXProject.init.InitBlocks;
 import DarkS.TechXProject.init.InitItems;
 import DarkS.TechXProject.packets.PacketHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
@@ -53,6 +55,8 @@ public class CommonProxy implements IProxy
 		InitItems.init();
 
 		InitItems.initRecipes();
+
+		GameRegistry.register(new EnchantmentEnergyRepair());
 	}
 
 	@Override

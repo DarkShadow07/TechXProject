@@ -1,7 +1,7 @@
 package DarkS.TechXProject.blocks.machine;
 
 import DarkS.TechXProject.TechXProject;
-import DarkS.TechXProject.blocks.base.BlockContainerBase;
+import DarkS.TechXProject.blocks.base.BlockMachineBase;
 import DarkS.TechXProject.client.gui.GuiHandler;
 import DarkS.TechXProject.machines.energyMonitor.TileEnergyMonitor;
 import DarkS.TechXProject.reference.Guis;
@@ -16,10 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockEnergyMonitor extends BlockContainerBase
+public class BlockEnergyMonitor extends BlockMachineBase
 {
-	// TODO: textures
-
 	public BlockEnergyMonitor()
 	{
 		super(Material.IRON, 4.1f, 2, "pickaxe");
@@ -37,12 +35,6 @@ public class BlockEnergyMonitor extends BlockContainerBase
 	public boolean canProvidePower(IBlockState state)
 	{
 		return true;
-	}
-
-	@Override
-	public float getEnchantPowerBonus(World world, BlockPos pos)
-	{
-		return super.getEnchantPowerBonus(world, pos);
 	}
 
 	@Override

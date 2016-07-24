@@ -3,7 +3,6 @@ package DarkS.TechXProject.machines.teleporter;
 import DarkS.TechXProject.client.gui.GuiContainerBase;
 import DarkS.TechXProject.items.ItemTeleporterCard;
 import DarkS.TechXProject.packets.PacketHandler;
-import DarkS.TechXProject.packets.PacketTeleportEntity;
 import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.Lang;
 import DarkS.TechXProject.util.Util;

@@ -5,7 +5,7 @@ import DarkS.TechXProject.api.energy.IEnergyGenerator;
 import DarkS.TechXProject.api.network.INetworkElement;
 import DarkS.TechXProject.api.network.NodeNetwork;
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
-import DarkS.TechXProject.node.energy.TileEnergyNode;
+import DarkS.TechXProject.machines.node.energy.TileEnergyNode;
 import DarkS.TechXProject.util.energy.EnergyTracker;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

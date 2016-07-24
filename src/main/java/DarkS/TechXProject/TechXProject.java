@@ -1,13 +1,15 @@
 package DarkS.TechXProject;
 
+import DarkS.TechXProject.capability.CustomCapabilities;
 import DarkS.TechXProject.client.gui.GuiHandler;
 import DarkS.TechXProject.configuration.ConfigurationHandler;
-import DarkS.TechXProject.init.InitChestLoot;
+import DarkS.TechXProject.events.PlayerEvents;
 import DarkS.TechXProject.proxy.CommonProxy;
 import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.Logger;
 import com.google.common.base.Stopwatch;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -45,6 +47,8 @@ public class TechXProject
 		proxy.registerConfiguration(event.getSuggestedConfigurationFile());
 		proxy.registerPacketHandler();
 
+		new CustomCapabilities();
+
 		configurationHandler = new ConfigurationHandler();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(TechXProject.instance, new GuiHandler());
@@ -67,9 +71,9 @@ public class TechXProject
 
 		proxy.registerEvents();
 
-		proxy.registerRenders();
+		MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 
-		InitChestLoot.init();
+		proxy.registerRenders();
 
 		Logger.info("Initialization Completed in " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + "ms!");
 	}

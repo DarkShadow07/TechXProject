@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "techxproject:blocks/machine/energyMonitor",
+    "north": "techxproject:blocks/machine/energyMonitor",
+    "east": "techxproject:blocks/machine/machineSide",
+    "west": "techxproject:blocks/machine/machineSide",
+    "down": "techxproject:blocks/machine/machineBottom",
+    "south": "techxproject:blocks/machine/machineBack",
+    "up": "techxproject:blocks/machine/machineTop"
+  }
+}

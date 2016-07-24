@@ -1,22 +1,21 @@
 package DarkS.TechXProject.blocks.machine.generator;
 
-import DarkS.TechXProject.blocks.base.BlockContainerBase;
-import DarkS.TechXProject.machines.energy.TileSolarPanel;
+import DarkS.TechXProject.blocks.base.BlockBase;
+import DarkS.TechXProject.machines.solar.TileSolarPanel;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSolarPanel extends BlockContainerBase
+public class BlockSolarPanel extends BlockBase implements ITileEntityProvider
 {
 	public BlockSolarPanel()
 	{
 		super(Material.IRON, 3.5f, 0, null);
-
 	}
 
 	@Override
@@ -37,12 +36,6 @@ public class BlockSolarPanel extends BlockContainerBase
 	public boolean isFullCube(IBlockState state)
 	{
 		return false;
-	}
-
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state)
-	{
-		return EnumBlockRenderType.MODEL;
 	}
 
 	@Override

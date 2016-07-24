@@ -1,6 +1,6 @@
 package DarkS.TechXProject.blocks.node;
 
-import DarkS.TechXProject.node.network.relay.TileNetworkRelay;
+import DarkS.TechXProject.machines.node.network.relay.TileNetworkRelay;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

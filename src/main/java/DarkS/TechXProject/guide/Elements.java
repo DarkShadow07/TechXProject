@@ -106,6 +106,8 @@ public class Elements
 			entries.add("Generating Energy");
 			entries.add("Storing Energy");
 			entries.add("Meteors");
+			entries.add("Static Energy");
+			entries.add("Using Static Energy");
 
 			buttons.clear();
 

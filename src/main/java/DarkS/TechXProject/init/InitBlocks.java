@@ -13,28 +13,27 @@ import DarkS.TechXProject.blocks.metal.ItemBlockOreBase;
 import DarkS.TechXProject.blocks.node.*;
 import DarkS.TechXProject.blocks.tile.TileBlockBreaker;
 import DarkS.TechXProject.machines.activator.TileActivator;
-import DarkS.TechXProject.machines.canvas.TileCanvas;
 import DarkS.TechXProject.machines.capacitor.TileBasicCapacitor;
 import DarkS.TechXProject.machines.crusher.TileCrusher;
-import DarkS.TechXProject.machines.energy.TileSolarPanel;
 import DarkS.TechXProject.machines.energyMonitor.TileEnergyMonitor;
 import DarkS.TechXProject.machines.farmer.TileFarmer;
 import DarkS.TechXProject.machines.fluidTank.TileFluidTank;
+import DarkS.TechXProject.machines.itemInterface.TileItemInterface;
 import DarkS.TechXProject.machines.machineAssembler.TileMachineAssembler;
+import DarkS.TechXProject.machines.node.energy.TileEnergyNode;
+import DarkS.TechXProject.machines.node.item.TileItemNode;
+import DarkS.TechXProject.machines.node.network.controller.TileNetworkController;
+import DarkS.TechXProject.machines.node.network.relay.TileNetworkRelay;
+import DarkS.TechXProject.machines.node.redstone.TileRedstoneNode;
+import DarkS.TechXProject.machines.node.transport.TileTransportNode;
 import DarkS.TechXProject.machines.quarry.TileQuarry;
 import DarkS.TechXProject.machines.recipeChest.TileRecipeChest;
 import DarkS.TechXProject.machines.recipeStamper.TileRecipeStamper;
 import DarkS.TechXProject.machines.smelter.TileSmelter;
+import DarkS.TechXProject.machines.solar.TileSolarPanel;
 import DarkS.TechXProject.machines.storageUnit.TileStorageUnit;
-import DarkS.TechXProject.machines.structureSaver.TileStructureSaver;
 import DarkS.TechXProject.machines.teleporter.TileTeleporter;
 import DarkS.TechXProject.machines.wirelessCharger.TileWirelessCharger;
-import DarkS.TechXProject.node.energy.TileEnergyNode;
-import DarkS.TechXProject.node.item.TileItemNode;
-import DarkS.TechXProject.node.network.controller.TileNetworkController;
-import DarkS.TechXProject.node.network.relay.TileNetworkRelay;
-import DarkS.TechXProject.node.redstone.TileRedstoneNode;
-import DarkS.TechXProject.node.transport.TileTransportNode;
 import DarkS.TechXProject.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -53,9 +52,7 @@ public enum InitBlocks
 	networkRelay(new BlockNetworkRelay(), "relay"),
 	networkController(new BlockNetworkController(), "controller"),
 
-	structureSaver(new BlockStructureSaver(), "structureSaver"),
-
-	canvas(new BlockCanvas(), "canvas"),
+	itemInterface(new BlockItemInterface(), "itemInterface"),
 
 	energyMonitor(new BlockEnergyMonitor(), "energyMonitor"),
 	wirelessCharger(new BlockWirelessCharger(), "wirelessCharger"),
@@ -142,19 +139,14 @@ public enum InitBlocks
 		registerTile(TileTransportNode.class);
 		registerTile(TileFluidTank.class);
 		registerTile(TileRedstoneNode.class);
-		registerTile(TileStructureSaver.class);
-		registerTile(TileCanvas.class);
+		registerTile(TileItemInterface.class);
 	}
 
 	public static void initRecipes()
 	{
 		for (InitBlocks block : InitBlocks.values())
-		{
 			if (block.block instanceof IRecipeProvider)
-			{
 				((IRecipeProvider) block.block).registerRecipes();
-			}
-		}
 	}
 
 	private static void registerTile(Class<? extends TileEntity> tileClass)
@@ -171,12 +163,9 @@ public enum InitBlocks
 		GameRegistry.register(register.itemBlock.setRegistryName(register.name));
 
 		if (block instanceof IRenderer)
-		{
 			((IRenderer) block).registerModel();
-		} else
-		{
+		else
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(Reference.MOD_ID + ":" + block.getUnlocalizedName().substring(18), "inventory"));
-		}
 
 		return block;
 	}

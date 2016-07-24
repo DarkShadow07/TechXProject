@@ -1,9 +1,9 @@
 package DarkS.TechXProject.machines.activator;
 
 import DarkS.TechXProject.blocks.tile.TileBase;
+import DarkS.TechXProject.blocks.tile.highlight.IHighlightProvider;
+import DarkS.TechXProject.blocks.tile.highlight.SelectionBox;
 import DarkS.TechXProject.compat.waila.IWailaBody;
-import DarkS.TechXProject.highlight.IHighlightProvider;
-import DarkS.TechXProject.highlight.SelectionBox;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.entity.player.EntityPlayer;
@@ -65,6 +65,8 @@ public class TileActivator extends TileBase implements IWailaBody, ITickable, IH
 		defaultOff = tag.getInteger("defOff");
 
 		power = tag.getInteger("power");
+
+		super.readFromNBT(tag);
 	}
 
 	@Override
@@ -78,7 +80,7 @@ public class TileActivator extends TileBase implements IWailaBody, ITickable, IH
 
 		tag.setInteger("power", power);
 
-		return tag;
+		return super.writeToNBT(tag);
 	}
 
 	public int getPower()

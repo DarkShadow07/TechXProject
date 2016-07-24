@@ -15,12 +15,4 @@ public class TileBasicCapacitor extends TileCapacitor
 			setSideInOut(facing);
 		}
 	}
-
-	@Override
-	public void update()
-	{
-		super.update();
-
-		doTransferForSides();
-	}
 }

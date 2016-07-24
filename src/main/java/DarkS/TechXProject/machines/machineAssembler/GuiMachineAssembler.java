@@ -7,6 +7,7 @@ import DarkS.TechXProject.items.ItemMachineRecipe;
 import DarkS.TechXProject.reference.Reference;
 import DarkS.TechXProject.util.GuiUtil;
 import DarkS.TechXProject.util.Lang;
+import DarkS.TechXProject.util.Util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -15,7 +16,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class GuiMachineAssembler extends GuiContainerBase
 
 				if (!slot.getHasStack())
 				{
-					guiUtil.drawItemStack(stacks[i], slot.xDisplayPosition, slot.yDisplayPosition, itemRender, fontRendererObj, true);
+					guiUtil.drawItemStack(stacks[i], slot.xDisplayPosition, slot.yDisplayPosition, itemRender, fontRendererObj, new Color(139, 139, 139, 160).hashCode());
 				}
 
 				Slot slotUnder = getSlotUnderMouse();
@@ -96,7 +96,8 @@ public class GuiMachineAssembler extends GuiContainerBase
 					info.add(stacks[slotUnder.getSlotIndex() - 2].getDisplayName() + " (" + stacks[slotUnder.getSlotIndex() - 2].stackSize + "x)");
 
 					info.add(ChatFormatting.DARK_GRAY + Item.REGISTRY.getNameForObject(stacks[slotUnder.getSlotIndex() - 2].getItem()).toString());
-					info.add(String.format("%s%s" + StringUtils.capitalize(Item.REGISTRY.getNameForObject(stacks[slotUnder.getSlotIndex() - 2].getItem()).getResourceDomain()), ChatFormatting.BLUE, ChatFormatting.ITALIC));
+
+					info.add(String.format("%s%s" + Util.getMod(stacks[slotUnder.getSlotIndex() - 2]), ChatFormatting.BLUE, ChatFormatting.ITALIC));
 
 					drawHoveringText(info, mouseX - left, mouseY - top);
 				}

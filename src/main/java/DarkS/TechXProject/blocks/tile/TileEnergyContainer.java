@@ -18,7 +18,7 @@ import java.util.List;
 
 public class TileEnergyContainer extends TileBase implements IEnergyContainer, ITickable, IWailaBody
 {
-	public static final String ENERGY_NBT = "generator";
+	public static final String ENERGY_NBT = "energy";
 	public static final String MAX_ENERGY_NBT = "maxEnergy";
 	public static final String MAX_TRANSFER_ENERGY_NBT = "maxTransferEnergy";
 	protected List<EnumFacing> inputSides;

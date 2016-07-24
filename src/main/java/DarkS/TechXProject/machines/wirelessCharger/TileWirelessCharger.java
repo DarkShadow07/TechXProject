@@ -2,6 +2,7 @@ package DarkS.TechXProject.machines.wirelessCharger;
 
 import DarkS.TechXProject.api.energy.item.IEnergyItem;
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
+import DarkS.TechXProject.capability.CustomCapabilities;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -17,10 +18,10 @@ public class TileWirelessCharger extends TileEnergyContainer
 
 	public TileWirelessCharger()
 	{
-		super(1250000, 20000);
+		super(1250000, 2000);
 
-		setSideInput(EnumFacing.DOWN);
-		setSideInput(EnumFacing.UP);
+		for (EnumFacing facing : EnumFacing.VALUES)
+			setSideInput(facing);
 	}
 
 	@Override
@@ -57,16 +58,29 @@ public class TileWirelessCharger extends TileEnergyContainer
 					{
 						working = false;
 
-						markForUpdate();
 						markDirty();
+						markForUpdate();
 					}
 				} else
 				{
 					working = false;
 
-					markForUpdate();
 					markDirty();
+					markForUpdate();
 				}
+			}
+
+			if (player.hasCapability(CustomCapabilities.ENERGY_CAPABILITY, null))
+			{
+				CustomCapabilities.IEnergyData data = player.getCapability(CustomCapabilities.ENERGY_CAPABILITY, null);
+
+				int max = Math.min(getMaxTransfer() / 10, data.getMaxEnergy() - data.getEnergy());
+
+				if (getEnergy() < max) return;
+
+				data.setEnergy(player, data.getEnergy() + max);
+
+				subtractEnergy(max, false);
 			}
 		}
 	}

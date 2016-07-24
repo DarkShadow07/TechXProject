@@ -2,14 +2,12 @@ package DarkS.TechXProject.proxy;
 
 import DarkS.TechXProject.client.keyBindings.KeyBindings;
 import DarkS.TechXProject.events.*;
-import DarkS.TechXProject.machines.canvas.TileCanvas;
-import DarkS.TechXProject.machines.canvas.TileCanvasRenderer;
 import DarkS.TechXProject.machines.fluidTank.TileFluidTank;
 import DarkS.TechXProject.machines.fluidTank.TileFluidTankRender;
-import DarkS.TechXProject.node.redstone.TileRedstoneNode;
-import DarkS.TechXProject.node.redstone.TileRedstoneNodeRenderer;
-import DarkS.TechXProject.node.transport.TileTransportNode;
-import DarkS.TechXProject.node.transport.TileTransportNodeRender;
+import DarkS.TechXProject.machines.node.redstone.TileRedstoneNode;
+import DarkS.TechXProject.machines.node.redstone.TileRedstoneNodeRenderer;
+import DarkS.TechXProject.machines.node.transport.TileTransportNode;
+import DarkS.TechXProject.machines.node.transport.TileTransportNodeRender;
 import DarkS.TechXProject.world.WorldGen;
 import DarkS.TechXProject.world.WorldTickHandler;
 import net.minecraft.client.Minecraft;
@@ -28,7 +26,6 @@ public class ClientProxy extends CommonProxy
 		MinecraftForge.EVENT_BUS.register(new KeyInputEvent());
 		MinecraftForge.EVENT_BUS.register(new TickEvents());
 		MinecraftForge.EVENT_BUS.register(new AnvilEvent());
-		MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 
 		GameRegistry.registerWorldGenerator(new WorldGen(), 16);
 		MinecraftForge.ORE_GEN_BUS.register(new WorldGen());
@@ -42,7 +39,6 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTransportNode.class, new TileTransportNodeRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileFluidTank.class, new TileFluidTankRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRedstoneNode.class, new TileRedstoneNodeRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCanvas.class, new TileCanvasRenderer());
 	}
 
 	@Override

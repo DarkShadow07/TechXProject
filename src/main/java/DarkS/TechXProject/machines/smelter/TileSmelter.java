@@ -2,7 +2,7 @@ package DarkS.TechXProject.machines.smelter;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.compat.jei.smelter.SmelterRecipeHandler;
-import DarkS.TechXProject.node.item.NodeUtil;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -29,13 +29,12 @@ public class TileSmelter extends TileEnergyContainer implements ISidedInventory
 	public static final int drainTick = 40;
 	public boolean working = false;
 	public ItemStack[] inventory;
+	IItemHandler handlerNorth, handlerSouth, handlerUp, handlerDown, handlerEast, handlerWest;
 	private int[] slotsIn = new int[]{0, 1, 2};
 	private int[] slotsOut = new int[]{3};
 	private List<EnumFacing> itemInputSides = new ArrayList<>();
 	private List<EnumFacing> itemOutputSides = new ArrayList<>();
 	private int ticks = 0, targetTicks = 1;
-
-	IItemHandler handlerNorth, handlerSouth, handlerUp, handlerDown, handlerEast, handlerWest;
 
 	public TileSmelter()
 	{

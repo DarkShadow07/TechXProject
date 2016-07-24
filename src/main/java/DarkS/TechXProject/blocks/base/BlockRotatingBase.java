@@ -1,7 +1,6 @@
 package DarkS.TechXProject.blocks.base;
 
 import DarkS.TechXProject.reference.Reference;
-import DarkS.TechXProject.util.Logger;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;

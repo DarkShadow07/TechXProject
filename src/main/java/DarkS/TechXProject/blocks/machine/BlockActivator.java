@@ -1,8 +1,8 @@
 package DarkS.TechXProject.blocks.machine;
 
 import DarkS.TechXProject.blocks.base.BlockRotatingBase;
-import DarkS.TechXProject.highlight.IHighlightProvider;
-import DarkS.TechXProject.highlight.SelectionBox;
+import DarkS.TechXProject.blocks.tile.highlight.IHighlightProvider;
+import DarkS.TechXProject.blocks.tile.highlight.SelectionBox;
 import DarkS.TechXProject.machines.activator.TileActivator;
 import DarkS.TechXProject.util.ChatUtil;
 import net.minecraft.block.ITileEntityProvider;

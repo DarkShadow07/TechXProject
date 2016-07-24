@@ -69,7 +69,7 @@ public class EntityDefender extends EntityThrowable
 	@Override
 	protected void onImpact(RayTraceResult result)
 	{
-		if (result != null && result.typeOfHit.equals(RayTraceResult.Type.ENTITY))
+		if (result.typeOfHit.equals(RayTraceResult.Type.ENTITY))
 			if (result.entityHit.equals(target))
 			{
 				worldObj.playEvent(null, 1999, getPosition(), 0);

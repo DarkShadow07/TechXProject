@@ -97,7 +97,6 @@ public class GuiButtonExpand extends GuiButton
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
 	{
 		if (this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height)
-		{
 			if (guiIn != null)
 			{
 				try
@@ -115,12 +114,11 @@ public class GuiButtonExpand extends GuiButton
 				{
 					e.printStackTrace();
 				}
+
+				expanded = !expanded;
 			}
 
-			expanded = !expanded;
-		}
-
-		return this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+		return super.mousePressed(mc, mouseX, mouseY);
 	}
 
 	@Override
@@ -133,7 +131,7 @@ public class GuiButtonExpand extends GuiButton
 
 		int value = 2;
 
-		float ratio = w / h + 0.000001f;
+		float ratio = w / h + 0.00001f;
 
 		if (expanded)
 		{

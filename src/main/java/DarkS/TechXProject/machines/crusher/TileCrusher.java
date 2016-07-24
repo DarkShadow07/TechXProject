@@ -2,7 +2,7 @@ package DarkS.TechXProject.machines.crusher;
 
 import DarkS.TechXProject.blocks.tile.TileEnergyContainer;
 import DarkS.TechXProject.compat.jei.crusher.CrusherRecipeHandler;
-import DarkS.TechXProject.node.item.NodeUtil;
+import DarkS.TechXProject.machines.node.item.NodeUtil;
 import DarkS.TechXProject.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
